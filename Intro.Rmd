@@ -1,0 +1,122 @@
+---
+title: "Untitled"
+author: '""'
+date: "8/31/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(mosaic)
+```
+
+
+```{r}
+load(file = "~/Desktop/ICPSR_36692/DS0002/36692-0002-Data.rda")
+load(file = "~/Desktop/ICPSR_36692/DS0001/36692-0001-Data.rda")
+load(file = "~/Desktop/ICPSR_36692/DS0003/36692-0003-Data.rda")
+
+data20 <- da36692.0002
+
+data98 <- da36692.0001
+
+data02 <- da36692.0003
+```
+
+```{r}
+data20 <- data20 %>%
+  select(ID,A52,A53A1,B11,B21,B22,B23,B24 ,B25,B26,F103A4,F92A5,TYPE)
+
+data98 <- data98 %>%
+  select(ID,A52,A53A1,B11,B21,B22,B23,B24 ,B25,B26,F101A4,F92A5)
+
+data02 <- data02 %>%
+  select(ID,A52,A53A1,B11,B21,B22,B23,B24 ,B25,B26,F103A4,F92A5)
+
+
+inner_join_test <- data20 %>%
+  inner_join(data98, by = c("ID"= "ID")) %>%
+  inner_join(data02, by = c("ID"= "ID"))
+
+```
+
+
+Variables of interest:
+R in front of variable means proxy
+
+F103A4 - Frequent visits by kids
+
+PROV - province
+TYPE - type of elder (if they were a replacement to deceased elder or new addition)
+TRUEAGE - 
+A1 - sex
+A41 - province
+A43 - urban or rural
+A52 - how many people living with you
+A53A1 - relationship between 1st person living with you
+B11 - self reported quality of life
+B12- self-reported health
+B21- looking at the bright side of things
+B22 - keep belongings neat and clean
+B23- fearful / anxious
+B24 - lonely and isolated
+B25 - make own decision
+B26 - useless with age
+B27 - Are you as happy as when you were younger
+
+```{r}
+tally(data20$B11)
+```
+
+
+C11 - C16 - cognitive testing
+
+```{r}
+tally(data$C11)
+
+
+data %>%
+  select(C11, C12,C13,C14,C15,C16)
+
+tally(data$B12)
+tally(data$B21)
+
+tally(data$D73)
+```
+
+A54A - year being admitted to nursing home
+
+FOODS :
+
+D1 - staple food
+D31 - Fresh fruits
+D32- vegetables
+fish, eggs, meat, 
+
+
+D73 - age started smoking
+D83 - age started drinking : 83 missing
+D93 - age started excercising: 222 missing
+D102 - age when start physical labor: 86 missing 
+D11C - garden work? : 8 missing
+play cards, mahjong, read, watch TV
+
+
+
+E's ADL: (1 need assistance 2 a little bit 3 none)
+E1: Need assistance with bathing: 29 missing
+E5 - continence: 4 misisng
+
+
+
+F1 - Years of schooling: 25 missing
+F2 - occupation: 7 missing
+F31 - Main source of financial support: 
+
+
+
+```{r}
+tally(data$E5)
+```
+
