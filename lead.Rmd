@@ -1,0 +1,40 @@
+---
+title: "chp2textbook"
+author: '""'
+date: "9/19/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+```{r}
+lead <- lead %>%
+  select(-id)
+
+s_mean <- lead %>%
+ mutate(across(2:4, ~ mean(.x) )) %>%
+  head(1) 
+
+s_mean <- pivot_longer(data = s_mean, cols = 1:4,names_to = "lead" )
+
+ggplot(data = s_mean, aes(x = lead, y = value, group = 1)) +geom_line() + geom_point()
+
+cov(lead)
+```
+
+```{r}
+lead %>%
+ mutate(across(1:4, ~ sd(.x) )) %>%
+  head(1) 
+
+sd(lead$y2)
+
+cor(lead) #0.4014589
+
+
+(15.46543)/(5.020936*7.672487)
+```
+

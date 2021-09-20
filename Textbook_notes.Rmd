@@ -1,0 +1,42 @@
+---
+title: "Textbook Notes"
+author: '""'
+date: "9/19/2021"
+output: html_document
+---
+
+
+Longitudinal Textbook 
+
+
+
+Chapter 1.
+
+The goal of longitudinal analysis is to observe change over time and analyze the factors that contribute to change. By taking repeated measures of the same person at different times, we can observe this change. Cross sectional analysis and other methods are not able to accomplish this. Since each measure is not independent of one another and correlation exists, specific unique methods must be implemented. Not only can we observe change over time in individuals, but we can look at higher-level grouping, such as change in schools, counties, and organizations. 
+
+To do longitudinal analysis we implement general regression model: a regression model shows exactly how the mean of the response variable changes depending on the covariates. 
+
+Longitudinal analysis can be applied widely to different fields. Most commonly is used when analyzing health data, or measuring the effectiveness of some sort of treatment. 
+
+
+
+
+Chapter 2.
+
+The key component of longitudinal analysis is that there needs to be 2+ observations of the response variable taken at different times for each individual, but they do not need be spaced out evenly. We refer the measure of individual change as a “response trajectory”, with one type of response trajectory being difference scores. LA and the hypotheses constructed can be done in multiple ways; for example, we could look at just post-treatment results between two groups, or compare the rate of decline in symptoms. Since we are taking multiple observations of the same person, we eliminate some within individual variability such as gender/sex/socioeconomic status that could interfere with results. In LA, missing data is a very common feature. One important component of LA is that there is non-zero correlation among repeated measures, which violates regular regression assumptions. We construct correlation and covariance matrices between all the repeated measures for a given individual, and we see that there is unequal variance between measurements over time, but overall all correlations are positive. Repeated measures that were obtained closer to each other have higher correlation. There are three sources of correlation: (1): between-individual, which stems from the fact that repeated measures of one person are more similar than to other individuals. (2): Within individual biological variation: heart rate, cholesterol (3): Measurement error. Measurements that are unreliable will shrink correlation between data points. 
+
+Key takeaway: Correlation is super important! Ignoring correlation leads to overestimating the variation of measure of change. 
+
+
+Chapter 3.
+
+
+One of the assumptions of longitudinal analysis is that the responses have a multivariate normal distribution, but it is not required. 
+
+Structure of covariates: if there are p covariates, there exists a p x n matrix that captures all covariates in the analysis for each distinct measurement. There are FIXED covariates (like gender) that do not change and those that change over time. The linear regression model follows a more complex version of y = Bx + e , where B’s are unknown regression coefficients that relate the mean response to the covariate. 
+
+We assume that the errors have a distribution with a mean centered at 0. Conditional distribution of the response variable has a mean centered at XiB, and can be multivariate normally distributed. Univariate normality in separate components DOES NOT equal multivariate normality. Assumptions of multivariate normality are not needed when data are complete. 
+
+We can plot mean response over time, and use smoothing techniques like LOWESS to estimate missing responses. Imagine a window centered at time t. A straight line is fitted inside the window, but observations closer to the center are given more weight. Missing values are predicted by using the fitted line!
+
+The mean is the parameter of interest we want to model but modeling covariances is important as well. There are several ways to model them, one being estimating every possible covariance pair, but this can be very time consuming. We can also use random effects to model the covariance, for example random effects: using a specific single individual random effect variable to account for correlation among repeated measures. AKA a randomly varying intercept. 
