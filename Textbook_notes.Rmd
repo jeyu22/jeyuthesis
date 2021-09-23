@@ -39,4 +39,23 @@ We assume that the errors have a distribution with a mean centered at 0. Conditi
 
 We can plot mean response over time, and use smoothing techniques like LOWESS to estimate missing responses. Imagine a window centered at time t. A straight line is fitted inside the window, but observations closer to the center are given more weight. Missing values are predicted by using the fitted line!
 
-The mean is the parameter of interest we want to model but modeling covariances is important as well. There are several ways to model them, one being estimating every possible covariance pair, but this can be very time consuming. We can also use random effects to model the covariance, for example random effects: using a specific single individual random effect variable to account for correlation among repeated measures. AKA a randomly varying intercept. 
+The mean is the parameter of interest we want to model but modeling covariances is important as well. There are several ways to model them, one being estimating every possible covariance pair, but this can be very time consuming. We can also use random effects to model the covariance, for example random effects: using a specific single individual random effect variable to account for correlation among repeated measures. AKA a randomly varying intercept.
+
+
+
+
+Chapter 4
+
+Maximum likelihood
+We use maximum likelihood as a way to estimate what the values of $\beta$ and $\sigma^2$ are. We choose the value of the estimates that are most likely to occur based on the data observed. In other words, we are maximizing the joint probability of the RV occuring based on the observed data. When we asume that observations are independent of one another, we can use the "ordinary least squares" estimate for $\beta$ (this is only for beta, not variance). However, if we do not assume that repeated measures are independent, and we assume that the covariance is known, we can use the GLS estimator for beta, and it also will be unbiased. If we don't know the covariance the estimator isn't biased, but it is still consistent. 
+
+
+Missing data: 
+There are two types of missing data: those that are missing completely at random (MCAR), and those that are missing at random (MAR). MCAR is when the probability of observations being missing does not depend on the obtained observations nor the underlying population. However, for MAR, the probability of obs being missing depends onthe observed responses, but not the underlying population that should have been sampled. For example, if observations were stratified by their similarity, their probabilities of missingness would be different. The difference between the two types of missing data effects the biasedness and accuracy of the estimators. When there is no assumption of multivariate normal distribution and there is MAR data, then the GLS estimator is no longer valid. However, estimates of beta are valid with MAR when the data is assumed to be from a multivariate normal distribution. 
+
+
+Statistical Inference:
+It is possible to construct confidence intervals using similar methods for proportions and means. We can also use the likelihood ratio tests to determine whether slopes are suitable for LA. The use of standard normal and chi-squared distributions is valid when the covariance is known or the number of observations is large enough. 
+
+
+Restricted maximum likelihood estimation: in terms of estimating the variance, the ML estimate produced a biased estimate. But if we use REML estimation we will get an unbiased estimator for the variance, because it separates the data used for estimating beta from when it is used to estimate the covariance. In RML we eliminate B from the likelihood function so it is only defined in terms of the covariance. It is estimated to use REML for estimation of covariance and use the GLS estimator for estimating beta. 
