@@ -10,7 +10,7 @@ Longitudinal Textbook
 
 
 
-Chapter 1.
+#Chapter 1.
 
 The goal of longitudinal analysis is to observe change over time and analyze the factors that contribute to change. By taking repeated measures of the same person at different times, we can observe this change. Cross sectional analysis and other methods are not able to accomplish this. Since each measure is not independent of one another and correlation exists, specific unique methods must be implemented. Not only can we observe change over time in individuals, but we can look at higher-level grouping, such as change in schools, counties, and organizations. 
 
@@ -21,14 +21,14 @@ Longitudinal analysis can be applied widely to different fields. Most commonly i
 
 
 
-Chapter 2.
+#Chapter 2.
 
 The key component of longitudinal analysis is that there needs to be 2+ observations of the response variable taken at different times for each individual, but they do not need be spaced out evenly. We refer the measure of individual change as a “response trajectory”, with one type of response trajectory being difference scores. LA and the hypotheses constructed can be done in multiple ways; for example, we could look at just post-treatment results between two groups, or compare the rate of decline in symptoms. Since we are taking multiple observations of the same person, we eliminate some within individual variability such as gender/sex/socioeconomic status that could interfere with results. In LA, missing data is a very common feature. One important component of LA is that there is non-zero correlation among repeated measures, which violates regular regression assumptions. We construct correlation and covariance matrices between all the repeated measures for a given individual, and we see that there is unequal variance between measurements over time, but overall all correlations are positive. Repeated measures that were obtained closer to each other have higher correlation. There are three sources of correlation: (1): between-individual, which stems from the fact that repeated measures of one person are more similar than to other individuals. (2): Within individual biological variation: heart rate, cholesterol (3): Measurement error. Measurements that are unreliable will shrink correlation between data points. 
 
 Key takeaway: Correlation is super important! Ignoring correlation leads to overestimating the variation of measure of change. 
 
 
-Chapter 3.
+#Chapter 3.
 
 
 One of the assumptions of longitudinal analysis is that the responses have a multivariate normal distribution, but it is not required. 
@@ -44,7 +44,7 @@ The mean is the parameter of interest we want to model but modeling covariances 
 
 
 
-Chapter 4
+# Chapter 4
 
 Maximum likelihood
 We use maximum likelihood as a way to estimate what the values of $\beta$ and $\sigma^2$ are. We choose the value of the estimates that are most likely to occur based on the data observed. In other words, we are maximizing the joint probability of the RV occuring based on the observed data. When we asume that observations are independent of one another, we can use the "ordinary least squares" estimate for $\beta$ (this is only for beta, not variance). However, if we do not assume that repeated measures are independent, and we assume that the covariance is known, we can use the GLS estimator for beta, and it also will be unbiased. If we don't know the covariance the estimator isn't biased, but it is still consistent. 
@@ -59,3 +59,38 @@ It is possible to construct confidence intervals using similar methods for propo
 
 
 Restricted maximum likelihood estimation: in terms of estimating the variance, the ML estimate produced a biased estimate. But if we use REML estimation we will get an unbiased estimator for the variance, because it separates the data used for estimating beta from when it is used to estimate the covariance. In RML we eliminate B from the likelihood function so it is only defined in terms of the covariance. It is estimated to use REML for estimation of covariance and use the GLS estimator for estimating beta. 
+
+
+
+# Chapter 5: Modelling the mean: analyzing response profiles
+
+There are three effects of interest when analyzing response profiles in LA: 
+1. group x time interaction effect (are the mean response profiles similar in groups over time?)
+2. time effect (assuming mean response profiles are flat, are the means constant over time?)
+3. Group effect (do the mean response profiles coincide?)
+
+1. is the primary interest of analysis. How we analyze response profiles depends on whether the study is randomized or observational. When the study is randomized and baseline measurement is taken before treatment assignment, the mean response at occasion 1 is independent of the group. For an observational study, there is no assumption that the groups have the same mean response at the beginning. To test for signficance of the group x time effect, we have a null hypothesis that the difference in means between the n groups is constant over time. 
+
+General linear model formation: 
+To express the model for LA for G groups and n occasions of measurement, we have G x n parameter for the G mean response profiles. For example, for 2 groups measured at 3 occasions, we have 6 slope parameters. if $\beta_1 - \beta_3$ represent slope parameters for mean responses in group 1 and  $\beta_4 - \beta_6$ represent slope parameters for mean responses in group 2, our null hypotheses would be that $(\beta_1 - \beta_4) = (\beta_2-\beta_5) = (\beta_3-\beta_6)$. We can also write these equations using $L\beta$, a linear transformation?
+If we have a response missing at a specific occasion, say the last one.. we can remove the last row from full data design matrix for subjects from the first group. Once the covariance of Yi is specified, then mlm estimation and tests of group x time interaction are possible.
+
+We can run wald's test to identify whether there are differing patterns of change from baseline across the two groups, but only REML estimate of $\beta$ will give us actual slope interpretations. 
+
+One DF tests for group x time interaction
+For studies with large number of measurements there might be too many degrees of freedom causing the test to become less sensitive to interaction effects. We can calculate a 'contrast', for example computing the mean response from occasion 2:n (excuding baseline measurement) and subtracting the mean baseline for each group. We can also calculate the area under the curve by subtracting the baseline mean from each mean and calculating the area under the trapezoid. 
+
+
+Adjusting for baseline response: 
+ANCOVA method: the baseline measurement gets taken out of the response vector and becomes a covariate. 
+Contrast method: subtracting the mean baseline measure from the mean of the other measurements. If it is an observational study, don't use ANCOVA approach because the baseline variable might have a relationship with the other covariates in the model, which could create a confound. However this is not a problem for randomized studies. ANCOVA is a more powerful test and can yield smaller errors, but is not suitable for every type of study. The interpretation for ANCOVA is also conditional: whether an individual belonging to one group is expected to change more/less than someone else, given that they both have the same baseline. ANCOVA does impose a structure on the covariance matrix, so it is also okay to just retain the baseline measurement as part of the response vector and assume the group means are equal at baseline (when it is appropriate to do so based on the context of the situation)
+
+
+strength and weaknesses of analyzing response model
+Strength: can easily be extended to handle cases where individuals can be grouped by more than 1 factor.
+weakness: not good at dealing with mistimed measurements, and because response profiles allow for arbitrary patterns in mean response, the results of the analysis provide only a general/broad statement about the group differences. 
+
+
+
+
+
