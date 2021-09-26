@@ -93,4 +93,25 @@ weakness: not good at dealing with mistimed measurements, and because response p
 
 
 
+# Chapter 6: Modeling the mean: parametric curves.
+
+Intro:
+Analyzing the mean response profile has some flaws, such as that it ignores the time-ordering of measurements, and that the null hypothesis of no time x group interaction is too broad and lacks power. Instead, we can fit parametric curves. Since most measurements in LA increase/decrease in a smooth pattern, fitting curves is suitable, and the alternative hypotheses are more specific compared to response profiles.
+
+Polynomial trends in time:
+In an example comparing a treatment group to a control group, we can fit a linear curve using the following equation: $E(Y_{ij}) = \beta_1 + \beta_2Time_{ij}+\beta_3Group_i+\beta_4Time_{ij} \times Group_i$ If $\beta_4$ = 0 , then the two groups do not differ in terms of changes in the mean response over time. 
+
+For quadratic trends, the changes in mean are no longer constant, and the rate of change depends on the time. 
+$E(Y_{ij}) = \beta_1 + \beta_2Time_{ij}+\beta_3Time^2_{ij}+\beta_4Group_i + \beta5Time_{ij} \times Group_i + \beta6Time^2_{ij} \times Group_i$ 
+
+To test for significance, test for higher power first. If it isn't significant, remove and test next order. In quadratic modeling , time and time^2 are heavily correlated. To remove this, we can center time in relation to the mean of all time values. 
+
+Linear spines!
+Sometimes when the mean response increases rapidly for some duration and then more slowly thereafter, we use linear spines, which fits different intercepts across time measurements. The points at which the time is divided up are called knots. The location of knots depends on the context of the data and previous research. 
+An example of that model is here, where $t^*$ represents the time of a knot. $+$ means that the expression is only evaluated if it is positive, otherwise it is 0. 
+
+$E(Y_{ij}) = \beta_1 + \beta_2Time_{ij} + \beta_3(Time_{ij}-t^*)_+ + \beta_4Group_i + \beta5Time_{ij} \times Group_i + \beta_6(Time_{ij}-t^*)_+ \times Group_i$
+
+
+
 
