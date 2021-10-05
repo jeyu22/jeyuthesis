@@ -113,4 +113,72 @@ $E(Y_{ij}) = \beta_1 + \beta_2Time_{ij} + \beta_3(Time_{ij}-t^*)_+ + \beta_4Grou
 
 
 
+# Chapter 7: Modeling the covariance
+
+
+
+Intro: 
+Fitting the covariance model correctly is importantly for accurately estimating the regression parameters, especially when data are missing. If there is correlation between repeated measures, the variability of within-individual differences is always smaller than the variability of between-individual differences. In addition, the larger the correlation, the smaller the variability of between-individual differences. When the correlation is not accounted for, estimates of $\beta$ are inaccurate and standard errors are too large. 
+
+Longitudinal data need to be modeled in two ways: the conditional mean response over time and the conditional covariance. These two models are interdependent, and the covariance model chosen ultimately depends on how the conditional mean response is modeled. There are several covariance models:
+
+## Unstructured Covariance Model
+
+Suitable model when the number of measurements is small and individuals are measured at the same times. We can allow all covariance values to be arbitrary. The advantages of this model are that it resembles reality where variances are rarely constant over time. However, it can be time consuming to estimate. 
+
+There are n measurements and $ \frac{n \times (n-1)} {2}$ parameters. 
+
+## Compound Symmetry
+
+Variance is constant across occasions, and $Corr (Y_{ij},Y_{ik}) = \rho$
+
+
+$\begin{pmatrix} 1 & p & ... & p \\ p & 1 & ... & p \\ .. & p & 1 & ..  \end{pmatrix}$
+
+This model only has two parameters to estimate but makes very strong assumptions that don't align with LA, where the correlation between measurements are expected to decrease with separation in time. 
+
+
+## Toeplitz
+
+Any pair of responses that are equally separated in time have the same correlation
+
+$Cov (Y_i) = \begin{pmatrix} 1 & p_1 & p_2 & ... & p_{n-1} \\ p_1 & 1 & p_1 & ... & p_{n-2} \\ p_2 & p_1 & 1 & ...& ... \\ p_3   \end{pmatrix}$
+
+Measurements need to be made at the same intervals. Has n parameters.
+
+## Autoregressive constant (special case of Toeplitz model)
+
+$\begin{pmatrix} 1 & p & p^2 & ... & p^{n-1} \\ p & 1 & p & p^2 \\ .. & p & 1 & ..  \end{pmatrix}$
+
+Correlations decline over time as separation increases between measurements, but they normally don't decline this quickly. 
+
+
+## Banded
+
+Correlation is 0 beyond a pre-specified interval
+
+For example, a band size of 3 indicates that correlations between measurments taken 3+ instances apart will be zero.
+
+$\begin{pmatrix} 1 & p_1 & 0 & ... \\ p_1 & 1 & p_1 & ... \\ 0 & p1 & 1  \end{pmatrix}$
+
+Again, similar to the autoregressive constant, it makes a strong assumption about how quickly correlation decreases. 
+
+
+## Exponential 
+
+When measurements are not equally spaced we can use ${t_i, .... t_{in}}$ for the
+ith person. The correlation between measurements decreases exponentially with separations between them. Again, like banded and autoregressive constant, it assumes correlations rapidly creases to 0, which is rarely observed. 
+
+$Corr(Y_{ij} , Y_{ik}) = \rho^|t_{ij}-t_{ik}|$
+
+
+## Hybrid Models
+
+We can combine compound symmetry with exponential model to explain the covariation. In this way, the correlation between replicate measurements is less than 1 (to account for measurement error), and as separation increases, correlation has a minimum value of $\frac{p_1\theta_1^2}{\theta_1^2 + \theta_2^2}$ rather than 0. 
+
+Choice among covariance models:
+The model for the covariance is trying to account for the residuals of the model for the mean. So the covariance model should be based on the "maximal" model for the mean that minimizes any errors. Choosing between covariance models depends on comparing maximized likelihoods of each of the models. If a pair of models are nested, we can do a Likelihood Ratio Test, where reduced model is the "special case" model. For example, the compound symmetry model is nested within the Toeplitz model. We compare the maximized REML log-likelihood of the two models. 
+
+If models are not nested, we can use AIC, and select the model that minimizes it. The AIC attempts to capture how complex a model is and its adequacy of fit, but penalizes models for every additional parameter.  
+
 

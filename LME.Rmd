@@ -1,0 +1,31 @@
+---
+title: "LME practice"
+author: '""'
+date: "10/3/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(lme4)
+attach(fev1) 
+fev1
+```
+
+
+```{r}
+
+ model1 <- lmer(logfev1 ~ age + log(ht) + baseage + log(baseht)  + (age | id),fev1)
+
+ summary(model1)
+```
+
+The random effect for slope and age are negatively correlated?
+
+
+```{r}
+ model2 <- lmer(logfev1 ~ age + log(ht) + baseage + log(baseht)   + (age+ log(ht)  | id),fev1)
+
+ summary(model2)
+```
+
