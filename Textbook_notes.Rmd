@@ -182,3 +182,68 @@ The model for the covariance is trying to account for the residuals of the model
 If models are not nested, we can use AIC, and select the model that minimizes it. The AIC attempts to capture how complex a model is and its adequacy of fit, but penalizes models for every additional parameter.  
 
 
+# Chapter 8 Linear Mixed Effects Models
+
+In linear mixed effects models, there is a distinction between fixed effects, which are shared by all individuals in a population, and random effects that are unique to an individual. The model accounts for both of these characteristics. Some regression coefficients are allowed to vary randomly from one individual to another. 
+
+Introducing random effects changes the covariance model, in that they can be expressed as functions of time and with few parameters. Linear mixed effects models do not require balanced data, or same number of observations, or consistent timing of measurements. 
+
+## Random Intercept model
+
+$Y_{ij} = X'_ij\beta + b_i + \epsilon_{ij}$
+
+Where $b_i$ is the random subject effect and $\epsilon$ is the measurement error. Both effects are random, with mean 0 and $Var(b_i) = \sigma^2_b, Var(\epsilon_{ij})=\sigma^2$
+
+The conditional mean is $E(Y_{ij}|b_i) = X'_{ij}\beta+b_i$
+Marginal mean is $E(Y_{ij}|b_i) = X'_{ij}\beta$ Where $\beta$ represents the patterns of change in the pop of interest, and $b_i$ describes how an individual deviates from the population average. 
+
+## More on LME
+
+LME can expressed as $Y_i = X_i\beta+Z_ib_i+\epsilon_i$
+
+$\beta$ is a p x 1 vector of fixed effects
+$b_i$ is a q x 1 vector of random effects
+$X_i$ is a n x p matrix of covariates
+$Z_i$ is a n x q matrix of covariates
+
+The subset of regression parameters that vary randomly are found in $Z_i$ $b_i$ comes from a multivariate normal distribution with mean 0 and covariance matrix G. $\epsilon_i$ are independent of $b_i$, come from multivariate normal distribution with mean 0 and covariance matrix $R_i$. sampling measurement errors are assumed to be uncorrelated with each other. 
+
+The covariance matrix $Cov(Y_i)$ can be expressed as a function of time. The covariance matrix G for random effects should be left unstructured. We can also center the times of measurements in order to avoid problems of collinearity. We can center the times of measurement at some fixed age within the age range of the study. 
+
+## Random effects covariance structure
+
+Conditional Covariance: $Cov(Y_i|b_i) = Cov(\epsilon_i) = R_i$
+Marginal Covariance: $Cov(Z_ib_i) + Cov(\epsilon_i) = Z_iGZ_i' + R_i$
+The introduction of random effects $b_i$ creates correlation among components of $Y_i$. 
+
+Choosing covariance models:
+Number of covariance parameters is the same regardless of # of measurements, but number of correlated random effects can be tested using the likelihood ratio test. 
+## Prediction of random effects
+
+To predict individual response profiles, we need to predict $b_i$, which is a random variable. Predictor aka BLUP: $E(b_i|Y_i) = GZ'_iCov(Y_i)(Y_i-X_i\hat{B})$ when incorporating estimated $Cov(Y_i)$ using REML, we can get the BLUP predictor. 
+the empirical BLUP estimator brings the subject's predicted response profile towards the population-averaged mean response profile, and depends on how large $R_i$ aka within-subject variability
+
+# Chapter 9: Fixed Effect Models
+
+## Introduction
+
+Developed in order to remove potential confounding effects of time invariant covariates. Useful for when time variant covariates are of interest .
+
+Linear mixed effects model implicitly makes stronger assumptions about the stable, time-invariant, characteristics of individuals. Specifically, mixed effects models treat the a i as random, rather than fixed, and assume that they are uncorrelated with the measured covariates included in the regression model; that is, the a i are assumed to be uncorrelated with Xi. However, with the fixed effects model the fixed effects (rather than random effects) are assumed to be correlated with the covariates. 
+
+The linear fixed effects model:
+$Y_{ij} = X'_{ij}\beta+W_i'y+\alpha_i+\epsilon_i$
+
+Where $y$ represents the covariates with fixed effects. This model can only estimate coefficients for time-varying covariates and not time-invariant covariantes because of their collinearity with $\alpha_i$ $\beta$ can be estimated with normal OLS regression. 
+
+*Fixed effects model removes potential for bias by removing confounding effects of time invariant covariates which are captured in* $\alpha_i$
+
+The positives of fixed effects models is that since it allows for correlation between $\alpha_i$ and $X_i$, it can reduce the bias of the estimates. However, fixed effects model ignores between subject variation and focuses only on within-subject variation, which is sometimes not our research goal, and can produce larger standard errors. 
+
+## Combination of fixed effect and mixed effects models
+
+There is a model that is able to recognize both the "cross sectional" and "longitudinal" aspects of longitudinal data: 1) responses can vary between subject and 2) response varies over time 
+
+$Y_{ij} = X^*_{ij}\beta^{(L)} + \bar{X}'_i\beta^{(c)}+W_i'y+Z'_{ij}b_i + \epsilon_i$
+
+
