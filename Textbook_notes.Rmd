@@ -2,7 +2,9 @@
 title: "Textbook Notes"
 author: '""'
 date: "9/19/2021"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 
@@ -10,7 +12,7 @@ Longitudinal Textbook
 
 
 
-#Chapter 1 Longitudinal and Clustered Data
+# Chapter 1 Longitudinal and Clustered Data
 
 The goal of longitudinal analysis is to observe change over time and analyze the factors that contribute to change. By taking repeated measures of the same person at different times, we can observe this change. Cross sectional analysis and other methods are not able to accomplish this. Since each measure is not independent of one another and correlation exists, specific unique methods must be implemented. Not only can we observe change over time in individuals, but we can look at higher-level grouping, such as change in schools, counties, and organizations. 
 
@@ -21,7 +23,7 @@ Longitudinal analysis can be applied widely to different fields. Most commonly i
 
 
 
-#Chapter 2 Longitudinal Data: Basic Concepts
+# Chapter 2 Longitudinal Data: Basic Concepts
 
 The key component of longitudinal analysis is that there needs to be 2+ observations of the response variable taken at different times for each individual, but they do not need be spaced out evenly. We refer the measure of individual change as a “response trajectory”, with one type of response trajectory being difference scores. LA and the hypotheses constructed can be done in multiple ways; for example, we could look at just post-treatment results between two groups, or compare the rate of decline in symptoms. Since we are taking multiple observations of the same person, we eliminate some within individual variability such as gender/sex/socioeconomic status that could interfere with results. In LA, missing data is a very common feature. One important component of LA is that there is non-zero correlation among repeated measures, which violates regular regression assumptions. We construct correlation and covariance matrices between all the repeated measures for a given individual, and we see that there is unequal variance between measurements over time, but overall all correlations are positive. Repeated measures that were obtained closer to each other have higher covariance. 
 
@@ -30,7 +32,7 @@ There are three sources of variation: (1): between-individual, which stems from 
 Key takeaway: Correlation is super important! Ignoring correlation leads to overestimating the variation of measure of change. 
 
 
-#Chapter 3 Overview of Linear Models for Longitudinal Data
+# Chapter 3 Overview of Linear Models for Longitudinal Data
 
 
 One of the assumptions of longitudinal analysis is that the responses have a multivariate normal distribution, but it is not required. 
@@ -126,7 +128,7 @@ Longitudinal data need to be modeled in two ways: the conditional mean response 
 
 Suitable model when the number of measurements is small and individuals are measured at the same times. We can allow all covariance values to be arbitrary. The advantages of this model are that it resembles reality where variances are rarely constant over time. However, it can be time consuming to estimate. 
 
-There are n measurements and $ \frac{n \times (n-1)} {2}$ parameters. 
+There are n measurements and $\frac{n \times (n-1)} {2}$ parameters. 
 
 ## Compound Symmetry
 
@@ -246,4 +248,34 @@ There is a model that is able to recognize both the "cross sectional" and "longi
 
 $Y_{ij} = X^*_{ij}\beta^{(L)} + \bar{X}'_i\beta^{(c)}+W_i'y+Z'_{ij}b_i + \epsilon_i$
 
+
+# Chapter 10: Residual Analysis and Diagnostics
+
+## Plotting residuals 
+
+Residuals are a measurment of the difference between the observed response and the predicted response, and can assess the fit of a model. In LA, there is a vector of residuals for each individual $r_i = Y_i - X_i \hat{\beta}$. This vector has a mean of zero. We can plot this vector $r_i$ against the predicted mean response $\hat{\mu_i} = X_i\hat{\beta}$. In the standard interpretation of linear models, we should expect this scatterplot to have no systemic pattern and have a random scatter around mean 0. However, the components in the $r_i$ vector are correlated and do not have constant range, and residuals may also be correlated with covariates, leading to a possibility that we would see patterns in the scatterplot.
+
+Thus, we can "de-correlate" residuals so they resemble those from standard linear regression. Using the "Cholesky decomposition" transformation, we can transform residuals to have constant variation and 0 correlation. The interpretation of the residuals also changes so that all elements after the first respresent standardized deviations from mean response *given* the previous observation. Now that we have a transformed set of residuals, usual residual diagnostics can be applied. We can also re-estimate $\beta$ using transformed values of $Y_i^*$ and $X_i^*$ that undergo the same transformation.  
+
+We can also calculate a Mahalanobis distance summary measure that captures the distance between the observed vs fitted responses. Once this value is compared to a chi-sq distribution, we can identify outliers which will have small p-values. 
+
+
+## Aggregating Residuals
+
+An alternative to plotting residuals, whose interpretations can be subjective, is to aggregate residuals over both the covariates and fitted values. We compare these aggregated residuals to a reference distribution that has an assumed distribution under the assumption that the correctly specified model for the mean response was chosen. If there is any deviations in the comparison, it suggests that the model chosen to fit the observed values is not adequate.
+
+$W_k(x)$ represents the sum of the residuals over covariate k that have a value less than or equal to x, and $W_f(x)$ represents a similar concept but for all fitted values. $W_f(x)$ is good for assessing linearity between response and covariates. We compare this cumulative residual model to the zero mean gaussian distribution and identify whether the cumulative residual model is centered around 0 and whether it deviates from the "expected" model. 
+
+We can also use a "moving" sum rather than cumulative that focuses on residuals within a window of size b. 
+
+
+This method of assessing the LA model does not depend on correct covariance model, so the following method is for examining the fit of the covariance model. 
+
+## Assessing covariance model 
+
+The semi-variogram is defined as:
+
+$\frac{1}{2}Var(r_{ij}) + \frac{1}{2}Var(r_{ik}) + CoVar(r_{ij},r_{ik})$
+
+If the covariance model selected is adequate, the values from the semi-variogram should fluctuate randomly centered around 1. 
 
