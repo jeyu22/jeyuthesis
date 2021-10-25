@@ -8,13 +8,19 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(lme4)
-attach(fev1) 
-fev1
+library(tidyverse)
+library(foreign)
+library(nlme)
 ```
 
+# Chapter 8.8
 
 ```{r}
+fev1 <- read.dta("fev1.dta")
 
+ fev1 <- subset(fev1, id != 197) 
+
+ attach(fev1) 
  model1 <- lmer(logfev1 ~ age + log(ht) + baseage + log(baseht)  + (age | id),fev1)
 
  summary(model1)
@@ -27,5 +33,124 @@ The random effect for slope and age are negatively correlated?
  model2 <- lmer(logfev1 ~ age + log(ht) + baseage + log(baseht)   + (age+ log(ht)  | id),fev1)
 
  summary(model2)
+```
+
+# Analysis of Response Profiles Chapter 5.
+
+```{r}
+library(foreign)
+ds <- read.dta("tlc.dta")
+
+ ds$baseline <- ds$y0
+
+ tlclong <- reshape(ds, idvar="id", varying=c("y0","y1","y4","y6"), 
+
+   v.names="y", timevar="time", time=1:4, direction="long")
+
+ tlclong <- subset(tlclong, time > 1)
+
+ attach(tlclong)
+ 
+ week <- time
+
+ week[time==1] <- 0
+
+ week[time==2] <- 1
+
+ week[time==3] <- 4
+
+ week[time==4] <- 6
+ 
+ week.f <- factor(week, c(0,1,4,6))
+
+ model <- gls(dy ~ trt*week.f, corr=corSymm(,form= ~ time | id), 
+
+    weights = varIdent(form = ~ 1 | week.f))
+
+ summary(model)
+
+```
+
+
+## REML estimation chapter 6.5
+
+```{r}
+ds <- read.dta("smoking.dta")
+
+attach(ds)
+
+year <- time
+
+ds$year[time==0] <- 1
+
+ ds$year[time==3] <- 2
+
+ ds$year[time==6] <- 3
+
+ ds$year[time==9] <- 4
+
+ ds$year[time==12] <- 5
+
+ ds$year[time==15] <- 6
+
+ ds$year[time==19] <- 7
+
+
+model <- gls(data=ds, fev1 ~ smoker*time, corr=corSymm(, form= ~ year | id), 
+   weights = varIdent(form = ~ 1 | year))
+
+ summary(model)
+```
+
+Chapter 7: Exercise Therapy Trial - Covariance
+
+
+```{r}
+ds <- read.dta("exercise.dta")
+
+attach(ds)
+
+
+```
+```{r}
+exlong <- reshape(ds, idvar="id", 
+
+    varying=c("y0","y2","y4","y6","y8","y10","y12"), v.names="y", 
+
+    timevar="time", time=0:6, direction="long")
+
+ exlong <- subset(exlong, time!=1 & time!=5)
+
+ attach(exlong)
+
+ day <- time*2
+
+ day.f <- factor(day, c(0,4,6,8,12))
+
+ group.f <- factor(group, c(1,2))
+
+ 
+
+ newtime <- time
+
+ newtime[time==0] <- 1
+
+ newtime[time==2] <- 2
+
+ newtime[time==3] <- 3
+
+ newtime[time==4] <- 4
+
+ newtime[time==6] <- 5 
+
+ 
+
+ model1 <- gls(y ~ group.f*day.f, na.action=na.omit, 
+
+    corr=corSymm(, form= ~ newtime | id), 
+
+    weights = varIdent(form = ~ 1 | newtime))
+
+ summary(model1)
 ```
 
