@@ -22,7 +22,7 @@ Apart from comparing just the response trajectories, it is also of interest to c
 
 ## Characteristics of longitudinal data
 
-While the only requirement of longitudinal data is that there is more than one observation for a given individual, there are other components that affect the models and study design chosen. Data can be unbalanced or balanced: balanced data refers to when all individuals have the same number of repeated measurements taken at the same occasions. In addition, data can also be missing, resulting in automatically unbalanced data. This affects the accuracy of how changes over time are analyzed depending on if there are any patterns to the missing data or not. 
+While the only requirement of longitudinal data is that there is more than one observation for a given individual, there are other components that affect the model chosen. Data can be unbalanced or balanced: balanced data refers to when all individuals have the same number of repeated measurements taken at the same occasions. In addition, data can also be missing, resulting in automatically unbalanced data. This affects the accuracy of how changes over time are analyzed depending on if there are any patterns to the missing data or not. 
 
 Another unique characteristic of longitudinal data is that repeated measurements of each individual are positively correlated. This feature violates conditions of other common statistical methods such as linear regression, where measurements are assumed to be independent. This positive correlation allows for more accurate estimates of the covariates and response trajectories since there is reduced uncertainty knowing that a previous measurement can help predict the next one. 
 
