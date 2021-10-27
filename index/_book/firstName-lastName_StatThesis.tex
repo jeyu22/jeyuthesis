@@ -312,7 +312,30 @@ Between individual variation helps explain why measurements from the same indivi
 
 As mentioned previously, there are multiple ways to model longitudinal data. When the response variable is continuous and drawn from a multivariate normal distribution, we can consider a model that relates the mean response and the covariates in a linear way. In a linear model all components are represented using vectors and matrices. The mean response is modeled by covariates and their slope. Slope values are estimated using maximum likelihood estimation, which maximizes the joint probability of the random variable occurring based on the observed data. Aside from creating line plots to visually capture the mean responses for each individual, there are 3 methods for linear models: 1) response profile analysis, 2) parametric time model, 3) linear mixed effect model.
 
-In response profile analysis, we allow for arbitrary patterns in the mean response over time. The goal of the analysis is to find whether the mean response differs from the interaction of group x time across individuals. An unstructured covariance model is assumed, and requires that the data be balanced. This analysis does not consider time-order of the measurements and does not distinguish between between individual variation and within individual variation. The drawback of response profile analysis is that it can only provide a broad analysis of whether there are differences across groups and time, but does not provide the amount of detail usually needed to answer research questions.
+\hypertarget{response-profile-analysis}{%
+\subsection{Response profile analysis}\label{response-profile-analysis}}
+
+In response profile analysis, we allow for arbitrary patterns in the mean response over time. A sequence of means over time is known as the mean response profile. The main goal of this analysis is to identify differences in pattern of change in mean response profile among 2 or more groups. This method requires that the data be balanced.
+
+There are three effects of interest when analyzing response profiles in LA:
+1. group x time interaction effect (are the mean response profiles similar in groups over time?)
+2. time effect (assuming mean response profiles are flat, are the means constant over time?)
+3. Group effect (do the mean response profiles coincide?)
+
+However, 1. is the primary interest. The goal is to find whether the mean response differs from the interaction of group x time across individuals.
+
+To test for significance of the group x time effect, we have a null hypothesis that the difference in means between the n groups is constant over time, which in other words entails that mean response profiles between the groups have parallel slopes. We can implement the general linear model \(\mu_i = X_i\beta\) to test our hypotheses, using comparison of \(\beta\) slope parameters to determine whether there is a group x time effect.
+
+For example, to express the model for response profile analysis for \(G\) groups and \(n\) occasions of measurement, we have \(G \times n\) parameters for the G mean response profiles. For example, for 2 groups measured at 3 occasions, we have 6 slope parameters. if \(\beta_1 - \beta_3\) represent slope parameters for mean responses in group 1 and \(\beta_4 - \beta_6\) represent slope parameters for mean responses in group 2, our null hypotheses would be that \((\beta_1 - \beta_4) = (\beta_2-\beta_5) = (\beta_3-\beta_6)\).
+
+An unstructured covariance model is assumed, and once the covariates are defined, the estimates of \(\beta\) are made with REML.
+
+One other aspect to consider when conducting analysis on mean response profiles is how to adjust for the baseline measurement. The baseline value is important when we want to calculate measures that compare mean response to the baseline. How we adjust depends on whether the study is randomized or observational. When the study is randomized and baseline measurement is taken before treatment assignment, the mean response at occasion 1 is independent of the group, and assumed to be equal. One possible method is to treat the baseline measurement as a covariate, and use response measurements 2 through \(n\) as the dependent measures. This is referred to as the analysis of covariance approach. Additionally, this method only works for randomized studies because using the baseline measurement as a covariate for observational studies may produce confounding effects. For an observational study, it is recommended to subtract the baseline response to create a change score. For both types of longitudinal studies there are various methods to account for the baseline value, and should be considered carefully before implementing the method.
+
+Overall, response profile analysis is a straightforward method in investigating differences between groups for longitudinal data. Since both the covariance and mean responses have no imposed structure, the analysis is more robust and immune to inaccurate results due to model mispecification. However, there are drawbacks as well. Response profile analysis does not consider time-order of the measurements and does not distinguish between between individual variation and within individual variation. In addition, it can only provide a broad analysis of whether there are differences across groups and time, but does not provide the amount of detail usually needed to answer research questions. Another method that addresses the issue of examining time order of the data is parametric time models.
+
+\hypertarget{parametric-time-models}{%
+\subsection{Parametric Time Models}\label{parametric-time-models}}
 
 Parametric time models are able to capture time order of the data by fitting linear or quadratic curves to capture an increasing or decreasing pattern over time. Unlike response profile analysis, parametric time models are able to handle unbalanced and missing data. Additionally, there is flexibility in choice of the covariance model; there are several options such as Toeplitz or compound symmetric that impose various structures on the model. However, parametric time models do not difference between subject and within subject variation.
 
