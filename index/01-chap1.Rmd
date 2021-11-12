@@ -31,40 +31,40 @@ Alongside correlation, covariance between two measurement responses is a crucial
 
 There are several trends that correlation values take on in longitudinal analysis. They are rarely 0, but also rarely 1. They are positive and decrease with longer time separation. These features serve as the underlying premise to the idea that variation can be separated into three distinct parts: 1) between individual variation, 2) within individual variation, and 3) measurement error. 
 
-Between individual variation helps explain why measurements from the same individual are more likely to be positively correlated than measurements to a different individual. Within individual variation helps explain why correlations decrease with increasing time differences, and measurement error explains why correlations are never 1. These three types of variation may contribute to total variation in unequal amounts, but may not need to be differentiated depending on the type of longitudinal analysis desired. 
+Between individual variation helps explain why measurements from the same individual are more likely to be positively correlated than measurements to a different individual. Within individual variation helps explain why correlations decrease with increasing time differences, and measurement error explains why correlations are never one. These three types of variation may contribute to total variation in unequal amounts, but may not need to be differentiated depending on the type of longitudinal analysis desired. 
 
 
 ### Notation
 
-Throughout the rest of the text, we will use a standard set of notation for all parameters and variables. $Y_{ij}$ represents the response variable for the $i^{th}$ individual at the $j^{th}$ measurement. When we have repeated $n$ measurements for an individual, we can construct a vector, $Y_i = \begin{pmatrix} Y_{i1}\\ Y_{i2} \\ .. \\  Y_{in}  \end{pmatrix}$ We use $\mu_{ij}$ as the conditional mean response at the $j^{th}$ measurement, where conditional entails a dependence of the mean response on the covariates. 
+Throughout the rest of the text, we will use a standard set of notation for all parameters and variables. $Y_{ij}$ represents the response variable for the $i^{th}$ individual at the $j^{th}$ measurement. When we have repeated $n$ measurements for an individual, we can construct a vector, $$Y_i = \begin{pmatrix} Y_{i1}\\ Y_{i2} \\ .. \\  Y_{in}  \end{pmatrix}$$. We use $\mu_{ij}$ as the conditional mean response at the $j^{th}$ measurement, where conditional entails a dependence of the mean response on the covariates. 
 
 
 ## Linear models for longitudinal data
 
 As mentioned previously, there are multiple ways to model longitudinal data. When the response variable is continuous and drawn from a multivariate normal distribution, we can consider a model that relates the mean response and the covariates in a linear way. In a linear model all components are represented using vectors and matrices. The mean response is modeled by covariates and their slope. The most general form of the linear model can be represented as: 
-$E(Y|X_i)=X_i\beta$. Where $\beta$ is the regression parameter and $X_i$ represents the covariates. Slope values are estimated using maximum likelihood estimation, which maximizes the joint probability of the random variable occurring based on the observed data. Aside from creating line plots to visually capture the mean responses for each individual, there are 3 methods for linear models: 1) response profile analysis, 2) parametric time model, 3) linear mixed effect model.
+$$E(Y|X_i)=X_i\beta$$, where $\beta$ is the regression parameter and $X_i$ represents the covariates. Slope values are estimated using maximum likelihood estimation, which maximizes the joint probability of the random variable occurring based on the observed data. Aside from creating line plots to visually capture the mean responses for each individual, there are three methods for linear models: 1) response profile analysis, 2) parametric time model, 3) linear mixed effect model.
 
 ### Response profile analysis
 
 In response profile analysis, we allow for arbitrary patterns in the mean response over time. A sequence of means over time is known as the mean response profile. The main goal of this analysis is to identify differences in pattern of change in mean response profile among 2 or more groups. This method requires that the data be balanced. 
 
-There are three effects of interest when analyzing response profiles in LA: 
-1. group x time interaction effect (are the mean response profiles similar in groups over time?)
+There are three effects of interest when analyzing response profiles in longitudinal analysis: 
+1. $group \times time$ interaction effect (are the mean response profiles similar in groups over time?)
 2. time effect (assuming mean response profiles are flat, are the means constant over time?)
 3. Group effect (do the mean response profiles coincide?)
 
-However, 1. is the primary interest. The goal is to find whether the mean response differs from the interaction of group x time across individuals. 
+However, 1. is the primary interest. The goal is to find whether the mean response differs from the interaction of $group \times time$ across individuals. 
 
 
-To test for significance of the group x time effect, we have a null hypothesis that the difference in means between the n groups is constant over time, which in other words entails that mean response profiles between the groups have parallel slopes. We can implement the general linear model $\mu_i = X_i\beta$ to test our hypotheses, using comparison of $\beta$ slope parameters to determine whether there is a group x time effect. 
+To test for significance of the $group \times time$ effect, we have a null hypothesis that the difference in means between the n groups is constant over time, which in other words entails that mean response profiles between the groups have parallel slopes. We can implement the general linear model $\mu_i = X_i\beta$ to test our hypotheses, using comparison of $\beta$ slope parameters to determine whether there is a $group \times time$ effect. 
 
-For example, to express the model for response profile analysis for $G$ groups and $n$ occasions of measurement, we have $G \times n$ parameters for the G mean response profiles. For example, for 2 groups measured at 3 occasions, we have 6 slope parameters. if $\beta_1 - \beta_3$ represent slope parameters for mean responses in group 1 and  $\beta_4 - \beta_6$ represent slope parameters for mean responses in group 2, our null hypotheses would be that $(\beta_1 - \beta_4) = (\beta_2-\beta_5) = (\beta_3-\beta_6)$.
+For example, to express the model for response profile analysis for $G$ groups and $n$ occasions of measurement, we have $G \times n$ parameters for the G mean response profiles. For example, for two groups measured at three occasions, we have 6 slope parameters. if $\beta_1 - \beta_3$ represent slope parameters for mean responses in group 1 and  $\beta_4 - \beta_6$ represent slope parameters for mean responses in group 2, our null hypotheses would be that $(\beta_1 - \beta_4) = (\beta_2-\beta_5) = (\beta_3-\beta_6)$.
 
-An unstructured covariance model is assumed, and once the covariates are defined, the estimates of $\beta$ are made with REML. 
+An unstructured covariance model is assumed, and once the covariates are defined, the estimates of $\beta$ are made using reduced maximum likelihood estimation (REML).  
 
 One other aspect to consider when conducting analysis on mean response profiles is how to adjust for the baseline measurement. The baseline value is important when we want to calculate measures that compare mean response to the baseline. How we adjust depends on whether the study is randomized or observational. When the study is randomized and baseline measurement is taken before treatment assignment, the mean response at occasion 1 is independent of the group, and assumed to be equal. One possible method is to treat the baseline measurement as a covariate, and use response measurements 2 through $n$ as the dependent measures. This is referred to as the analysis of covariance approach. Additionally, this method only works for randomized studies because using the baseline measurement as a covariate for observational studies may produce confounding effects. For an observational study, it is recommended to subtract the baseline response to create a change score. For both types of longitudinal studies there are various methods to account for the baseline value, and should be considered carefully before implementing the method. 
 
-Overall, response profile analysis is a straightforward method in investigating differences between groups for longitudinal data. Since both the covariance and mean responses have no imposed structure, the analysis is more robust and immune to inaccurate results due to model mispecification. However, there are drawbacks as well. Response profile analysis does not consider time-order of the measurements and does not distinguish between between individual variation and within individual variation. In addition, it can only provide a broad analysis of whether there are differences across groups and time, but does not provide the amount of detail usually needed to answer research questions. Another method that addresses the issue of examining time order of the data is parametric time models.
+Overall, response profile analysis is a straightforward method in investigating differences between groups for longitudinal data. Since both the covariance and mean responses have no imposed structure, the analysis is more robust and immune to inaccurate results due to model misspecification. However, there are drawbacks as well. Response profile analysis does not consider time-order of the measurements and does not distinguish between between individual variation and within individual variation. In addition, it can only provide a broad analysis of whether there are differences across groups and time, but does not provide the amount of detail usually needed to answer research questions. Another method that addresses the issue of examining time order of the data is parametric time models.
 
 
 ### Parametric Time Models
@@ -73,7 +73,7 @@ Parametric time models are able to capture time order of the data by fitting  li
 
 Additionally, while in the mean response profile analysis an unstructured covariance pattern is assumed, here there is flexibility in choice of the covariance model; there are several options such as Toeplitz or compound symmetric that impose various structures on the model. For example, a Toeplitz model:
 
-$Cov (Y_i) = \begin{pmatrix} 1 & p_1 & p_2 & ... & p_{n-1} \\ p_1 & 1 & p_1 & ... & p_{n-2} \\ p_2 & p_1 & 1 & ...& ... \\ p_3   \end{pmatrix}$
+$$Cov (Y_i) = \begin{pmatrix} 1 & p_1 & p_2 & ... & p_{n-1} \\ p_1 & 1 & p_1 & ... & p_{n-2} \\ p_2 & p_1 & 1 & ...& ... \\ p_3   \end{pmatrix}$$
 
 structures the covariance matrix such that any pair of responses that are equally separated in time have the same correlation.
 
@@ -83,20 +83,20 @@ It is possible to choose an unstructured covariance model as well, but can be co
 We can use parametric time models in two ways: through polynomial trends and linear spines. 
 
 
-Polynomial trends
-Using polynomial trends such as linear or quadratic, we can model longitudinal data as a function of time. Linear curves are the most common and interpretable ways to model change in mean over time. In an example comparing a treatment group to a control group, we can fit a linear curve using the following equation for the treatment group: $E(Y_{ij}) = \beta_1 + \beta_2Time_{ij}+\beta_3Group_i+\beta_4Time_{ij} \times Group_i$ and 
-$E(Y_{ij}) = \beta_1 + \beta_2Time_{ij}$ for the control group. If $\beta_4$ = 0 , then the two groups do not differ in terms of changes in the mean response over time. 
+*Polynomial trends* 
+Using polynomial trends such as linear or quadratic, we can model longitudinal data as a function of time. Linear curves are the most common and interpretable ways to model change in mean over time. In an example comparing a treatment group to a control group, we can fit a linear curve using the following equation for the treatment group: $$E(Y_{ij}) = \beta_1 + \beta_2Time_{ij}+\beta_3Group_i+\beta_4Time_{ij} \times Group_i$$ and 
+$$E(Y_{ij}) = \beta_1 + \beta_2Time_{ij}$$ for the control group. If $\beta_4$ = 0 , then the two groups do not differ in terms of changes in the mean response over time. 
 
 For quadratic trends, the changes in mean are no longer constant since the rate of change depends on the time. Thus, we fit an additional parameter to express the rate of change. 
 Using the previous example of treatment vs. control group, we have the model for the treatment group expressed as:
-$E(Y_{ij}) = \beta_1 + \beta_2Time_{ij}+\beta_3Time^2_{ij}+\beta_4Group_i + \beta5Time_{ij} \times Group_i + \beta6Time^2_{ij} \times Group_i$ and the control group: $E(Y_{ij}) = \beta_1 + \beta_2Time_{ij}+\beta_3Time^2_{ij}$ 
+$$E(Y_{ij}) = \beta_1 + \beta_2Time_{ij}+\beta_3Time^2_{ij}+\beta_4Group_i + \beta_5Time_{ij} \times Group_i + \beta_6Time^2_{ij} \times Group_i$$ and the control group: $$E(Y_{ij}) = \beta_1 + \beta_2Time_{ij}+\beta_3Time^2_{ij}$$.
 
-As we can see from the models above, the inclusion of an additional parameter $time^2$ changes the mean response rate. One problem that may arise from using quadratic trends is that there is collinearity between $time_j$ and $time^2_j$, which can affect the estimation of $\beta$. To account for this, we can center the $time_j$ variable around the mean time value, instead of centering it around zero as done in normal analysis. For example if we have a set of times $Time = {0,1,2,..10}$, then the mean time value is 5. Thus time 0 would be recentered as -5. The interpretation of the intercept changes to represent the mean response at that recentered mean time value. 
+As we can see from the models above, the inclusion of an additional parameter $time^2$ changes the mean response rate. One problem that may arise from using quadratic trends is that there is collinearity between $time_j$ and $time^2_j$, which can affect the estimation of $\beta$. To account for this, we can center the $time_j$ variable around the mean time value, instead of centering it around zero as done in normal analysis. For example if we have a set of times $Time = {0,1,2,...10}$, then the mean time value is five. Thus time zero would be recentered as -5. The interpretation of the intercept changes to represent the mean response at that recentered mean time value. 
 
 In instances where responses cannot be adequately fit by polynomial trends, such as when the responses fluctuate between increasing and decrease at different extents, we can employ a linear spline model. This model consists of piece-wise line segments that have unique slopes for a given set of time measurements. The point at which different line segments meet are called knots, and the number of knots depends on the context of the data and researcher discretion.
 
-Drawing again from our treatment vs control group design, a linear model for the mean responses of the control group is: $E(Y_{ij}) = \beta_1 + \beta_2Time_{ij}+ \beta_3(Time_{ij}-t^*)_+$ The $_+$ indicates a truncated line function and is positive when the function is greater than 0, and otherwise is equal to 0. In this case, the function depends on the specified time $t^*$. If the mean response is before $t^*$, then the mean response is modeled by: $E(Y_{ij}) = \beta_1 + \beta_2Time_{ij}$ If the mean response is after $t^*$, it is modeled by 
-$E(Y_{ij}) = (\beta_1-\beta_3t^*) + (\beta_2+\beta_3)Time_{ij}$
+Drawing again from our treatment vs control group design, a linear model for the mean responses of the control group is: $$E(Y_{ij}) = \beta_1 + \beta_2Time_{ij}+ \beta_3(Time_{ij}-t^*)_+$$ The $_+$ indicates a truncated line function and is positive when the function is greater than 0, and otherwise is equal to 0. In this case, the function depends on the specified time $t^*$. If the mean response is before $t^*$, then the mean response is modeled by: $$E(Y_{ij}) = \beta_1 + \beta_2Time_{ij}$$ If the mean response is after $t^*$, it is modeled by 
+$$E(Y_{ij}) = (\beta_1-\beta_3t^*) + (\beta_2+\beta_3)Time_{ij}$$.
 
 There are benefits to parametric models that make them a more appealing choice compared to response profile analysis. Parametric time models are able to capture time order, and can be used with unbalanced data. However, they do not differentiate between subject and within subject variation. If further analysis of individual variation is desired, linear mixed effects models can be employed. 
 
@@ -109,44 +109,50 @@ In addition, distinguishing between fixed and random effects allows for differen
 
 One example of the linear mixed effects model is the random intercept model, which is the simplest version of the linear mixed effects model:
 
-$Y_{ij} = X'_ij\beta + b_i + \epsilon_{ij}$ 
+$Y_{ij} = X'_{ij}\beta + b_i + \epsilon_{ij}$
 
-This model is very similar to the generalized linear model with a few additions. $b_i$ is the random subject effect and $\epsilon$ is the measurement error. Both effects are random, with mean 0 and $Var(b_i) = \sigma^2_b, Var(\epsilon_{ij})=\sigma^2$
+This model is very similar to the generalized linear model with a few additions. $b_i$ is the random subject effect and $\epsilon$ is the measurement error. Both effects are random, with mean 0 and $Var(b_i) = \sigma^2_b, Var(\epsilon_{ij})=\sigma^2$.
 
-$X'_ij\beta$ is the population mean, and $b_i$ represents the differing subject effect that is unique to each individual. $b_i$ is interpreted as how the subject deviates from the population mean while accounting for covariates. 
+$X'_{ij}\beta$ is the population mean, and $b_i$ represents the differing subject effect that is unique to each individual. $b_i$ is interpreted as how the subject deviates from the population mean while accounting for covariates. 
 
 As mentioned previously, the random effects is responsible for inducing a structure on the covariance model. This structure is not to be confused with the covariance structures that can be chosen when using parametric time models. For a given individual, it can be shown that variance of each response is: 
 $Var(Y_{ij}) = \sigma^2_b + \sigma^2$ and the covariance between two measurements $Y_{ij}$ and $Y_{ik}$ is equal to $\sigma^2_b$. The resulting covariance matrix $\begin{pmatrix} \sigma^2_b + \sigma^2 & \sigma^2_b & \sigma^2_b & ... & \sigma^2_b \\ \sigma^2 & \sigma^2_b + \sigma^2_b & \sigma^2_b & ... & \sigma^2_b \\ \sigma^2_b & \sigma^2_b & \sigma^2_b + \sigma^2 & ...& ...   \end{pmatrix}$
 
-This covariance model implies correlation between measurements, and also highlights the role played by the random effects in determining the covariance.
-
+implies correlation between measurements, and also highlights the role played by the random effects in determining the covariance.
 
 Extending beyond the random intercept model, multiple random effects can be incorporated. 
 
-A linear mixed effects model can expressed as $Y_i = X_i\beta+Z_ib_i+\epsilon_i$
+A linear mixed effects model can expressed as $$Y_i = X_i\beta+Z_ib_i+\epsilon_i$$.
 
-Where 
+Where:
 $\beta$ is a p x 1 vector of fixed effects
 $b_i$ is a q x 1 vector of random effects
 $X_i$ is a n x p matrix of covariates
 $Z_i$ is a n x q matrix of covariates
 
-The subset of regression parameters that vary randomly are found in $Z_i$. $b_i$ comes from a multivariate normal distribution with mean 0 and covariance matrix G. $\epsilon_i$ are independent of $b_i$, come from multivariate normal distribution with mean 0 and covariance matrix $R_i$.
+The subset of regression parameters that vary randomly are found in $Z_i$. $b_i$ comes from a multivariate normal distribution with mean 0 and covariance matrix $G$. $\epsilon_i$ are independent of $b_i$, come from multivariate normal distribution with mean 0 and covariance matrix $R_i$.
 
 The covariance of $Y_i$ can be modeled by $Cov(Z_ib_i) + Cov(\epsilon_i) = Z_iGZ_i' + R_i$ This model, which outlines a distinction between $G$ and $R_i$, allows for separate analysis of between subject and within subject variation. Unlike other covariance models, in linear mixed effects models the covariance is a function of the times of measurement. This allows for unbalanced data to be used for the model since each individual can have their unique set of measurement times. Lastly, the model allows for variance and covariance to change as a function of time. To illustrate, consider the following model:
 
 In an example where individuals can vary both in their baseline response and their rate of change, we have:
 
-$Y_i = X_i\beta+Z_ib_i+\epsilon_i$ where both $X_i$ and $Z_i$ $= \begin{pmatrix} 1 & t_{i1} \\ 1 & t_{i2} \\ ... & ... \\ 1 & t_{in}\end{pmatrix}$
+$$Y_i = X_i\beta+Z_ib_i+\epsilon_i$$ where both $X_i$ and $Z_i$ $= \begin{pmatrix} 1 & t_{i1} \\ 1 & t_{i2} \\ ... & ... \\ 1 & t_{in}\end{pmatrix}$.
 
 If $Var(b_{1i}) = g_{11}$, $Var(b_{21}) = g_{22}$, and $Cov(b_{1i},b_{2i}) = g_{12}$ where these three components represent the $G$ covariance for $b_i$, then
-it can be shown that $Cov(Y_{ij}, Y_{ik}) = g_{11} + (t_{ij} + t_{ik})g_{12}) + t_{ij}t_{ik}g_{22}$
+it can be shown that $Cov(Y_{ij}, Y_{ik}) = g_{11} + (t_{ij} + t_{ik})g_{12}) + t_{ij}t_{ik}g_{22}$.
 
-Here in the covariance matrix we can see the dependence of the covariance on time. 
+Here in the covariance matrix we can see the dependence of the covariance on time. In this example there are four covariance parameters that arise from the two random effects of intercept and time. The number of covariance parameters is represented by $q \times (q+1)/2 + 1$, where $q$ is the number of random effects. To choose the most optimal model for covariance, we compare two nested models, one with $q+1$ random effects and one with $q$ random effects. We use the likelihood ratio test to make a decision for which model to use.  
+
+One additional analysis that is possible with linear mixed effects models is predicting subject specific responses. Given that $b_i$ is a random variable, we can predict it using;
+$$E(b_i |Y_i) = GZ_i(\sum)^{-1}_i(Y_i-X_i\hat\beta)$$ Because the covariance of $Y_i$ is unknown, we can estimate both $G$ and $(\sum)^{-1}_i$ using REML, creating $b_i$, also known as the empirical BLUP. Thus, the equation for predicting the response profile is:
+$$\hat Y_i = X_i\hat\beta +Z_i\hat b_i$$
+
+This equation to estimate the mean response profile can be extended to incorporate $R_i$, which represents within-subject variability. From this extension, we see that the equation and the empirical BLUP account for the weighting of both the within-subject variability and between-subject variability. If there is more within-subject variability, then more weight is assigned to $X_i\hat\beta$, the population mean response profile, in comparison to the subject's individual responses, and vice versa. 
+
 
 ## Choosing the best model 
 
-After presenting 3 methods of evaluating longitudinal data, the natural question arises of how to choose the most appropriate model. While there is no definite correct answer, there are several factors to consider. If data are unbalanced, response profile analysis should not be considered; rather, parametric time model or linear mixed effect model would be more optimal. If time order is important to the analysis, then only parametric time model and linear mixed effect model should be used. If there is a need to distinguish between the 2 types of variation that can occur, then only linear mixed effect models are appropriate. The model should ultimately be chosen based on the characteristics and constraints of the data, as well as the specificity of the research question at hand. 
+After presenting three methods of evaluating longitudinal data, the natural question arises of how to choose the most appropriate model. While there is no definite correct answer, there are several factors to consider. If data are unbalanced, response profile analysis should not be considered; rather, parametric time model or linear mixed effect model would be more optimal. If time order is important to the analysis, then only parametric time model and linear mixed effect model should be used. If there is a need to distinguish between the two types of variation that can occur, then only linear mixed effect models are appropriate. The model should ultimately be chosen based on the characteristics and constraints of the data, as well as the specificity of the research question at hand. 
 
 ## Conclusion
 
