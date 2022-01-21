@@ -1,0 +1,60 @@
+---
+title: "Sim_plan"
+author: '""'
+date: "1/20/2022"
+output: html_document
+---
+
+## Aim
+
+Aims
+· Compare different methods of evaluating significance in linear mixed effects models with small sample size and non-normal distribution
+
+
+Data-generating mechanisms
+
+.Factors: 
+
+Number of measurements/individual: 3 & 6 (Type 1 error rates are influenced by the number of second-level groups in the mixed model, and not solely determined by the number of data points (level 1 in the model).)
+.
+Number of individuals: 12, 24, 36
+
+.Methods: REML Kenward, REML Satterthwaite, REML t as Z
+( REML-fitted models still appear to be generally preferable for smaller samples)
+
+. Covariance structures: (Kenward-Roger approximation, while generally robust, can lead to inflated Type 1 error rates when complex covariance structures were combined with small sample size) This is a two-step method where (1) a random vector is generated using the
+independent standard multivariate normal distribution and then (2) this vector is premultiplied by the Cholesky decomposition of the specied covariance matrix under the null
+hypothesis.
+
+Ante-Dependence: First-Order, *Toeplitz, Heterogeneous compound symmetry, AR(1): Heterogenous
+
+. Fixed effect: 0, .8 
+
+. DISTRIBUTIONS: exponential distributions, with fixed skewness (γ 1 = 0.8) and two values of kurtosis (γ 2 = 2.4 and 5.4), and log-normal distributions (γ 1 = 1.75 and γ 2 = 5.9). These values are well within the range of skew and kurtosis that represent the real-world situation.
+
+
+
+.
+Estimand: slope coefficient $\beta$
+
+Method
+. Statistical task: testing 
+. Target: null hypothesis
+. Performance measure: Type I error , power
+
+Comparing: (1) T as Z testing the Wald t-values provided in the model output as though they were z-distributed to generate p-values 
+(2) Satterthwaite 
+(3) Kenward- Rogers
+
+
+
+Performance measures
+Type I error: percentage of models that falsely produce sig p-values
+
+
+https://www.ibm.com/docs/en/spss-statistics/26.0.0?topic=statistics-covariance-structures 
+
+https://www.rdocumentation.org/packages/SimMultiCorrData/versions/0.2.2/topics/nonnormvar1 
+
+
+
