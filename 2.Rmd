@@ -1,0 +1,64 @@
+---
+title: "Kurtosis"
+author: '""'
+date: "1/24/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(moments)
+library(SimMultiCorrData)
+options(scipen = 99999)
+library(PearsonDS)
+library(lme4)
+library(lmerTest)
+```
+
+```{r}
+H_exp <- nonnormvar1("Fleishman", means = 0, vars = 1, skews =  1.75,
+                    skurts = 5.9, , n = 12, seed = 1234)
+
+hist(H_exp$continuous_variable$V1)
+
+#calc_theory("Lognormal", params = c(.005,.004))
+
+#rlnorm(10,meanlog = ,sdlog= )
+
+
+```
+https://stats.stackexchange.com/questions/509491/is-it-possible-to-use-generated-non-normal-errors-with-a-linear-regression-model 
+
+https://stats.stackexchange.com/questions/340452/how-to-simulate-r-data-for-a-random-effects-model-set-up 
+
+
+```{r}
+set.seed(15)
+n.group <- 12  #number of measurements/per person
+dt <- expand.grid(G = LETTERS[1:n.group], a = 1:4)
+X <- model.matrix(~ a, dt)   # model matrix for fixed effects
+betas <- c(3.1, 0)   # fixed effects coefficient vector
+Z1 <- model.matrix(~ 0 + G, dt)   # model matrix for random intercepts
+
+```
+
+```{r}
+u1 <- nonnormvar1("Fleishman", means = 0, vars = 1, skews =  1.75,
+                    skurts = 5.9, , n = n.group, seed = 1234)$continuous_variable$V1
+
+e <- rnorm(nrow(dt), 0, 2)
+
+
+dt$Y_manual <- X %*% betas + Z1 %*% u1 + e
+```
+https://stats.stackexchange.com/questions/483218/what-covariance-structure-is-implemented-on-the-lmer-function-of-r 
+
+```{r}
+m0 <- lmer(Y_manual ~ a + (1|G), dt) 
+summary(m0)
+anova(m0, ddf = "Kenward-Roger")
+
+#qqnorm(m0, ~ranef(., level=2))
+
+anova(m0, ddf = "Satterthwaite" )
+```
