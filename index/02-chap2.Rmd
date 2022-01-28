@@ -34,22 +34,20 @@ To create a sublist, just indent the values a bit (at least four spaces or a tab
     - Item 3a
     - Item 3b
 
-## Line breaks
+#### Inference in small and nonnormal samples
 
-Make sure to add white space between lines if you'd like to start a new paragraph.  Look at what happens below in the outputted document if you don't:
+In chapter 1, we outlined the process for conducting inference for models with repeated measures. When sample size is small, both Kenward-Rogers and Sattherthwaite approximations have been implemented to reduce Type I error rates. 
 
-Here is the first sentence.  Here is another sentence.  Here is the last sentence to end the paragraph.
-This should be a new paragraph.
+Kenward-Rogers (1997)(CITE) 
 
-*Now for the correct way:* 
 
-Here is the first sentence.  Here is another sentence.  Here is the last sentence to end the paragraph.
 
-This should be a new paragraph.
 
-## R chunks
 
-When you click the **Knit** button above a document will be generated that includes both content as well as the output of any embedded **R** code chunks within the document. You can embed an **R** code chunk like this (`cars` is a built-in **R** dataset):
+
+
+
+
 
 ```{r cars}
 summary(cars)
@@ -181,6 +179,39 @@ $$
 \hat{\beta}_0 + \hat{\beta}_1x
 $$
 ```
+
+
+# Notes from lit review
+
+Arnau (2014): Investigated robustness of the KR procedure when groups have different nonnormal distributions.Parameters considered: skewness, kurtosis, ratio of kurtosis differences across groups, unequal vs equal group sizes, pairing of large kurtosis with larger group size. violation of the sphericity assumption does not affect the robustness of the LMM combined with the KR procedure. the violation of skewness appears to have a greater effect on KR robustness than does the violation of kurtosis
+
+ 
+
+KR was less robust when the relationship between the kurtosis values in the groups increased or when the largest group was associated with the largest value of kurtosis. Both of these effects on KR robustness were greater when total sample size was smaller, and especially when total sample sizes were 30.
+
+he pairing of kurtosis with group size and the relationship between the kurtosis values in the groups are shown to be relevant variables to consider when using the LMM with KR
+
+Arnau (2013): Specifically, we sought to examine whether
+skewness and kurtosis have a differential effect on KR robustness by exploring both independently.that for the repeated measures effect
+the LMM with KR was robust mainly when data were
+normal, regardless of whether the sphericity assumption
+was met. Likewise, for the interaction effect, the procedure
+was also robust when the total sample size was 45 or larger,
+but it was liberal when the total sample size was 30. 
+
+arnau(2012): that the test is more robust with a normal than with a log-normal distribution, whereas, overall, there are no significant differ- ences in performance between normal and exponential dis- tributions. In addition, when the covariance matrix is spherical, the test tends to become more robust with normal and exponential distributions, especially when the number of observations increases; this is contrary to what occurs with the log-normal distribution. Finally, a comparison of the two exponential distributions shows that the test becomes more robust as kurtosis increases, regardless of whether or not the assumption of sphericity is fulfilled.
+
+s compared to the estimation of the time effect alone, the interaction between time and group leads to a consider- able increase in the test’s robustness when the distribution is log-normal.
+
+KR procedure is compromised with log- normal distributions that show moderate skewness, especial- ly as regards the estimation of the time effect. By contrast, when distributions are normal or have slight skewness (γ1 0 0.8), the test is robust even with extreme kurtosis 
+
+vallejo: when data were obtained from a normal distribution, the
+BF procedure of the main effect provided better control of the Type I error rate than
+did the Proc Mixed solution based on either the AIC or BIC criterion. For the non-normal distributions, both approaches become conservative or liberal
+as a function of the covariance structure and forms of the distribution used to generate the data. Nonetheless, the BF test was slightly less liberal than the test based
+on either the AIC or BIC criterion when both procedures had Type I error rates
+above the significance level and slightly more conservative when both had Type I
+error rates below the significance level. With regard to power, no test was uniformly most powerful
 
 
 

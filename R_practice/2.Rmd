@@ -54,11 +54,27 @@ dt$Y_manual <- X %*% betas + Z1 %*% u1 + e
 https://stats.stackexchange.com/questions/483218/what-covariance-structure-is-implemented-on-the-lmer-function-of-r 
 
 ```{r}
-m0 <- lmer(Y_manual ~ a + (1|G), dt) 
+m0 <- lmer(Y_manual ~ 1 + a + (1|G) + (1|a), dt) 
 summary(m0)
+check_model(m0)
+VarCorr(m0)
 anova(m0, ddf = "Kenward-Roger")
 
 qqnorm(m0, ~ranef(., level=2))
 
 anova(m0, ddf = "Satterthwaite" )
 ```
+
+** clean up simulation code, clean it up 
+** comment 
+
+
+** Look at empirical data, can generate covariance matrix from the data to use for the sim study.  
+*** more variability around the random intercept than the rate of change 
+
+** generate multivariate  (rcorvar)
+
+sim multi cor data 
+
+** writing up 
+

@@ -76,7 +76,7 @@ C11 - C16 - cognitive testing
 tally(data$C11)
 
 
-data %>%
+data02 %>%
   select(C11, C12,C13,C14,C15,C16)
 
 tally(data$B12)

@@ -1,0 +1,127 @@
+---
+title: "SimDraft"
+author: '""'
+date: "1/28/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(MASS)
+library(moments)
+library(SimMultiCorrData)
+options(scipen = 99999)
+library(PearsonDS)
+library(lme4)
+library(lmerTest)
+
+child_data <- readRDS(here::here("child_data.Rds"))
+```
+
+###### LME Model w/ adolescent data
+
+.AID = identifier
+.decisions_eat = do parent's give child freedom to decide what they eat (0 = no, 1 = yes)
+.run_away = ever run away? (0 = no, 3 = yes)
+.cig = ever smoked cigarettes? (0 = no, 1 = yes)
+.physical_fight = been in a fight? (0 = no, 1 = yes)
+.alcohol = ever had alcohol? (0 = no, 1 = yes)
+.wave = wave of study 
+```{r}
+glimpse(child_data)
+```
+
+Intercept only model
+```{r}
+intercept_model <- lmer(bmi ~  decisions_eat +  run_away + cig + alcohol + physical_fight + real_age + (1|AID), asian_women_ds) 
+summary(intercept_model)
+```
+
+Intercept and slope model
+
+```{r}
+intercept_slope_model <- lmer(bmi ~  decisions_eat +  run_away + cig + alcohol + physical_fight + real_age + ( wave |AID), asian_women_ds) 
+summary(intercept_slope_model)
+print(VarCorr(intercept_slope_model),comp=c("Variance","Std.Dev."),digits=2)
+```
+
+# SimMultiCorrData Problems?
+
+```{r}
+
+fitdistr(child_data$bmi,densfun = "log-normal") # Assuming log-normal, find parameters
+calc_moments(asian_women_ds$bmi) # gives skewness + kurtosis vals based on data 
+round(calc_theory(Dist = "Lognormal", params = c(3.02092234,0.16299311 )),8) # gives kurt + skew based on parameters from line 53
+
+corr.data <- c(1,-.46,-.46,1)
+corr1 <- matrix(corr.data,nrow=2)
+
+valid_corr(n = 12, k_cont = 2, method = "Fleishman", means = c(0,0), vars = c(1,1), skews = 2.952,
+           skurts =  1.75, rho = corr1)
+
+rcorrvar(n = 12, k_cont = 2, method = 'Fleishman', means = c(0,5), vars = c(1,2), skew = 1.7,
+         skurts = 5.9, 
+          errorloop = TRUE, rho = corr1
+         )
+
+## Polynomial?
+valid_corr(n = 12, k_cont = 2, method = "Fleishman", means = c(0,5), vars = c(1,2), skews = 2.952,
+           skurts =  1.75, rho = corr1)
+```
+
+
+
+
+###### SIMULATION
+
+```{r}
+set.seed(15)
+n.indiv <- 12
+n.measurements <-4
+```
+
+# Random Intercept Model, using skewness + kurtosis values from Arnau paper lognormal distribution 
+
+Generating values for intercept random effect + error term
+```{r}
+nonnormal_vals <- nonnormvar1("Fleishman", means = 0, vars = 1, skews =  1.75,
+                    skurts = 5.9, , n = n.indiv, seed = 1234)$continuous_variable$V1
+
+hist(nonnormal_vals)
+
+errors <- rnorm(nrow(dt), 0, 2)
+```
+
+```{r}
+# setting up sim dataset w/ n.indiv subjects that each have n.measurements data points at different time points 
+
+data <- expand.grid(indiv = LETTERS[1:n.indiv], time = 1:n.measurements)
+matrix_fixedeffects <- model.matrix(~ time, data)   # model matrix for fixed effects
+
+betas <- c(3.1, 0)   # fixed effects coefficient vector, true val of slope is 0 
+
+matrix_randeffects <- model.matrix(~ 0 + indiv, data)   # model matrix for random intercepts
+
+
+# generating Y values
+data$Y_val <- matrix_fixedeffects %*% betas + matrix_randeffects %*% nonnormal_vals + errors
+
+
+# construct model
+intercept_m0 <- lmer(Y_val ~ 1 +indiv + time + (1|indiv) , data) 
+summary(intercept_m0)
+anova(intercept_m0)
+VarCorr(intercept_m0)
+```
+
+
+# Random intercept + slope model?
+
+```{r}
+nonnormal_vals2 <- nonnormvar1("Fleishman", means = 0, vars = 1, skews =  1.75,
+                    skurts = 5.9, , n = n.indiv, seed = 413)$continuous_variable$V1
+
+
+```
+

@@ -32,7 +32,7 @@ Ante-Dependence: First-Order, *Toeplitz, Heterogeneous compound symmetry, AR(1):
 
 . DISTRIBUTIONS: exponential distributions, with fixed skewness (γ 1 = 0.8) and two values of kurtosis (γ 2 = 2.4 and 5.4), and log-normal distributions (γ 1 = 1.75 and γ 2 = 5.9). These values are well within the range of skew and kurtosis that represent the real-world situation.
 
-
+normal 
 
 .
 Estimand: slope coefficient $\beta$
@@ -47,10 +47,22 @@ Comparing: (1) T as Z testing the Wald t-values provided in the model output as 
 (3) Kenward- Rogers
 
 
+****how to work from skewness/kurtosis values to actual distributions
+how to generate data using covariance structures 
+
+
+*** LMM (generate errors as normal/log normal/exponential), leave random effects as normal
+
+way or covariance structures/
+
+
+
+
+interaction effect
 
 Performance measures
 Type I error: percentage of models that falsely produce sig p-values
-
+standard error
 
 https://www.ibm.com/docs/en/spss-statistics/26.0.0?topic=statistics-covariance-structures 
 
