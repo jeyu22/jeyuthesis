@@ -41,33 +41,29 @@ summary(intercept_model)
 Intercept and slope model
 
 ```{r}
-intercept_slope_model <- lmer(bmi ~  decisions_eat +  run_away + cig + alcohol + physical_fight + real_age + ( wave |AID), asian_women_ds) 
+intercept_slope_model <- lmer(bmi ~  decisions_eat +  run_away + cig + alcohol + physical_fight + real_age + wave + ( wave |AID), asian_women_ds) 
 summary(intercept_slope_model)
 print(VarCorr(intercept_slope_model),comp=c("Variance","Std.Dev."),digits=2)
 ```
 
-# SimMultiCorrData Problems?
+# SimMultiCorrData
 
 ```{r}
 
 fitdistr(child_data$bmi,densfun = "log-normal") # Assuming log-normal, find parameters
 calc_moments(asian_women_ds$bmi) # gives skewness + kurtosis vals based on data 
-round(calc_theory(Dist = "Lognormal", params = c(3.02092234,0.16299311 )),8) # gives kurt + skew based on parameters from line 53
-
-corr.data <- c(1,-.46,-.46,1)
+m<-round(calc_theory(Dist = "Lognormal", params = c(0,.5)),8) # gives kurt + skew based on parameters from line 53
+corr.data <- c(1,-.38,-.38,1)
 corr1 <- matrix(corr.data,nrow=2)
 
-valid_corr(n = 12, k_cont = 2, method = "Fleishman", means = c(0,0), vars = c(1,1), skews = 2.952,
-           skurts =  1.75, rho = corr1)
+valid_corr(n = 12, k_cont = 2, method = "Fleishman", means = c(m[1],m[1]), vars = c(m[2],m[2]), skews = c(m[3],m[3]),
+           skurts =  c(m[4],m[4]), rho = corr1)
 
-rcorrvar(n = 12, k_cont = 2, method = 'Fleishman', means = c(0,5), vars = c(1,2), skew = 1.7,
-         skurts = 5.9, 
+r_effects <-rcorrvar(n = 12, k_cont = 2, method = 'Fleishman', means = c(m[1],m[1]), vars = c(m[2],m[2]), skews = c(m[3],m[3]),
+           skurts =  c(m[4],m[4]),
           errorloop = TRUE, rho = corr1
          )
 
-## Polynomial?
-valid_corr(n = 12, k_cont = 2, method = "Fleishman", means = c(0,5), vars = c(1,2), skews = 2.952,
-           skurts =  1.75, rho = corr1)
 ```
 
 
@@ -119,9 +115,27 @@ VarCorr(intercept_m0)
 # Random intercept + slope model?
 
 ```{r}
-nonnormal_vals2 <- nonnormvar1("Fleishman", means = 0, vars = 1, skews =  1.75,
-                    skurts = 5.9, , n = n.indiv, seed = 413)$continuous_variable$V1
 
+data <- expand.grid(indiv = LETTERS[1:n.indiv], time = 1:n.measurements)
+matrix_fixedeffects <- model.matrix(~ time, data)   # model matrix for fixed effects
+
+betas <- c(3.1, 0)   # fixed effects coefficient vector
+
+matrix_intercept <- model.matrix(~ 0 + indiv, data)   # model matrix for random intercepts
+
+matrix_slope <-  model.matrix(~ 0 + indiv, data) * data$time   # model matrix for random slopes
+
+r_effects1 <- r_effects$continuous_variables$V1
+r_effects2 <- r_effects$continuous_variables$V2
+errors <- rnorm(nrow(data), 0, 2)  
+
+data$Y_val <- matrix_fixedeffects %*% betas + matrix_intercept %*% r_effects1 + matrix_slope %*% r_effects2 + errors
+
+# construct model
+intercept_m1 <- lmer(Y_val ~ time + (time|indiv) , data) 
+summary(intercept_m1)
+anova(intercept_m1)
+VarCorr(intercept_m1)
 
 ```
 
