@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # R Markdown Basics {#rmd-basics}
 <!--
 This file is for including Chapter 2.  
@@ -8,37 +13,54 @@ If labels aren't specified, they will automatically be generated from the header
 -->
 ```{r load_packages2, include = FALSE}
 library(mosaic)
+library(kableExtra)
 ```
 
-Be careful with your spacing in _Markdown_ documents.  While whitespace largely is ignored, it does at times give _Markdown_ signals as to how to proceed.  As a habit, try to keep everything left aligned whenever possible, especially as you type a new paragraph.  In other words, there is no need to indent basic text in the Rmd document (in fact, it might cause your text to do funny things if you do).
 
-## Lists
-
-It's easy to create a list.  It can be unordered like
-
-* Item 1
-* Item 2
-
-or it can be ordered like
-
-1. Item 1
-4. Item 2
-
-Notice that I intentionally mislabeled Item 2 as number 4.  _Markdown_ automatically figures this out!  You can put any numbers in the list and it will create the list.  Check it out below.
-
-To create a sublist, just indent the values a bit (at least four spaces or a tab).  (Here's one case where indentation is key!)
-
-1. Item 1
-1. Item 2
-1. Item 3
-    - Item 3a
-    - Item 3b
 
 #### Inference in small and nonnormal samples
 
-In chapter 1, we outlined the process for conducting inference for models with repeated measures. When sample size is small, both Kenward-Rogers and Sattherthwaite approximations have been implemented to reduce Type I error rates. 
+In chapter 1, we outlined the process for conducting inference for models with repeated measures. When sample size is small, both Kenward-Rogers (KR) and Sattherthwaite approximations have been implemented to reduce Type I error rates. 
 
-Kenward-Rogers (1997)(CITE) 
+Kenward-Rogers (1997)(CITE) proposes a Wald statistic in the form of:
+$$F = 1/l(\hat\beta-\beta)^TL(L^T\hat\Phi_A L)^{-1}L^T(\hat\beta-\beta)$$ where $l$ represents the number of linear combinations of the elements in $\beta$, $L$ is a fixed matrix, and $\hat\Phi_A$ is the adjusted estimator for the covariance matrix of $\hat\beta$. As mentioned in chapter 1, $\hat\Phi$ is a biased estimator of $\Phi$ when samples are small, and underestimates. This adjusted estimator is broken down into $\hat\Phi_A = \hat\Phi + 2\hat\Lambda$, where $\hat\Lambda$ accounts for the amount of variation that was underestimated by the original estimator of covariance of $\hat\beta$. This Wald statistic that uses the adjusted estimator is scaled in the form: $$F^* = \frac{m}{m+l-1}\lambda F,$$ where $m$ is the denominator degrees of freedom, and $\lambda$ is a scale factor. Using the expectation and variance of the Wald statistic, $F$ Both $m$ and $\lambda$ need to be calculated from the data, such that:
+
+$$m = 4 + \frac{l+2}{l\rho-1},$$, where $\rho = \frac{V[F]}{2E[F]^2}$ and 
+$\lambda = \frac{m}{E[F](m-2)}$. This statistic will ultimately follow an exact $F_{l,m}$ distribution. 
+
+Sattherthwaite approximation was developed by Fai & Cornelius (1996), with the F statistic following the form:
+
+$$F = \frac{1}{l}\hat\beta'L'(L\Phi L')^{-1}L\hat\beta.$$ Note in this approximation we use the original $\Phi$ as the variance of $\hat\beta.$ For the denominator degrees of freedom we perform spectral decomposition on $L'\Phi L=P'DP$, where $D$ is a diagonal matrix of eigenvalues and $P$ is an orthogonal matrix of eigenvectors. When $r$ represents the $r^{th}$ row of $P'L$, we have $v_r = \frac{2(d_r)^2}{g'_rWg_r},$ where $g_r$ is a gradient vector, $d_r$ is the $r^{th}$ diagonal element of D, and $W$ is the covariance matrix of $\hat\sigma^2.$ The denominator degrees of freedom is calculated by:
+$$\frac{2E}{E-l}$$, where $E = \sum_{r = 1}^{l} \frac{v_r}{v_r-2}I(v_r>2)$ if $E >l$, otherwise $DF = 1.$
+
+When $l =1 $ the KR and Satterthwaite approximation will produce the same denominator degrees of freedom. However, since the statistic used for the two methods are not the same, the results for inference will not be the same. It is important to note that both methods are only valid when using REML. 
+
+Both methods are frequently used and compared, and its performance is highly dependent on the structure of the data.
+A majority of studies focusing on DF method comparison in mixed models use split-plot design, as small sample sizes are more common in agricultural and biological fields. Schaalje, et al. (2002) found that in comparison to other degrees of freedom-adjusting methods like Satterthaite, KR was the most suitable for small sample data. Using factors such as imbalance, covariance structure, and sample size, they demonstrated that the KR method produced simulated Type I error rates closest to target values. However, their focus was primarily on complexity of covariance structure, and they found that more complicated structures, such as ante-dependence, produced inflated error rates when coupled with small sample size. Arnau (2009) found that KR produces more robust results compared to Satterthwaite and Between-Within approaches, especially in cases where larger sample size was paired with covariance matricies with larger values. 
+
+These studies are conducted with data drawn from normal distributions. However, real-world data used in fields such as psychometrics have distributions that are nonnormal. In Arnau et. al's 2012 paper, the authors extend their evaluation of KR for split-plot data that follow a log-normal or exponential distribution, and for when the kurtosis and skewness values are manipulated. They found that, compared to normal distribution, the test is less robust for log-normal distributions, but that there is no signficant difference in performance between exponential and normal distributions. In addition, they suggest that skewness has a bigger effect on robustness of KR compared to kurtosis. 
+
+Existing research evaluating the performance of methods that reduce Type I error rate in small samples are thorough, however, the differences in simulation setup and structure of data used make generalizations difficult. Although the KR method has been shown as a viable option for analysis of small samples in many occasions, it should continue to evaluated against other methods. To date, there is no literature on the performance of Satterthwaite for nonnormal data design 
+
+
+Goals of this study:
+
+Given that the aforementioned studies often use a split-plot design and impose a covariance structure, the goal of this project is to compare performance of KR and Satterthwaite methods for repeated measures longitudinal data fitted with a linear mixed effects model, and no imposed covariance structure. Since most mixed models use unstructured covariance structure, it would be beneficial to see how these methods perform without considering covariance structure as a factor. In addition, we want to examine these methods for non-normally distributed data that reflect real world circumstances. 
+
+
+
+
+
+
+Set up:
+
+Will follow Bradley's criterion that considers a test to robust if the empirical error rate is between .025 and .075. 
+
+In order to 
+Fleishman proposed a moment-matching approach to simulate nonnormally distributed data. First, normal deviates are generated. Then a polynomial transform of order three is applied, with the polynomial coefficients selected so that the first four moments of the transformed data match the corresponding moments of the target distribution. 
+
+
+Arnau
 
 
 
@@ -49,136 +71,14 @@ Kenward-Rogers (1997)(CITE)
 
 
 
-```{r cars}
-summary(cars)
-```
 
-## Inline code
 
-If you'd like to put the results of your analysis directly into your discussion, add inline code like this:
 
-> The `cos` of $2 \pi$ is `r cos(2*pi)`. 
 
-Another example would be the direct calculation of the standard deviation:
 
-> The standard deviation of `speed` in `cars` is `r sd(cars$speed)`.
-
-One last neat feature is the use of the `ifelse` conditional statement which can be used to output text depending on the result of an **R** calculation:
-
-> `r ifelse(sd(cars$speed) < 6, "The standard deviation is less than 6.", "The standard deviation is equal to or greater than 6.")`
-
-Note the use of `>` here, which signifies a quotation environment that will be indented.
 
 As you see with `$2 \pi$` above, mathematics can be added by surrounding the mathematical text with dollar signs.  More examples of this are in [Mathematics and Science] if you uncomment the code in [Math].  
 
-## Including plots
-
-You can also embed plots.  For example, here is a way to use the base **R** graphics package to produce a plot using the built-in `pressure` dataset:
-
-```{r pressure, echo = FALSE, cache = TRUE}
-plot(pressure)
-```
-
-Note that the `echo=FALSE` parameter was added to the code chunk to prevent printing of the **R** code that generated the plot.  There are plenty of other ways to add chunk options.  More information is available at <http://yihui.name/knitr/options/>.  
-
-Another useful chunk option is the setting of `cache=TRUE` as you see here.  If document rendering becomes time consuming due to long computations or plots that are expensive to generate you can use knitr caching to improve performance.  Later in this file, you'll see a way to reference plots created in **R** or external figures.
-
-## Loading and exploring data
-
-Included in this template is a file called `flights.csv`.  This file includes a subset of the larger dataset of information about all flights that departed from Seattle and Portland in 2014.  More information about this dataset and its **R** package is available at <http://github.com/ismayc/pnwflights14>.  This subset includes only Portland flights and only rows that were complete with no missing values.  Merges were also done with the `airports` and `airlines` data sets in the `pnwflights14` package to get more descriptive airport and airline names.
-
-We can load in this data set using the following command:
-
-```{r load_data}
-flights <- read.file("data/flights.csv")
-```
-
-The data is now stored in the data frame called `flights` in **R**.  To get a better feel for the variables included in this dataset we can use a variety of functions.  Here we can see the dimensions (rows by columns) and also the names of the columns.
-
-
-```{r str}
-dim(flights)
-names(flights)
-```
-
-```{r longstring, linewidth = 65, warnings = FALSE}
-# read long paragraph file
-longtext <- readLines("data/paragraphs.txt")
-# display text as vector
-longtext
-# display text as paragraphs
-cat(longtext)
-```
-
-```{r longstring2}
-# display text without linewidth option specified
-longtext
-```
-
-
-Another good idea is to take a look at the dataset in table form.  With this dataset having more than 50,000 rows, we won't explicitly show the results of the command here.  I recommend you enter the command into the Console **_after_** you have run the **R** chunks above to load the data into **R**.
-
-```{r view_flights, eval=FALSE}
-View(flights)
-```
-
-While not required, it is highly recommended you use the `dplyr` package to manipulate and summarize your data set as needed.  It uses a syntax that is easy to understand using chaining operations.  Below I've created a few examples of using `dplyr` to get information about the Portland flights in 2014.  You will also see the use of the `ggplot2` package, which produces beautiful, high-quality academic visuals.
-
-
-The example we show here does the following:
-
-- Selects only the `carrier_name` and `arr_delay` from the `flights` dataset and then assigns this subset to a new variable called `flights2`. 
-
-- Using `flights2`, we determine the largest arrival delay for each of the carriers.
-
-
-```{r max_delays}
-flights2 <- flights %>% 
-  select(carrier_name, arr_delay)
-max_delays <- flights2 %>% 
-  group_by(carrier_name) %>%
-  summarize(max_arr_delay = max(arr_delay, na.rm = TRUE))
-```
-
-
-A useful function in the `knitr` package for making nice tables in _R Markdown_ is called `kable`.  It is much easier to use than manually entering values into a table by copying and pasting values into Excel or LaTeX.  This again goes to show how nice reproducible documents can be! (Note the use of `results="asis"`, which will produce the table instead of the code to create the table.)  The `caption.short` argument is used to include a shorter title to appear in the List of Tables.
-
-```{r maxdelays, results="asis"}
-kable(max_delays, 
-      col.names = c("Airline", "Max Arrival Delay"),
-      caption = "Maximum Delays by Airline",
-      caption.short = "Max Delays by Airline",
-      longtable = TRUE,
-      booktabs = TRUE)
-```
-
-The last two options make the table a little easier-to-read.
-
-We can further look into the properties of the largest value here for American Airlines Inc.  To do so, we can isolate the row corresponding to the arrival delay of 1539 minutes for American in our original `flights` dataset.
-
-
-```{r max_props}
-flights %>% filter(arr_delay == 1539, 
-                  carrier_name == "American Airlines Inc.") %>%
-  select(-c(month, day, carrier, dest_name, hour, 
-            minute, carrier_name, arr_delay))
-```
-
-We see that the flight occurred on March 3rd and departed a little after 2 PM on its way to Dallas/Fort Worth.  Lastly, we show how we can visualize the arrival delay of all departing flights from Portland on March 3rd against time of departure.
-
-```{r march3plot, fig.height=3, fig.width=6}
-flights %>% filter(month == 3, day == 3) %>%
-  ggplot(aes(x = dep_time, y = arr_delay)) + geom_point()
-```
-
-
-```{proof myproof, name = "This is a proof"}
-There is a proof environment in which you can create equations
-
-$$
-\hat{\beta}_0 + \hat{\beta}_1x
-$$
-```
 
 
 # Notes from lit review
@@ -203,7 +103,7 @@ arnau(2012): that the test is more robust with a normal than with a log-normal d
 
 s compared to the estimation of the time effect alone, the interaction between time and group leads to a consider- able increase in the test’s robustness when the distribution is log-normal.
 
-KR procedure is compromised with log- normal distributions that show moderate skewness, especial- ly as regards the estimation of the time effect. By contrast, when distributions are normal or have slight skewness (γ1 0 0.8), the test is robust even with extreme kurtosis 
+KR procedure is compromised with log- normal distributions that show moderate skewness, especial- ly as regards the estimation of the time effect. By contrast, when distributions are normal or have slight skewness (1 0 0.8), the test is robust even with extreme kurtosis 
 
 vallejo: when data were obtained from a normal distribution, the
 BF procedure of the main effect provided better control of the Type I error rate than
@@ -213,14 +113,3 @@ on either the AIC or BIC criterion when both procedures had Type I error rates
 above the significance level and slightly more conservative when both had Type I
 error rates below the significance level. With regard to power, no test was uniformly most powerful
 
-
-
-## Additional resources
-
-- _Markdown_ Cheatsheet - <https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet>
-
-- _R Markdown_ Reference Guide - <https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf>
-
-- Introduction to `dplyr` - <https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html>
-
-- `ggplot2` Documentation - <http://docs.ggplot2.org/current/>

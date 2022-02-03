@@ -31,7 +31,7 @@ https://stats.stackexchange.com/questions/509491/is-it-possible-to-use-generated
 
 https://stats.stackexchange.com/questions/340452/how-to-simulate-r-data-for-a-random-effects-model-set-up 
 
-
+https://stats.stackexchange.com/questions/488188/what-are-the-steps-to-simulate-data-for-a-linear-model-with-random-slopes-and-ra 
 ```{r}
 set.seed(15)
 n.group <- 12  #number of measurements/per person
@@ -51,7 +51,7 @@ e <- rnorm(nrow(dt), 0, 2)
 
 dt$Y_manual <- X %*% betas + Z1 %*% u1 + e
 ```
-https://stats.stackexchange.com/questions/483218/what-covariance-structure-is-implemented-on-the-lmer-function-of-r 
+
 
 ```{r}
 m0 <- lmer(Y_manual ~ 1 + a + (1|G) + (1|a), dt) 
