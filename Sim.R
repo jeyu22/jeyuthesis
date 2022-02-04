@@ -3,13 +3,9 @@ library(tidyverse)
 library(lmerTest)
 library(SimMultiCorrData)
 library(purrr)
-m <-calc_theory(Dist = "Exponential", params = .5)
-
-r_effects <-rcorrvar(n = 12, k_cont = 2, method = 'Fleishman', means = c(m[1],m[1]), vars = c(m[2],m[2]), skews = c(m[3],m[3]),
-                     skurts =  c(m[4],m[4]),
-                     errorloop = TRUE, rho = corr1)
 
 
+## Function that returns p values from Kenward-Roger and Satterthwaite from linear mixed model 
 sim_mixedeffects <- function(dist, parameters, random_slopes=TRUE,
                              n.indiv, n.measurements, corr){
    
@@ -66,14 +62,22 @@ sim_mixedeffects <- function(dist, parameters, random_slopes=TRUE,
          msq_S =anova(model)$`Mean Sq` ))
 }
 
+## Plotting the exponential and lognormal distributions
 
+#### lognormal
 curve(dlnorm(x, meanlog=0, sdlog=.25), from=0, to=5)
 curve(dlnorm(x, meanlog=.5, sdlog=.1), from=0, to=5)
-curve(dlnorm(x, meanlog=.1, sdlog=.5), from=0, to=5)
+
+## Exponential 
 x <- seq(0, 8, 0.1)
 plot(x, dexp(x, .2), type = "l",
      ylab = "", lwd = 2, col = "red")
 
+plot(x, dexp(x, 4), type = "l",
+     ylab = "", lwd = 2, col = "red")
+
+
+## Setting up factors for lognormal condition
 dist <- c("Lognormal")
 corr <- c(-.38)
 parameters <- list(c(0,.25), c(.5,.1))
@@ -81,8 +85,11 @@ random_slopes <- c(TRUE,FALSE)
 n.indiv <- c(10,18,26)
 n.measurements <- c(4,8)
 
+# all possible combinations
 combos_lnormal<-crossing(dist,parameters,random_slopes,n.indiv,n.measurements,corr)
 
+
+## Setting up factors for exponential condition
 dist <- c("Exponential")
 corr <- c(-.38)
 parameters <- c(4,.2)
@@ -90,24 +97,20 @@ random_slopes <- c(TRUE,FALSE)
 n.indiv <- c(10,18,26)
 n.measurements <- c(4,8)
 
+# all possible combinations
 combos_exp <- crossing(dist,parameters,random_slopes,n.indiv,n.measurements,corr)
 
 
-
 numsim <-10
+
+## Using all possible combiniations, simulate
 simulations_exp <- 1:numsim %>%
    map_df(~ pmap_dfr(list(combos_exp$dist,combos_exp$parameters,combos_exp$random_slopes,combos_exp$n.indiv,combos_exp$n.measurements,combos_exp$corr),.f = sim_mixedeffects))
 
 simulations_lnormal <- 1:numsim %>%
    map_df(~ pmap_dfr(list(combos_lnormal$dist,combos_lnormal$parameters,combos_lnormal$random_slopes,combos_lnormal$n.indiv,combos_lnormal$n.measurements,combos_lnormal$corr),.f = sim_mixedeffects))
 
-## WOrking params
-# log normal (10,6), (0,.25)
 
+#saveRDS(simulations_exp,"exponential.rds")
+#saveRDS(simulations_lnormal,"lnormal.rds")
 
-saveRDS(simulations_exp,"exponential.rds")
-saveRDS(simulations_lnormal,"lnormal.rds")
-
-sim_mixedeffects(dist = "Exponential", parameters = .2,random_slopes = TRUE,
-                 n.indiv = 24, n.measurements = 4, corr = -.38
-                 )

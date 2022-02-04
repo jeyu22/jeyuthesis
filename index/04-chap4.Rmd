@@ -3,6 +3,7 @@
 require(knitr)
 require(dplyr)
 require(ggplot2)
+
 ```
 
 
@@ -62,10 +63,10 @@ Below we will investigate how to save the output of an **R** plot and label it i
 
 ```{r delaysboxplot, warnings=FALSE, messages=FALSE, fig.cap="Mean Delays by Airline", fig.width=6}
 #if(!exists("flights")) flights <- read.csv("data/flights.csv")
-flights %>% group_by(carrier) %>%
-  summarize(mean_dep_delay = mean(dep_delay)) %>%
-  ggplot(aes(x = carrier, y = mean_dep_delay)) +
-  geom_bar(position = "identity", stat = "identity", fill = "red")
+#flights %>% group_by(carrier) %>%
+ # summarize(mean_dep_delay = mean(dep_delay)) %>%
+ # ggplot(aes(x = carrier, y = mean_dep_delay)) +
+ # geom_bar(position = "identity", stat = "identity", fill = "red")
 ```
 
 Here is a reference to this image: Figure \@ref(fig:delaysboxplot).

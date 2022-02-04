@@ -3,7 +3,7 @@ output:
   pdf_document: default
   html_document: default
 ---
-# R Markdown Basics {#rmd-basics}
+# Methods for tests of fixed effects in small and nonnormal samples {#rmd-basics}
 <!--
 This file is for including Chapter 2.  
 
@@ -14,102 +14,51 @@ If labels aren't specified, they will automatically be generated from the header
 ```{r load_packages2, include = FALSE}
 library(mosaic)
 library(kableExtra)
+library(ggplot2)
 ```
 
+In chapter 1, we outlined the process for conducting inference for models with repeated measures. When sample size is small, both Kenward-Roger (KR) and Sattherthwaite approximations have been implemented to reduce Type I error rates. 
 
-
-#### Inference in small and nonnormal samples
-
-In chapter 1, we outlined the process for conducting inference for models with repeated measures. When sample size is small, both Kenward-Rogers (KR) and Sattherthwaite approximations have been implemented to reduce Type I error rates. 
-
-Kenward-Rogers (1997)(CITE) proposes a Wald statistic in the form of:
+## Kenward-Roger
+Kenward-Roger (1997) propose a Wald statistic in the form of:
 $$F = 1/l(\hat\beta-\beta)^TL(L^T\hat\Phi_A L)^{-1}L^T(\hat\beta-\beta)$$ where $l$ represents the number of linear combinations of the elements in $\beta$, $L$ is a fixed matrix, and $\hat\Phi_A$ is the adjusted estimator for the covariance matrix of $\hat\beta$. As mentioned in chapter 1, $\hat\Phi$ is a biased estimator of $\Phi$ when samples are small, and underestimates. This adjusted estimator is broken down into $\hat\Phi_A = \hat\Phi + 2\hat\Lambda$, where $\hat\Lambda$ accounts for the amount of variation that was underestimated by the original estimator of covariance of $\hat\beta$. This Wald statistic that uses the adjusted estimator is scaled in the form: $$F^* = \frac{m}{m+l-1}\lambda F,$$ where $m$ is the denominator degrees of freedom, and $\lambda$ is a scale factor. Using the expectation and variance of the Wald statistic, $F$ Both $m$ and $\lambda$ need to be calculated from the data, such that:
 
 $$m = 4 + \frac{l+2}{l\rho-1},$$, where $\rho = \frac{V[F]}{2E[F]^2}$ and 
 $\lambda = \frac{m}{E[F](m-2)}$. This statistic will ultimately follow an exact $F_{l,m}$ distribution. 
+
+## Satterthwaite 
 
 Sattherthwaite approximation was developed by Fai & Cornelius (1996), with the F statistic following the form:
 
 $$F = \frac{1}{l}\hat\beta'L'(L\Phi L')^{-1}L\hat\beta.$$ Note in this approximation we use the original $\Phi$ as the variance of $\hat\beta.$ For the denominator degrees of freedom we perform spectral decomposition on $L'\Phi L=P'DP$, where $D$ is a diagonal matrix of eigenvalues and $P$ is an orthogonal matrix of eigenvectors. When $r$ represents the $r^{th}$ row of $P'L$, we have $v_r = \frac{2(d_r)^2}{g'_rWg_r},$ where $g_r$ is a gradient vector, $d_r$ is the $r^{th}$ diagonal element of D, and $W$ is the covariance matrix of $\hat\sigma^2.$ The denominator degrees of freedom is calculated by:
 $$\frac{2E}{E-l}$$, where $E = \sum_{r = 1}^{l} \frac{v_r}{v_r-2}I(v_r>2)$ if $E >l$, otherwise $DF = 1.$
 
-When $l =1 $ the KR and Satterthwaite approximation will produce the same denominator degrees of freedom. However, since the statistic used for the two methods are not the same, the results for inference will not be the same. It is important to note that both methods are only valid when using REML. 
+When $l =1$ the KR and Satterthwaite approximation will produce the same denominator degrees of freedom. However, since the statistic used for the two methods are not the same, the results for inference will not be the same. It is important to note that both methods are only valid when using REML. 
+
+## Existing literature
 
 Both methods are frequently used and compared, and its performance is highly dependent on the structure of the data.
 A majority of studies focusing on DF method comparison in mixed models use split-plot design, as small sample sizes are more common in agricultural and biological fields. Schaalje, et al. (2002) found that in comparison to other degrees of freedom-adjusting methods like Satterthaite, KR was the most suitable for small sample data. Using factors such as imbalance, covariance structure, and sample size, they demonstrated that the KR method produced simulated Type I error rates closest to target values. However, their focus was primarily on complexity of covariance structure, and they found that more complicated structures, such as ante-dependence, produced inflated error rates when coupled with small sample size. Arnau (2009) found that KR produces more robust results compared to Satterthwaite and Between-Within approaches, especially in cases where larger sample size was paired with covariance matricies with larger values. 
 
 These studies are conducted with data drawn from normal distributions. However, real-world data used in fields such as psychometrics have distributions that are nonnormal. In Arnau et. al's 2012 paper, the authors extend their evaluation of KR for split-plot data that follow a log-normal or exponential distribution, and for when the kurtosis and skewness values are manipulated. They found that, compared to normal distribution, the test is less robust for log-normal distributions, but that there is no signficant difference in performance between exponential and normal distributions. In addition, they suggest that skewness has a bigger effect on robustness of KR compared to kurtosis. 
 
-Existing research evaluating the performance of methods that reduce Type I error rate in small samples are thorough, however, the differences in simulation setup and structure of data used make generalizations difficult. Although the KR method has been shown as a viable option for analysis of small samples in many occasions, it should continue to evaluated against other methods. To date, there is no literature on the performance of Satterthwaite for nonnormal data design 
+Existing research evaluating the performance of methods that reduce Type I error rate in small samples are thorough, however, the differences in simulation setup and structure of data used make generalizations difficult. Although the KR method has been shown as a viable option for analysis of small samples in many occasions, it should continue to evaluated against other methods. To date, there is no literature on the performance of Satterthwaite for nonnormal longitudinal data design. Given the prevalence of nonnormal and small data samples, it is important to continue exploring methods that ensure robust results. 
 
 
-Goals of this study:
+## Goals of this study:
 
-Given that the aforementioned studies often use a split-plot design and impose a covariance structure, the goal of this project is to compare performance of KR and Satterthwaite methods for repeated measures longitudinal data fitted with a linear mixed effects model, and no imposed covariance structure. Since most mixed models use unstructured covariance structure, it would be beneficial to see how these methods perform without considering covariance structure as a factor. In addition, we want to examine these methods for non-normally distributed data that reflect real world circumstances. 
-
-
-
+In this study, we aim to expand on previous simulations, evaluating how methods for evaluated fixed effects perform under different nonnormal distributions and sample sizes. The aforementioned studies often use a split-plot design and impose a covariance structure, but goal of this study will be to compare performance of KR and Satterthwaite methods for repeated measures longitudinal data fitted with a linear mixed effects model, and no imposed covariance structure. Since most mixed models use unstructured covariance structure, it would be beneficial to see how these methods perform without considering covariance structure as a factor.
 
 
 
-Set up:
+## Simulation Set up:
 
-Will follow Bradley's criterion that considers a test to robust if the empirical error rate is between .025 and .075. 
-
-In order to 
-Fleishman proposed a moment-matching approach to simulate nonnormally distributed data. First, normal deviates are generated. Then a polynomial transform of order three is applied, with the polynomial coefficients selected so that the first four moments of the transformed data match the corresponding moments of the target distribution. 
+In this simulation, inference for fixed effects in a random intercepts and random intercepts and slopes model were conducted. The fixed effects included were the intercept value and time. Nonnormal data were generated using the `SimMultiCorrData` package. Using lognormal and exponential parameters (insert params here), skewness and kurtosis values were calculated, and used by the Fleishman method to calculate coefficients to transform normal data into the desired distribution. Parameters for the two distributions were chosen to cover a wide range of possible shapes and spreads. The nonnormal data generated are used as random effects values in order to create a response variable that also has a nonnormal distribution.The correlation between the two nonnormal values was set at -.38, based on the linear mixed model fit on the application data used in CHAPTER 3. The number of individuals were 10, 18, and 26. The number of repeated measurements was either 4 or 8. In total, there are *48* different crossing conditions that were simulated. 
 
 
-Arnau
+///// TBD
+After fitting the model, we evaluate there robustness using Bradley's criterion that considers a test to robust if the empirical error rate is between .025 and .075.
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-As you see with `$2 \pi$` above, mathematics can be added by surrounding the mathematical text with dollar signs.  More examples of this are in [Mathematics and Science] if you uncomment the code in [Math].  
-
-
-
-# Notes from lit review
-
-Arnau (2014): Investigated robustness of the KR procedure when groups have different nonnormal distributions.Parameters considered: skewness, kurtosis, ratio of kurtosis differences across groups, unequal vs equal group sizes, pairing of large kurtosis with larger group size. violation of the sphericity assumption does not affect the robustness of the LMM combined with the KR procedure. the violation of skewness appears to have a greater effect on KR robustness than does the violation of kurtosis
-
- 
-
-KR was less robust when the relationship between the kurtosis values in the groups increased or when the largest group was associated with the largest value of kurtosis. Both of these effects on KR robustness were greater when total sample size was smaller, and especially when total sample sizes were 30.
-
-he pairing of kurtosis with group size and the relationship between the kurtosis values in the groups are shown to be relevant variables to consider when using the LMM with KR
-
-Arnau (2013): Specifically, we sought to examine whether
-skewness and kurtosis have a differential effect on KR robustness by exploring both independently.that for the repeated measures effect
-the LMM with KR was robust mainly when data were
-normal, regardless of whether the sphericity assumption
-was met. Likewise, for the interaction effect, the procedure
-was also robust when the total sample size was 45 or larger,
-but it was liberal when the total sample size was 30. 
-
-arnau(2012): that the test is more robust with a normal than with a log-normal distribution, whereas, overall, there are no significant differ- ences in performance between normal and exponential dis- tributions. In addition, when the covariance matrix is spherical, the test tends to become more robust with normal and exponential distributions, especially when the number of observations increases; this is contrary to what occurs with the log-normal distribution. Finally, a comparison of the two exponential distributions shows that the test becomes more robust as kurtosis increases, regardless of whether or not the assumption of sphericity is fulfilled.
-
-s compared to the estimation of the time effect alone, the interaction between time and group leads to a consider- able increase in the test’s robustness when the distribution is log-normal.
-
-KR procedure is compromised with log- normal distributions that show moderate skewness, especial- ly as regards the estimation of the time effect. By contrast, when distributions are normal or have slight skewness (1 0 0.8), the test is robust even with extreme kurtosis 
-
-vallejo: when data were obtained from a normal distribution, the
-BF procedure of the main effect provided better control of the Type I error rate than
-did the Proc Mixed solution based on either the AIC or BIC criterion. For the non-normal distributions, both approaches become conservative or liberal
-as a function of the covariance structure and forms of the distribution used to generate the data. Nonetheless, the BF test was slightly less liberal than the test based
-on either the AIC or BIC criterion when both procedures had Type I error rates
-above the significance level and slightly more conservative when both had Type I
-error rates below the significance level. With regard to power, no test was uniformly most powerful
 
