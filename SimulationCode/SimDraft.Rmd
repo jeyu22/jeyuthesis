@@ -37,6 +37,8 @@ Intercept only model
 ```{r}
 intercept_model <- lmer(bmi ~  decisions_eat +  run_away + cig + alcohol + physical_fight + real_age + (1|AID) + wave, child_data) 
 summary(intercept_model)
+
+tidy(anova(intercept_model))
 ```
 
 Intercept and slope model
