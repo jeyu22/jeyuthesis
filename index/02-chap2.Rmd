@@ -19,12 +19,10 @@ library(ggplot2)
 
 In chapter 1, we outlined the process for conducting inference for models with repeated measures. When sample size is small, both Kenward-Roger (KR) and Sattherthwaite approximations have been implemented to reduce Type I error rates. 
 
-## Kenward-Roger
-Kenward-Roger (1997) propose a Wald statistic in the form of:
-$$F = 1/l(\hat\beta-\beta)^TL(L^T\hat\Phi_A L)^{-1}L^T(\hat\beta-\beta)$$ where $l$ represents the number of linear combinations of the elements in $\beta$, $L$ is a fixed matrix, and $\hat\Phi_A$ is the adjusted estimator for the covariance matrix of $\hat\beta$. As mentioned in chapter 1, $\hat\Phi$ is a biased estimator of $\Phi$ when samples are small, and underestimates. This adjusted estimator is broken down into $\hat\Phi_A = \hat\Phi + 2\hat\Lambda$, where $\hat\Lambda$ accounts for the amount of variation that was underestimated by the original estimator of covariance of $\hat\beta$. This Wald statistic that uses the adjusted estimator is scaled in the form: $$F^* = \frac{m}{m+l-1}\lambda F,$$ where $m$ is the denominator degrees of freedom, and $\lambda$ is a scale factor. Using the expectation and variance of the Wald statistic, $F$ Both $m$ and $\lambda$ need to be calculated from the data, such that:
 
-$$m = 4 + \frac{l+2}{l\rho-1},$$, where $\rho = \frac{V[F]}{2E[F]^2}$ and 
-$\lambda = \frac{m}{E[F](m-2)}$. This statistic will ultimately follow an exact $F_{l,m}$ distribution. 
+## Section on inference for a coefficient
+- likelihood ratio test 
+
 
 ## Satterthwaite 
 
@@ -34,6 +32,20 @@ $$F = \frac{1}{l}\hat\beta'L'(L\Phi L')^{-1}L\hat\beta.$$ Note in this approxima
 $$\frac{2E}{E-l}$$, where $E = \sum_{r = 1}^{l} \frac{v_r}{v_r-2}I(v_r>2)$ if $E >l$, otherwise $DF = 1.$
 
 When $l =1$ the KR and Satterthwaite approximation will produce the same denominator degrees of freedom. However, since the statistic used for the two methods are not the same, the results for inference will not be the same. It is important to note that both methods are only valid when using REML. 
+
+## Kenward-Roger
+
+- Change variables to match chapter 1
+- What does this look like for a single coefficient? (Not L, not multiple contrasts)
+
+
+Kenward-Roger (1997) propose a Wald statistic in the form of:
+$$F = 1/l(\hat\beta-\beta)^TL(L^T\hat\Phi_A L)^{-1}L^T(\hat\beta-\beta)$$ where $l$ represents the number of linear combinations of the elements in $\beta$, $L$ is a fixed matrix, and $\hat\Phi_A$ is the adjusted estimator for the covariance matrix of $\hat\beta$. As mentioned in chapter 1, $\hat\Phi$ is a biased estimator of $\Phi$ when samples are small, and underestimates. This adjusted estimator is broken down into $\hat\Phi_A = \hat\Phi + 2\hat\Lambda$, where $\hat\Lambda$ accounts for the amount of variation that was underestimated by the original estimator of covariance of $\hat\beta$. This Wald statistic that uses the adjusted estimator is scaled in the form: $$F^* = \frac{m}{m+l-1}\lambda F,$$ where $m$ is the denominator degrees of freedom, and $\lambda$ is a scale factor. Using the expectation and variance of the Wald statistic, $F$ Both $m$ and $\lambda$ need to be calculated from the data, such that:
+
+$$m = 4 + \frac{l+2}{l\rho-1},$$, where $\rho = \frac{V[F]}{2E[F]^2}$ and 
+$\lambda = \frac{m}{E[F](m-2)}$. This statistic will ultimately follow an exact $F_{l,m}$ distribution. 
+
+
 
 ## Existing literature
 
@@ -53,11 +65,10 @@ In this study, we aim to expand on previous simulations, evaluating how methods 
 
 ## Simulation Set up:
 
-In this simulation, inference for fixed effects in a random intercepts and random intercepts and slopes model were conducted. The fixed effects included were the intercept value and time. Nonnormal data were generated using the `SimMultiCorrData` package. Using lognormal and exponential parameters (insert params here), skewness and kurtosis values were calculated, and used by the Fleishman method to calculate coefficients to transform normal data into the desired distribution. Parameters for the two distributions were chosen to cover a wide range of possible shapes and spreads. The nonnormal data generated are used as random effects values in order to create a response variable that also has a nonnormal distribution.The correlation between the two nonnormal values was set at -.38, based on the linear mixed model fit on the application data used in CHAPTER 3. The number of individuals were 10, 18, and 26. The number of repeated measurements was either 4 or 8. In total, there are *48* different crossing conditions that were simulated. 
+In this simulation, inference for fixed effects in a random intercepts and random intercepts and slopes model were conducted. For simplicity, only one discrete covariate, time, is used. The fixed effects included were the intercept value and time. Nonnormal data were generated using the `SimMultiCorrData` package. Using lognormal and exponential parameters (insert params here), skewness and kurtosis values were calculated, and used by the Fleishman method to calculate coefficients to transform normal data into the desired distribution. Parameters for the two distributions were chosen to cover a wide range of possible shapes and spreads. The nonnormal data generated are used as random effects values in order to create a response variable that also has a nonnormal distribution.The correlation between the two nonnormal values was set at -.38, based on the linear mixed model fit on the application data used in CHAPTER 3. The number of individuals were 10, 18, and 26. The number of repeated measurements was either 4 or 8. In total, there are *48* different crossing conditions that were simulated. 
 
 
-///// TBD
-After fitting the model, we evaluate there robustness using Bradley's criterion that considers a test to robust if the empirical error rate is between .025 and .075.
+After performing 10,000 replications of each condition at a signficance level of .05, we evaluate robustness using Bradley's criterion,which considers a test to robust if the empirical error rate is between .025 and .075.In the following section, we will compare Type I error rates produced from Kenward-Roger and Sattherthwaite methods, stratified by distribution and other manipulated parameters. 
 
 
 
