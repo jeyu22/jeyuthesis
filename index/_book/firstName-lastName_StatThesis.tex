@@ -457,14 +457,15 @@ In subsequent chapters we will dive more deeply into how inference in longitudin
 \hypertarget{rmd-basics}{%
 \chapter{Methods for tests of fixed effects in small and nonnormal samples}\label{rmd-basics}}
 
-In chapter 1, we outlined the process for conducting inference for models with repeated measures. When sample size is small, both Kenward-Roger (KR) and Sattherthwaite approximations have been implemented to reduce Type I error rates.
+In chapter 1, we outlined the basics of analyzing longitudinal data and introduced linear mixed models. Next, we will examine inference of linear mixed models, and how methods such as Kenward-Roger and Satterthwaite can be used in situations where standard procedures for inference may produce questionable results.
 
 \hypertarget{inference}{%
 \section{Inference}\label{inference}}
 
-In statistical inference the goal is to make conclusions about the underlying characteristics of a set of data and establish a relationship between certain variables. Hypothesis testing is one of the primary examples of inference, and is carried out in order to assess the true value of a population parameter. In linear models, the significance of a slope parameter, \(\beta_k\), is often assessed, where the null hypothesis, \$H\_0 \$ is \(\beta_k = 0,\) and the alternative hypothesis \(H_a\) is \(\beta_k \neq 0.\) A test of the null hypothesis involves using a Wald statistic in the form \[ Z = \frac{\hat\beta_k}{\sqrt{\hat{Var(\hat\beta_k)}}},\] which is then compared to the normal distribution, and a subsequent p-value is obtained.
+In statistical inference, the goal is to make conclusions about the underlying characteristics of a set of data and establish a relationship between certain variables. Hypothesis testing is one of the primary examples of inference, and is carried out in order to assess the true value of a population parameter. In linear models, the significance of a slope parameter, \(\beta_k\), is often assessed, where the null hypothesis, \$H\_0 \$ is \(\beta_k = 0,\) and the alternative hypothesis \(H_a\) is \(\beta_k \neq 0.\) A test of the null hypothesis involves using a Wald statistic in the form \[ Z = \frac{\hat\beta_k}{\sqrt{\hat{Var(\hat\beta_k)}}},\] which is then compared to the normal distribution, and a subsequent p-value is obtained.
 
-Aside from using the Wald statistic
+Aside from using the Wald statistic, likelihood ratio tests are another method to make inferences about \(\beta\), and involves comparing two models: (1) a nested model, which assumes that \(\beta_k\) is 0, and (2) a full model, that allows \(\beta_k\) to vary without constraint. The difference in the maximized log-likelihood of the two models, \(\hat l_{reduced}\) and \(\hat l_{full}\) are compared. This difference is represented by the statistic \[G^2 = 2(\hat l_{full}-\hat l_{reduced}),\] which is compared to a chi-square distribution. The larger the difference, the more likely we are to conclude that the nested model is insufficient, and that \(\beta\) is not zero.
+While there are benefits to using the likelihood ratio test, the rest of this study will focus on method of using the Wald statistic.
 
 \hypertarget{inference-in-small-sample-sizes}{%
 \subsection{Inference in small sample sizes}\label{inference-in-small-sample-sizes}}
@@ -478,7 +479,7 @@ How can this be fixed? Both Satterthwaite and Kenward and Roger have proposed re
 
 Sattherthwaite approximation was developed by Fai \& Cornelius (1996), with the F statistic following the form:
 
-\[F = \frac{1}{l}\hat\beta'L'(L\Phi L')^{-1}L\hat\beta.\] Note in this approximation we use the original \(\Phi\) as the variance of \(\hat\beta.\) For the denominator degrees of freedom we perform spectral decomposition on \(L'\Phi L=P'DP\), where \(D\) is a diagonal matrix of eigenvalues and \(P\) is an orthogonal matrix of eigenvectors. When \(r\) represents the \(r^{th}\) row of \(P'L\), we have \(v_r = \frac{2(d_r)^2}{g'_rWg_r},\) where \(g_r\) is a gradient vector, \(d_r\) is the \(r^{th}\) diagonal element of D, and \(W\) is the covariance matrix of \(\hat\sigma^2.\) The denominator degrees of freedom is calculated by:
+\[F = \frac{1}{l}\hat\beta'L'(L\hat Cov(\hat\beta) L')^{-1}L\hat\beta.\] For the denominator degrees of freedom we perform spectral decomposition on \(L'\hat Cov(\hat\beta) L=P'DP\), where \(D\) is a diagonal matrix of eigenvalues and \(P\) is an orthogonal matrix of eigenvectors. When \(r\) represents the \(r^{th}\) row of \(P'L\), we have \(v_r = \frac{2(d_r)^2}{g'_rWg_r},\) where \(g_r\) is a gradient vector, \(d_r\) is the \(r^{th}\) diagonal element of D, and \(W\) is the covariance matrix of \(\hat\sigma^2.\) The denominator degrees of freedom is calculated by:
 \[\frac{2E}{E-l}\], where \(E = \sum_{r = 1}^{l} \frac{v_r}{v_r-2}I(v_r>2)\) if \(E >l\), otherwise \(DF = 1.\)
 
 When \(l =1\) the KR and Satterthwaite approximation will produce the same denominator degrees of freedom. However, since the statistic used for the two methods are not the same, the results for inference will not be the same. It is important to note that both methods are only valid when using REML.
@@ -488,12 +489,10 @@ When \(l =1\) the KR and Satterthwaite approximation will produce the same denom
 \begin{itemize}
 \tightlist
 \item
-  Change variables to match chapter 1
-\item
   What does this look like for a single coefficient? (Not L, not multiple contrasts)
 \end{itemize}
 Kenward-Roger (1997) propose a Wald statistic in the form of:
-\[F = 1/l(\hat\beta-\beta)^TL(L^T\hat\Phi_A L)^{-1}L^T(\hat\beta-\beta)\] where \(l\) represents the number of linear combinations of the elements in \(\beta\), \(L\) is a fixed matrix, and \(\hat\Phi_A\) is the adjusted estimator for the covariance matrix of \(\hat\beta\). As mentioned in chapter 1, \(\hat\Phi\) is a biased estimator of \(\Phi\) when samples are small, and underestimates. This adjusted estimator is broken down into \(\hat\Phi_A = \hat\Phi + 2\hat\Lambda\), where \(\hat\Lambda\) accounts for the amount of variation that was underestimated by the original estimator of covariance of \(\hat\beta\). This Wald statistic that uses the adjusted estimator is scaled in the form: \[F^* = \frac{m}{m+l-1}\lambda F,\] where \(m\) is the denominator degrees of freedom, and \(\lambda\) is a scale factor. Using the expectation and variance of the Wald statistic, \(F\) Both \(m\) and \(\lambda\) need to be calculated from the data, such that:
+\[F = 1/l(\hat\beta-\beta)^TL(L^T\hat\Phi_A L)^{-1}L^T(\hat\beta-\beta)\] where \(l\) represents the number of linear combinations of the elements in \(\beta\), \(L\) is a fixed matrix, and \(\hat\Phi_A\) is the adjusted estimator for the covariance matrix of \(\hat\beta\). As mentioned in chapter 1, \(\hat Cov(\hat\beta)\) is a biased estimator of \(Cov(\hat\beta)\) when samples are small, and underestimates. This adjusted estimator is broken down into \(\hat\Phi_A = \hat Cov(\hat\beta) + 2\hat\Lambda\), where \(\hat\Lambda\) accounts for the amount of variation that was underestimated by the original estimator of covariance of \(\hat\beta\). This Wald statistic that uses the adjusted estimator is scaled in the form: \[F^* = \frac{m}{m+l-1}\lambda F,\] where \(m\) is the denominator degrees of freedom, and \(\lambda\) is a scale factor. Using the expectation and variance of the Wald statistic, \(F\) Both \(m\) and \(\lambda\) need to be calculated from the data, such that:
 
 \[m = 4 + \frac{l+2}{l\rho-1},\], where \(\rho = \frac{V[F]}{2E[F]^2}\) and
 \(\lambda = \frac{m}{E[F](m-2)}\). This statistic will ultimately follow an exact \(F_{l,m}\) distribution.
@@ -534,14 +533,6 @@ In order to generate a continuous response variable that is nonnormal, we genera
 Using the \texttt{SimMultiCorrData} package, we derive kurtosis and skewness values based on the distributions specified above. The table below shows the range of skewness and kurtosis values for the Lognormal distribution. In the intercept only model, only one non-normal continuous variable is generated for the random effect, so the function \texttt{SimMultiCorrData::nonnormvar1} is used. Values are generated through Fleishman's method for simulating nonnormal data by matching moments using mean, variance, skew, and kurtosis and then transforming normally distributed values.
 
 Kurtosis and skew values for the distributions used in this simulation are shown below.
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{rbind}\NormalTok{(}\KeywordTok{calc_theory}\NormalTok{(}\DataTypeTok{Dist =} \StringTok{"Lognormal"}\NormalTok{, }\DataTypeTok{params =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,.}\DecValTok{25}\NormalTok{)),}
-      \KeywordTok{calc_theory}\NormalTok{(}\DataTypeTok{Dist =} \StringTok{"Lognormal"}\NormalTok{, }\DataTypeTok{params =} \KeywordTok{c}\NormalTok{(.}\DecValTok{5}\NormalTok{,.}\DecValTok{1}\NormalTok{)),}
-      \KeywordTok{calc_theory}\NormalTok{(}\DataTypeTok{Dist =} \StringTok{"Lognormal"}\NormalTok{, }\DataTypeTok{params =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,.}\DecValTok{5}\NormalTok{)),}
-      \KeywordTok{calc_theory}\NormalTok{(}\DataTypeTok{Dist =} \StringTok{"Lognormal"}\NormalTok{, }\DataTypeTok{params =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,.}\DecValTok{9}\NormalTok{)))}
-\end{Highlighting}
-\end{Shaded}
 \begin{verbatim}
         mean    sd  skew kurtosis    fifth    sixth
    [1,] 1.03 0.262 0.778    1.096    2.296 6.48e+00
@@ -551,7 +542,7 @@ Kurtosis and skew values for the distributions used in this simulation are shown
 \end{verbatim}
 In the case of the linear model that has both random effects for intercept and slope, we want to generate random effects values that are correlated. Using \texttt{SimMultiCorrData::rcorrvar}, we use a similar process for generating one nonnormal continuous variable, but extend it to generating variables from multivariate normal distribution that take in to account a specified correlation matrix, and are then transformed to be nonnormal. We use a correlation value of -.38 to generate the random effects, which is based off the correlation observed when fitting a linear mixed effects model from the dataset used in the application portion of this study.
 
-Lastly, to account for measurement/sampling error, we assume that the error is random and drawn from a \(N \tilde (0,.2).\) The standard deviation value was chosen to minimize the variation of the errors in relation to the random effects of the intercept and covariate.
+Lastly, to account for measurement/sampling error, we assume that the error is random and drawn from a \(N \tilde (0,.2).\) The standard deviation value was chosen to minimize the variation of the errors in relation to the random effects of the intercept and the covariate.
 
 \hypertarget{linear-mixed-effects-model}{%
 \subsection{Linear mixed effects model}\label{linear-mixed-effects-model}}

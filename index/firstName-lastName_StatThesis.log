@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.12)  17 FEB 2022 19:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.12)  18 FEB 2022 00:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -761,7 +761,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [18]
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 4
-91.
+92.
 (/Users/jessicayu/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [19] [20]
@@ -769,13 +769,13 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [21] [22]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 5
-34.
+33.
 (/Users/jessicayu/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 539.
-[23] [24] [25] [26
+) [23]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[24] [25] [26
 
 ]
 Chapter 3.
@@ -785,23 +785,25 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [27] [28]
 Chapter 4.
 
-LaTeX Warning: Reference `tab:maxdelays' on page 29 undefined on input line 696
+LaTeX Warning: Reference `tab:maxdelays' on page 29 undefined on input line 687
 .
 
 [29
 
 ] [30]
-<figures/amherst.png, id=487, 475.7775pt x 475.7775pt>
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 699.
+<figures/amherst.png, id=486, 475.7775pt x 475.7775pt>
 File: figures/amherst.png Graphic file (type png)
 <use figures/amherst.png>
-Package pdftex.def Info: figures/amherst.png  used on input line 713.
+Package pdftex.def Info: figures/amherst.png  used on input line 704.
 (pdftex.def)             Requested size: 216.81pt x 216.81303pt.
 [31
 
  <./figures/amherst.png>] [32]
 
 LaTeX Warning: Reference `fig:delaysboxplot' on page 33 undefined on input line
- 733.
+ 724.
 
 [33
 
@@ -809,18 +811,18 @@ LaTeX Warning: Reference `fig:delaysboxplot' on page 33 undefined on input line
 <figures/subdivision.pdf, id=508, 220.825pt x 89.33376pt>
 File: figures/subdivision.pdf Graphic file (type pdf)
 <use figures/subdivision.pdf>
-Package pdftex.def Info: figures/subdivision.pdf  used on input line 742.
+Package pdftex.def Info: figures/subdivision.pdf  used on input line 733.
 (pdftex.def)             Requested size: 165.61833pt x 67.00014pt.
 File: figures/subdivision.pdf Graphic file (type pdf)
 <use figures/subdivision.pdf>
-Package pdftex.def Info: figures/subdivision.pdf  used on input line 755.
+Package pdftex.def Info: figures/subdivision.pdf  used on input line 746.
 (pdftex.def)             Requested size: 220.82445pt x 89.33353pt.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 766.
+(Font)              <10> on input line 757.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 766.
+(Font)              <7> on input line 757.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 766.
+(Font)              <5> on input line 757.
 [34
 
  <./figures/subdivision.pdf>] [35]
@@ -888,7 +890,7 @@ yTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></Users/jessicayu/Library/Tiny
 TeX/texmf-dist/fonts/type1/public/lm/lmtt12.pfb></Users/jessicayu/Library/TinyT
 eX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb></Users/jessicayu/Library/TinyT
 eX/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on firstName-lastName_StatThesis.pdf (61 pages, 472032 bytes).
+Output written on firstName-lastName_StatThesis.pdf (61 pages, 472715 bytes).
 PDF statistics:
  778 PDF objects out of 1000 (max. 8388607)
  657 compressed objects within 7 object streams
