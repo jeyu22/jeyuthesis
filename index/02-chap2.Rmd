@@ -15,13 +15,21 @@ If labels aren't specified, they will automatically be generated from the header
 library(mosaic)
 library(kableExtra)
 library(ggplot2)
+library(SimMultiCorrData)
 ```
 
-In chapter 1, we outlined the process for conducting inference for models with repeated measures. When sample size is small, both Kenward-Roger (KR) and Sattherthwaite approximations have been implemented to reduce Type I error rates. 
+In chapter 1, we outlined the basics of analyzing longitudinal data and introduced linear mixed models. Next, we will examine inference of linear mixed models, and how methods such as Kenward-Roger and Satterthwaite can be used in situations where standard procedures for inference may produce questionable results. 
+
+## Inference 
+In statistical inference, the goal is to make conclusions about the underlying characteristics of a set of data and establish a relationship between certain variables. Hypothesis testing is one of the primary examples of inference, and is carried out in order to assess the true value of a population parameter. In linear models, the significance of a slope parameter, $\beta_k$, is often assessed, where the null hypothesis, $H_0 $ is $\beta_k = 0,$ and the alternative hypothesis $H_a$ is $\beta_k \neq 0.$ A test of the null hypothesis involves using a Wald statistic in the form $$ Z = \frac{\hat\beta_k}{\sqrt{\hat{Var(\hat\beta_k)}}},$$ which is then compared to the normal distribution, and a subsequent p-value is obtained. 
+
+Aside from using the Wald statistic, likelihood ratio tests are another method to make inferences about $\beta$, and involves comparing two models: (1) a nested model, which assumes that $\beta_k$ is 0, and (2) a full model, that allows $\beta_k$ to vary without constraint. The difference in the maximized log-likelihood of the two models, $\hat l_{reduced}$ and $\hat l_{full}$ are compared. The larger the difference, the more likely we are to conclude that the nested model is insufficient, and that $\beta$ is
 
 
-## Section on inference for a coefficient
-- likelihood ratio test 
+### Inference in small sample sizes 
+One crucial assumption when conducting inference using the ML estimate for $\beta$ is that the sample size is sufficient enough where it does not affect the estimate for $\Sigma_i.$ However, what happens when the sample size is too small? This causes $\hat\Sigma_i$ to underestimate the true variance, which in turn causes $\hat Cov(\hat\beta)$ to be too small since it relies on covariance estimator. If $\hat Cov(\hat\beta)$ is too small, the denominator of the test statistic is inflated, leading to increased Type I error. One can see that the bias of the covariance estimator weakens the entire foundation of estimation and inference. 
+
+How can this be fixed? Both Satterthwaite and Kenward and Roger have proposed reductions to the degrees of freedom when conducting tests in order to account for this uncertainty of the covariance estimator. Kenward and Roger go one step forward to also adjust the test statistic itself.
 
 
 ## Satterthwaite 
@@ -65,10 +73,44 @@ In this study, we aim to expand on previous simulations, evaluating how methods 
 
 ## Simulation Set up:
 
-In this simulation, inference for fixed effects in a random intercepts and random intercepts and slopes model were conducted. For simplicity, only one discrete covariate, time, is used. The fixed effects included were the intercept value and time. Nonnormal data were generated using the `SimMultiCorrData` package. Using lognormal and exponential parameters (insert params here), skewness and kurtosis values were calculated, and used by the Fleishman method to calculate coefficients to transform normal data into the desired distribution. Parameters for the two distributions were chosen to cover a wide range of possible shapes and spreads. The nonnormal data generated are used as random effects values in order to create a response variable that also has a nonnormal distribution.The correlation between the two nonnormal values was set at -.38, based on the linear mixed model fit on the application data used in CHAPTER 3. The number of individuals were 10, 18, and 26. The number of repeated measurements was either 4 or 8. In total, there are *48* different crossing conditions that were simulated. 
+### Generating data: Sample size
+
+In this study, we consider a linear mixed effects model with only one discrete covariate, time. The range of possible values that time takes on depends on how many number of measurements per individual, which can be 4 or 8. The number of individuals take on possible values of 10, 18, and 26. These were chosen to reflect possible samples that would not hold under the common assumption that the sample size must be at least 30 for it to be considered sufficient enough for the Central Limit Theorem to hold. 
+
+### Generating data: Fixed Effects
+
+We have two fixed effects: the intercept value and the covariate time. The intercept, an arbitrary value, is set at 3.1. Time has a value of 0, in order to evaluate Type I effects. 
+
+### Generating data: Random effects
+
+In order to generate a continuous response variable that is nonnormal, we generate our random effects values from nonnormal distributions, which are either exponential or lognormal. Previous research shows that many data used in social and health sciences follow nonnormal distributions (Limpert, Stahel, & Abbt, 2001). More specifically  many follow lognormal distributions, such as age of onset of Alzheimer’s disease (Horner, 1987), or exponential distribution to model survival data. In order to cover a wide range of exponential and lognormal distributions, parameters were chosen to model distinct distributions. For exponential distributions, lambda values of 4, .2, and .9 were used, (DO I NEED TO INSERT GRAPH?). For lognormal distribution, mean and standard deviation parameter combinations were (0,.25), (.5,.1),(1,.5), and (0,.9). 
+
+Using the `SimMultiCorrData` package, we derive kurtosis and skewness values based on the distributions specified above. The table below shows the range of skewness and kurtosis values for the Lognormal distribution. In the intercept only model, only one non-normal continuous variable is generated for the random effect, so the function `SimMultiCorrData::nonnormvar1` is used. Values are generated through Fleishman's method for simulating nonnormal data by matching moments using mean, variance, skew, and kurtosis and then transforming normally distributed values. 
+
+Kurtosis and skew values for the distributions used in this simulation are shown below. 
+
+```{r, echo = F}
+rbind(calc_theory(Dist = "Lognormal", params = c(0,.25)),
+      calc_theory(Dist = "Lognormal", params = c(.5,.1)),
+      calc_theory(Dist = "Lognormal", params = c(1,.5)),
+      calc_theory(Dist = "Lognormal", params = c(0,.9)))
+```
 
 
-After performing 10,000 replications of each condition at a signficance level of .05, we evaluate robustness using Bradley's criterion,which considers a test to robust if the empirical error rate is between .025 and .075.In the following section, we will compare Type I error rates produced from Kenward-Roger and Sattherthwaite methods, stratified by distribution and other manipulated parameters. 
+In the case of the linear model that has both random effects for intercept and slope, we want to generate random effects values that are correlated. Using `SimMultiCorrData::rcorrvar`, we use a similar process for generating one nonnormal continuous variable, but extend it to generating variables from multivariate normal distribution that take in to account a specified correlation matrix, and are then transformed to be nonnormal. We use a correlation value of -.38 to generate the random effects, which is based off the correlation observed when fitting a linear mixed effects model from the dataset used in the application portion of this study. 
+
+Lastly, to account for measurement/sampling error, we assume that the error is random and drawn from a $N \tilde (0,.2).$ The standard deviation value was chosen to minimize the variation of the errors in relation to the random effects of the intercept and covariate. 
+
+### Linear mixed effects model
+
+In a linear mixed effects model, the amount of random effects that will be modeled depends on the research question at hand. Here, we will examine both a random intercepts-only model, where the intercept of the model is assumed to have a random effects structure, as well as a random intercept and slope model, where in addition to intercept, the covariate time will also have a random effects structure. 
+
+We use the `lmerTest` package to fit the linear mixed effects model, and evaluate the significance of the covariate in the model. To evaluate significance, we compare both the KR and Satterthwaite method for adjusting denominator degrees of freedom and its resulting p-value.   Because the value of the covariate in our model is fixed at 0 in order to identify Type I error, we expect to see that the p-value for the covariate time to not be significant (p > .05) in an ideal scenario. 
+
+
+## Evaluating and Results
+
+After performing 10,000 replications of each condition at a significance level of .05, we evaluate robustness using Bradley's criterion,which considers a test to robust if the empirical error rate is between .025 and .075. In the following section, we will compare Type I error rates produced from Kenward-Roger and Sattherthwaite methods, stratified by distribution and other manipulated parameters. 
 
 
 

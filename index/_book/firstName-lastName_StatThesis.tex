@@ -327,11 +327,7 @@ The GLS estimator assumes that \(\Sigma_i\) is known. However, since this isn't 
 While the maximum likelihood estimate of \(\Sigma_i\) is adequate, a modified method known as restricted maximum likelihood (REML) estimation is suggested to reduce bias in finite samples. The bias originates from the fact that \(\beta\) itself is also estimated from data, but is not accounted for when estimating covariance. In REML estimation of \(\Sigma_i\), \(\beta\) is removed from the likelihood function. This REML estimation of \(\Sigma_i\) can be used in the GLS estimator for \(\hat\beta\) mentioned above, and is recommended in place of the ML estimator.
 
 Now that we have estimates for \(\beta\), we can make inferences through construction of confidence intervals and hypothesis testing. For example, using the ML estimate \(\hat\beta\) and \(\hat Cov(\hat\beta)\), we can construct a Wald statistic to test for significance of \(\hat \beta_k\):
-\[Z = \frac{\hat \beta_k}{\sqrt{\hat Var(\hat \beta_k)}}.\]
-
-One crucial assumption when conducting inference using the ML estimate for \(\beta\) is that the sample size is sufficient enough where it does not affect the estimate for \(\Sigma_i.\) However, what happens when the sample size is too small? This causes \(\hat\Sigma_i\) to underestimate the true variance, which in turn causes \(\hat Cov(\hat\beta)\) to be too small since it relies on covariance estimator. If \(\hat Cov(\hat\beta)\) is too small, the denominator of the test statistic is inflated, leading to increased Type I error. One can see that the bias of the covariance estimator weakens the entire foundation of estimation and inference.
-
-How can this be fixed? Both Satterthwaite and Kenward and Roger have proposed reductions to the degrees of freedom when conducting tests in order to account for this uncertainty of the covariance estimator. Kenward and Roger go one step forward to also adjust the test statistic itself. In subsequent chapters, we will go into further detail about these two methods, and compare their performance on longitudinal data with different sample sizes and distributions of the response variable.
+\[Z = \frac{\hat \beta_k}{\sqrt{\hat Var(\hat \beta_k)}}.\] In later chapters we will explore how inference may be impacted in smaller sample sizes.
 
 \hypertarget{linear-models-for-longitudinal-data}{%
 \section{Linear models for longitudinal data}\label{linear-models-for-longitudinal-data}}
@@ -459,21 +455,23 @@ Longitudinal analysis is a valuable method to analyze changes over time. It is i
 In subsequent chapters we will dive more deeply into how inference in longitudinal analysis is affected when sample sizes are not efficient through both simulation and application.
 
 \hypertarget{rmd-basics}{%
-\chapter{R Markdown Basics}\label{rmd-basics}}
+\chapter{Methods for tests of fixed effects in small and nonnormal samples}\label{rmd-basics}}
 
-\hypertarget{methods-for-tests-of-fixed-effects-in-small-and-nonnormal-samples}{%
-\section{Methods for tests of fixed effects in small and nonnormal samples}\label{methods-for-tests-of-fixed-effects-in-small-and-nonnormal-samples}}
+In chapter 1, we outlined the process for conducting inference for models with repeated measures. When sample size is small, both Kenward-Roger (KR) and Sattherthwaite approximations have been implemented to reduce Type I error rates.
 
-In chapter 1, we outlined the process for conducting inference for models with repeated measures. When sample size is small, both Kenward-Rogers (KR) and Sattherthwaite approximations have been implemented to reduce Type I error rates.
+\hypertarget{inference}{%
+\section{Inference}\label{inference}}
 
-\hypertarget{kenward-rogers}{%
-\section{Kenward-Rogers}\label{kenward-rogers}}
+In statistical inference the goal is to make conclusions about the underlying characteristics of a set of data and establish a relationship between certain variables. Hypothesis testing is one of the primary examples of inference, and is carried out in order to assess the true value of a population parameter. In linear models, the significance of a slope parameter, \(\beta_k\), is often assessed, where the null hypothesis, \$H\_0 \$ is \(\beta_k = 0,\) and the alternative hypothesis \(H_a\) is \(\beta_k \neq 0.\) A test of the null hypothesis involves using a Wald statistic in the form \[ Z = \frac{\hat\beta_k}{\sqrt{\hat{Var(\hat\beta_k)}}},\] which is then compared to the normal distribution, and a subsequent p-value is obtained.
 
-Kenward-Rogers (1997) propose a Wald statistic in the form of:
-\[F = 1/l(\hat\beta-\beta)^TL(L^T\hat\Phi_A L)^{-1}L^T(\hat\beta-\beta)\] where \(l\) represents the number of linear combinations of the elements in \(\beta\), \(L\) is a fixed matrix, and \(\hat\Phi_A\) is the adjusted estimator for the covariance matrix of \(\hat\beta\). As mentioned in chapter 1, \(\hat\Phi\) is a biased estimator of \(\Phi\) when samples are small, and underestimates. This adjusted estimator is broken down into \(\hat\Phi_A = \hat\Phi + 2\hat\Lambda\), where \(\hat\Lambda\) accounts for the amount of variation that was underestimated by the original estimator of covariance of \(\hat\beta\). This Wald statistic that uses the adjusted estimator is scaled in the form: \[F^* = \frac{m}{m+l-1}\lambda F,\] where \(m\) is the denominator degrees of freedom, and \(\lambda\) is a scale factor. Using the expectation and variance of the Wald statistic, \(F\) Both \(m\) and \(\lambda\) need to be calculated from the data, such that:
+Aside from using the Wald statistic
 
-\[m = 4 + \frac{l+2}{l\rho-1},\], where \(\rho = \frac{V[F]}{2E[F]^2}\) and
-\(\lambda = \frac{m}{E[F](m-2)}\). This statistic will ultimately follow an exact \(F_{l,m}\) distribution.
+\hypertarget{inference-in-small-sample-sizes}{%
+\subsection{Inference in small sample sizes}\label{inference-in-small-sample-sizes}}
+
+One crucial assumption when conducting inference using the ML estimate for \(\beta\) is that the sample size is sufficient enough where it does not affect the estimate for \(\Sigma_i.\) However, what happens when the sample size is too small? This causes \(\hat\Sigma_i\) to underestimate the true variance, which in turn causes \(\hat Cov(\hat\beta)\) to be too small since it relies on covariance estimator. If \(\hat Cov(\hat\beta)\) is too small, the denominator of the test statistic is inflated, leading to increased Type I error. One can see that the bias of the covariance estimator weakens the entire foundation of estimation and inference.
+
+How can this be fixed? Both Satterthwaite and Kenward and Roger have proposed reductions to the degrees of freedom when conducting tests in order to account for this uncertainty of the covariance estimator. Kenward and Roger go one step forward to also adjust the test statistic itself.
 
 \hypertarget{satterthwaite}{%
 \section{Satterthwaite}\label{satterthwaite}}
@@ -484,6 +482,21 @@ Sattherthwaite approximation was developed by Fai \& Cornelius (1996), with the 
 \[\frac{2E}{E-l}\], where \(E = \sum_{r = 1}^{l} \frac{v_r}{v_r-2}I(v_r>2)\) if \(E >l\), otherwise \(DF = 1.\)
 
 When \(l =1\) the KR and Satterthwaite approximation will produce the same denominator degrees of freedom. However, since the statistic used for the two methods are not the same, the results for inference will not be the same. It is important to note that both methods are only valid when using REML.
+
+\hypertarget{kenward-roger}{%
+\section{Kenward-Roger}\label{kenward-roger}}
+\begin{itemize}
+\tightlist
+\item
+  Change variables to match chapter 1
+\item
+  What does this look like for a single coefficient? (Not L, not multiple contrasts)
+\end{itemize}
+Kenward-Roger (1997) propose a Wald statistic in the form of:
+\[F = 1/l(\hat\beta-\beta)^TL(L^T\hat\Phi_A L)^{-1}L^T(\hat\beta-\beta)\] where \(l\) represents the number of linear combinations of the elements in \(\beta\), \(L\) is a fixed matrix, and \(\hat\Phi_A\) is the adjusted estimator for the covariance matrix of \(\hat\beta\). As mentioned in chapter 1, \(\hat\Phi\) is a biased estimator of \(\Phi\) when samples are small, and underestimates. This adjusted estimator is broken down into \(\hat\Phi_A = \hat\Phi + 2\hat\Lambda\), where \(\hat\Lambda\) accounts for the amount of variation that was underestimated by the original estimator of covariance of \(\hat\beta\). This Wald statistic that uses the adjusted estimator is scaled in the form: \[F^* = \frac{m}{m+l-1}\lambda F,\] where \(m\) is the denominator degrees of freedom, and \(\lambda\) is a scale factor. Using the expectation and variance of the Wald statistic, \(F\) Both \(m\) and \(\lambda\) need to be calculated from the data, such that:
+
+\[m = 4 + \frac{l+2}{l\rho-1},\], where \(\rho = \frac{V[F]}{2E[F]^2}\) and
+\(\lambda = \frac{m}{E[F](m-2)}\). This statistic will ultimately follow an exact \(F_{l,m}\) distribution.
 
 \hypertarget{existing-literature}{%
 \section{Existing literature}\label{existing-literature}}
@@ -503,10 +516,54 @@ In this study, we aim to expand on previous simulations, evaluating how methods 
 \hypertarget{simulation-set-up}{%
 \section{Simulation Set up:}\label{simulation-set-up}}
 
-In this simulation, inference for fixed effects in a random intercepts and random intercepts and slopes model were conducted. The fixed effects included were the intercept value and time. Nonnormal data were generated using the \texttt{SimMultiCorrData} package. Using lognormal and exponential parameters (insert params here), skewness and kurtosis values were calculated, and used by the Fleishman method to calculate coefficients to transform normal data into the desired distribution. Parameters for the two distributions were chosen to cover a wide range of possible shapes and spreads. The correlation between the two nonnormal values was set at -.38, based on the application data used in CHAPTER 3. The number of individuals were 10, 18, and 26. The number of repeated measurements was either 4 or 8. In total, there are 48 different crossing conditions that were simulated.
+\hypertarget{generating-data-sample-size}{%
+\subsection{Generating data: Sample size}\label{generating-data-sample-size}}
 
-///// TBD
-After fitting Will follow Bradley's criterion that considers a test to robust if the empirical error rate is between .025 and .075.
+In this study, we consider a linear mixed effects model with only one discrete covariate, time. The range of possible values that time takes on depends on how many number of measurements per individual, which can be 4 or 8. The number of individuals take on possible values of 10, 18, and 26. These were chosen to reflect possible samples that would not hold under the common assumption that the sample size must be at least 30 for it to be considered sufficient enough for the Central Limit Theorem to hold.
+
+\hypertarget{generating-data-fixed-effects}{%
+\subsection{Generating data: Fixed Effects}\label{generating-data-fixed-effects}}
+
+We have two fixed effects: the intercept value and the covariate time. The intercept, an arbitrary value, is set at 3.1. Time has a value of 0, in order to evaluate Type I effects.
+
+\hypertarget{generating-data-random-effects}{%
+\subsection{Generating data: Random effects}\label{generating-data-random-effects}}
+
+In order to generate a continuous response variable that is nonnormal, we generate our random effects values from nonnormal distributions, which are either exponential or lognormal. Previous research shows that many data used in social and health sciences follow nonnormal distributions (Limpert, Stahel, \& Abbt, 2001). More specifically many follow lognormal distributions, such as age of onset of Alzheimer's disease (Horner, 1987), or exponential distribution to model survival data. In order to cover a wide range of exponential and lognormal distributions, parameters were chosen to model distinct distributions. For exponential distributions, lambda values of 4, .2, and .9 were used, (DO I NEED TO INSERT GRAPH?). For lognormal distribution, mean and standard deviation parameter combinations were (0,.25), (.5,.1),(1,.5), and (0,.9).
+
+Using the \texttt{SimMultiCorrData} package, we derive kurtosis and skewness values based on the distributions specified above. The table below shows the range of skewness and kurtosis values for the Lognormal distribution. In the intercept only model, only one non-normal continuous variable is generated for the random effect, so the function \texttt{SimMultiCorrData::nonnormvar1} is used. Values are generated through Fleishman's method for simulating nonnormal data by matching moments using mean, variance, skew, and kurtosis and then transforming normally distributed values.
+
+Kurtosis and skew values for the distributions used in this simulation are shown below.
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rbind}\NormalTok{(}\KeywordTok{calc_theory}\NormalTok{(}\DataTypeTok{Dist =} \StringTok{"Lognormal"}\NormalTok{, }\DataTypeTok{params =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,.}\DecValTok{25}\NormalTok{)),}
+      \KeywordTok{calc_theory}\NormalTok{(}\DataTypeTok{Dist =} \StringTok{"Lognormal"}\NormalTok{, }\DataTypeTok{params =} \KeywordTok{c}\NormalTok{(.}\DecValTok{5}\NormalTok{,.}\DecValTok{1}\NormalTok{)),}
+      \KeywordTok{calc_theory}\NormalTok{(}\DataTypeTok{Dist =} \StringTok{"Lognormal"}\NormalTok{, }\DataTypeTok{params =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,.}\DecValTok{5}\NormalTok{)),}
+      \KeywordTok{calc_theory}\NormalTok{(}\DataTypeTok{Dist =} \StringTok{"Lognormal"}\NormalTok{, }\DataTypeTok{params =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,.}\DecValTok{9}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+\begin{verbatim}
+        mean    sd  skew kurtosis    fifth    sixth
+   [1,] 1.03 0.262 0.778    1.096    2.296 6.48e+00
+   [2,] 1.66 0.166 0.302    0.162    0.128 1.35e-01
+   [3,] 3.08 1.642 1.750    5.898   31.432 2.40e+02
+   [4,] 1.50 1.675 4.745   57.411 1530.158 8.69e+04
+\end{verbatim}
+In the case of the linear model that has both random effects for intercept and slope, we want to generate random effects values that are correlated. Using \texttt{SimMultiCorrData::rcorrvar}, we use a similar process for generating one nonnormal continuous variable, but extend it to generating variables from multivariate normal distribution that take in to account a specified correlation matrix, and are then transformed to be nonnormal. We use a correlation value of -.38 to generate the random effects, which is based off the correlation observed when fitting a linear mixed effects model from the dataset used in the application portion of this study.
+
+Lastly, to account for measurement/sampling error, we assume that the error is random and drawn from a \(N \tilde (0,.2).\) The standard deviation value was chosen to minimize the variation of the errors in relation to the random effects of the intercept and covariate.
+
+\hypertarget{linear-mixed-effects-model}{%
+\subsection{Linear mixed effects model}\label{linear-mixed-effects-model}}
+
+In a linear mixed effects model, the amount of random effects that will be modeled depends on the research question at hand. Here, we will examine both a random intercepts-only model, where the intercept of the model is assumed to have a random effects structure, as well as a random intercept and slope model, where in addition to intercept, the covariate time will also have a random effects structure.
+
+We use the \texttt{lmerTest} package to fit the linear mixed effects model, and evaluate the significance of the covariate in the model. To evaluate significance, we compare both the KR and Satterthwaite method for adjusting denominator degrees of freedom and its resulting p-value. Because the value of the covariate in our model is fixed at 0 in order to identify Type I error, we expect to see that the p-value for the covariate time to not be significant (p \textgreater{} .05) in an ideal scenario.
+
+\hypertarget{evaluating-and-results}{%
+\section{Evaluating and Results}\label{evaluating-and-results}}
+
+After performing 10,000 replications of each condition at a significance level of .05, we evaluate robustness using Bradley's criterion,which considers a test to robust if the empirical error rate is between .025 and .075. In the following section, we will compare Type I error rates produced from Kenward-Roger and Sattherthwaite methods, stratified by distribution and other manipulated parameters.
 
 \hypertarget{math-sci}{%
 \chapter{Mathematics and Science}\label{math-sci}}
@@ -576,7 +633,7 @@ Many of the symbols you will need can be found on Reed College's math page \url{
 \hypertarget{tables}{%
 \section{Tables}\label{tables}}
 
-In addition to the tables that can be automatically generated from a data frame in \textbf{R} that you saw in \protect\hyperlink{rmd-basics}{R Markdown Basics} using the \texttt{kable} function, you can also create tables using \emph{pandoc}. (More information is available at \url{http://pandoc.org/README.html\#tables}.) This might be useful if you don't have values specifically stored in \textbf{R}, but you'd like to display them in table form. Below is an example. Pay careful attention to the alignment in the table and hyphens to create the rows and columns.
+In addition to the tables that can be automatically generated from a data frame in \textbf{R} that you saw in {[}R Markdown Basics{]} using the \texttt{kable} function, you can also create tables using \emph{pandoc}. (More information is available at \url{http://pandoc.org/README.html\#tables}.) This might be useful if you don't have values specifically stored in \textbf{R}, but you'd like to display them in table form. Below is an example. Pay careful attention to the alignment in the table and hyphens to create the rows and columns.
 \begin{longtable}[]{@{}ccc@{}}
 \caption{\label{tab:inher} Correlation of Inheritance Factors for Parents and Child}\tabularnewline
 \toprule

@@ -54,11 +54,9 @@ The GLS estimator assumes that $\Sigma_i$ is known. However, since this isn't us
 While the maximum likelihood estimate of $\Sigma_i$ is adequate, a modified method known as restricted maximum likelihood (REML) estimation is suggested to reduce bias in finite samples. The bias originates from the fact that $\beta$ itself is also estimated from data, but is not accounted for when estimating covariance. In REML estimation of $\Sigma_i$, $\beta$ is removed from the likelihood function. This REML estimation of $\Sigma_i$ can be used in the GLS estimator for $\hat\beta$ mentioned above, and is recommended in place of the ML estimator. 
 
 Now that we have estimates for $\beta$, we can make inferences through construction of confidence intervals and hypothesis testing. For example, using the ML estimate $\hat\beta$ and $\hat Cov(\hat\beta)$, we can construct a Wald statistic to test for significance of $\hat \beta_k$:
-$$Z = \frac{\hat \beta_k}{\sqrt{\hat Var(\hat \beta_k)}}.$$
+$$Z = \frac{\hat \beta_k}{\sqrt{\hat Var(\hat \beta_k)}}.$$ In later chapters we will explore how inference may be impacted in smaller sample sizes. 
 
-One crucial assumption when conducting inference using the ML estimate for $\beta$ is that the sample size is sufficient enough where it does not affect the estimate for $\Sigma_i.$ However, what happens when the sample size is too small? This causes $\hat\Sigma_i$ to underestimate the true variance, which in turn causes $\hat Cov(\hat\beta)$ to be too small since it relies on covariance estimator. If $\hat Cov(\hat\beta)$ is too small, the denominator of the test statistic is inflated, leading to increased Type I error. One can see that the bias of the covariance estimator weakens the entire foundation of estimation and inference. 
-
-How can this be fixed? Both Satterthwaite and Kenward and Roger have proposed reductions to the degrees of freedom when conducting tests in order to account for this uncertainty of the covariance estimator. Kenward and Roger go one step forward to also adjust the test statistic itself. In subsequent chapters, we will go into further detail about these two methods, and compare their performance on longitudinal data with different sample sizes and distributions of the response variable. 
+ 
 
 ## Linear models for longitudinal data
 

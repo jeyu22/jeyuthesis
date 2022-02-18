@@ -44,10 +44,12 @@ sim_mixedeffects <- function(dist, parameters, random_slopes=TRUE,
    
    errors <- rnorm(nrow(data), 0, .2)  
    
-   data$f <-  matrix_fixedeffects %*% betas
-   data$i <- matrix_intercept %*% r_effects1
-   data$s <- matrix_slope %*% r_effects2
-   data$e <- errors
+   data$fixed_effects <-  matrix_fixedeffects %*% betas
+   data$intercept_wrandom <- matrix_intercept %*% r_effects1
+   data$slope_wrandom <- matrix_slope %*% r_effects2
+   data$errors <- errors
+   data$r_effects1 <- r_effects1
+   data$r_effects2 <- r_effects2
    
    data$Y_val <- matrix_fixedeffects %*% betas + matrix_intercept %*% r_effects1 + matrix_slope %*% r_effects2 + errors
    
@@ -58,6 +60,8 @@ sim_mixedeffects <- function(dist, parameters, random_slopes=TRUE,
       model <- lmerTest::lmer(Y_val ~ time + (time|indiv) , data) 
    }
    
+   # add random effects value 
+   # ADD NORMAL
    a_KR <- tidy(anova(model, ddf = "Kenward-Roger"))
    a_S <- tidy(anova(model))
    p <- data.frame(distribution = dist, number_individuals = n.indiv,
@@ -71,19 +75,20 @@ sim_mixedeffects <- function(dist, parameters, random_slopes=TRUE,
    colnames(a_S) <- paste("S", colnames(a_S), sep = "_")
 
   
-  return(cbind(a_KR,a_S,moms,p)
+  return(cbind(a_KR,a_S,moms,p,data)
         
   )
 }
 
 w<-sim_mixedeffects(dist = 'Exponential', parameters = .2, random_slopes = TRUE,
-                 n.indiv = 100, n.measurements = 4,
+                 n.indiv = 10, n.measurements = 4,
                  corr = -.38)
 
 
 
 
 ## Plotting the exponential and lognormal distributions
+
 
 #### lognormal
 curve(dlnorm(x, meanlog=0, sdlog=.25), from=0, to=5)
@@ -127,11 +132,11 @@ n.measurements <- c(4,8)
 combos_exp <- crossing(dist,parameters,random_slopes,n.indiv,n.measurements,corr)
 
 
-numsim <-10
-
+numsim <-10000
+set.seed(2021)
 ## Using all possible combiniations, simulate
 simulations_exp <- 1:numsim %>%
-   map_df(~ pmap_dfr(list(combos_exp$dist,combos_exp$parameters,combos_exp$random_slopes,combos_exp$n.indiv,combos_exp$n.measurements,combos_exp$corr),.f = sim_mixedeffects))
+   map_df(~ pmap_dfr(list(combos_exp$dist,combos_exp$parameters,combos_exp$random_slopes,combos_exp$n.indiv,combos_exp$n.measurements,combos_exp$corr),.f = sim_mixedeffects, .id = "sim_num"))
 
 simulations_lnormal <- 1:numsim %>%
    map_df(~ pmap_dfr(list(combos_lnormal$dist,combos_lnormal$parameters,combos_lnormal$random_slopes,combos_lnormal$n.indiv,combos_lnormal$n.measurements,combos_lnormal$corr),.f = sim_mixedeffects))
