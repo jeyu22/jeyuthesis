@@ -32,6 +32,9 @@ sim_lnormal %>%
   filter(KR_p.value < .05) %>% nrow()
 117/4800
 
+sim_normal %>%
+  filter(KR_p.value < .05) %>% nrow()
+72/3600
 # Number of individuals: less individuals more error rate
 sim_exp %>%
   filter(KR_p.value < .05) %>% 
