@@ -1,6 +1,12 @@
 library(tidyverse)
 library(here)
 
+######## 
+large_run_normal <- readRDS(here("SimulationData","large_run_normal.rds"))
+large_run_normal %>% filter(KR_p.value < .05) %>% nrow()
+681/36000
+# type one error rate
+
 sim_exp <- data.frame()
 for(i in 1:10){
   name <- paste0("simulations_exp_",i,".rds")

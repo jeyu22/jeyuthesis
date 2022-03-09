@@ -39,7 +39,8 @@ Intercept only model
 intercept_model <- lmer(bmi ~  decisions_eat +  run_away + cig + alcohol + physical_fight + real_age + (1|AID) + wave, child_data) 
 summary(intercept_model)
 
-tidy(anova(intercept_model))
+tidy(anova(intercept_model), ddf = "Kenward-Roger")
+tidy(anova(intercept_model), ddf = "Satterthwaite")
 vc <- data.frame(VarCorr(intercept_model))
 var_rand_intercept<- vc[1,4]
 var_rand_residual <- vc[2,4]
