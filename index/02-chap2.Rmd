@@ -18,40 +18,58 @@ library(ggplot2)
 library(SimMultiCorrData)
 ```
 
-In chapter 1, we outlined the basics of analyzing longitudinal data and introduced linear mixed models. Next, we will examine inference of linear mixed models, and how methods such as Kenward-Roger and Satterthwaite can be used in situations where standard procedures for inference may produce questionable results. 
+In chapter 1, we outlined the basics of analyzing longitudinal data and introduced linear mixed models. Next, we will examine inference of linear mixed models, and how methods such as Kenward-Roger (KR) and Satterthwaite can be used in situations where standard procedures for inference may produce questionable results. 
 
 ## Inference 
 In statistical inference, the goal is to make conclusions about the underlying characteristics of a set of data and establish a relationship between certain variables. Hypothesis testing is one of the primary examples of inference, and is carried out in order to assess the true value of a population parameter. In linear models, the significance of a slope parameter, $\beta_k$, is often assessed, where the null hypothesis, $H_0 $ is $\beta_k = 0,$ and the alternative hypothesis $H_a$ is $\beta_k \neq 0.$ A test of the null hypothesis involves using a Wald statistic in the form $$ Z = \frac{\hat\beta_k}{\sqrt{\hat{Var(\hat\beta_k)}}},$$ which is then compared to the normal distribution, and a subsequent p-value is obtained. 
+
+Building on foundations of a general linear hypothesis test, given a matrix $L$ of size $q \times p,$ where $q$ represents the number of estimable functions of $\beta,$ $$(L\hat\beta-L\beta)'[L(X'\widehat {Cov}(\hat\beta)X)^-L']^{-1}(L\hat\beta-L\beta)
+$$ is approximately $\chi^2(q)$ (Rencher and Schaalje, 2008). For a null hypothesis $H_0: L\beta = 0,$ the test statistic $G$ is $$(L\hat\beta)'[L(X'\widehat {Cov}(\hat\beta)X)^-L']^{-1}(L\hat\beta).$$ 
 
 Aside from using the Wald statistic, likelihood ratio tests are another method to make inferences about $\beta$, and involves comparing two models: (1) a nested model, which assumes that $\beta_k$ is 0, and (2) a full model, that allows $\beta_k$ to vary without constraint. The difference in the maximized log-likelihood of the two models, $\hat l_{reduced}$ and $\hat l_{full}$ are compared. This difference is represented by the statistic $$G^2 = 2(\hat l_{full}-\hat l_{reduced}),$$ which is compared to a chi-square distribution. The larger the difference, the more likely we are to conclude that the nested model is insufficient, and that $\beta$ is not zero. 
 While there are benefits to using the likelihood ratio test, the rest of this study will focus on method of using the Wald statistic. 
 
 ### Inference in small sample sizes 
-One crucial assumption when conducting inference using the ML estimate for $\beta$ is that the sample size is sufficient enough where it does not affect the estimate for $\Sigma_i.$ However, what happens when the sample size is too small? This causes $\hat\Sigma_i$ to underestimate the true variance, which in turn causes $\hat Cov(\hat\beta)$ to be too small since it relies on covariance estimator. If $\hat Cov(\hat\beta)$ is too small, the denominator of the test statistic is inflated, leading to increased Type I error. One can see that the bias of the covariance estimator weakens the entire foundation of estimation and inference. 
+One crucial assumption when conducting inference using the ML estimate for $\beta$ is that the sample size is sufficient enough where it does not affect the estimate for $\Sigma_i.$ However, what happens when the sample size is too small? This causes $\hat\Sigma_i$ to underestimate the true variance, which in turn causes $\widehat {\text{Cov}}(\hat\beta)$ to be too small since it relies on covariance estimator. If $\widehat {\text{Cov}}(\hat\beta)$ is too small, the denominator of the test statistic is inflated, leading to increased Type I error. One can see that the bias of the covariance estimator weakens the entire foundation of estimation and inference. 
 
-How can this be fixed? Both Satterthwaite and Kenward and Roger have proposed reductions to the degrees of freedom when conducting tests in order to account for this uncertainty of the covariance estimator. Kenward and Roger go one step forward to also adjust the test statistic itself.
+In very limited cases, where data are complete, balanced, and produce nonnegative values in REML estimation, is it possible to perform exact small-sample inferences. If $[L(X'\widehat {\text{Cov}}(\hat\beta)X)^-L']^{-1}$ with $g$ degrees of freedom can be rewritten such that $$ \frac{(L\hat\beta)'Q(L\hat\beta)}{g}\frac{w}{d} =  \frac{(L\hat\beta)'[L(X'\widehat {\text{Cov}}(\hat\beta)X)^-L']^{-1}(L\hat\beta)}{g},$$ where $w$ is a chi-square random variable with $d$ degrees of freedom. If so, this statistic is F-distributed. 
+
+However, in most scenarios, an approximate small-sample method must be used, in which the statistic $$F = \frac{(L\hat\beta)'[L(X'\widehat {\text{Cov}}(\hat\beta)X)^-L']^{-1}(L\hat\beta)}{g}$$ follows a distribution with numerator degrees of freedom $g,$ and unknown denominator degrees of freedom (DDF). There are several ways to approximate the DDF. 
+
+
+Both Satterthwaite and KR are proposed methods of reductions to the DDF when conducting tests in order to account for the uncertainty of the covariance estimator. The KR method goes one step forward to also adjust the test statistic itself.
 
 
 ## Satterthwaite 
 
 Sattherthwaite approximation was developed by Fai & Cornelius (1996), with the F statistic following the form:
 
-$$F = \frac{1}{l}\hat\beta'L'(L\hat Cov(\hat\beta) L')^{-1}L\hat\beta.$$ For the denominator degrees of freedom we perform spectral decomposition on $L'\hat Cov(\hat\beta) L=P'DP$, where $D$ is a diagonal matrix of eigenvalues and $P$ is an orthogonal matrix of eigenvectors. When $r$ represents the $r^{th}$ row of $P'L$, we have $v_r = \frac{2(d_r)^2}{g'_rWg_r},$ where $g_r$ is a gradient vector, $d_r$ is the $r^{th}$ diagonal element of D, and $W$ is the covariance matrix of $\hat\sigma^2.$ The denominator degrees of freedom is calculated by:
-$$\frac{2E}{E-l}$$, where $E = \sum_{r = 1}^{l} \frac{v_r}{v_r-2}I(v_r>2)$ if $E >l$, otherwise $DF = 1.$
+$$F = \frac{1}{l}\hat\beta'L'(L\widehat {\text{Cov}}(\hat\beta) L')^{-1}L\hat\beta.$$ For the denominator degrees of freedom we perform spectral decomposition on $L'\widehat {\text{Cov}}(\hat\beta) L=P'DP,$ where $D$ is a diagonal matrix of eigenvalues and $P$ is an orthogonal matrix of eigenvectors. When $r$ represents the $r^{th}$ row of $P'L$, we have $v_r = \frac{2(d_r)^2}{g'_rWg_r},$ where $g_r$ is a gradient vector, $d_r$ is the $r^{th}$ diagonal element of D, and $W$ is the covariance matrix of $\hat\sigma^2.$ The denominator degrees of freedom is calculated by:
+$$\frac{2E}{E-l},$$ where $E = \sum_{r = 1}^{l} \frac{v_r}{v_r-2}I(v_r>2)$ if $E >l$, otherwise $DF = 1.$
 
 When $l =1$ the KR and Satterthwaite approximation will produce the same denominator degrees of freedom. However, since the statistic used for the two methods are not the same, the results for inference will not be the same. It is important to note that both methods are only valid when using REML. 
 
 ## Kenward-Roger
 
-- What does this look like for a single coefficient? (Not L, not multiple contrasts)
+In Kenward-Roger (1997), a Wald statistic is proposed in the form of:
+$$F = 1/l(\hat\beta-\beta)^TL(L^T\hat\Phi_A L)^{-1}L^T(\hat\beta-\beta),$$ where $l$ represents the number of linear combinations of the elements in $\beta,$ $L$ is a fixed matrix, and $\hat\Phi_A$ is the adjusted estimator for the covariance matrix of $\hat\beta$. As mentioned previously, $\widehat {\text{Cov}}(\hat\beta)$ is a biased estimator of $\text{Cov}(\hat\beta)$ when samples are small, and underestimates. This adjusted estimator is broken down into $\hat\Phi_A = \widehat {\text {Cov}}(\hat\beta) + 2\hat\Lambda$, where $\hat\Lambda$ accounts for the amount of variation that was underestimated by the original estimator of covariance of $\hat\beta$. The value $\Lambda$ is approximated using a Taylor series expansion around $\sigma,$ to be $$\Lambda\text{Cov}(\hat\beta)[\sum_{i=1}^{r}\sum_{j=1}^{r}W_{ij}(Q_{ij}-P_i\text{Cov}(\hat\beta)P_j)]\text{Cov}(\hat\beta),$$ where
+$P_i = X^T\frac{\partial\Sigma^{-1}}{\partial\sigma_i}X$
+$Q_{ij} = X^T \frac{\partial\Sigma^{-1}}{\partial\sigma_i}\Sigma\frac{\partial\Sigma^{-1}}{\partial\sigma_j}X,$ and $W_{ij}$ is the $(i,j)$th element of $\text W = V[\hat\sigma].$
 
-Kenward-Roger (1997) propose a Wald statistic in the form of:
-$$F = 1/l(\hat\beta-\beta)^TL(L^T\hat\Phi_A L)^{-1}L^T(\hat\beta-\beta)$$ where $l$ represents the number of linear combinations of the elements in $\beta$, $L$ is a fixed matrix, and $\hat\Phi_A$ is the adjusted estimator for the covariance matrix of $\hat\beta$. As mentioned in chapter 1, $\hat Cov(\hat\beta)$ is a biased estimator of $Cov(\hat\beta)$ when samples are small, and underestimates. This adjusted estimator is broken down into $\hat\Phi_A = \hat Cov(\hat\beta) + 2\hat\Lambda$, where $\hat\Lambda$ accounts for the amount of variation that was underestimated by the original estimator of covariance of $\hat\beta$. This Wald statistic that uses the adjusted estimator is scaled in the form: $$F^* = \frac{m}{m+l-1}\lambda F,$$ where $m$ is the denominator degrees of freedom, and $\lambda$ is a scale factor. Using the expectation and variance of the Wald statistic, $F$ Both $m$ and $\lambda$ need to be calculated from the data, such that:
+This Wald statistic that uses the adjusted estimator is scaled in the form: $$F^* = \frac{m}{m+l-1}\lambda F,$$ where $m$ is the denominator degrees of freedom, and $\lambda$ is a scale factor. Using the expectation and variance of the Wald statistic, $F$ Both $m$ and $\lambda$ need to be calculated from the data, such that:
 
-$$m = 4 + \frac{l+2}{l\rho-1},$$, where $\rho = \frac{V[F]}{2E[F]^2}$ and 
-$\lambda = \frac{m}{E[F](m-2)}$. This statistic will ultimately follow an exact $F_{l,m}$ distribution. 
+$$m = 4 + \frac{l+2}{l\rho-1},$$ where $\rho = \frac{V[F]}{2E[F]^2}$ and 
+$\lambda = \frac{m}{E[F](m-2)}.$ This statistic will ultimately follow an exact $F_{l,m}$ distribution. 
 
+## Other methods
 
+*Residual DDF:* The DDF is calculated as $N-rank[X],$ where N is the total number of individuals in the dataset. This method is only suitable for data that are independent and identically distributed, so it is not typically used in linear mixed models.
+
+*Containment Method* (cite SAS)
+In the containment method, random effects that contain the fixed effect of interest are isolated. The smallest rank contribution to the $[X Z]$ matrix among these random effects becomes the DDF. If there are no effects found, then the DDF is equal to the residual DDF. 
+
+*Between-Within Method* 
+Schluchter and Elashoff (1990) propose a DDF method where residual DDF are calculated for both between-subject and within-subject subgroups. If there are changes in the fixed effect within subjects, then the within-subject DDF is used, otherwise the between-subject DDF is used. 
 
 ## Existing literature
 
@@ -103,12 +121,12 @@ Lastly, to account for measurement/sampling error, we assume that the error is r
 
 In a linear mixed effects model, the amount of random effects that will be modeled depends on the research question at hand. Here, we will examine both a random intercepts-only model, where the intercept of the model is assumed to have a random effects structure, as well as a random intercept and slope model, where in addition to intercept, the covariate time will also have a random effects structure. 
 
-We use the `lmerTest` package to fit the linear mixed effects model, and evaluate the significance of the covariate in the model. To evaluate significance, we compare both the KR and Satterthwaite method for adjusting denominator degrees of freedom and its resulting p-value.   Because the value of the covariate in our model is fixed at 0 in order to identify Type I error, we expect to see that the p-value for the covariate time to not be significant (p > .05) in an ideal scenario. 
+We use the `lmerTest` package to fit the linear mixed effects model, and evaluate the significance of the covariate in the model. To evaluate significance, we compare both the KR and Satterthwaite method for adjusting denominator degrees of freedom and its resulting p-value.   Because the value of the covariate in our model is fixed at 0 in order to identify Type I error, we expect to see that the p-value for the covariate time to not be significant ($p$ > .05) in an ideal scenario. 
 
 
 ## Evaluating and Results
 
-After performing 10,000 replications of each condition at a significance level of .05, we evaluate robustness using Bradley's criterion,which considers a test to robust if the empirical error rate is between .025 and .075. In the following section, we will compare Type I error rates produced from Kenward-Roger and Sattherthwaite methods, stratified by distribution and other manipulated parameters. 
+After performing 10,000 replications of each condition at a significance level of .05, we evaluate robustness using Bradley's criterion,which considers a test to robust if the empirical error rate is between .025 and .075. In the following section, we will compare Type I error rates produced from KR and Satterthwaite methods, stratified by distribution and other manipulated parameters. 
 
 
 

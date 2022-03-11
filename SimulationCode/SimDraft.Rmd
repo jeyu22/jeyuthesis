@@ -11,6 +11,7 @@ library(tidyverse)
 library(MASS)
 library(moments)
 library(SimMultiCorrData)
+library(arm)
 options(scipen = 99999)
 library(PearsonDS)
 library(lme4)
@@ -38,7 +39,12 @@ Intercept only model
 intercept_model <- lmer(bmi ~  decisions_eat +  run_away + cig + alcohol + physical_fight + real_age + (1|AID) + wave, child_data) 
 summary(intercept_model)
 
-tidy(anova(intercept_model))
+tidy(anova(intercept_model), ddf = "Kenward-Roger")
+tidy(anova(intercept_model), ddf = "Satterthwaite")
+vc <- data.frame(VarCorr(intercept_model))
+var_rand_intercept<- vc[1,4]
+var_rand_residual <- vc[2,4]
+ranef(intercept_model)
 ```
 
 Intercept and slope model
@@ -47,6 +53,15 @@ Intercept and slope model
 intercept_slope_model <- lmer(bmi ~  decisions_eat +  run_away + cig + alcohol + physical_fight + real_age + wave + ( wave |AID), child_data) 
 summary(intercept_slope_model)
 print(VarCorr(intercept_slope_model),comp=c("Variance","Std.Dev."),digits=2)
+
+str(summary(intercept_slope_model))
+
+se.ranef(intercept_slope_model)
+vc <- data.frame(VarCorr(intercept_slope_model))
+var_rand_intercept<- vc[1,4]
+var_rand_slope <- vc[2,4]
+var_rand_residual <- vc[4,4]
+
 ```
 
 # SimMultiCorrData
