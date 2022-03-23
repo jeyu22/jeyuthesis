@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.12)  25 FEB 2022 12:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.12)  23 MAR 2022 18:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -545,15 +545,8 @@ Package: titlesec 2021/07/05 v2.14 Sectioning titles
 \titlewidth=\dimen197
 \titlewidthlast=\dimen198
 \titlewidthfirst=\dimen199
-) (/Users/jessicayu/Library/TinyTeX/texmf-dist/tex/latex/framed/framed.sty
-Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
-\OuterFrameSep=\skip81
-\fb@frw=\dimen256
-\fb@frh=\dimen257
-\FrameRule=\dimen258
-\FrameSep=\dimen259
 )
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 25
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 21
 3.
 (/Users/jessicayu/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
@@ -566,24 +559,24 @@ File: l3backend-pdftex.def 2022-02-07 L3 backend support: PDF output (pdfTeX)
 ) (./firstName-lastName_StatThesis.aux)
 \openout1 = `firstName-lastName_StatThesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 253.
-LaTeX Font Info:    ... okay on input line 253.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 253.
-LaTeX Font Info:    ... okay on input line 253.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 253.
-LaTeX Font Info:    ... okay on input line 253.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 253.
-LaTeX Font Info:    ... okay on input line 253.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 253.
-LaTeX Font Info:    ... okay on input line 253.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 253.
-LaTeX Font Info:    ... okay on input line 253.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 253.
-LaTeX Font Info:    ... okay on input line 253.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 253.
-LaTeX Font Info:    ... okay on input line 253.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 253.
-LaTeX Font Info:    ... okay on input line 253.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 213.
+LaTeX Font Info:    ... okay on input line 213.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 213.
+LaTeX Font Info:    ... okay on input line 213.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 213.
+LaTeX Font Info:    ... okay on input line 213.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 213.
+LaTeX Font Info:    ... okay on input line 213.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 213.
+LaTeX Font Info:    ... okay on input line 213.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 213.
+LaTeX Font Info:    ... okay on input line 213.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 213.
+LaTeX Font Info:    ... okay on input line 213.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 213.
+LaTeX Font Info:    ... okay on input line 213.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 213.
+LaTeX Font Info:    ... okay on input line 213.
 
 (/Users/jessicayu/Library/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-ba
 se.sty
@@ -596,7 +589,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring ON on input line 253.
+Package hyperref Info: Link coloring ON on input line 213.
 (/Users/jessicayu/Library/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 (/Users/jessicayu/Library/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty
@@ -608,9 +601,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count310
 )
-LaTeX Info: Redefining \ref on input line 253.
-LaTeX Info: Redefining \pageref on input line 253.
-LaTeX Info: Redefining \nameref on input line 253.
+LaTeX Info: Redefining \ref on input line 213.
+LaTeX Info: Redefining \pageref on input line 213.
+LaTeX Info: Redefining \nameref on input line 213.
 (./firstName-lastName_StatThesis.out) (./firstName-lastName_StatThesis.out)
 \@outlinefile=\write4
 \openout4 = `firstName-lastName_StatThesis.out'.
@@ -701,7 +694,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.292 
+l.252 
        [1
 
 ]
@@ -711,7 +704,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.303 
+l.263 
        [2] [3]
 Underfull \vbox (badness 2096) has occurred while \output is active []
 
@@ -725,7 +718,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [8]
-Overfull \hbox (2.48326pt too wide) detected at line 382
+Overfull \hbox (2.48326pt too wide) detected at line 342
 \OML/lmm/m/it/12 E\OT1/lmr/m/n/12 (\OML/lmm/m/it/12 Y[]\OT1/lmr/m/n/12 ) = \OML
 /lmm/m/it/12 ^^L[] \OT1/lmr/m/n/12 + \OML/lmm/m/it/12 ^^L[]Time[] \OT1/lmr/m/n/
 12 + \OML/lmm/m/it/12 ^^L[]Time[] \OT1/lmr/m/n/12 + \OML/lmm/m/it/12 ^^L[]Group
@@ -761,82 +754,120 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [23] [24]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 5
-51.
+11.
 (/Users/jessicayu/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [25] [26]
+) [25] [26] [27]
+Overfull \hbox (7.01553pt too wide) in paragraph at lines 579--596
+ [][] 
+ []
+
+<firstName-lastName_StatThesis_files/figure-latex/unnamed-chunk-6-1.pdf, id=504
+, 469.755pt x 325.215pt>
+File: firstName-lastName_StatThesis_files/figure-latex/unnamed-chunk-6-1.pdf Gr
+aphic file (type pdf)
+<use firstName-lastName_StatThesis_files/figure-latex/unnamed-chunk-6-1.pdf>
+Package pdftex.def Info: firstName-lastName_StatThesis_files/figure-latex/unnam
+ed-chunk-6-1.pdf  used on input line 601.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Overfull \hbox (36.13387pt too wide) in paragraph at lines 601--601
+ [] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[28] [29 <./firstName-lastName_StatThesis_files/figure-latex/unnamed-chunk-6-1.
+pdf>] [30] [31]
+Overfull \hbox (276.4649pt too wide) in paragraph at lines 617--650
+[][] 
+ []
+
+[32
+
+] [33
+
+]
+Overfull \hbox (254.88834pt too wide) in paragraph at lines 656--693
+[][] 
+ []
+
+[34
+
+]
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 6
+99.
+(/Users/jessicayu/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+) [35
+
+] [36
+
+]
 Chapter 3.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[27
-
-] [28]
+[37] [38]
 Chapter 4.
 
-LaTeX Warning: Reference `tab:maxdelays' on page 29 undefined on input line 705
+LaTeX Warning: Reference `tab:maxdelays' on page 39 undefined on input line 829
 .
 
-[29
+[39
 
-] [30]
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 717.
-<figures/amherst.png, id=491, 475.7775pt x 475.7775pt>
+] [40]
+<figures/amherst.png, id=589, 475.7775pt x 475.7775pt>
 File: figures/amherst.png Graphic file (type png)
 <use figures/amherst.png>
-Package pdftex.def Info: figures/amherst.png  used on input line 722.
+Package pdftex.def Info: figures/amherst.png  used on input line 841.
 (pdftex.def)             Requested size: 216.81pt x 216.81303pt.
-[31
+[41
 
- <./figures/amherst.png>] [32]
+ <./figures/amherst.png>] [42]
 
-LaTeX Warning: Reference `fig:delaysboxplot' on page 33 undefined on input line
- 742.
+LaTeX Warning: Reference `fig:delaysboxplot' on page 43 undefined on input line
+ 853.
 
-[33
+[43
 
 ]
-<figures/subdivision.pdf, id=513, 220.825pt x 89.33376pt>
+<figures/subdivision.pdf, id=610, 220.825pt x 89.33376pt>
 File: figures/subdivision.pdf Graphic file (type pdf)
 <use figures/subdivision.pdf>
-Package pdftex.def Info: figures/subdivision.pdf  used on input line 751.
+Package pdftex.def Info: figures/subdivision.pdf  used on input line 862.
 (pdftex.def)             Requested size: 165.61833pt x 67.00014pt.
 File: figures/subdivision.pdf Graphic file (type pdf)
 <use figures/subdivision.pdf>
-Package pdftex.def Info: figures/subdivision.pdf  used on input line 764.
+Package pdftex.def Info: figures/subdivision.pdf  used on input line 875.
 (pdftex.def)             Requested size: 220.82445pt x 89.33353pt.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 775.
+(Font)              <10> on input line 886.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 775.
+(Font)              <7> on input line 886.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 775.
-[34
+(Font)              <5> on input line 886.
+[44
 
- <./figures/subdivision.pdf>] [35]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 7
-92.
-(/Users/jessicayu/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
-File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
+ <./figures/subdivision.pdf>] [45]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[36] [37] [38
+[46] [47] [48
 
-] [39] [40
+] [49] [50
 
 ]
 Appendix A.
-[41] [42
+[51] [52
 
 ]
 Appendix B.
-[43] [44
+[53] [54
 
-] [45] [46
+] [55] [56
 
-] [47
+] [57
 
 ] (./firstName-lastName_StatThesis.aux)
 
@@ -844,23 +875,23 @@ LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `firstName-lastName_StatThesis.out' has not c
 hanged.
-(rerunfilecheck)             Checksum: 462C8709C000DEDDE10EC47EB0BDA953;7757.
+(rerunfilecheck)             Checksum: 7A25917809DAF7F9939769EC74C5F5F5;9169.
  )
 (\end occurred inside a group at level 1)
 
-### semi simple group (level 1) entered at line 255 (\begingroup)
+### semi simple group (level 1) entered at line 215 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 14749 strings out of 480238
- 240486 string characters out of 5894762
- 520766 words of memory out of 5000000
- 32223 multiletter control sequences out of 15000+600000
- 536619 words of font info for 84 fonts, out of 8000000 for 9000
+ 14695 strings out of 480238
+ 240301 string characters out of 5894762
+ 526833 words of memory out of 5000000
+ 32145 multiletter control sequences out of 15000+600000
+ 535982 words of font info for 82 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,12n,69p,1197b,621s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,12n,69p,1197b,649s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/Users/jessicayu/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm
-/lm-ts1.enc}{/Users/jessicayu/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-
-ec.enc}{/Users/jessicayu/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.en
+/lm-ec.enc}{/Users/jessicayu/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-t
+s1.enc}{/Users/jessicayu/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.en
 c}{/Users/jessicayu/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc
 }{/Users/jessicayu/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}
 {/Users/jessicayu/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}<
@@ -880,14 +911,12 @@ ry/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb></Users/jessicayu/Librar
 y/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></Users/jessicayu/Library
 /TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></Users/jessicayu/Library/T
 inyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></Users/jessicayu/Library/Tin
-yTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></Users/jessicayu/Library/Tiny
-TeX/texmf-dist/fonts/type1/public/lm/lmtt12.pfb></Users/jessicayu/Library/TinyT
-eX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb></Users/jessicayu/Library/TinyT
-eX/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on firstName-lastName_StatThesis.pdf (61 pages, 480064 bytes).
+yTeX/texmf-dist/fonts/type1/public/lm/lmtt12.pfb></Users/jessicayu/Library/Tiny
+TeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
+Output written on firstName-lastName_StatThesis.pdf (71 pages, 459142 bytes).
 PDF statistics:
- 784 PDF objects out of 1000 (max. 8388607)
- 663 compressed objects within 7 object streams
- 165 named destinations out of 1000 (max. 500000)
- 387 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 880 PDF objects out of 1000 (max. 8388607)
+ 750 compressed objects within 8 object streams
+ 193 named destinations out of 1000 (max. 500000)
+ 448 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -153,46 +153,6 @@ Use this space to thank those who have helped you in the thesis process (profess
 
 % Formatting R code display
 % Syntax highlighting #22
-  \usepackage{color}
-  \usepackage{fancyvrb}
-  \newcommand{\VerbBar}{|}
-  \newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
-  \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
-  % Add ',fontsize=\small' for more characters per line
-  \usepackage{framed}
-  \definecolor{shadecolor}{RGB}{248,248,248}
-  \newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
-  \newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
-  \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-  \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
-  \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-  \newcommand{\BuiltInTok}[1]{#1}
-  \newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-  \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
-  \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-  \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-  \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
-  \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
-  \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-  \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-  \newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
-  \newcommand{\ExtensionTok}[1]{#1}
-  \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-  \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-  \newcommand{\ImportTok}[1]{#1}
-  \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-  \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
-  \newcommand{\NormalTok}[1]{#1}
-  \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
-  \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
-  \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
-  \newcommand{\RegionMarkerTok}[1]{#1}
-  \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-  \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-  \newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-  \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-  \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-  \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 
 % Formatting R code: set baselinestretch = 1.5 for double-spacing
 \DefineVerbatimEnvironment{Highlighting}{Verbatim}{
@@ -518,7 +478,7 @@ Schluchter and Elashoff (1990) propose a DDF method where residual DDF are calcu
 \hypertarget{existing-literature}{%
 \section{Existing literature}\label{existing-literature}}
 
-Both methods are frequently used and compared, and its performance is highly dependent on the structure of the data.
+Both KR and Satterthwaite methods are frequently used and compared, and its performance is highly dependent on the structure of the data.
 A majority of studies focusing on DF method comparison in mixed models use split-plot design, as small sample sizes are more common in agricultural and biological fields. Schaalje, et al.~(2002) found that in comparison to other degrees of freedom-adjusting methods like Satterthaite, KR was the most suitable for small sample data. Using factors such as imbalance, covariance structure, and sample size, they demonstrated that the KR method produced simulated Type I error rates closest to target values. However, their focus was primarily on complexity of covariance structure, and they found that more complicated structures, such as ante-dependence, produced inflated error rates when coupled with small sample size. Arnau (2009) found that KR produces more robust results compared to Satterthwaite and Between-Within approaches, especially in cases where larger sample size was paired with covariance matricies with larger values.
 
 These studies are conducted with data drawn from normal distributions. However, real-world data used in fields such as psychometrics have distributions that are nonnormal. In Arnau et. al's 2012 paper, the authors extend their evaluation of KR for split-plot data that follow a log-normal or exponential distribution, and for when the kurtosis and skewness values are manipulated. They found that, compared to normal distribution, the test is less robust for log-normal distributions, but that there is no signficant difference in performance between exponential and normal distributions. In addition, they suggest that skewness has a bigger effect on robustness of KR compared to kurtosis.
@@ -536,17 +496,17 @@ In this study, we aim to expand on previous simulations, evaluating how methods 
 \hypertarget{generating-data-sample-size}{%
 \subsection{Generating data: Sample size}\label{generating-data-sample-size}}
 
-In this study, we consider a linear mixed effects model with only one discrete covariate, time. The range of possible values that time takes on depends on how many number of measurements per individual, which can be 4 or 8. The number of individuals take on possible values of 10, 18, and 26. These were chosen to reflect possible samples that would not hold under the common assumption that the sample size must be at least 30 for it to be considered sufficient enough for the Central Limit Theorem to hold.
+In this study, we consider a linear mixed effects model with two discrete covariates: time and treatment. The range of possible values that time takes on depends on how many number of measurements per individual, which can be 4 or 8. The treatment covariate takes on values of 0 or 1, and each assigned to half of the sample. The number of individuals take on possible values of 10, 18, and 26. These were chosen to reflect possible samples that would not hold under the common assumption that the sample size must be at least 30 for it to be considered sufficient enough for the Central Limit Theorem to hold.
 
 \hypertarget{generating-data-fixed-effects}{%
 \subsection{Generating data: Fixed Effects}\label{generating-data-fixed-effects}}
 
-We have two fixed effects: the intercept value and the covariate time. The intercept, an arbitrary value, is set at 3.1. Time has a value of 0, in order to evaluate Type I effects.
+We have three fixed effects: the intercept value and the covariates time and treatment. The intercept, an arbitrary value, is set at 3.1. Time and treatment have a value of 0, and the Type I error rates of treatment will be evaluated.
 
 \hypertarget{generating-data-random-effects}{%
 \subsection{Generating data: Random effects}\label{generating-data-random-effects}}
 
-In order to generate a continuous response variable that is nonnormal, we generate our random effects values from nonnormal distributions, which are either exponential or lognormal. Previous research shows that many data used in social and health sciences follow nonnormal distributions (Limpert, Stahel, \& Abbt, 2001). More specifically many follow lognormal distributions, such as age of onset of Alzheimer's disease (Horner, 1987), or exponential distribution to model survival data. In order to cover a wide range of exponential and lognormal distributions, parameters were chosen to model distinct distributions. For exponential distributions, lambda values of 4, .2, and .9 were used, (DO I NEED TO INSERT GRAPH?). For lognormal distribution, mean and standard deviation parameter combinations were (0,.25), (.5,.1),(1,.5), and (0,.9).
+In order to generate a continuous response variable that is nonnormal, we generate our random effects values from nonnormal distributions, which are either exponential or lognormal. Previous research shows that many data used in social and health sciences follow nonnormal distributions (Limpert, Stahel, \& Abbt, 2001). More specifically many follow lognormal distributions, such as age of onset of Alzheimer's disease (Horner, 1987), or exponential distribution to model survival data. In order to cover a wide range of exponential and lognormal distributions, parameters were chosen to model distinct distributions. For exponential distributions, lambda values of .2, and .9 were used, (DO I NEED TO INSERT GRAPH?). For lognormal distribution, mean and standard deviation parameter combinations were (0,.25), and (1,.5).
 
 Using the \texttt{SimMultiCorrData} package, we derive kurtosis and skewness values based on the distributions specified above. The table below shows the range of skewness and kurtosis values for the Lognormal distribution. In the intercept only model, only one non-normal continuous variable is generated for the random effect, so the function \texttt{SimMultiCorrData::nonnormvar1} is used. Values are generated through Fleishman's method for simulating nonnormal data by matching moments using mean, variance, skew, and kurtosis and then transforming normally distributed values.
 
@@ -572,8 +532,172 @@ We use the \texttt{lmerTest} package to fit the linear mixed effects model, and 
 \hypertarget{evaluating-and-results}{%
 \section{Evaluating and Results}\label{evaluating-and-results}}
 
-After performing 10,000 replications of each condition at a significance level of .05, we evaluate robustness using Bradley's criterion,which considers a test to robust if the empirical error rate is between .025 and .075. In the following section, we will compare Type I error rates produced from KR and Satterthwaite methods, stratified by distribution and other manipulated parameters.
+After performing 1,000 replications of each condition at a significance level of .05, we evaluate robustness using Bradley's criterion,which considers a test to robust if the empirical error rate is between .025 and .075. In the following section, we will compare Type I error rates produced from KR and Satterthwaite methods as well as t-as-z and using the standard DF formula, further stratified by distribution and other manipulated parameters. T-as-z and standard DF formula are not adjustments to account for smaller sample sizes, and are used as comparison to Satterthwaite and KR, since they are expected to be anti-conservative.
 
+\hypertarget{error-rate}{%
+\subsection{Error rate}\label{error-rate}}
+\begin{table}
+\centering
+\begin{tabular}[t]{l|r}
+\hline
+KR\_err & 0.047\\
+\hline
+S\_err & 0.055\\
+\hline
+Z\_err & 0.083\\
+\hline
+t\_err & 0.076\\
+\hline
+\end{tabular}
+\end{table}
+Average Type I error rates are shown in (TABLE 1?) across all simulations. Despite a wide range of distributions, performance of methods align closely with previous studies examining only normal populations (Luke (2017)). T-as-z and standard degrees of freedom methods are much more anti-conservative compared to KR and Satterthwaite at these smaller sample sizes. Type I error rates are closest to .05 when using KR and Satterthwaite. After confirming that the simulation results follow similar patterns to what is expected, we proceed to examining more specific differences in performance of these methods among the nonnormal distributions.
+
+\hypertarget{error-rate-by-distribution-skewnesskurtosis}{%
+\subsection{Error rate by distribution / skewness/kurtosis}\label{error-rate-by-distribution-skewnesskurtosis}}
+\begin{table}
+\centering
+\begin{tabular}[t]{l|r|r|r|r|r|r}
+\hline
+distribution & skew & kurtosis & KR\_type1 & S\_type1 & Z\_type1 & t\_type1\\
+\hline
+Gaussian & 0.000 & 0.0 & 0.031 & 0.038 & 0.088 & 0.084\\
+\hline
+Lognormal & 0.778 & 1.1 & 0.039 & 0.050 & 0.082 & 0.070\\
+\hline
+Lognormal & 1.750 & 5.9 & 0.051 & 0.065 & 0.073 & 0.072\\
+\hline
+Exponential & 2.000 & 6.0 & 0.057 & 0.060 & 0.085 & 0.077\\
+\hline
+\end{tabular}
+\end{table}
+(TABLE 2?) shows Type I error rates for each DF method by distribution. Across all distributions, t-as-z and standard DF produce the highest Type I error rates compared to KR and Satterthwaite. However, they do perform relatively better and produce less anti-conservative rates in nonnormal distributions compared to the normal distribution. KR and Satterthwaite methods are overall more robust and produce Type I error rates closer to .05; in comparison to Satterthwaite, KR appears to be more conservative, with an error rate of .03 for the normal distribution compared to .04 for Satterthwaite. Even as skewness and kurtosis increases, KR produces error rates that are slightly more conservative: for a lognormal distribution with skewness of 1.75 and kursosis of 5.9, the error rate for KR is .05 and .07 for Satterthwaite.
+
+\hypertarget{error-rate-by-distribution-number-of-measurements}{%
+\subsection{Error rate by distribution + number of measurements}\label{error-rate-by-distribution-number-of-measurements}}
+\begin{table}
+\centering
+\begin{tabular}[t]{l|r|r|r|r|r}
+\hline
+distribution & number\_measurements & KR\_type1 & S\_type1 & Z\_type1 & t\_type1\\
+\hline
+Exponential & 4 & 0.058 & 0.060 & 0.084 & 0.078\\
+\hline
+Exponential & 8 & 0.055 & 0.061 & 0.087 & 0.076\\
+\hline
+Gaussian & 4 & 0.028 & 0.032 & 0.087 & 0.082\\
+\hline
+Gaussian & 8 & 0.033 & 0.043 & 0.088 & 0.087\\
+\hline
+Lognormal & 4 & 0.048 & 0.061 & 0.082 & 0.072\\
+\hline
+Lognormal & 8 & 0.042 & 0.054 & 0.073 & 0.070\\
+\hline
+\end{tabular}
+\end{table}
+Increasing the number of measurements per individual is generally thought to increase robustness, but sensitivity of number of measurements across methods may vary. (TABLE 3?) captures the Type I error rates stratified by distribution and number of measurements. It appears that t-as-z and standard DF methods are not sensitive to increases in measurement, as Type I error rates do not significantly improve from 4 measurements to 8. On the other hand, both KR and Satterthwaite see a slight increase in robustness as a result of increasing measurements, with more significant improvements in lognormal and normal distributions.
+
+\hypertarget{type-1-error-rate-by-number-of-subjects}{%
+\subsection{Type 1 error rate, by number of subjects}\label{type-1-error-rate-by-number-of-subjects}}
+\begin{center}\includegraphics{firstName-lastName_StatThesis_files/figure-latex/unnamed-chunk-6-1} \end{center}
+
+Apart from number of measurements, sample size also plays a crucial role in inference. Type I error rates across 3 different sample sizes and distributions are displayed in (FIGURE 1). The relationship between sample size and robustness differs across distributions and methods. Similar to examining other parameters, t-as-z and standard DF have a significantly higher Type I error rate regardless of distribution or sample size when comparing to KR or Satterthwaite methods.
+
+In the normal distribution, we see a linear relationship between sample size and Type error rate across all 4 methods; this relationship follows common knowledge that increasing the sample size will increase robustness. However, in the case of lognormal and exponential distribution, a sample size of 18 tends to yield less conservative error rates compared to a sample of size 10. It may be plausible that at sizes this small, an additional handful of individuals in the sample may not contribute significantly to improving robustness in these nonnormal distributions.
+
+While KR and Satterthwaite adjustments typically both perform better in comparison to the other two methods, there are slight differences between them in terms of sample size. In samples of size 10, KR is significantly more conservative and produces error rates further from .05 compared to Satterthwaite. However, the difference decreases once the sample size is 26, with KR being a slightly more robust method once the sample size has increased.
+
+\hypertarget{kr-vs-satterthwaite}{%
+\subsection{KR vs Satterthwaite}\label{kr-vs-satterthwaite}}
+
+Comparing performance across all 4 methods has yielded signficant evidence that KR and Satterthwaite are superior methods when using linear mixed models on small samples.@luke\_evaluating\_2017 suggests that both KR and Satterthwaite are comparable solutions to obtain adequate Type I error. The following table (TABLE 4?) aims to narrow in on differences in performance between the two methods. Looking specifically at the effects of kurtosis and skewness, both KR and Satterthwaite methods tend to produce more anti-conservative error rates in nonnormal distributions; however, in contrast to (TABLE 2?), we do not see a smooth pattern of increase in Type I error rate as a result of increased kurtosis and skewness when also looking at sample size.
+While in a sample of size 10 the KR method seems to be increasingly anti-conservative as skewness and kurtosis increase, error rate remains quite stable in samples of size 26 across varying lognormal and exponential distributions. On the other hand, it appears that the Satterthwaite method is more sensitive to changes in skewness and kurtosis regardless of sample size.
+
+Accounting for all other parameters such as complexity of linear model, sample size, and distribution, it appears that the KR method is more robust and conservative in comparison to Satterthwaite.
+\begin{landscape}
+\begin{tabular}[t]{r|r|l|r|r|r|r|r|r}
+\hline
+\multicolumn{3}{c|}{ } & \multicolumn{6}{c}{Sample Size} \\
+\cline{4-9}
+\multicolumn{3}{c|}{ } & \multicolumn{2}{c|}{10} & \multicolumn{2}{c|}{18} & \multicolumn{2}{c}{26} \\
+\cline{4-5} \cline{6-7} \cline{8-9}
+\multicolumn{3}{c|}{ } & \multicolumn{1}{c|}{Random Intercept} & \multicolumn{1}{c|}{Random Slope} & \multicolumn{1}{c|}{Random Intercept} & \multicolumn{1}{c|}{Random Slope} & \multicolumn{1}{c|}{Random Intercept} & \multicolumn{1}{c}{Random Slope} \\
+\cline{4-4} \cline{5-5} \cline{6-6} \cline{7-7} \cline{8-8} \cline{9-9}
+skew & kurtosis & DF\_method & random\_intercept\_10 & random\_slope\_10 & random\_intercept\_18 & random\_slope\_18 & random\_intercept\_26 & random\_slope\_26\\
+\hline
+\multicolumn{9}{l}{\textbf{Normal}}\\
+\hline
+\hspace{1em}0.000 & 0.0 & KR\_t1err & 0.020 & 0.015 & 0.03 & 0.040 & 0.040 & 0.040\\
+\hline
+\hspace{1em}0.000 & 0.0 & S\_t1err & 0.020 & 0.055 & 0.03 & 0.040 & 0.040 & 0.040\\
+\hline
+\multicolumn{9}{l}{\textbf{Lognormal}}\\
+\hline
+\hspace{1em}0.778 & 1.1 & KR\_t1err & 0.020 & 0.030 & 0.04 & 0.050 & 0.035 & 0.060\\
+\hline
+\hspace{1em}0.778 & 1.1 & S\_t1err & 0.020 & 0.050 & 0.04 & 0.080 & 0.035 & 0.075\\
+\hline
+\hspace{1em}1.750 & 5.9 & KR\_t1err & 0.025 & 0.040 & 0.02 & 0.115 & 0.050 & 0.055\\
+\hline
+\hspace{1em}1.750 & 5.9 & S\_t1err & 0.025 & 0.060 & 0.02 & 0.150 & 0.050 & 0.085\\
+\hline
+\multicolumn{9}{l}{\textbf{Exponential}}\\
+\hline
+\hspace{1em}2.000 & 6.0 & KR\_t1err & 0.028 & 0.050 & 0.04 & 0.108 & 0.058 & 0.058\\
+\hline
+\hspace{1em}2.000 & 6.0 & S\_t1err & 0.028 & 0.068 & 0.04 & 0.108 & 0.058 & 0.062\\
+\hline
+\end{tabular}
+\end{landscape}
+\hypertarget{kr-only}{%
+\subsection{KR Only}\label{kr-only}}
+
+While KR method appears to be the most robust adjustment, (TABLE 5?) depicts its relatively variable performance across different conditions. Careful consideration must be used when conducting inference, and if possible, an increase in both sample size and number of measurements appears to ensure more robust results.
+\begin{landscape}
+\begin{tabular}[t]{l|r|r|r|r|r|r|r|r|r}
+\hline
+\multicolumn{2}{c|}{ } & \multicolumn{8}{c}{Sample Size} \\
+\cline{3-10}
+\multicolumn{4}{c|}{ } & \multicolumn{2}{c|}{10} & \multicolumn{2}{c|}{18} & \multicolumn{2}{c}{26} \\
+\cline{5-6} \cline{7-8} \cline{9-10}
+\multicolumn{4}{c|}{ } & \multicolumn{1}{c|}{Random Intercept} & \multicolumn{1}{c|}{Random Slope} & \multicolumn{1}{c|}{Random Intercept} & \multicolumn{1}{c|}{Random Slope} & \multicolumn{1}{c|}{Random Intercept} & \multicolumn{1}{c}{Random Slope} \\
+\cline{5-5} \cline{6-6} \cline{7-7} \cline{8-8} \cline{9-9} \cline{10-10}
+params & number\_measurements & skew & kurtosis & 10\_FALSE & 10\_TRUE & 18\_FALSE & 18\_TRUE & 26\_FALSE & 26\_TRUE\\
+\hline
+\multicolumn{10}{l}{\textbf{Exponential}}\\
+\hline
+\hspace{1em}0.2 & 4 & 2.000 & 6.0 & 0.05 & 0.05 & 0.01 & 0.07 & 0.07 & 0.07\\
+\hline
+\hspace{1em}0.2 & 8 & 2.000 & 6.0 & 0.04 & 0.06 & 0.04 & 0.12 & 0.02 & 0.04\\
+\hline
+\hspace{1em}0.9 & 4 & 2.000 & 6.0 & 0.01 & 0.03 & 0.03 & 0.14 & 0.12 & 0.05\\
+\hline
+\hspace{1em}0.9 & 8 & 2.000 & 6.0 & 0.01 & 0.06 & 0.08 & 0.10 & 0.02 & 0.07\\
+\hline
+\multicolumn{10}{l}{\textbf{Normal}}\\
+\hline
+\hspace{1em}0,0.2 & 4 & 0.000 & 0.0 & 0.02 & 0.01 & 0.02 & 0.07 & 0.04 & 0.01\\
+\hline
+\hspace{1em}0,0.2 & 8 & 0.000 & 0.0 & 0.02 & 0.02 & 0.04 & 0.01 & 0.04 & 0.07\\
+\hline
+\multicolumn{10}{l}{\textbf{Lognormal}}\\
+\hline
+\hspace{1em}0,0.25 & 4 & 0.778 & 1.1 & 0.00 & 0.02 & 0.04 & 0.10 & 0.04 & 0.07\\
+\hline
+\hspace{1em}0,0.25 & 8 & 0.778 & 1.1 & 0.04 & 0.04 & 0.04 & 0.00 & 0.03 & 0.05\\
+\hline
+\hspace{1em}1,0.5 & 4 & 1.750 & 5.9 & 0.03 & 0.02 & 0.00 & 0.09 & 0.06 & 0.11\\
+\hline
+\hspace{1em}1,0.5 & 8 & 1.750 & 5.9 & 0.02 & 0.06 & 0.04 & 0.14 & 0.04 & 0.00\\
+\hline
+\end{tabular}
+\end{landscape}
+\hypertarget{discussion}{%
+\section{Discussion}\label{discussion}}
+\begin{itemize}
+\tightlist
+\item
+  difference graphs??
+\end{itemize}
 \hypertarget{math-sci}{%
 \chapter{Mathematics and Science}\label{math-sci}}
 
@@ -712,11 +836,6 @@ We can also create a link to the table by doing the following: Table \ref{tab:in
 If your thesis has a lot of figures, \emph{R Markdown} might behave better for you than that other word processor. One perk is that it will automatically number the figures accordingly in each chapter. You'll also be able to create a label for each figure, add a caption, and then reference the figure in a way similar to what we saw with tables earlier. If you label your figures, you can move the figures around and \emph{R Markdown} will automatically adjust the numbering for you. No need for you to remember! So that you don't have to get too far into LaTeX to do this, a couple \textbf{R} functions have been created for you to assist. You'll see their use below.
 
 In the \textbf{R} chunk below, we will load in a picture stored as \texttt{amherst.png} in our main directory. We then give it the caption of ``Amherst logo'', the label of ``amherstlogo'', and specify that this is a figure. Make note of the different \textbf{R} chunk options that are given in the R Markdown file (not shown in the knitted document).
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{include_graphics}\NormalTok{(}\DataTypeTok{path =} \StringTok{"figures/amherst.png"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
 \begin{figure}
 
 {\centering \includegraphics[width=0.5\linewidth]{figures/amherst} 
@@ -730,15 +849,7 @@ Here is a reference to the Amherst logo: Figure \ref{fig:amherstlogo}. Note the 
 \clearpage
 
 Below we will investigate how to save the output of an \textbf{R} plot and label it in a way similar to that done above. Recall the \texttt{flights} dataset from Chapter \ref{rmd-basics}. (Note that we've shown a different way to reference a section or chapter here.) We will next explore a bar graph with the mean flight departure delays by airline from Portland for 2014. Note also the use of the \texttt{scale} parameter which is discussed on the next page.
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{#if(!exists("flights")) flights <- read.csv("data/flights.csv")}
-\CommentTok{#flights %>% group_by(carrier) %>%}
- \CommentTok{# summarize(mean_dep_delay = mean(dep_delay)) %>%}
- \CommentTok{# ggplot(aes(x = carrier, y = mean_dep_delay)) +}
- \CommentTok{# geom_bar(position = "identity", stat = "identity", fill = "red")}
-\end{Highlighting}
-\end{Shaded}
+
 Here is a reference to this image: Figure \ref{fig:delaysboxplot}.
 
 A table linking these carrier codes to airline names is available at \url{https://github.com/ismayc/pnwflights14/blob/master/data/airlines.csv}.
@@ -863,6 +974,9 @@ Angel, E. (2001a). \emph{Batch-file computer graphics : A bottom-up approach wit
 
 \leavevmode\hypertarget{ref-angel2002a}{}%
 Angel, E. (2001b). \emph{Test second book by angel}. Boston, MA: Wesley Addison Longman.
+
+\leavevmode\hypertarget{ref-luke_evaluating_2017}{}%
+Luke, S. G. (2017). Evaluating significance in linear mixed-effects models in r. \emph{Behavior Research Methods}, \emph{49}(4), 1494--1502. \url{http://doi.org/10.3758/s13428-016-0809-y}
 
 \leavevmode\hypertarget{ref-Molina1994}{}%
 Molina, S. T., \& Borkovec, T. D. (1994). The Penn State worry questionnaire: Psychometric properties and associated characteristics. In G. C. L. Davey \& F. Tallis (Eds.), \emph{Worrying: Perspectives on theory, assessment and treatment} (pp. 265--283). New York: Wiley.
