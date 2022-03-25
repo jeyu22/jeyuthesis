@@ -1,69 +1,37 @@
-# Mathematics and Science {#math-sci}
-
-## Math
-
-\TeX\ is the best way to typeset mathematics. Donald Knuth designed \TeX\ when he got frustrated at how long it was taking the typesetters to finish his book, which contained a lot of mathematics.  One nice feature of _R Markdown_ is its ability to read LaTeX code directly.
-
-If you are doing a thesis that will involve lots of math, you will want to read the following section.
+# Application {#math-sci}
 
 
-
-$$
-\sum_{j=1}^n (\delta\theta_j)^2 \leq 
-\frac{\beta_i^2}{\delta_i^2 + \rho_i^2}
-\left[ 2\rho_i^2 + \frac{\delta_i^2\beta_i^2}{\delta_i^2 + \rho_i^2} \right] \equiv \omega_i^2
-$$
-
-From Informational Dynamics, we have the following (Dave Braden):
-
-After _n_ such encounters the posterior density for $\theta$ is
-
-$$
-\pi(\theta|X_1< y_1,\dots,X_n<y_n) \varpropto \pi(\theta) \prod_{i=1}^n\int_{-\infty}^{y_i}
-   \exp\left(-\frac{(x-\theta)^2}{2\sigma^2}\right)\ dx
-$$
-
-Another equation:
-
-$$
-\det\left|\,\begin{matrix}%
-c_0&c_1\hfill&c_2\hfill&\ldots&c_n\hfill\cr
-c_1&c_2\hfill&c_3\hfill&\ldots&c_{n+1}\hfill\cr
-c_2&c_3\hfill&c_4\hfill&\ldots&c_{n+2}\hfill\cr
-\,\vdots\hfill&\,\vdots\hfill&
-  \,\vdots\hfill&&\,\vdots\hfill\cr
-c_n&c_{n+1}\hfill&c_{n+2}\hfill&\ldots&c_{2n}\hfill\cr
-\end{matrix}\right|>0
-$$
-
-## Statistics Symbols and Expressions
-
-<!--
-The \noindent command below does what you'd expect:  it forces the current line/paragraph to not indent. This was done here to match the format of the LaTeX thesis PDF.
--->
-
-\noindent Exponent or Superscript: $x^2$
-
-\noindent Subscript: $x_1, x_2, \dots, x_n$
-
-\noindent Both combined: $x_1^{k+1}$.
+```{r, include = FALSE}
+library(tidyverse)
+library(SimMultiCorrData)
+options(scipen = 99999)
+library(lme4)
+library(lmerTest)
+child_data <- readRDS(here::here("child_data.Rds"))
+```
 
 
-\noindent Our favorite Greeks: $\sigma$, $\epsilon$, $\mu$
+## Application to Longitudinal Study about Children's Health
 
-\noindent Defining a normally distributed random variable: $X\sim N(\mu, \sigma)$
+In this chapter, we will apply linear mixed models to a longitudinal study about Children's Health, and explore how inference of the effects models can possibly change when using Kenward Roger versus Satterthwaite degrees of freedom approximation. 
 
-How do we compute sample variance again?
+## Background
 
-$$s^2 = \frac{\sum_{i=1}^n (x_i-\bar x)^2}{n-1}$$
+The National Longitudinal Study of Adolescent to Adult Health is a longitudinal study spanning 1994 to 2008 that surveyed a U.S sample of students in 7-12th grade in the 1994-95 school year. Four waves of data were collected, in which the sample during the last wave was aged 24-32. Questions about mental health, socioeconomic status, and family background were collected, as well as physical measurements of height and weight. 
 
-Sometimes  you'll need to consider asymptotics, that is, what happens as $n\rightarrow \infty$.
+One question of interest to consider is how salient life experiences that occur during adolescence, such as being exposed to alcohol or being in a physical altercation, may impact changes to one's physical health over time. 
+
+One way to capture physical health is through BMI, which is known to follow a skewed nonnormal distribution. With this in mind, we can employ methods of degrees of freedom adjustment. While this dataset is large and encompasses approximately 5,000 students, the scope of this application will be narrowed in order to examine the performance of KR and Satterthwaite. 
 
 
 
-## Additional information
+## Intercept only model
 
-Many of the symbols you will need can be found on Reed College's math page <http://web.reed.edu/cis/help/latex/math.html> and the Comprehensive LaTeX Symbol Guide (<http://mirror.utexas.edu/ctan/info/symbols/comprehensive/symbols-letter.pdf>).
+
+
+## Intercept and random slope 
+
+
 
 
 
