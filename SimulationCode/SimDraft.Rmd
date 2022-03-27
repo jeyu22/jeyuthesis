@@ -36,22 +36,34 @@ glimpse(child_data)
 
 Intercept only model
 ```{r}
+reg_model <- lm(bmi ~  decisions_eat +  run_away + cig + alcohol + physical_fight + real_age  + wave, child_data)
 intercept_model <- lmer(bmi ~  decisions_eat +  run_away + cig + alcohol + physical_fight + real_age + (1|AID) + wave, child_data) 
 summary(intercept_model)
-
+summary(reg_model)
+hist(child_data$bmi)
 tidy(anova(intercept_model), ddf = "Kenward-Roger")
 tidy(anova(intercept_model), ddf = "Satterthwaite")
 vc <- data.frame(VarCorr(intercept_model))
 var_rand_intercept<- vc[1,4]
 var_rand_residual <- vc[2,4]
 ranef(intercept_model)
+
+plot(intercept_model)
+qqnorm(intercept_model, ~ranef(., level=0))
+qqnorm(resid(intercept_model))
+abline(0,1, col = "red", lty = 2)
+qqnorm(resid(reg_model))
+abline(0,1, col = "red", lty = 2)
+plot(ranef(intercept_model, level = 1))
+
+qqmath(ranef(intercept_model, postVar = TRUE), strip = FALSE)
 ```
 
 Intercept and slope model
 
 ```{r}
 intercept_slope_model <- lmer(bmi ~  decisions_eat +  run_away + cig + alcohol + physical_fight + real_age + wave + ( wave |AID), child_data) 
-summary(intercept_slope_model)
+summary(intercept_slope_model, ddf ="Kenward-Roger" )
 print(VarCorr(intercept_slope_model),comp=c("Variance","Std.Dev."),digits=2)
 
 str(summary(intercept_slope_model))
