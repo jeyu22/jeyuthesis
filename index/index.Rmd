@@ -1,9 +1,9 @@
 ---
-title: 'My amazing  title'
-author: 'Your R. Name'
-date: 'April DD, 20YY'
+title: 'Degrees of Freedom Approximation in Linear Mixed Models with Nonnormal Distributions'
+author: 'Jessica Yu'
+date: 'April 15, 2022'
 institution: 'Amherst College'
-advisor: 'Advisor F. Name'
+advisor: 'Dr. Brittney Bailey'
 # Change department to'Special Programs' if interdisciplinary thesis
 department: 'Mathematics and Statistics'
 degree: 'Bachelor of Arts'

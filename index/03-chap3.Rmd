@@ -27,6 +27,9 @@ One way to capture physical health is through BMI, which is known to follow a sk
 
 ## Intercept only model
 
+```{r}
+options(scipen = 99999)
+```
 
 
 ## Intercept and random slope 
