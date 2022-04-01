@@ -6,31 +6,75 @@ library(tidyverse)
 library(SimMultiCorrData)
 options(scipen = 99999)
 library(lme4)
+library(kableExtra)
 library(lmerTest)
+knitr::opts_chunk$set(echo = FALSE, message = F, warning = F)
 child_data <- readRDS(here::here("child_data.Rds"))
 ```
 
 
 ## Application to Longitudinal Study about Children's Health
 
-In this chapter, we will apply linear mixed models to a longitudinal study about Children's Health, and explore how inference of the effects models can possibly change when using Kenward Roger versus Satterthwaite degrees of freedom approximation. 
+In this chapter, we will apply linear mixed models to a longitudinal study about Children's Health, and explore how inference of the effects models can possibly change when using various degrees of freedom approximation methods. 
 
-## Background
+### Background
 
 The National Longitudinal Study of Adolescent to Adult Health is a longitudinal study spanning 1994 to 2008 that surveyed a U.S sample of students in 7-12th grade in the 1994-95 school year. Four waves of data were collected, in which the sample during the last wave was aged 24-32. Questions about mental health, socioeconomic status, and family background were collected, as well as physical measurements of height and weight. 
 
-One question of interest to consider is how salient life experiences that occur during adolescence, such as being exposed to alcohol or being in a physical altercation, may impact changes to one's physical health over time. 
+One question of interest to consider is how salient life experiences that occur during adolescence, such as being exposed to alcohol or being in a physical altercation, may impact changes to one's physical health over time. One way to capture physical health is through BMI, which is known to follow a skewed nonnormal distribution. With this in mind, we can employ methods of degrees of freedom adjustment. While this dataset is large and encompasses approximately 5,000 students, the scope of this application will be narrowed in order to examine the performance of degrees of freedom methods, which are sensitive to sample size. 
 
-One way to capture physical health is through BMI, which is known to follow a skewed nonnormal distribution. With this in mind, we can employ methods of degrees of freedom adjustment. While this dataset is large and encompasses approximately 5,000 students, the scope of this application will be narrowed in order to examine the performance of KR and Satterthwaite. 
+We will be focusing on Chinese female respondents who completed at least three waves of the study, which amounts to a sample size of 12. Six variables were chosen based on background knowledge of potential factors that could influence weight. It is hypothesized that early exposure to substances, violence, or parental conflict could potentially affect changes in weight. 
 
+The following variables were assessed in the first wave of the study (1994):
+- Eating decision: do parents give child the freedom to decide what they eat? (Yes/No)
+- Cigarettes: has the child ever smoked cigarettes? (Yes/No)
+- Physical fight: has the child ever been in a physical fight? (Yes/No)
+- Alcohol: has the child ever had alcohol? (Yes/No)
+- Run away: has the child ever tried to run away? (Yes/No)
 
+Age and BMI were assessed at every subsequent wave. 
+
+### Exploration
+
+```{r}
+ggplot(child_data, aes(wave, bmi, color=alcohol)) + geom_point() + geom_line(aes(group = AID)) 
+```
+
+```{r}
+ggplot(child_data, aes(wave, bmi, color=cig)) + geom_point() + geom_line(aes(group = AID))
+```
+
+While our sample size is small, our initial exploration of alcohol and cigarette use suggests there may be some differences in BMI changes for individuals that have tried these substances at a younger age. 
+
+### Linear Mixed Model 
+Because we have repeated measurements of the same individual in this study, a regular linear model would not be able to capture the differences in variation between individuals and within individuals. We would hypothesize that changes in weight over time may vary less within a person over the years, as opposed to comparing changes in weight across two separate individuals. First, we fit an intercept only model, allowing the intercept to vary by individual. 
 
 ## Intercept only model
 
 ```{r}
-options(scipen = 99999)
+intercept_model <- lmer(bmi ~  1+ decisions_eat +  run_away + cig + alcohol + physical_fight + real_age + (1|AID) + wave, child_data) 
+
+summary(intercept_model,ddf = "Kenward-Roger")
+
+S <-broom.mixed::tidy(intercept_model,ddf = "Satterthwaite") %>%
+  filter(effect == "fixed")  %>%
+  dplyr::select(term, estimate, std.error, statistic,df,p.value)
+
+KR <-broom.mixed::tidy(intercept_model,ddf = "Kenward-Roger") %>%
+  filter(effect == "fixed")  %>%
+  dplyr::select(term, estimate, std.error, statistic,df,p.value)
+
+  
 ```
 
+First, we can examine the output of the fixed effects similar to how a regular linear regression model is interpreted. Alcohol use is the only significant effect. Next, we turn to the random effects output. The variance for individuals (represented by `AID`), which depicts variability across individuals, is 5.977, while the residual variance, representing variability  is 3.682. The signficantly larger variance across individuals compared to within individuals suggests that this model is more optimal than a regular linear regression model since differences in variability are apparent. The interclass correlation is .62, which indicates that weight measurements taken of the same individual have slightly higher similarity than those of different individuals. 
+
+
+```{r}
+data.frame(cbind(term = S$term, Satterthwaite_p.value = S$p.value, KR_p.value =KR$p.value)) %>% kable()
+```
+
+The summary output referenced above uses Kenward-Roger DF approximation. TABLE ? compares the summary output comparing Satterthwaite and Kenward-Roger. Although there is no difference between the significance of predictors, it is interesting to note that the p-value for `real_age` when using Satterthwaite is nearing significance level of .05 in contrast to the p-value when using Kenward-Roger.
 
 ## Intercept and random slope 
 

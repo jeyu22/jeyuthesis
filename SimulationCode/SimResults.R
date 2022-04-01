@@ -4,24 +4,24 @@ options(scipen = 99999)
 
 
 sim_exp <- data.frame()
-for(i in 1:5){
+for(i in 1:12){
   name <- paste0("simulations_exp_",i,".rds")
   sim_exp <- rbind(sim_exp, readRDS(here("SimulationData",name)))
 }
 
 sim_lnormal <- data.frame()
-for(i in 1:5){
+for(i in 1:12){
   name <- paste0("simulations_lnormal_",i,".rds")
   sim_lnormal <- rbind(sim_lnormal, readRDS(here("SimulationData",name)))
 }
 
 sim_normal <- data.frame()
-for(i in 1:5){
+for(i in 1:8){
   name <- paste0("simulations_normal_",i,".rds")
   sim_normal <- rbind(sim_normal, readRDS(here("SimulationData",name)))
 }
 
-all_sim <- rbind(sim_exp,sim_lnormal, sim_normal) %>%
+all_sim <- rbind(sim_exp,sim_lnormal,sim_normal) %>% #sim_normal
   mutate(Z_p.value= 2*pnorm(abs(S_statistic), lower.tail = FALSE),
          t_p.value = 2*pt(abs(S_statistic), lower.tail = FALSE,df = (number_individuals * number_measurements) - 3),
          KR_sig = ifelse(KR_p.value < .05,TRUE,FALSE),
@@ -29,7 +29,7 @@ all_sim <- rbind(sim_exp,sim_lnormal, sim_normal) %>%
          Z_sig = ifelse(Z_p.value < .05,TRUE,FALSE),
          t_sig = ifelse(t_p.value < .05,TRUE,FALSE))
 
-#saveRDS(all_sim,"all_sim.rds")
+saveRDS(all_sim,"~/jeyuthesis/SimulationData/all_sim.rds")
 
 
 all_sim_sum <- all_sim %>%

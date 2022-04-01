@@ -157,7 +157,7 @@ all_sim_sum <- all_sim %>%
 ```
 
 
-After performing 1,000 replications of each condition at a significance level of .05, we evaluate robustness using Bradley's criterion,which considers a test to robust if the empirical error rate is between .025 and .075. In the following section, we will compare Type I error rates produced from KR and Satterthwaite methods as well as t-as-z and using the standard DF formula, further stratified by distribution and other manipulated parameters. T-as-z and standard DF formula are not adjustments to account for smaller sample sizes, and are used as  comparison to Satterthwaite and KR, since they are expected to be anti-conservative. 
+After performing 400 replications of each condition at a significance level of .05, we evaluate robustness using Bradley's criterion,which considers a test to robust if the empirical error rate is between .025 and .075. In the following section, we will compare Type I error rates produced from KR and Satterthwaite methods as well as t-as-z and using the standard DF formula, further stratified by distribution and other manipulated parameters. T-as-z and standard DF formula are not adjustments to account for smaller sample sizes, and are used as  comparison to Satterthwaite and KR, since they are expected to be anti-conservative. 
 
 
 ```{r}
@@ -177,11 +177,11 @@ ggplot(aes(x = as.factor(number_individuals), y = error_rate, color = DF_method,
   ylab("Error Rate") +
   labs(color = "DF Method", group = "Number of Measurements")
 ```
-FIGURE 1 displays error rates from all 4 degrees of freedom methods by distribution, parameters, complexity of random model, number of measurements, and number of samples. The shaded region indicates error rates that are considered robust by Bradley's criterion. It is evident that there are varying patterns of performance by distribution. The common conception that larger sample sizes or large number of measurements can improve robustness is not necessarily evident across all distributions, for example in the case of the exponential distribution. While the random intercept model, a more structurally simple model, yields more robust error rates in the lognormal and gaussian distribution, that is not the case in the exponential distribution. 
+FIGURE 1 displays error rates from all 4 degrees of freedom methods by distribution, parameters, complexity of random model, number of measurements, and number of samples. The shaded region indicates error rates that are considered robust by Bradley's criterion. It is evident that there are varying patterns of performance by distribution. The common conception that larger sample sizes or large number of measurements can improve robustness is not necessarily evident across all distributions, for example in the case of the exponential distribution. One trend that appears to be evident across all three distributions is that when the degrees of freedom methods are applied to a random intercept model, a more structurally simple model, they yield more robust error rates in comparison to an application to the random slopes model. 
 
-However, there is one trend that we can identify. When looking at performance of the 4 methods overall, we can see that the t-as-z and standard DF approach produce significantly more anti-conservative results, regardless of the values of other parameters. These trends align closely with a previous study by @luke_evaluating_2017 examining only normal distributions. 
+In addition, when looking at performance of the 4 methods overall, we can see that the t-as-z and standard DF approach produce significantly more anti-conservative results, regardless of the values of other parameters. These trends align closely with a previous study by @luke_evaluating_2017 examining only normal distributions. 
 
-In order to make more specific observations and identify trends, we will examine performance within each of the three distributions by sample size and number of measurements before attempting to compare across them. 
+In order to make more specific observations and identify trends, we will examine performance within each of the three distributions by sample size and number of measurements.  
 
 ### Exponential Distribution
 
@@ -200,38 +200,61 @@ ggplot(aes(x = as.factor(number_individuals), y = error_rate, color = DF_method,
   labs(color = "DF Method", group = "Number of Measurements")
 
 transformed_data %>%
-  filter(distribution == "Exponential") %>%
+  filter(distribution == "Lognormal") %>%
   mutate(robust = ifelse(error_rate >= .025 & error_rate <= .075, TRUE, 
                          FALSE)) %>%
-  group_by(params, rslope, number_measurements) %>%
+  group_by(type) %>%
   summarize(robustness = mean(robust))
 ```
-Our simulation results contain two exponential distribution, one with $\lambda = .9$ and $\lambda = .2$. In FIGURE? we identified that in both exponential distributions, random slope models tended to yield more robust error rates, however, we continue to disaggregate by complexity of model to identify how it may work alongside other parameters. At $\lambda = .2$, we can see that in random intercept models the error rates are less anti-conservative at sample sizes of 10 and 18 compared to the random slope model. However, at sample size 26 the random slope model performs significantly better. It is difficult to discern whether increasing the number of measurements reduces robustness overall.  
+Our simulation results contain two exponential distribution, one with $\lambda = .9$ and $\lambda = .2$.  At $\lambda = .2$, we can see that in random slope models, increasing the sample size from 10 to 26 only marginally improves the DF methods, and more specifically, on those that are applied to conditions with more repeated measurements. For random slope models that have samples smaller than 26, all methods do not differ too much in terms of performance, and tend to be anti-conservative. On the other hand, in random intercept models, increasing the sample size did not improve the performance of DF methods, and in some cases caused the DF methods to be more anti-conservative; in the case of sample size 26 and 4 measurements, Type I error rates performed significantly worse in comparison to smaller sample sizes, holding other conditions constant. 
 
-At $\lambda = .9$ and smaller sample sizes, the methods used on the random intercept model do produce more conservative, although not more robust, Type I error rates. However, similar to what was found in the earlier distribution, the random slope model at sample size 26 performs better than the random intercept, and at any size. Increasing the number of measurements to 8 seems to decrease anti-conservatism in DF methods in the random intercept model, but not the random slopes model. 
+At $\lambda = .9$, we see virtually the same trends in terms of the effect of sample size, complexity of model, and number of measurements on the performance of the DF methods. Overall, across both distributions, increasing the number of repeated measures impacted the DF methods' performance and increased robustness, while increasing sample size had less of an effect. Additionally, Kenward-Roger and Satterthwaite methods tended to produce more conservative error rates.  
 
-Despite being sampled from the same type of distribution, the application of DF methods to these two exponential distributions produce different trends in error rates. One trend that appears overall is that if the sample size is large enough, fitting a random slopes model will produce more robust error rates compared to a random intercept model in both distributions. Although these two distributions have the same skewness and kurtosis values, the difficulty in parsing these trends suggests that there are other aspects of this distribution that are affecting the performance of the DF methods, and generalizing to other exponential distributions is not recommended. 
+Despite having different parameter values, the application of DF methods to these two exponential distributions produce similar different trends in error rates. Considering that the two distributions have the same skewness and kurtosis values, we hypothesize whether this similarity in values contributes to the performance of the DF methods. Next, we will examine the performance of DF methods in lognormal distributions. 
+
 
 ## Lognormal 
 ```{r}
-ggplot(aes(x = as.factor(number_individuals), y = error_rate, color = DF_method), data = transformed_data %>% filter(distribution == "Lognormal") %>% group_by(DF_method, number_individuals, type, number_measurements) %>% summarize(error_rate = mean(error_rate))) +
-  facet_grid(type ~ as.factor(number_measurements)) +
-  geom_point(alpha = .5, position = position_jitter(h = 0, w = 0.3)) +
+ggplot(aes(x = as.factor(number_individuals), y = error_rate, color = DF_method, 
+           group = as.factor(number_measurements)), data = transformed_data %>% filter(distribution == "Lognormal")) +
+  facet_grid(rslope ~ type) +
+  geom_point(alpha = .5, aes(shape = as.factor(number_measurements)), position = position_jitter(h = 0, w = 0.3)) +
   geom_hline(yintercept = .05) +
   scale_y_continuous(limits = c(0, .25)) +
-  annotate("rect", xmin = -.1, xmax = 4, ymin = 0.025, ymax = .075, alpha = .4)
+  annotate("rect", xmin = -.1, xmax = 4, ymin = 0.025, ymax = .075, 
+           alpha = .4) +
+  xlab("Number of Individuals") +
+  ylab("Error Rate") +
+  labs(color = "DF Method", group = "Number of Measurements")
 ```
-As seen in the first figure, across the lognormal distributions, random intercept models had consistently more robust error rates in comparison to random slope. For ease of interpretability, FIGURE ? displays error rates without disaggregating by complexity of model. 
+As seen in the first figure, across the lognormal distributions, DF methods applied to random intercept models had consistently more robust error rates in comparison to random slope. 
 
-Our first lognormal distribution with parameters $(0,.25)$ has lower values of kurtosis and skewness. At 4 measurements, performance of the 4 DF methods is more variable, but does converge and become more robust once the sample size increases. At sample size 26, all 4 methods yield robust error rates. In contrast, in 8 measurements, the performance of the methods is relatively stable, with t-as-z and standard DF method being slightly anti-conservative at smaller sample sizes. It appears that once the number of measurements has increased, the effect of increasing sample size is still positive, but less significant in this distribution. 
+Our first lognormal distribution with parameters $(0,.25)$ has lower values of kurtosis and skewness. In contrast to the exponential distributions, DF methods appear to be positively impacted by increasing the sample size; this can be seen in both random intercept and random slope model, and the effect is compounded when there are 8 measurements as opposed to 4. In the random slopes model, one can see that the error rates produced by the T-as-z and standard DF method are reduced by one fourth when increasing the sample size from 10 to 26. 
 
-On the other hand, with higher levels of skewness and kurtosis with a lognormal distribution with parameters $(1,.5)$, the effect of number of measurements and sample size is much different. At 4 measurements, the robustness of the 4 measures seems to decrease as sample size increases. At a sample of size 10, the performance is very robust and conservative across all methods. However, at size 26 all methods are anti-conservative. While increasing to 8 measurements increases overall robustness, the difference is not extreme. On a similar note, while increasing the sample size does not lead to worse performance in DB methods as in the 4 measurements condition, it is not signficantly better compared to smaller sample sizes. At sample size 26, the KR and Satterthwaite methods are too conservative to be considered robust, while at sample size 10 they are robust. It appears that in this distribution, sample size and number of measurements appear not to have a strong effect on Type I error rates. 
+On the other hand, with higher levels of skewness and kurtosis with a lognormal distribution with parameters $(1,.5)$, the effect of number of measurements and sample size are slightly different. While increasing the sample size impacts the DF methods in random intercept models regardless of the number of measurements, it seems to have less of an impact in random slope models when the number of measurements is 4 rather than 8. Overall, it appears that the number of measurements has a significant effect on the performance of the DF methods, as DF methods that are applied to models with larger measurements consistently are more robust and less anti-conservative. In addition, DF methods that are applied to this distribution are slightly less robust on average in comparison to the first distribution. 
 
+Based on comparisons between the two distributions, our results suggest that increasing skewness and kurtosis can negatively impact robustness of DF methods, and that it can also affect the impact of sample size on how the DF methods will perform. 
+
+## Normal Distribution 
+```{r}
+ggplot(aes(x = as.factor(number_individuals), y = error_rate, color = DF_method, 
+           group = as.factor(number_measurements)), data = transformed_data %>% filter(distribution == "Gaussian")) +
+  facet_grid(rslope ~ type) +
+  geom_point(alpha = .5, aes(shape = as.factor(number_measurements)), position = position_jitter(h = 0, w = 0.3)) +
+  geom_hline(yintercept = .05) +
+  scale_y_continuous(limits = c(0, .30)) +
+  annotate("rect", xmin = -.1, xmax = 4, ymin = 0.025, ymax = .075, 
+           alpha = .4) +
+  xlab("Number of Individuals") +
+  ylab("Error Rate") +
+  labs(color = "DF Method", group = "Number of Measurements")
+```
+While nonnormal distributions are the focus of this study, comparing performance of DF methods to the normal distribution is important as a point of reference. It is interesting to note how robustness has decreased for DF methods applied to the normal distribution compared to lognormal and exponential distributions, but it is also important to acknowledge that the methods, especially KR and Satterthwaite, produce conservative error rates, rather than anti-conservative ones. In general, in both random slope and random intercept models, increasing the sample size seems to decrease anti-conservative error rates and increase conservative error rates produced by DF methods and bring them closer to robustness. T-as-z and standard DF are more likely to be anti-conservative, while KR and Satterthwaite are more conservative. Increasing the number of measurements isn't strongly associated with DF methods producing more robustness results, but it is associated with more conservative error rates, which is arguably more ideal. 
 
 
 ### KR vs Satterthwaite 
 
-Comparing performance across all 4 methods has yielded signficant evidence that KR and Satterthwaite are superior methods when using linear mixed models on small samples.@luke_evaluating_2017 suggests that both KR and Satterthwaite are comparable solutions to obtain adequate Type I error. The following figure  aims to narrow in on differences in performance between the two methods. Looking specifically at the effects of kurtosis and skewness, both KR and Satterthwaite methods tend to produce more anti-conservative error rates in nonnormal distributions
+Comparing performance across all 4 methods has yielded signficant evidence that KR and Satterthwaite are superior methods when using linear mixed models on small samples. @luke_evaluating_2017 suggests that both KR and Satterthwaite are comparable solutions to obtain adequate Type I error. The following figure  aims to narrow in on differences in performance between the two methods. One can see that across random intercept models, KR and Satterthwaite methods have identical performance. Looking more closely at random slope models, it appears that KR consistently produces more conservative error rates when holding distribution, sample size, and number of measurements constant. This effect is further amplified when sample sizes are small. Overall, we find that KR is the more optimal DF method across nonnormal and normal distributions.
 ```{r}
 all_sim_sum %>%
   filter(KR_term == "treatment") %>%
@@ -274,8 +297,6 @@ ggplot(aes(x = as.factor(number_individuals), y = error_rate,
   annotate("rect", xmin = -.1, xmax = 4, ymin = 0.025, ymax = .075, alpha = .4)
 ```
 
-
-
 ### KR Only
 
 While KR method appears to be the most robust adjustment, (TABLE 5?) depicts its relatively variable performance across different conditions. Careful consideration must be used when conducting inference, and if possible, an increase in both sample size and number of measurements appears to ensure more robust results. 
@@ -306,6 +327,11 @@ all_sim_sum %>%
 
 ## Discussion
 
-Can I compare across distributions?
+Overall trends:
+
+increasing sample sizes matters less when skewness and kurtosis are larger! 
+increasing number of measurements is always optimal 
+In normal distributions KR and Satterthwaite seem to be too conservative, but they work well in nonnormal distributions. 
+
 
 Ultimately, these results strongly support using either KR or Satterthwaite degrees of freedom adjustments as opposed to methods aimed towards larger sample sizes. 
