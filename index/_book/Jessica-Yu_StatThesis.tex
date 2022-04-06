@@ -603,12 +603,16 @@ In comparison to the effect that number of measurements had on the performance o
 When comparing and constrasting performance of Satterthwaite and KR methods, which have both been demonstrated to be suitable options for producing robust Type I error, it seems that complexity of the model as well as sample size are two parameters that can differentiate their performance. In random intercept models, performance between the two methods are identical. In random slope models, KR is more conservative, and at a larger sample of size 26, it is too conservative in comparison to Satterthwaite. Given that KR is a further adjustment to Satterthwaite, its more conservative performance is not surprising, but its worse performance at larger samples is.
 
 While previous studies comparing DF methods focus primarily on normal distributions, the results from this study demonstrate that applying DF methods to LMM with nonnormal distributions can still produce robust Type I error rates. However, careful consideration of the complexity of the model, number of measurements and individuals, as well as the skewness and kurtosis of the data must be considered, as they each have an effect on the DF method not only individual, but when interacting with other parameters as well. Overall, these results also indicate that Type I error rates are closest to .05 overall when employing Kenward-Roger and Satterthwaite methods.
-
+\begin{itemize}
+\tightlist
+\item
+  Should I keep table of type I error rates of every distribution?
+\end{itemize}
 \hypertarget{math-sci}{%
 \chapter{Application}\label{math-sci}}
 
-CHECK CONDITIONS!!!!!!
-\#\# Application to Longitudinal Study about Children's Health
+\hypertarget{application-to-longitudinal-study-about-childrens-health}{%
+\section{Application to Longitudinal Study about Children's Health}\label{application-to-longitudinal-study-about-childrens-health}}
 
 In this chapter, we will apply linear mixed models to a longitudinal study about Children's Health, and explore how inference of the effects models can possibly change when using various degrees of freedom approximation methods.
 
@@ -635,63 +639,119 @@ Age and BMI were assessed at every subsequent wave.
 \begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-10-1} \end{center}
 \begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
-While our sample size is small, our initial exploration of alcohol and cigarette use suggests there may be some differences in BMI changes for individuals that have tried these substances at a younger age.
+While our sample size is small, our initial exploration of alcohol and cigarette use suggests there may be some differences in BMI changes for individuals that have tried these substances at a younger age. In addition, there are unique patterns of BMI change over time by subject, which suggests that creating a mixed effects model with random effects for time may be useful.
 
 \hypertarget{linear-mixed-model}{%
 \subsection{Linear Mixed Model}\label{linear-mixed-model}}
 
-Because we have repeated measurements of the same individual in this study, a regular linear model would not be able to capture the differences in variation between individuals and within individuals. We would hypothesize that changes in weight over time may vary less within a person over the years, as opposed to comparing changes in weight across two separate individuals. First, we fit an intercept only model, allowing the intercept to vary by individual.
+Because we have repeated measurements of the same individual in this study, a regular linear model would not be able to capture the differences in variation between individuals and within individuals. We would hypothesize that changes in weight over time may vary less within a person over the years, as opposed to comparing changes in weight across two separate individuals. We first fit a linear model with no random effects for comparison. Then, we fit an intercept only model, allowing the intercept to vary by individual.
+
+\hypertarget{linear-model}{%
+\subsection{Linear model}\label{linear-model}}
+\begin{verbatim}
+   
+   Call:
+   lm(formula = bmi ~ decisions_eat + run_away + cig + alcohol + 
+       physical_fight + real_age + wave, data = child_data)
+   
+   Residuals:
+      Min     1Q Median     3Q    Max 
+   -5.402 -1.193 -0.100  0.766  6.235 
+   
+   Coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+   (Intercept)       12.061      2.859    4.22  0.00023 ***
+   decisions_eat1    -4.052      1.915   -2.12  0.04342 *  
+   run_away3         -0.643      2.202   -0.29  0.77260    
+   cig1              -0.819      1.867   -0.44  0.66450    
+   alcohol1           5.115      1.128    4.53 0.000099 ***
+   physical_fight1   -2.761      2.256   -1.22  0.23121    
+   real_age           0.661      0.246    2.69  0.01192 *  
+   wave              -0.995      1.021   -0.97  0.33818    
+   ---
+   Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+   
+   Residual standard error: 2.7 on 28 degrees of freedom
+   Multiple R-squared:  0.555,  Adjusted R-squared:  0.443 
+   F-statistic: 4.98 on 7 and 28 DF,  p-value: 0.000934
+\end{verbatim}
+In a linear model with no random effects, we can see that having the freedom to make decisions about food, consumption of alcohol, and age are significant predictors of BMI. Being able to make decisions about food choices at the first wave of the study is associated with a 4 point decrease in BMI. Early exposure to alcohol is associated with a 5 point increase in BMI. Lastly, for every one year increase in age, BMI will increase by .66.
 
 \hypertarget{intercept-only-model}{%
-\section{Intercept only model}\label{intercept-only-model}}
-\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-12-1} \end{center}
+\subsection{Intercept only model}\label{intercept-only-model}}
 \begin{verbatim}
    Linear mixed model fit by REML. t-tests use Kenward-Roger's
      method [lmerModLmerTest]
-   Formula: bmi ~ 1 + decisions_eat + +(1 | AID) + wave
+   Formula: 
+   bmi ~ 1 + decisions_eat + run_away + cig + alcohol + physical_fight +  
+       real_age + (1 | AID) + wave
       Data: child_data
    
-   REML criterion at convergence: 168
+   REML criterion at convergence: 143
    
    Scaled residuals: 
        Min      1Q  Median      3Q     Max 
-   -2.0385 -0.3124  0.0129  0.3542  3.1566 
+   -1.6126 -0.2901 -0.0383  0.4383  3.0922 
    
    Random effects:
     Groups   Name        Variance Std.Dev.
-    AID      (Intercept) 9.56     3.09    
-    Residual             3.89     1.97    
+    AID      (Intercept) 5.98     2.44    
+    Residual             3.68     1.92    
    Number of obs: 36, groups:  AID, 12
    
    Fixed effects:
-                  Estimate Std. Error     df t value Pr(>|t|)    
-   (Intercept)      17.789      3.392 11.214    5.24  0.00026 ***
-   decisions_eat1    0.402      3.441 10.000    0.12  0.90938    
-   wave              1.318      0.403 23.000    3.27  0.00335 ** 
+                   Estimate Std. Error     df t value Pr(>|t|)   
+   (Intercept)       13.540      3.592 12.314    3.77   0.0026 **
+   decisions_eat1    -3.497      3.118  6.292   -1.12   0.3030   
+   run_away3         -0.643      3.796  5.649   -0.17   0.8715   
+   cig1              -0.349      3.085  6.109   -0.11   0.9135   
+   alcohol1           4.944      1.916  5.801    2.58   0.0430 * 
+   physical_fight1   -3.103      3.831  5.801   -0.81   0.4500   
+   real_age           0.490      0.260 27.967    1.88   0.0700 . 
+   wave              -0.398      0.991 27.609   -0.40   0.6915   
    ---
    Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
    
    Correlation of Fixed Effects:
-               (Intr) dcsn_1
-   decisins_t1 -0.930       
-   wave        -0.238  0.000
+               (Intr) dcsn_1 rn_wy3 cig1   alchl1 phys_1 real_g
+   decisins_t1 -0.509                                          
+   run_away3    0.000  0.000                                   
+   cig1         0.131  0.056  0.000                            
+   alcohol1    -0.077 -0.336  0.000 -0.334                     
+   physcl_fgh1 -0.077 -0.032 -0.496 -0.640  0.016              
+   real_age    -0.603 -0.255  0.000 -0.218  0.127  0.127       
+   wave         0.454  0.232  0.000  0.198 -0.116 -0.116 -0.909
 \end{verbatim}
-First, we can examine the output of the fixed effects similar to how a regular linear regression model is interpreted. Alcohol use is the only significant effect. This means that having already consumed alcohol at the first wave Next, we turn to the random effects output. The variance for individuals (represented by \texttt{AID}), which depicts variability across individuals, is 5.977, while the residual variance, representing variability is 3.682. The signficantly larger variance across individuals compared to within individuals suggests that this model is more optimal than a regular linear regression model since differences in variability are apparent. The interclass correlation is .62, which indicates that weight measurements taken of the same individual have slightly higher similarity than those of different individuals.
+First, we can examine the output of the fixed effects similar to how a regular linear regression model is interpreted. Alcohol use is the only significant effect. This means that having already consumed alcohol at the first wave increases the predicted BMI holding all other predictors constant. Next, we turn to the random effects output. The variance for individuals (represented by \texttt{AID}), which depicts variability across individuals, is 5.977, while the residual variance, representing within-subject variability is 3.682. The significantly larger variance across individuals compared to within individuals suggests that this model is more optimal than a regular linear regression model since differences in variability are apparent. The interclass correlation is .62, which indicates that weight measurements taken of the same individual have slightly higher similarity than those of different individuals.
+\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-14-1} \end{center}
+\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-14-2} \end{center}
+
+The residuals vs fitted plot indicates no heterogeneity in the residuals, and the qqplot indicates that for the most part residuals are normally distributed. The assumptions for fitting a random slope linear mixed model are met.
 \begin{tabular}{l|l|l}
 \hline
 term & Satterthwaite\_p.value & KR\_p.value\\
 \hline
-(Intercept) & 0.000258028517621285 & 0.000258028516025365\\
+(Intercept) & 0.00207739814732441 & 0.00256047801423095\\
 \hline
-decisions\_eat1 & 0.909376900956986 & 0.909376900952591\\
+decisions\_eat1 & 0.299917415292871 & 0.302965383323568\\
 \hline
-wave & 0.0033503164079139 & 0.0033503164090649\\
+run\_away3 & 0.871311790713272 & 0.871466574788397\\
+\hline
+cig1 & 0.913110518193229 & 0.913491116162318\\
+\hline
+alcohol1 & 0.0418067444391881 & 0.0430223001965457\\
+\hline
+physical\_fight1 & 0.4486496612827 & 0.449963870406887\\
+\hline
+real\_age & 0.0539716109021618 & 0.0700345633237796\\
+\hline
+wave & 0.675063199077659 & 0.691452611430165\\
 \hline
 \end{tabular}
 The summary output referenced above uses Kenward-Roger DF approximation. TABLE ? compares the summary output comparing Satterthwaite and Kenward-Roger. Although there is no difference between the significance of predictors, it is interesting to note that the p-value for \texttt{real\_age} when using Satterthwaite is nearing significance level of .05 in contrast to the p-value when using Kenward-Roger.
 
 \hypertarget{intercept-and-random-slope}{%
-\section{Intercept and random slope}\label{intercept-and-random-slope}}
+\subsection{Intercept and random slope}\label{intercept-and-random-slope}}
 \begin{verbatim}
    Linear mixed model fit by REML. t-tests use Kenward-Roger's
      method [lmerModLmerTest]
@@ -736,6 +796,11 @@ The summary output referenced above uses Kenward-Roger DF approximation. TABLE ?
    real_age    -0.549 -0.221  0.000 -0.189  0.110  0.110       
    wave         0.355  0.186  0.000  0.159 -0.092 -0.092 -0.841
 \end{verbatim}
+In this model, we add a random effect of time as well as random intercept. This means that we are assuming that for each individual, the relationship between time and BMI is unique. For fixed effects, age is the only significant effect when using the KR method. For every year increase in age, BMI increases by .5. BMI is known to increase with age, so this model does not reveal any new predictors that are associated with it. Variability across individuals is 5.977, and the residual variance is 2.402. The variance for time is 1.299. We see that imposing variability between each individual's relationship of time vs BMI reduces some of the residual variance, which indicates that this structure is improving the model's fit on the data. By accounting for some of the variation through each individual's weight changes over time, this may have reduced variation of BMI attributed to differences in alcohol consumption, rendering it not significant in this model.
+
+Conditions for the model are met as seen by the figures below.
+\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-17-1} \end{center}
+\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-17-2} \end{center}
 \begin{tabular}{l|l|l}
 \hline
 term & Satterthwaite\_p.value & KR\_p.value\\
@@ -757,6 +822,13 @@ real\_age & 0.027945907513631 & 0.0405840363078681\\
 wave & 0.624535914819271 & 0.64482740958583\\
 \hline
 \end{tabular}
+Earlier evaluation of fixed effects uses KR DF method, but FIGURE ? shows that significance of fixed effects differ when using Satterthwaite versus KR. In the random slope model, alcohol not a significant effect when using KR, but is significant when using Satterthwaite. This difference affects our interpretation of the model and conclusions that are drawn.
+
+\hypertarget{discussion-1}{%
+\section{Discussion}\label{discussion-1}}
+
+We have demonstrated implementing two linear mixed models on a data set that is small and with a nonnormal continuous outcome. Imposing random effects structure to isolate variation between individuals apart from overall variation improved the model and reduced the number of predictors that were significant. One key result was that comparing KR and Sattherthwaite DF methods resulting in varying significant predictors in the random slope model. One additional predictor, alcohol, was a significant fixed effect when using Satterthwaite, the default output summary for \emph{lmerTest}, in comparison to KR. These results are similar to our simulation in chapter 2, that found that
+
 \hypertarget{ref-labels}{%
 \chapter{Tables, Graphics, References, and Labels}\label{ref-labels}}
 
