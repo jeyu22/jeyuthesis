@@ -12,7 +12,6 @@ knitr::opts_chunk$set(echo = FALSE, message = F, warning = F)
 child_data <- readRDS(here::here("child_data.Rds"))
 ```
 
-
 ## Application to Longitudinal Study about Children's Health
 
 In this chapter, we will apply linear mixed models to a longitudinal study about Children's Health, and explore how inference of the effects models can possibly change when using various degrees of freedom approximation methods. 
@@ -36,7 +35,7 @@ Age and BMI were assessed at every subsequent wave.
 
 ### Exploration
 
-```{r}
+```{r, fig.height=4, fig.width=4}
 ggplot(child_data, aes(wave, bmi, color=alcohol)) + geom_point() + geom_line(aes(group = AID)) 
 ```
 
@@ -44,12 +43,12 @@ ggplot(child_data, aes(wave, bmi, color=alcohol)) + geom_point() + geom_line(aes
 ggplot(child_data, aes(wave, bmi, color=cig)) + geom_point() + geom_line(aes(group = AID))
 ```
 
-While our sample size is small, our initial exploration of alcohol and cigarette use suggests there may be some differences in BMI changes for individuals that have tried these substances at a younger age. 
+While our sample size is small, our initial exploration of alcohol and cigarette use suggests there may be some differences in BMI changes for individuals that have tried these substances at a younger age. In addition, there are unique patterns of BMI change over time by subject, which suggests that creating a mixed effects model with random effects for time may be useful.  
 
 ### Linear Mixed Model 
 Because we have repeated measurements of the same individual in this study, a regular linear model would not be able to capture the differences in variation between individuals and within individuals. We would hypothesize that changes in weight over time may vary less within a person over the years, as opposed to comparing changes in weight across two separate individuals. First, we fit an intercept only model, allowing the intercept to vary by individual. 
 
-## Intercept only model
+### Intercept only model
 
 ```{r}
 intercept_model <- lmer(bmi ~  1+ decisions_eat +  run_away + cig + alcohol + physical_fight + real_age + (1|AID) + wave, child_data) 
@@ -67,8 +66,15 @@ KR <-broom.mixed::tidy(intercept_model,ddf = "Kenward-Roger") %>%
   
 ```
 
-First, we can examine the output of the fixed effects similar to how a regular linear regression model is interpreted. Alcohol use is the only significant effect. Next, we turn to the random effects output. The variance for individuals (represented by `AID`), which depicts variability across individuals, is 5.977, while the residual variance, representing variability  is 3.682. The signficantly larger variance across individuals compared to within individuals suggests that this model is more optimal than a regular linear regression model since differences in variability are apparent. The interclass correlation is .62, which indicates that weight measurements taken of the same individual have slightly higher similarity than those of different individuals. 
+First, we can examine the output of the fixed effects similar to how a regular linear regression model is interpreted. Alcohol use is the only significant effect. This means that having already consumed alcohol at the first wave increases the predicted BMI holding all other predictors constant. Next, we turn to the random effects output. The variance for individuals (represented by `AID`), which depicts variability across individuals, is 5.977, while the residual variance, representing within-subject variability  is 3.682. The significantly larger variance across individuals compared to within individuals suggests that this model is more optimal than a regular linear regression model since differences in variability are apparent. The interclass correlation is .62, which indicates that weight measurements taken of the same individual have slightly higher similarity than those of different individuals. 
 
+```{r}
+par(mfrow=c(1,2))
+plot(intercept_model)
+qqnorm(residuals(intercept_model))
+qqline(residuals(intercept_model), col = 2,lwd=2,lty=2)
+```
+The residuals vs fitted plot indicates no heterogeneity in the residuals, and the qqplot indicates that for the most part residuals are normally distributed. The assumptions for fitting a random slope linear mixed model are met. 
 
 ```{r}
 data.frame(cbind(term = S$term, Satterthwaite_p.value = S$p.value, KR_p.value =KR$p.value)) %>% kable()
@@ -76,9 +82,39 @@ data.frame(cbind(term = S$term, Satterthwaite_p.value = S$p.value, KR_p.value =K
 
 The summary output referenced above uses Kenward-Roger DF approximation. TABLE ? compares the summary output comparing Satterthwaite and Kenward-Roger. Although there is no difference between the significance of predictors, it is interesting to note that the p-value for `real_age` when using Satterthwaite is nearing significance level of .05 in contrast to the p-value when using Kenward-Roger.
 
-## Intercept and random slope 
+### Intercept and random slope 
+
+```{r}
+intercept_slope_model <- lmer(bmi ~  decisions_eat +  run_away + cig + alcohol + physical_fight + real_age + wave + ( 1 + wave|AID), child_data) 
+
+summary(intercept_slope_model,ddf = "Kenward-Roger")
+
+S <-broom.mixed::tidy(intercept_slope_model,ddf = "Satterthwaite") %>%
+  filter(effect == "fixed")  %>%
+  dplyr::select(term, estimate, std.error, statistic,df,p.value)
+
+KR <-broom.mixed::tidy(intercept_slope_model,ddf = "Kenward-Roger") %>%
+  filter(effect == "fixed")  %>%
+  dplyr::select(term, estimate, std.error, statistic,df,p.value)
+```
+
+In this model, we add a random effect of time as well as random intercept. This means that we are assuming that for each individual, the relationship between time and BMI is unique. For fixed effects, age is the only significant effect when using the KR method. For every year increase in age, BMI increases by .5. BMI is known to increase with age, so this model does not reveal any new predictors that are associated with it. Variability across individuals is 5.977, and the residual variance is 2.402. The variance for time is 1.299. We see that imposing variability between each individual's relationship of time vs BMI reduces some of the residual variance, which indicates that this structure is improving the model's fit on the data. 
 
 
+Conditions for the model are met as seen by the figures below. 
+```{r}
+qqnorm(residuals(intercept_slope_model))
+qqline(residuals(intercept_slope_model), col = 2,lwd=2,lty=2)
+plot(intercept_slope_model)
+```
+
+```{r}
+data.frame(cbind(term = S$term, Satterthwaite_p.value = S$p.value, KR_p.value =KR$p.value)) %>% kable()
+```
+
+## Discussion
+
+When
 
 
 

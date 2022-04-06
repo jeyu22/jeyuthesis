@@ -25,13 +25,13 @@ knitr::opts_chunk$set(echo = FALSE, message = F, warning = F)
 In chapter 1, we outlined the basics of analyzing longitudinal data and introduced linear mixed models. Next, we will examine inference of linear mixed models, and how methods such as Kenward-Roger (KR) and Satterthwaite can be used in situations where standard procedures for inference may produce questionable results. 
 
 ## Inference 
-In statistical inference, the goal is to make conclusions about the underlying characteristics of a set of data and establish a relationship between certain variables. Hypothesis testing is one of the primary examples of inference, and is carried out in order to assess the true value of a population parameter. In linear models, the significance of a slope parameter, $\beta_k$, is often assessed, where the null hypothesis, $H_0 $ is $\beta_k = 0,$ and the alternative hypothesis $H_a$ is $\beta_k \neq 0.$ A test of the null hypothesis involves using a Wald statistic in the form $$ Z = \frac{\hat\beta_k}{\sqrt{\hat{Var(\hat\beta_k)}}},$$ which is then compared to the normal distribution, and a subsequent p-value is obtained. 
+In statistical inference, the goal is to make conclusions about the underlying characteristics of a set of data and establish a relationship between certain variables. Hypothesis testing is one of the primary examples of inference, and is carried out in order to assess the true value of a population parameter. In linear models, the significance of a slope parameter, $\beta_k$, is often assessed, where the null hypothesis, $H_0$ is $\beta_k = 0,$ and the alternative hypothesis $H_a$ is $\beta_k \neq 0.$ A test of the null hypothesis involves using a Wald statistic in the form $$ Z = \frac{\hat\beta_k}{\sqrt{\widehat{Var(\hat\beta_k)}}},$$ which is then compared to the normal distribution, and a subsequent p-value is obtained. 
 
 Building on foundations of a general linear hypothesis test, given a matrix $L$ of size $q \times p,$ where $q$ represents the number of estimable functions of $\beta,$ $$(L\hat\beta-L\beta)'[L(X'\widehat {Cov}(\hat\beta)X)^-L']^{-1}(L\hat\beta-L\beta)
 $$ is approximately $\chi^2(q)$ (Rencher and Schaalje, 2008). For a null hypothesis $H_0: L\beta = 0,$ the test statistic $G$ is $$(L\hat\beta)'[L(X'\widehat {Cov}(\hat\beta)X)^-L']^{-1}(L\hat\beta).$$ 
 
-Aside from using the Wald statistic, likelihood ratio tests are another method to make inferences about $\beta$, and involves comparing two models: (1) a nested model, which assumes that $\beta_k$ is 0, and (2) a full model, that allows $\beta_k$ to vary without constraint. The difference in the maximized log-likelihood of the two models, $\hat l_{reduced}$ and $\hat l_{full}$ are compared. This difference is represented by the statistic $$G^2 = 2(\hat l_{full}-\hat l_{reduced}),$$ which is compared to a chi-square distribution. The larger the difference, the more likely we are to conclude that the nested model is insufficient, and that $\beta$ is not zero. 
-While there are benefits to using the likelihood ratio test, the rest of this study will focus on method of using the Wald statistic. 
+Likelihood ratio tests are another method to make inferences about $\beta$. While there are benefits to using the likelihood ratio test, the rest of this study will focus on method of using the Wald statistic.
+
 
 ### Inference in small sample sizes 
 One crucial assumption when conducting inference using the ML estimate for $\beta$ is that the sample size is sufficient enough where it does not affect the estimate for $\Sigma_i.$ However, what happens when the sample size is too small? This causes $\hat\Sigma_i$ to underestimate the true variance, which in turn causes $\widehat {\text{Cov}}(\hat\beta)$ to be too small since it relies on covariance estimator. If $\widehat {\text{Cov}}(\hat\beta)$ is too small, the denominator of the test statistic is inflated, leading to increased Type I error. One can see that the bias of the covariance estimator weakens the entire foundation of estimation and inference. 
@@ -49,7 +49,7 @@ Both Satterthwaite and KR are proposed methods of reductions to the DDF when con
 Sattherthwaite approximation was developed by Fai & Cornelius (1996), with the F statistic following the form:
 
 $$F = \frac{1}{l}\hat\beta'L'(L\widehat {\text{Cov}}(\hat\beta) L')^{-1}L\hat\beta.$$ For the denominator degrees of freedom we perform spectral decomposition on $L'\widehat {\text{Cov}}(\hat\beta) L=P'DP,$ where $D$ is a diagonal matrix of eigenvalues and $P$ is an orthogonal matrix of eigenvectors. When $r$ represents the $r^{th}$ row of $P'L$, we have $v_r = \frac{2(d_r)^2}{g'_rWg_r},$ where $g_r$ is a gradient vector, $d_r$ is the $r^{th}$ diagonal element of D, and $W$ is the covariance matrix of $\hat\sigma^2.$ The denominator degrees of freedom is calculated by:
-$$\frac{2E}{E-l},$$ where $E = \sum_{r = 1}^{l} \frac{v_r}{v_r-2}I(v_r>2)$ if $E >l$, otherwise $DF = 1.$
+$$\frac{2E}{E-l},$$ where $E = \sum_{r = 1}^{l} \frac{v_r}{v_r-2}I(v_r>2)$ if $E >l,$ otherwise $DF = 1.$
 
 When $l =1$ the KR and Satterthwaite approximation will produce the same denominator degrees of freedom. However, since the statistic used for the two methods are not the same, the results for inference will not be the same. It is important to note that both methods are only valid when using REML. 
 
@@ -87,50 +87,60 @@ Existing research evaluating the performance of methods that reduce Type I error
 
 ## Goals of this study:
 
-In this study, we aim to expand on previous simulations, evaluating how methods for evaluated fixed effects perform under different nonnormal distributions and sample sizes. The aforementioned studies often use a split-plot design and impose a covariance structure, but goal of this study will be to compare performance of KR and Satterthwaite methods for repeated measures longitudinal data fitted with a linear mixed effects model, and no imposed covariance structure. Since most mixed models use unstructured covariance structure, it would be beneficial to see how these methods perform without considering covariance structure as a factor.
-
+In this study, we aim to expand on previous work evaluating how methods for estimating fixed effects perform under different nonnormal distributions, sample sizes, number of measurements, and complexity. The aforementioned studies often use a split-plot design and impose a covariance structure, but the goal of this study will be to compare performance of KR and Satterthwaite methods for repeated measures longitudinal data fitted with a linear mixed effects model, and an unstructured covariance structure imposed by the random effects. 
 
 
 ## Simulation Set up:
 
+The overarching goal is to compare performance of DF methods across various conditions, with a specific goal of looking at scenarios with smaller sample sizes and number of measurements in order to see variability in Type I error rates. There is flexibility in how the parameters are chosen; in order to narrow the scope, we aim to design conditions that are relatively similar to an application data set that will be further explored in Chapter 3. In the following sections, the range of parameters used will be similar to the characteristics of a longitudinal study about Children's Health. 
+
 ### Generating data: Sample size
 
-In this study, we consider a linear mixed effects model with two discrete covariates: time and treatment. The range of possible values that time takes on depends on how many number of measurements per individual, which can be 4 or 8. The treatment covariate takes on values of 0 or 1, and each assigned to half of the sample. The number of individuals take on possible values of 10, 18, and 26. These were chosen to reflect possible samples that would not hold under the common assumption that the sample size must be at least 30 for it to be considered sufficient enough for the Central Limit Theorem to hold. 
+In this study, we consider a linear mixed effects model with time as a continuous variable and treatment as a factor. The range of possible values that time takes on depends on how many number of measurements per individual, which can be 4 or 8. The treatment covariate takes on values of 0 or 1, and each assigned to half of the sample. The number of individuals take on possible values of 10, 18, and 26. These were chosen to reflect possible samples that would not hold under the common assumption that the sample size must be at least 30 for it to be considered sufficient enough for the Central Limit Theorem to hold. 
 
 ### Generating data: Fixed Effects
 
-We have three fixed effects: the intercept value and the covariates time and treatment. The intercept, an arbitrary value, is set at 3.1. Time and treatment have a value of 0, and the Type I error rates of treatment will be evaluated. 
+We have three fixed effects: the intercept value, time and treatment. The intercept, an arbitrary value, is set at $B_0 = 3.1$. The coefficients for time and treatment have a value of $B_1 = B_2 = 0$ for simplicity and so we can evaluate Type 1 error rates. 
 
 ### Generating data: Random effects
 
-In order to generate a continuous response variable that is nonnormal, we generate our random effects values from nonnormal distributions, which are either exponential or lognormal. Previous research shows that many data used in social and health sciences follow nonnormal distributions (Limpert, Stahel, & Abbt, 2001). More specifically  many follow lognormal distributions, such as age of onset of Alzheimer’s disease (Horner, 1987), or exponential distribution to model survival data. In order to cover a wide range of exponential and lognormal distributions, parameters were chosen to model distinct distributions. For exponential distributions, lambda values of .2, and .9 were used, (DO I NEED TO INSERT GRAPH?). For lognormal distribution, mean and standard deviation parameter combinations were (0,.25), and (1,.5). 
+We generate our intercept and slope random effects values from nonnormal distributions, which are either exponential or lognormal. Previous research shows that many data used in social and health sciences follow nonnormal distributions (Limpert, Stahel, & Abbt, 2001). More specifically  many follow lognormal distributions, such as age of onset of Alzheimer’s disease (Horner, 1987), or exponential distribution to model survival data. In order to cover a wide range of exponential and lognormal distributions, parameters were chosen to model distinct distributions. For exponential distributions, $X\sim\mathit{Exp}(\lambda),$ where  $\lambda = .2$ or $ .9$ Lognormal distributions were $X\sim\mathit{Log}(0,.25)$ and $X\sim\mathit{Log}(1,.5).$ 
 
-Using the `SimMultiCorrData` package, we derive kurtosis and skewness values based on the distributions specified above. The table below shows the range of skewness and kurtosis values for the Lognormal distribution. In the intercept only model, only one non-normal continuous variable is generated for the random effect, so the function `SimMultiCorrData::nonnormvar1` is used. Values are generated through Fleishman's method for simulating nonnormal data by matching moments using mean, variance, skew, and kurtosis and then transforming normally distributed values. 
+Using the *SimMultiCorrData* package, values are generated through Fleishman's method for simulating nonnormal data by matching moments using mean, variance, skew, and kurtosis and then transforming normally distributed values @Simtest. 
 
-Kurtosis and skew values for the distributions used in this simulation are shown below. 
+When simulation data from nonnormal distributions, we use the standard deviation produced by Fleishman's method as the parameter. In order to align the simulation data from the Children's Health study, we use the same ratio of variances between the residual variance and variance of the random effects of time and intercept derived from modeling linear mixed models on that data in our simulation. 
+
+In the intercept only model, only one non-normal continuous variable is generated for the random effect, so the function `nonnormvar1()` is used. In order to generate measurement error, we simulate values from a $X\sim\mathit{N}(0,\sqrt{4}SD,$ where $SD$ is the standard deviation from each distribution we want explore. 
+
+In the case of the linear model that has both random effects for intercept and slope, we want to generate random effects values that are correlated. Using `SimMultiCorrData::rcorrvar()`, we use a similar process for generating one nonnormal continuous variable, but extend it to generating variables from multivariate normal distribution that take in to account a specified correlation matrix, and are then transformed to be nonnormal. Also, in order to maintain the same ratio of variances to the application data, the variance of the distribution that the slope random effects are generated is equal to $\frac{1}{8}\text{Var},$ where $\text{Var}$ refers to the variance of the distribution that the random effects for the intercept are generated from. On a similar note, we use a correlation value of -.38 to generate the random effects for the intercept and slope, which is based off the correlation observed between the random effects of time and intercept when fitting a random slope model in Chapter 3. For random slope models, the measurement error is simulated for a distribution $X\sim\mathit{N}(0,\sqrt{.168}SD.$
+
+Distributions used are depicted below. 
 
 ```{r, echo = F}
-rbind(
-  calc_theory(Dist = "Lognormal", params = c(0, .25)),
-  calc_theory(Dist = "Lognormal", params = c(1, .5)),
-  calc_theory(Dist = "Exponential", params = .2),
-  calc_theory(Dist = "Exponential", params = .9)
-) %>%
-  kable()
+par(mfrow=c(2,2))
+curve(dlnorm(x, meanlog = 0, sdlog = .25), from = 0, to = 5,main = "Lognormal dist with meanlog 0 and sdlog .25")
+curve(dlnorm(x, meanlog = 1, sdlog = .5), from = 0, to = 5,main = "Lognormal dist with meanlog 1 and sdlog .5")
+x <- seq(0, 8, 0.1)
+x_norm <- seq(-5,5,.1)
+plot(x, dexp(x, .2),
+  type = "l",
+  ylab = "", lwd = 2, col = "red", main = "Exponential dist with lambda = .2"
+)
+
+plot(x, dexp(x, .9),
+  type = "l",
+  ylab = "", lwd = 2, col = "red", main = "Exponential dist with lambda = .9"
+)
+#plot(x, dnorm(x, 0,.2))
 ```
-
-
-In the case of the linear model that has both random effects for intercept and slope, we want to generate random effects values that are correlated. Using `SimMultiCorrData::rcorrvar`, we use a similar process for generating one nonnormal continuous variable, but extend it to generating variables from multivariate normal distribution that take in to account a specified correlation matrix, and are then transformed to be nonnormal. We use a correlation value of -.38 to generate the random effects, which is based off the correlation observed when fitting a linear mixed effects model from the dataset used in the application portion of this study. 
-
-***** FIX THIS ***** Lastly, to account for measurement/sampling error, we assume that the error is random and drawn from a $N \sim (0,.2).$ The standard deviation value was chosen to minimize the variation of the errors in relation to the random effects of the intercept and the covariate. 
 
 
 
 ### Linear mixed effects model
 
-In a linear mixed effects model, the amount of random effects that will be modeled depends on the research question at hand. Here, we will examine both a random intercepts-only model, where the intercept of the model is assumed to have a random effects structure, as well as a random intercept and slope model, where in addition to intercept, the covariate time will also have a random effects structure. 
+In a linear mixed effects model, the amount of random effects that will be modeled depends on the research question at hand. Here, we will examine both a random intercepts model, where only the intercept of the model is assumed to have a random effects structure, as well as a random intercept and slope model, where in addition to intercept, the covariate time will also have a random effects structure. The random intercept model can be represented as: $$Y_{ij} = \beta_0 + \beta_1Trt_i + \beta_2Time_{ij} + b_{0j} + e_{ij},$$ and the random slope model can be represented as: $$Y_{ij} = \beta_0 + \beta_1Trt_i + \beta_2Time_{ij} + b_{0j} + b_{1i}Time_{ij} + e_{ij}.$$
 
-We use the `lmerTest` package to fit the linear mixed effects model, and evaluate the significance of the covariate in the model. To evaluate significance, we compare both the KR and Satterthwaite method for adjusting denominator degrees of freedom and its resulting p-value.   Because the value of the covariate in our model is fixed at 0 in order to identify Type I error, we expect to see that the p-value for the covariate time to not be significant ($p$ > .05) in an ideal scenario. 
+We use the *lmerTest* package to fit the linear mixed effects model and evaluate random and fiexed effects. To evaluate significance of the treatment variable, we compare the performance and resulting p-values from 4 different Wald-type tests: KR, Satterthwaite, standard DF method, and $t$-as-$z$. $t$-as-$z$ and standard DF formula are not adjustments to account for smaller sample sizes, and are used as  comparison to Satterthwaite and KR, since they are expected to be anti-conservative. Because the value of the treatment in our model is fixed at 0 in order to identify Type I error, we expect to see that the p-value to not be significant ($p$ > .05) in an ideal scenario. 
 
 
 ## Evaluating and Results
@@ -140,6 +150,7 @@ options(scipen = 9999)
 all_sim <- readRDS(here("SimulationData", "all_sim.rds"))
 
 all_sim_sum <- all_sim %>%
+  filter(KR_term == "treatment") %>%
   group_by(
     distribution,
     number_individuals,
@@ -149,64 +160,80 @@ all_sim_sum <- all_sim %>%
     KR_effect, KR_term, skew, kurtosis
   ) %>%
   summarize(
+    n = n(),
     KR_t1err = mean(KR_sig),
+    KR_t1err_sd = sd(KR_sig),
     S_t1err = mean(S_sig),
+    S_t1err_sd = sd(S_sig),
     Z_t1err = mean(Z_sig),
-    t_t1err = mean(t_sig)
-  )
+    Z_t1err_sd = sd(Z_sig),
+    t_t1err = mean(t_sig),
+    t_t1err_sd = sd(t_sig),
+  ) 
 ```
 
 
-After performing 400 replications of each condition at a significance level of .05, we evaluate robustness using Bradley's criterion,which considers a test to robust if the empirical error rate is between .025 and .075. In the following section, we will compare Type I error rates produced from KR and Satterthwaite methods as well as t-as-z and using the standard DF formula, further stratified by distribution and other manipulated parameters. T-as-z and standard DF formula are not adjustments to account for smaller sample sizes, and are used as  comparison to Satterthwaite and KR, since they are expected to be anti-conservative. 
+After performing 400 replications of each condition at a significance level of .05, we evaluate robustness using Bradley's criterion, which considers a test to robust if the empirical error rate is between .025 and .075 @bradley. In the following section, we will compare Type I error rates produced from KR and Satterthwaite methods as well as $t$-as-$z$ and using the standard DF formula, further stratified by distribution and other manipulated parameters. 
 
 
-```{r}
+```{r, fig.width= 8 ,fig.height = 8, fig.cap="A nice image.",out.extra='angle=90'}
 transformed_data <- all_sim_sum %>%
   filter(KR_term == "treatment") %>%
-  pivot_longer(cols = c("KR_t1err", "S_t1err", "Z_t1err", "t_t1err"), names_to = "DF_method", values_to = "error_rate") %>%
+  mutate(KR_t1err_1 = paste(KR_t1err,KR_t1err_sd),
+         S_t1err_1 = paste(S_t1err,S_t1err_sd),
+         Z_t1err_1 = paste(Z_t1err,Z_t1err_sd),
+         t_t1err_1 = paste(t_t1err,t_t1err_sd),
+           ) %>%
+  pivot_longer(cols = c("KR_t1err_1", "S_t1err_1", "Z_t1err_1", "t_t1err_1"), names_to = "DF_method", values_to = "error_rate_1") %>%
   mutate(type = paste(distribution, params, sep = ":"))
+transformed_data[c('error_rate', 'sd')] <- str_split_fixed(transformed_data$error_rate_1, ' ', 2)
+transformed_data <- transformed_data %>%
+  mutate(error_rate = as.double(error_rate),
+         sd = as.double(sd),
+         method_number = paste(DF_method,number_measurements)) %>%
+  mutate(interval = 1.96*(sd/sqrt(600)))
 
 ggplot(aes(x = as.factor(number_individuals), y = error_rate, color = DF_method,
+          ymin = error_rate-interval, ymax = error_rate+interval,
            group = as.factor(number_measurements)), data = transformed_data) +
   facet_grid(rslope ~ type) +
-  geom_point(alpha = .5, aes(shape = as.factor(number_measurements)), position = position_jitter(h = 0, w = 0.3)) +
+  geom_pointrange(alpha = .4, aes(shape = as.factor(number_measurements)), position = position_jitter(h = 0, w = 0.4)) + 
   geom_hline(yintercept = .05) +
-  scale_y_continuous(limits = c(0, .25)) +
+  scale_y_continuous(limits = c(-.02, .3)) +
   annotate("rect", xmin = -.1, xmax = 4, ymin = 0.025, ymax = .075, alpha = .4) +
+  scale_color_manual(labels = c("KR", "Satterthwaite","Standard DF","T-as-z"), values = c("red","green","purple","blue")) +
   xlab("Number of Individuals") +
   ylab("Error Rate") +
-  labs(color = "DF Method", group = "Number of Measurements")
-```
-FIGURE 1 displays error rates from all 4 degrees of freedom methods by distribution, parameters, complexity of random model, number of measurements, and number of samples. The shaded region indicates error rates that are considered robust by Bradley's criterion. It is evident that there are varying patterns of performance by distribution. The common conception that larger sample sizes or large number of measurements can improve robustness is not necessarily evident across all distributions, for example in the case of the exponential distribution. One trend that appears to be evident across all three distributions is that when the degrees of freedom methods are applied to a random intercept model, a more structurally simple model, they yield more robust error rates in comparison to an application to the random slopes model. 
+  labs(color = "DF Method", shape = "Number of Measurements") + theme(legend.position="bottom", legend.box = "vertical")
 
-In addition, when looking at performance of the 4 methods overall, we can see that the t-as-z and standard DF approach produce significantly more anti-conservative results, regardless of the values of other parameters. These trends align closely with a previous study by @luke_evaluating_2017 examining only normal distributions. 
+
+```
+FIGURE 1 displays error rates from all 4 degrees of freedom methods by distribution, parameters, complexity of random model, number of measurements, and number of samples. The shaded region indicates error rates that are considered robust by @bradley's criterion. It is evident that there are varying patterns of performance by distribution. The common conception that larger sample sizes or large number of measurements can improve robustness is not necessarily evident across all distributions, for example in the case of the exponential distribution. One trend that appears to be evident across all three distributions is that when the degrees of freedom methods are applied to a random intercept model, a more structurally simple model, they yield more robust error rates in comparison to an application to the random slopes model. 
+
+In addition, when looking at performance of the 4 methods overall, we can see that the $t$-as-$z$ and standard DF approach produce significantly more anti-conservative results, regardless of the values of other parameters. These trends align closely with a previous study by @luke_evaluating_2017 examining only normal distributions. 
 
 In order to make more specific observations and identify trends, we will examine performance within each of the three distributions by sample size and number of measurements.  
 
 ### Exponential Distribution
 
-```{r}
+```{r, fig.width= 6 ,fig.height = 6, fig.cap="Exponential"}
 
-ggplot(aes(x = as.factor(number_individuals), y = error_rate, color = DF_method, 
-           group = as.factor(number_measurements)), data = transformed_data %>% filter(distribution == "Exponential")) +
-  facet_grid(rslope ~ type) +
-  geom_point(alpha = .5, aes(shape = as.factor(number_measurements)), position = position_jitter(h = 0, w = 0.3)) +
-  geom_hline(yintercept = .05) +
-  scale_y_continuous(limits = c(0, .25)) +
-  annotate("rect", xmin = -.1, xmax = 4, ymin = 0.025, ymax = .075, 
-           alpha = .4) +
-  xlab("Number of Individuals") +
-  ylab("Error Rate") +
-  labs(color = "DF Method", group = "Number of Measurements")
 
-transformed_data %>%
-  filter(distribution == "Lognormal") %>%
-  mutate(robust = ifelse(error_rate >= .025 & error_rate <= .075, TRUE, 
-                         FALSE)) %>%
-  group_by(type) %>%
-  summarize(robustness = mean(robust))
+ ggplot(aes(x = as.factor(number_individuals), y = error_rate, color = DF_method,
+           ymin = error_rate-interval, ymax = error_rate+interval,
+            group = as.factor(number_measurements)), data = transformed_data %>%filter(distribution == "Exponential") ) +
+   facet_grid(rslope ~ type) +
+   geom_pointrange(alpha = .4, aes(shape = as.factor(number_measurements)), position = position_jitter(h = 0, w = 0.4)) +
+   geom_hline(yintercept = .05) +
+   scale_y_continuous(limits = c(-.02, .3)) +
+   annotate("rect", xmin = -.1, xmax = 4, ymin = 0.025, ymax = .075, alpha = .4) +
+   xlab("Number of Individuals") +
+   scale_color_manual(labels = c("KR", "Satterthwaite","Standard DF","T-as-z"), values = c("red","green","purple","blue")) +
+   ylab("Error Rate") +
+   labs(color = "DF Method", shape = "Number of Measurements")+ theme(legend.position="bottom", legend.box = "vertical")
+
 ```
-Our simulation results contain two exponential distribution, one with $\lambda = .9$ and $\lambda = .2$.  At $\lambda = .2$, we can see that in random slope models, increasing the sample size from 10 to 26 only marginally improves the DF methods, and more specifically, on those that are applied to conditions with more repeated measurements. For random slope models that have samples smaller than 26, all methods do not differ too much in terms of performance, and tend to be anti-conservative. On the other hand, in random intercept models, increasing the sample size did not improve the performance of DF methods, and in some cases caused the DF methods to be more anti-conservative; in the case of sample size 26 and 4 measurements, Type I error rates performed significantly worse in comparison to smaller sample sizes, holding other conditions constant. 
+Our simulation results contain two exponential distribution, one with $\lambda = .9$ and $\lambda = .2$.  At $\lambda = .2$, we can see that in random slope models, increasing the sample size from 10 to 26 marginally improves the DF methods, and more specifically, on those that are applied to conditions with more repeated measurements. For random slope models that have samples smaller than 26, all methods do not differ too much in terms of performance, and tend to be anti-conservative. On the other hand, in random intercept models, increasing the sample size did not improve the performance of DF methods, and in some cases caused the DF methods to be more anti-conservative; in the case of sample size 26 and 4 measurements, Type I error rates performed significantly worse in comparison to smaller sample sizes, holding other conditions constant. 
 
 At $\lambda = .9$, we see virtually the same trends in terms of the effect of sample size, complexity of model, and number of measurements on the performance of the DF methods. Overall, across both distributions, increasing the number of repeated measures impacted the DF methods' performance and increased robustness, while increasing sample size had less of an effect. Additionally, Kenward-Roger and Satterthwaite methods tended to produce more conservative error rates.  
 
@@ -214,48 +241,69 @@ Despite having different parameter values, the application of DF methods to thes
 
 
 ## Lognormal 
-```{r}
-ggplot(aes(x = as.factor(number_individuals), y = error_rate, color = DF_method, 
-           group = as.factor(number_measurements)), data = transformed_data %>% filter(distribution == "Lognormal")) +
-  facet_grid(rslope ~ type) +
-  geom_point(alpha = .5, aes(shape = as.factor(number_measurements)), position = position_jitter(h = 0, w = 0.3)) +
-  geom_hline(yintercept = .05) +
-  scale_y_continuous(limits = c(0, .25)) +
-  annotate("rect", xmin = -.1, xmax = 4, ymin = 0.025, ymax = .075, 
-           alpha = .4) +
-  xlab("Number of Individuals") +
-  ylab("Error Rate") +
-  labs(color = "DF Method", group = "Number of Measurements")
+```{r, fig.width= 6 ,fig.height = 6, fig.cap="Lognormal"}
+ 
+ 
+ ggplot(aes(x = as.factor(number_individuals), y = error_rate, color = DF_method,
+           ymin = error_rate-interval, ymax = error_rate+interval,
+            group = as.factor(number_measurements)), data = transformed_data %>%filter(distribution == "Lognormal") ) +
+   facet_grid(rslope ~ type) +
+   geom_pointrange(alpha = .4, aes(shape = as.factor(number_measurements)), position = position_jitter(h = 0, w = 0.4)) + 
+   geom_hline(yintercept = .05) +
+   scale_y_continuous(limits = c(-.02, .3)) +
+   annotate("rect", xmin = -.1, xmax = 4, ymin = 0.025, ymax = .075, alpha = .4) +
+   xlab("Number of Individuals") +
+   scale_color_manual(labels = c("KR", "Satterthwaite","Standard DF","T-as-z"), values = c("red","green","purple","blue")) +
+   ylab("Error Rate") +
+   labs(color = "DF Method", shape = "Number of Measurements")+ theme(legend.position="bottom", legend.box = "vertical")
+ 
 ```
 As seen in the first figure, across the lognormal distributions, DF methods applied to random intercept models had consistently more robust error rates in comparison to random slope. 
 
-Our first lognormal distribution with parameters $(0,.25)$ has lower values of kurtosis and skewness. In contrast to the exponential distributions, DF methods appear to be positively impacted by increasing the sample size; this can be seen in both random intercept and random slope model, and the effect is compounded when there are 8 measurements as opposed to 4. In the random slopes model, one can see that the error rates produced by the T-as-z and standard DF method are reduced by one fourth when increasing the sample size from 10 to 26. 
+Our first lognormal distribution with parameters $(0,.25)$ has lower values of kurtosis and skewness. DF methods appear to be positively impacted by increasing the sample size; this can be seen in both random intercept and random slope model, and the effect is compounded when there are 8 measurements as opposed to 4. In the random slopes model, one can see that the error rates produced by the $t$-as-$z$ and standard DF method are reduced by one fourth when increasing the sample size from 10 to 26. 
 
 On the other hand, with higher levels of skewness and kurtosis with a lognormal distribution with parameters $(1,.5)$, the effect of number of measurements and sample size are slightly different. While increasing the sample size impacts the DF methods in random intercept models regardless of the number of measurements, it seems to have less of an impact in random slope models when the number of measurements is 4 rather than 8. Overall, it appears that the number of measurements has a significant effect on the performance of the DF methods, as DF methods that are applied to models with larger measurements consistently are more robust and less anti-conservative. In addition, DF methods that are applied to this distribution are slightly less robust on average in comparison to the first distribution. 
 
 Based on comparisons between the two distributions, our results suggest that increasing skewness and kurtosis can negatively impact robustness of DF methods, and that it can also affect the impact of sample size on how the DF methods will perform. 
 
 ## Normal Distribution 
-```{r}
-ggplot(aes(x = as.factor(number_individuals), y = error_rate, color = DF_method, 
-           group = as.factor(number_measurements)), data = transformed_data %>% filter(distribution == "Gaussian")) +
-  facet_grid(rslope ~ type) +
-  geom_point(alpha = .5, aes(shape = as.factor(number_measurements)), position = position_jitter(h = 0, w = 0.3)) +
-  geom_hline(yintercept = .05) +
-  scale_y_continuous(limits = c(0, .30)) +
-  annotate("rect", xmin = -.1, xmax = 4, ymin = 0.025, ymax = .075, 
-           alpha = .4) +
-  xlab("Number of Individuals") +
-  ylab("Error Rate") +
-  labs(color = "DF Method", group = "Number of Measurements")
+```{r, fig.width= 6 ,fig.height = 6, fig.cap="Normal"}
+ ggplot(aes(x = as.factor(number_individuals), y = error_rate, color = DF_method, 
+            group = as.factor(number_measurements)), data = transformed_data %>% filter(distribution == "Gaussian")) +
+   facet_grid(rslope ~ type) +
+   geom_point(alpha = .5, aes(shape = as.factor(number_measurements)), position = position_jitter(h = 0, w = 0.3)) +
+   geom_hline(yintercept = .05) +
+   scale_y_continuous(limits = c(0, .30)) +
+   annotate("rect", xmin = -.1, xmax = 4, ymin = 0.025, ymax = .075, 
+            alpha = .4) +
+   xlab("Number of Individuals") +
+   scale_color_manual(labels = c("KR", "Satterthwaite","Standard DF","T-as-z"), values = c("red","green","purple","blue")) +
+   ylab("Error Rate") +
+   labs(color = "DF Method", shape = "Number of Measurements")+ theme(legend.position="bottom", legend.box = "vertical")
 ```
-While nonnormal distributions are the focus of this study, comparing performance of DF methods to the normal distribution is important as a point of reference. It is interesting to note how robustness has decreased for DF methods applied to the normal distribution compared to lognormal and exponential distributions, but it is also important to acknowledge that the methods, especially KR and Satterthwaite, produce conservative error rates, rather than anti-conservative ones. In general, in both random slope and random intercept models, increasing the sample size seems to decrease anti-conservative error rates and increase conservative error rates produced by DF methods and bring them closer to robustness. T-as-z and standard DF are more likely to be anti-conservative, while KR and Satterthwaite are more conservative. Increasing the number of measurements isn't strongly associated with DF methods producing more robustness results, but it is associated with more conservative error rates, which is arguably more ideal. 
+While nonnormal distributions are the focus of this study, comparing performance of DF methods to the normal distribution is important as a point of reference. It is interesting to note how robustness has decreased for DF methods applied to the normal distribution compared to lognormal and exponential distributions, but it is also important to acknowledge that the methods, especially KR and Satterthwaite, produce conservative error rates, rather than anti-conservative ones. In general, in both random slope and random intercept models, increasing the sample size seems to decrease anti-conservative error rates and increase conservative error rates produced by DF methods and bring them closer to robustness. $t$-as-$z$ and standard DF are more likely to be anti-conservative, while KR and Satterthwaite are more conservative. Increasing the number of measurements isn't strongly associated with DF methods producing more robustness results, but it is associated with more conservative error rates, which is arguably more ideal. 
 
 
 ### KR vs Satterthwaite 
 
-Comparing performance across all 4 methods has yielded signficant evidence that KR and Satterthwaite are superior methods when using linear mixed models on small samples. @luke_evaluating_2017 suggests that both KR and Satterthwaite are comparable solutions to obtain adequate Type I error. The following figure  aims to narrow in on differences in performance between the two methods. One can see that across random intercept models, KR and Satterthwaite methods have identical performance. Looking more closely at random slope models, it appears that KR consistently produces more conservative error rates when holding distribution, sample size, and number of measurements constant. This effect is further amplified when sample sizes are small. Overall, we find that KR is the more optimal DF method across nonnormal and normal distributions.
-```{r}
+
+```{r, fig.width= 6 ,fig.height = 6, fig.cap="KR vs Satterthwaite"}
+ ggplot(aes(x = as.factor(number_individuals), y = error_rate, 
+            color = DF_method, group = as.factor(number_measurements)), data = transformed_data %>% filter(DF_method %in% c("KR_t1err_1", "S_t1err_1"))) +
+   facet_grid(rslope ~ type) +
+   geom_point(alpha = .5, aes(shape = as.factor(number_measurements)), position = position_jitter(h = 0, w = 0.1)) +
+   geom_hline(yintercept = .05)+
+   annotate("rect", xmin = -.1, xmax = 4, ymin = 0.025, ymax = .075, alpha = .4) +
+   xlab("Number of Individuals") +
+   scale_color_manual(labels = c("KR", "Satterthwaite"), values = c("red","green")) +
+   ylab("Error Rate") +
+   labs(color = "DF Method", shape = "Number of Measurements")+ theme(legend.position="bottom", legend.box = "vertical")
+```
+
+Comparing performance across all 4 methods has yielded significant evidence that KR and Satterthwaite are superior methods when using linear mixed models on small samples. @luke_evaluating_2017 suggests that both KR and Satterthwaite are comparable solutions to obtain adequate Type I error. The following figure  aims to narrow in on differences in performance between the two methods. One can see that across random intercept models, KR and Satterthwaite methods have identical performance. Looking more closely at random slope models, it appears that KR consistently produces more conservative error rates when holding distribution, sample size, and number of measurements constant. While in smaller sample sizes of 10 and 18 this trend in KR is more beneficial and can be seen as "bringing" the error rate down closer to .05, across all distributions, this conservative trend is less robust at samples of size 26; the Satterthwaite method, while more anti-conservative, produces error rates closer to .05, as the error rate produces by KR is too conservative to be robust. 
+
+While in a majority of cases KR is a viable solution when aiming to keep Type I error rates low, it is not necessarily the optimal DF choice in every scenario if the goal is to produce error rates closest to .05. 
+```{r, include = FALSE}
 all_sim_sum %>%
   filter(KR_term == "treatment") %>%
   pivot_longer(cols = c("KR_t1err", "S_t1err", "Z_t1err", "t_t1err"), names_to = "DF_method", values_to = "error_rate") %>%
@@ -288,50 +336,82 @@ all_sim_sum %>%
   add_header_above(c(" " = 3, "Sample Size" = 6)) %>%
   landscape()
 
-
-ggplot(aes(x = as.factor(number_individuals), y = error_rate, 
-           color = DF_method, group = as.factor(number_measurements)), data = transformed_data %>% filter(DF_method %in% c("KR_t1err", "S_t1err"))) +
-  facet_grid(rslope ~ type) +
-  geom_point(alpha = .5, aes(shape = as.factor(number_measurements)), position = position_jitter(h = 0, w = 0.1)) +
-  geom_hline(yintercept = .05)+
-  annotate("rect", xmin = -.1, xmax = 4, ymin = 0.025, ymax = .075, alpha = .4)
-```
-
-### KR Only
-
-While KR method appears to be the most robust adjustment, (TABLE 5?) depicts its relatively variable performance across different conditions. Careful consideration must be used when conducting inference, and if possible, an increase in both sample size and number of measurements appears to ensure more robust results. 
-```{r}
 all_sim_sum %>%
   filter(KR_term == "treatment") %>%
+  pivot_longer(cols = c("KR_t1err", "S_t1err", "Z_t1err", "t_t1err"), names_to = "DF_method", values_to = "error_rate") %>%
+  filter(DF_method %in% c("KR_t1err", "S_t1err")) %>%
   pivot_wider(
-    names_from = c("number_individuals", "rslope"),
-    values_from = "KR_t1err"
+    names_from = c("rslope"),
+    values_from = "error_rate", names_prefix = "slope"
   ) %>%
-  group_by(distribution, params, number_measurements) %>%
-  summarise_all(funs(.[!is.na(.)])) %>%
-  slice(1) %>%
+  group_by(number_individuals, skew, kurtosis, DF_method) %>%
+  summarize(random_intercept = mean(slopeFALSE), 
+            random_slope = mean(slopeTRUE)) %>%
+  pivot_wider(
+    names_from = c("number_individuals"),
+    values_from = c("random_intercept", "random_slope")
+  ) %>%
+  select(
+    skew, kurtosis, DF_method, random_intercept_10, random_slope_10, random_intercept_18,
+    random_slope_18, random_intercept_26, random_slope_26
+  ) %>%
   ungroup() %>%
-  select(-c(KR_effect, KR_term, S_t1err, Z_t1err, t_t1err, distribution)) %>%
   kbl() %>%
-  pack_rows("Exponential", 1, 4) %>%
-  pack_rows("Normal", 5, 6) %>%
-  pack_rows("Lognormal", 7, 10) %>%
+  pack_rows("Exponential", 7, 8) %>%
+  pack_rows("Normal", 1, 2) %>%
+  pack_rows("Lognormal", 3, 6) %>%
   add_header_above(c(
-    " " = 4, "Random Intercept" = 1, "Random Slope" = 1, "Random Intercept" = 1,
+    " " = 3, "Random Intercept" = 1, "Random Slope" = 1, "Random Intercept" = 1,
     "Random Slope" = 1, "Random Intercept" = 1, "Random Slope" = 1
   )) %>%
-  add_header_above(c(" " = 4, "10" = 2, "18" = 2, "26" = 2)) %>%
-  add_header_above(c(" " = 2, "Sample Size" = 8)) %>%
+  add_header_above(c(" " = 3, "10" = 2, "18" = 2, "26" = 2)) %>%
+  add_header_above(c(" " = 3, "Sample Size" = 6)) %>%
+  landscape()
+all_sim_sum %>%
+  filter(KR_term == "treatment") %>%
+  pivot_longer(cols = c("KR_t1err", "S_t1err", "Z_t1err", "t_t1err"), names_to = "DF_method", values_to = "error_rate") %>%
+  filter(DF_method %in% c("Z_t1err", "t_t1err")) %>%
+  pivot_wider(
+    names_from = c("rslope"),
+    values_from = "error_rate", names_prefix = "slope"
+  ) %>%
+  group_by(number_individuals, skew, kurtosis, DF_method) %>%
+  summarize(random_intercept = mean(slopeFALSE), 
+            random_slope = mean(slopeTRUE)) %>%
+  pivot_wider(
+    names_from = c("number_individuals"),
+    values_from = c("random_intercept", "random_slope")
+  ) %>%
+  select(
+    skew, kurtosis, DF_method, random_intercept_10, random_slope_10, random_intercept_18,
+    random_slope_18, random_intercept_26, random_slope_26
+  ) %>%
+  ungroup() %>%
+  kbl() %>%
+  pack_rows("Exponential", 7, 8) %>%
+  pack_rows("Normal", 1, 2) %>%
+  pack_rows("Lognormal", 3, 6) %>%
+  add_header_above(c(
+    " " = 3, "Random Intercept" = 1, "Random Slope" = 1, "Random Intercept" = 1,
+    "Random Slope" = 1, "Random Intercept" = 1, "Random Slope" = 1
+  )) %>%
+  add_header_above(c(" " = 3, "10" = 2, "18" = 2, "26" = 2)) %>%
+  add_header_above(c(" " = 3, "Sample Size" = 6)) %>%
   landscape()
 ```
 
+Tables for all error rates produced by 4 DF methods are located in APPENDIX?
+
 ## Discussion
 
-Overall trends:
+After comparing the error rates produced by DF methods across three distributions, sample sizes, and two numbers of measurements and complexity of models totaling to 96 unique conditions, we find that overall, KR and Satterthwaite DF methods yield the most robust error rates overall; in addition, increasing the number of measurements taken per individual also aids the DF methods in increasing robustness. Random slope models are significantly more complicated in terms of using DF methods to produce robust error rates, and also challenge the superiority of the KR method over the Satterthwaite method when looking at random slope models of different sample sizes. This stark contrast in performance between random slope and random intercept models across all distributions requires further investigation.@barr_random_2013 suggest that LMM with maximal effects are preferable and can reduce Type I error rates, as random slope models can account for between individual variation in slopes and reduce residual variance. One caveat is that the maximal model must be accurately justified by the design of the study. Since the predictors were arbitrarily constructed for the purpose of the simulation, perhaps the random effects structure imposed on the time variable was not appropriate based on the data. 
 
-increasing sample sizes matters less when skewness and kurtosis are larger! 
-increasing number of measurements is always optimal 
-In normal distributions KR and Satterthwaite seem to be too conservative, but they work well in nonnormal distributions. 
+In comparison to the effect that number of measurements had on the performance of DF methods, increasing the sample size was less likely to be associated with the DF method producing more robust Type I error rates; this trend is more apparent in random slope models, as well as distributions with larger skewness and kurtosis values. While increasing the number of individuals in a sample will help improve performance of DF methods overall, it is less imperative than increasing the number of measurements of each individual. 
+
+When comparing and constrasting performance of Satterthwaite and KR methods, which have both been demonstrated to be suitable options for producing robust Type I error, it seems that complexity of the model as well as sample size are two parameters that can differentiate their performance. In random intercept models, performance between the two methods are identical. In random slope models, KR is more conservative, and at a larger sample of size 26, it is too conservative in comparison to Satterthwaite. Given that KR is a further adjustment to Satterthwaite, its more conservative performance is not surprising, but its worse performance at larger samples is. 
+
+While previous studies comparing DF methods focus primarily on normal distributions, the results from this study demonstrate that applying DF methods to LMM with nonnormal distributions can still produce robust Type I error rates. However, careful consideration of the complexity of the model, number of measurements and individuals, as well as the skewness and kurtosis of the data must be considered, as they each have an effect on the DF method not only individual, but when interacting with other parameters as well. Overall, these results also indicate that Type I error rates are closest to .05 overall when employing Kenward-Roger and Satterthwaite methods. 
 
 
-Ultimately, these results strongly support using either KR or Satterthwaite degrees of freedom adjustments as opposed to methods aimed towards larger sample sizes. 
+- Should I keep table of type I error rates of every distribution?
+

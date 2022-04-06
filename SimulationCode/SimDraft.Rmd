@@ -56,15 +56,14 @@ abline(0,1, col = "red", lty = 2)
 qqnorm(resid(reg_model))
 abline(0,1, col = "red", lty = 2)
 plot(ranef(intercept_model, level = 1))
-
+sqrt(.4)
 qqmath(ranef(intercept_model, postVar = TRUE), strip = FALSE)
 ```
 
 Intercept and slope model
 
 ```{r}
-child_data <- child_data %>%
-  mutate(wave = as.factor(wave))
+
 intercept_slope_model <- lmer(bmi ~  decisions_eat +  run_away + cig + alcohol + physical_fight + real_age + wave + ( 1 + wave|AID), child_data) 
 summary(intercept_slope_model, ddf ="Kenward-Roger" )
 summary(intercept_slope_model, ddf = "Satterthwaite")

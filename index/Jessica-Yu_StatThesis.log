@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.12)  1 APR 2022 01:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.12)  5 APR 2022 21:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -747,249 +747,261 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 ]
 Chapter 2.
-[17] [18] [19] [20] [21]
-Underfull \vbox (badness 3657) has occurred while \output is active []
+[17] [18]
+Underfull \vbox (badness 2884) has occurred while \output is active []
 
-[22]
+[19] [20] [21]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[23] [24]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 4
-97.
+[22] [23] [24]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 5
+02.
 (/Users/jessicayu/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
+<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-1-1.pdf, id=491, 469.75
+5pt x 325.215pt>
+File: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-1-1.pdf Graphic fi
+le (type pdf)
+<use Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-1-1.pdf>
+Package pdftex.def Info: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk
+-1-1.pdf  used on input line 507.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Overfull \hbox (36.13387pt too wide) in paragraph at lines 507--507
+ [] 
+ []
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [25]
-<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-3-1.pdf, id=494, 469.75
-5pt x 325.215pt>
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[26 <./Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-1-1.pdf>]
+<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-3-1.pdf, id=508, 578.16
+pt x 578.16pt>
 File: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-3-1.pdf Graphic fi
 le (type pdf)
 <use Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-3-1.pdf>
 Package pdftex.def Info: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk
--3-1.pdf  used on input line 528.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+-3-1.pdf  used on input line 522.
+(pdftex.def)             Requested size: 578.15858pt x 578.15858pt.
 
-Overfull \hbox (36.13387pt too wide) in paragraph at lines 528--528
- [] 
+Overfull \hbox (144.53859pt too wide) in paragraph at lines 522--523
+ [][] 
  []
 
-[26] [27 <./Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-3-1.pdf>]
-<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-4-1.pdf, id=515, 469.75
-5pt x 325.215pt>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[27]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[28 <./Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-3-1.pdf>]
+<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-4-1.pdf, id=527, 433.62
+pt x 433.62pt>
 File: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-4-1.pdf Graphic fi
 le (type pdf)
 <use Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-4-1.pdf>
 Package pdftex.def Info: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk
 -4-1.pdf  used on input line 538.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+(pdftex.def)             Requested size: 433.61894pt x 433.61894pt.
 
-Overfull \hbox (36.13387pt too wide) in paragraph at lines 538--538
- [] 
- []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[28 <./Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-4-1.pdf>]
-<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-5-1.pdf, id=531, 469.75
-5pt x 325.215pt>
+[29] [30 <./Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-4-1.pdf>]
+<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-5-1.pdf, id=547, 433.62
+pt x 433.62pt>
 File: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-5-1.pdf Graphic fi
 le (type pdf)
 <use Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-5-1.pdf>
 Package pdftex.def Info: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk
 -5-1.pdf  used on input line 554.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-
-Overfull \hbox (36.13387pt too wide) in paragraph at lines 554--554
- [] 
- []
-
+(pdftex.def)             Requested size: 433.61894pt x 433.61894pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[29] [30 <./Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-5-1.pdf>]
-<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1.pdf, id=552, 469.75
-5pt x 325.215pt>
+[31] [32 <./Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-5-1.pdf>]
+<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1.pdf, id=566, 433.62
+pt x 433.62pt>
 File: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1.pdf Graphic fi
 le (type pdf)
 <use Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1.pdf>
 Package pdftex.def Info: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk
--6-1.pdf  used on input line 566.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-
-Overfull \hbox (36.13387pt too wide) in paragraph at lines 566--566
- [] 
- []
-
+-6-1.pdf  used on input line 572.
+(pdftex.def)             Requested size: 433.61894pt x 433.61894pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[31] [32 <./Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1.pdf>] [3
-3]
-Overfull \hbox (276.4649pt too wide) in paragraph at lines 575--608
-[][] 
- []
-
-[34
-
-]
-<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-7-1.pdf, id=582, 469.75
-5pt x 325.215pt>
+[33] [34 <./Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1.pdf>]
+<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-7-1.pdf, id=587, 433.62
+pt x 433.62pt>
 File: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-7-1.pdf Graphic fi
 le (type pdf)
 <use Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-7-1.pdf>
 Package pdftex.def Info: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk
--7-1.pdf  used on input line 609.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+-7-1.pdf  used on input line 584.
+(pdftex.def)             Requested size: 433.61894pt x 433.61894pt.
 
-Overfull \hbox (36.13387pt too wide) in paragraph at lines 609--609
- [] 
- []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[35
+[35] [36 <./Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-7-1.pdf>]
+Underfull \vbox (badness 3657) has occurred while \output is active []
 
- <./Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-7-1.pdf>]
-Overfull \hbox (254.88834pt too wide) in paragraph at lines 616--653
-[][] 
- []
+[37]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[36
-
-] [37
-
-] [38
+[38] [39] [40
 
 ]
 Chapter 3.
 
-Underfull \vbox (badness 3189) has occurred while \output is active []
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 616.
 
-[39]
-<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-10-1.pdf, id=619, 469.7
+[41]
+<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-10-1.pdf, id=632, 469.7
 55pt x 325.215pt>
 File: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-10-1.pdf Graphic f
 ile (type pdf)
 <use Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-10-1.pdf>
 Package pdftex.def Info: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk
--10-1.pdf  used on input line 693.
+-10-1.pdf  used on input line 635.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Overfull \hbox (36.13387pt too wide) in paragraph at lines 693--693
+Overfull \hbox (36.13387pt too wide) in paragraph at lines 635--635
  [] 
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[40]
-<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-11-1.pdf, id=625, 469.7
+[42]
+<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-11-1.pdf, id=638, 469.7
 55pt x 325.215pt>
 File: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-11-1.pdf Graphic f
 ile (type pdf)
 <use Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-11-1.pdf>
 Package pdftex.def Info: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk
--11-1.pdf  used on input line 694.
+-11-1.pdf  used on input line 636.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Overfull \hbox (36.13387pt too wide) in paragraph at lines 694--694
+Overfull \hbox (36.13387pt too wide) in paragraph at lines 636--636
  [] 
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[41 <./Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-10-1.pdf>]
+[43 <./Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-10-1.pdf>]
+<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-12-1.pdf, id=648, 469.7
+55pt x 325.215pt>
+File: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-12-1.pdf Graphic f
+ile (type pdf)
+<use Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-12-1.pdf>
+Package pdftex.def Info: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk
+-12-1.pdf  used on input line 647.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Overfull \hbox (36.13387pt too wide) in paragraph at lines 647--647
+ [] 
+ []
+
+[44 <./Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-11-1.pdf>]
 LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-706.
+649.
 (/Users/jessicayu/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [42 <./Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-11-1.pdf>] [43]
+) [45 <./Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-12-1.pdf>]
+Underfull \hbox (badness 6876) in paragraph at lines 679--692
+[] \T1/lmr/m/n/12 The sum-mary
+ []
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[44] [45] [46
-
-]
+[46] [47] [48]
 Chapter 4.
 
-LaTeX Warning: Reference `tab:maxdelays' on page 47 undefined on input line 841
+LaTeX Warning: Reference `tab:maxdelays' on page 49 undefined on input line 826
 .
 
-[47] [48]
-<figures/amherst.png, id=679, 475.7775pt x 475.7775pt>
-File: figures/amherst.png Graphic file (type png)
-<use figures/amherst.png>
-Package pdftex.def Info: figures/amherst.png  used on input line 853.
-(pdftex.def)             Requested size: 216.81pt x 216.81303pt.
 [49
 
- <./figures/amherst.png>] [50]
-
-LaTeX Warning: Reference `fig:delaysboxplot' on page 51 undefined on input line
- 865.
-
+] [50]
+<figures/amherst.png, id=699, 475.7775pt x 475.7775pt>
+File: figures/amherst.png Graphic file (type png)
+<use figures/amherst.png>
+Package pdftex.def Info: figures/amherst.png  used on input line 838.
+(pdftex.def)             Requested size: 216.81pt x 216.81303pt.
 [51
 
+ <./figures/amherst.png>] [52]
+
+LaTeX Warning: Reference `fig:delaysboxplot' on page 53 undefined on input line
+ 850.
+
+[53
+
 ]
-<figures/subdivision.pdf, id=700, 220.825pt x 89.33376pt>
+<figures/subdivision.pdf, id=720, 220.825pt x 89.33376pt>
 File: figures/subdivision.pdf Graphic file (type pdf)
 <use figures/subdivision.pdf>
-Package pdftex.def Info: figures/subdivision.pdf  used on input line 874.
+Package pdftex.def Info: figures/subdivision.pdf  used on input line 859.
 (pdftex.def)             Requested size: 165.61833pt x 67.00014pt.
 File: figures/subdivision.pdf Graphic file (type pdf)
 <use figures/subdivision.pdf>
-Package pdftex.def Info: figures/subdivision.pdf  used on input line 887.
+Package pdftex.def Info: figures/subdivision.pdf  used on input line 872.
 (pdftex.def)             Requested size: 220.82445pt x 89.33353pt.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 898.
+(Font)              <10> on input line 883.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 898.
+(Font)              <7> on input line 883.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 898.
-[52
+(Font)              <5> on input line 883.
+[54
 
- <./figures/subdivision.pdf>] [53]
+ <./figures/subdivision.pdf>] [55]
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 9
-15.
+00.
 (/Users/jessicayu/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[54] [55] [56
+[56] [57] [58
 
-] [57] [58
+] [59] [60
 
 ]
 Appendix A.
-[59] [60
+[61] [62
 
 ]
 Appendix B.
-[61] [62
+[63] [64
 
-] [63] [64
+] [65] [66
 
-] [65
+] [67
 
 ] (./Jessica-Yu_StatThesis.aux)
 
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `Jessica-Yu_StatThesis.out' has not changed.
-(rerunfilecheck)             Checksum: 50026460713F347F223EB00744A05A4B;9145.
+(rerunfilecheck)             Checksum: 7D7CAB7C40C7B2EA5D03972396C473D4;8694.
  )
 (\end occurred inside a group at level 1)
 
 ### semi simple group (level 1) entered at line 215 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 14794 strings out of 480238
- 244175 string characters out of 5894762
- 526884 words of memory out of 5000000
- 32230 multiletter control sequences out of 15000+600000
- 539283 words of font info for 84 fonts, out of 8000000 for 9000
+ 14828 strings out of 480238
+ 245493 string characters out of 5894762
+ 521988 words of memory out of 5000000
+ 32253 multiletter control sequences out of 15000+600000
+ 564605 words of font info for 90 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,12n,69p,1076b,797s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,12n,69p,1354b,797s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/Users/jessicayu/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm
 /lm-ts1.enc}{/Users/jessicayu/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-
 ec.enc}{/Users/jessicayu/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.en
@@ -1013,11 +1025,12 @@ y/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb></Users/jessicayu/Library
 /TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></Users/jessicayu/Library/
 TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></Users/jessicayu/Library/Ti
 nyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></Users/jessicayu/Library/Tiny
-TeX/texmf-dist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on Jessica-Yu_StatThesis.pdf (79 pages, 531873 bytes).
+TeX/texmf-dist/fonts/type1/public/lm/lmtt12.pfb></Users/jessicayu/Library/TinyT
+eX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on Jessica-Yu_StatThesis.pdf (81 pages, 559778 bytes).
 PDF statistics:
- 972 PDF objects out of 1000 (max. 8388607)
- 820 compressed objects within 9 object streams
- 196 named destinations out of 1000 (max. 500000)
- 486 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1004 PDF objects out of 1200 (max. 8388607)
+ 843 compressed objects within 9 object streams
+ 201 named destinations out of 1000 (max. 500000)
+ 480 words of extra memory for PDF output out of 10000 (max. 10000000)
 
