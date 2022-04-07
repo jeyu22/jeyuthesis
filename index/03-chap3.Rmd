@@ -35,26 +35,22 @@ Age and BMI were assessed at every subsequent wave.
 
 ### Exploration
 
-```{r, fig.height=4, fig.width=4}
-ggplot(child_data, aes(wave, bmi, color=alcohol)) + geom_point() + geom_line(aes(group = AID)) 
+```{r}
+hist(child_data$bmi)
 ```
+From this histogram depicting distribution of BMI, we can see that it follows a nonnormal trend. The skewness is .95 and the kurtosis is 3.39. 
 
 ```{r}
-ggplot(child_data, aes(wave, bmi, color=cig)) + geom_point() + geom_line(aes(group = AID))
+
+a<-ggplot(child_data, aes(wave, bmi, color=alcohol)) + geom_point() + geom_line(aes(group = AID)) 
+b<-ggplot(child_data, aes(wave, bmi, color=cig)) + geom_point() + geom_line(aes(group = AID))
+cowplot::plot_grid(a,b,nrow=1)
 ```
 
 While our sample size is small, our initial exploration of alcohol and cigarette use suggests there may be some differences in BMI changes for individuals that have tried these substances at a younger age. In addition, there are unique patterns of BMI change over time by subject, which suggests that creating a mixed effects model with random effects for time may be useful.  
 
 ### Linear Mixed Model 
-Because we have repeated measurements of the same individual in this study, a regular linear model would not be able to capture the differences in variation between individuals and within individuals. We would hypothesize that changes in weight over time may vary less within a person over the years, as opposed to comparing changes in weight across two separate individuals. We first fit a linear model with no random effects for comparison. Then, we fit an intercept only model, allowing the intercept to vary by individual. 
-
-### Linear model 
-```{r}
-lm.child<- lm(bmi ~  decisions_eat +  run_away + cig + alcohol + physical_fight + real_age + wave, child_data) 
-summary(lm.child)
-```
-
-In a linear model with no random effects, we can see that having the freedom to make decisions about food, consumption of alcohol, and age are significant predictors of BMI. Being able to make decisions about food choices at the first wave of the study is associated with a 4 point decrease in BMI. Early exposure to alcohol is associated with a 5 point increase in BMI. Lastly, for every one year increase in age, BMI will increase by .66. 
+Because we have repeated measurements of the same individual in this study, a regular linear model would not be able to capture the differences in variation between individuals and within individuals. We would hypothesize that changes in weight over time may vary less within a person over the years, as opposed to comparing changes in weight across two separate individuals. First, we fit an intercept only model, allowing the intercept to vary by individual. 
 
 
 ### Intercept only model
@@ -123,7 +119,10 @@ Earlier evaluation of fixed effects uses KR DF method, but FIGURE ? shows that s
 
 ## Discussion
 
-We have demonstrated implementing two linear mixed models on a data set that is small and with a nonnormal continuous outcome. Imposing random effects structure to isolate variation between individuals apart from overall variation improved the model and reduced the number of predictors that were significant. One key result was that comparing KR and Sattherthwaite DF methods resulting in varying significant predictors in the random slope model. One additional predictor, alcohol, was a significant fixed effect when using Satterthwaite, the default output summary for *lmerTest*, in comparison to KR. These results are similar to our simulation in chapter 2, where we found that in smaller sample sizes and random slope models, the 
+We have demonstrated implementing two linear mixed models on a data set that is small and with a nonnormal continuous outcome. Imposing random effects structure to isolate variation between individuals apart from overall variation improved the model and reduced the number of predictors that were significant. One key result was that comparing KR and Sattherthwaite DF methods resulting in varying significant predictors in the random slope model. One additional predictor, alcohol, was a significant fixed effect when using Satterthwaite, the default output summary for *lmerTest*, in comparison to KR. Which method is preferable?
 
+Looking at the results from our simulation study, we can identify which condition most closely resembles the children data, and determine if KR or Satterthwaite would produce more robust results. There was no difference in the fixed effects of the random intercept model, so we only focus on the random slopes model. The skewness and kurtosis values for the application data align most closely with that of the lognormal distribution $X\sim\mathit{Log}(0,.25).$ We will look at the performance of the two DF methods in this distribution, in a random slope model with a sample size of 10 and 4 measurements per individual. In reference to FIGURE ?, we see that the performance of KR and Satterthwaite are virtually the same. If this is the case, our preference will still be towards KR as it tends to produce slightly less anti-convservative Type I error rates. 
+
+Ultimately, our application study supports the idea that linear mixed models can be applied to small samples when using KR or Satterthwaite DF methods. While performance between the two can be equally robust in theory, they can possibly lead to different significant fixed effects and conclusions about data overall. 
 
 
