@@ -136,11 +136,12 @@
 %%%%%%%%
 
 \Abstract{
-The abstract should be a short summary of your thesis work. A paragraph is usually sufficient here.
+Linear mixed-effects models are widely used in social and biological sciences, and are also used for longitudinal data analysis. In cases where sample sizes are small, evaluating the significance of fixed effects becomes challenging, and Type I error rates across different degrees-of-freedom (DF) methods vary. While previous studies have shown that Kenward-Roger and Satterthwaite DF produce robust Type I error rates for smaller samples, the performance of these methods on small nonnormal distributions has not been explored. Through a simulation study, we show that model complexity, sample size, and number of measurements play a role in the performance of 4 DF methods across distributions of varying skewness and kurtosis. Additionally, we find that Kenward-Roger and Satterthwaite DF methods produce favorable Type I error rates in comparison to DF methods designed for larger sample sizes.
 }
 
 \Acknowledgments{
-Use this space to thank those who have helped you in the thesis process (professors, staff, friends, family, etc.). If you had special funding to conduct your thesis work, that should be acknowledged here as well.
+I would like to thank the Amherst statistics department for their continuous support during my undergraduate career. I especially want to thank Professor Horton, whose encouragement and constant enthusiasm inspired me to pursue statistics. Additionally, this thesis would not be possible without the guidance of Professor Bailey, who has helped me through this challenging process and allowed me to learn about myself as a researcher.I also want to shout out my SDS partner-in-crime, Kenny Chen. There's no one else I'd rather do group projects with.
+Lastly, I want to thank my family for the sacrifices they've made so I can pursue my passions. They've instilled a love of learning in me that I will have for the rest of my life.
 }
 
 \Dedication{
@@ -222,10 +223,11 @@ Use this space to thank those who have helped you in the thesis process (profess
 %\pagestyle{fancy} % this removes page numbers from the frontmatter
 
   \begin{abstract}
-    The abstract should be a short summary of your thesis work. A paragraph is usually sufficient here.
+    Linear mixed-effects models are widely used in social and biological sciences, and are also used for longitudinal data analysis. In cases where sample sizes are small, evaluating the significance of fixed effects becomes challenging, and Type I error rates across different degrees-of-freedom (DF) methods vary. While previous studies have shown that Kenward-Roger and Satterthwaite DF produce robust Type I error rates for smaller samples, the performance of these methods on small nonnormal distributions has not been explored. Through a simulation study, we show that model complexity, sample size, and number of measurements play a role in the performance of 4 DF methods across distributions of varying skewness and kurtosis. Additionally, we find that Kenward-Roger and Satterthwaite DF methods produce favorable Type I error rates in comparison to DF methods designed for larger sample sizes.
   \end{abstract}
   \begin{acknowledgments}
-    Use this space to thank those who have helped you in the thesis process (professors, staff, friends, family, etc.). If you had special funding to conduct your thesis work, that should be acknowledged here as well.
+    I would like to thank the Amherst statistics department for their continuous support during my undergraduate career. I especially want to thank Professor Horton, whose encouragement and constant enthusiasm inspired me to pursue statistics. Additionally, this thesis would not be possible without the guidance of Professor Bailey, who has helped me through this challenging process and allowed me to learn about myself as a researcher.I also want to shout out my SDS partner-in-crime, Kenny Chen. There's no one else I'd rather do group projects with.
+    Lastly, I want to thank my family for the sacrifices they've made so I can pursue my passions. They've instilled a love of learning in me that I will have for the rest of my life.
   \end{acknowledgments}
 
   \hypersetup{linkcolor=black}
@@ -519,13 +521,13 @@ We use the \emph{lmerTest} package to fit the linear mixed effects model and eva
 After performing 400 replications of each condition at a significance level of .05, we evaluate robustness using Bradley's criterion, which considers a test to robust if the empirical error rate is between .025 and .075 Bradley (1978). In the following section, we will compare Type I error rates produced from KR and Satterthwaite methods as well as \(t\)-as-\(z\) and using the standard DF formula, further stratified by distribution and other manipulated parameters.
 \begin{figure}
 
-{\centering \includegraphics[angle=90]{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-3-1} 
+{\centering \includegraphics[angle=90]{Jessica-Yu_StatThesis_files/figure-latex/fig1-1} 
 
 }
 
-\caption{A nice image.}\label{fig:unnamed-chunk-3}
+\caption{Type I Error Rates by DF method}\label{fig:fig1}
 \end{figure}
-FIGURE 1 displays error rates from all 4 degrees of freedom methods by distribution, parameters, complexity of random model, number of measurements, and number of samples. The shaded region indicates error rates that are considered robust by Bradley (1978)'s criterion. It is evident that there are varying patterns of performance by distribution. The common conception that larger sample sizes or large number of measurements can improve robustness is not necessarily evident across all distributions, for example in the case of the exponential distribution. One trend that appears to be evident across all three distributions is that when the degrees of freedom methods are applied to a random intercept model, a more structurally simple model, they yield more robust error rates in comparison to an application to the random slopes model.
+Figure \ref{fig:fig1} displays error rates from all 4 degrees of freedom methods by distribution, parameters, complexity of random model, number of measurements, and number of samples. The shaded region indicates error rates that are considered robust by Bradley (1978)'s criterion. It is evident that there are varying patterns of performance by distribution. The common conception that larger sample sizes or large number of measurements can improve robustness is not necessarily evident across all distributions, for example in the case of the exponential distribution. One trend that appears to be evident across all three distributions is that when the degrees of freedom methods are applied to a random intercept model, a more structurally simple model, they yield more robust error rates in comparison to an application to the random slopes model.
 
 In addition, when looking at performance of the 4 methods overall, we can see that the \(t\)-as-\(z\) and standard DF approach produce significantly more anti-conservative results, regardless of the values of other parameters. These trends align closely with a previous study by Luke (2017) examining only normal distributions.
 
@@ -535,15 +537,15 @@ In order to make more specific observations and identify trends, we will examine
 \subsection{Exponential Distribution}\label{exponential-distribution}}
 \begin{figure}
 
-{\centering \includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-4-1} 
+{\centering \includegraphics{Jessica-Yu_StatThesis_files/figure-latex/fig2-1} 
 
 }
 
-\caption{Exponential}\label{fig:unnamed-chunk-4}
+\caption{Type 1 Error Rates by DF method for Exponential Distribution}\label{fig:fig2}
 \end{figure}
-Our simulation results contain two exponential distribution, one with \(\lambda = .9\) and \(\lambda = .2\). At \(\lambda = .2\), we can see that in random slope models, increasing the sample size from 10 to 26 marginally improves the DF methods, and more specifically, on those that are applied to conditions with more repeated measurements. For random slope models that have samples smaller than 26, all methods do not differ too much in terms of performance, and tend to be anti-conservative. On the other hand, in random intercept models, increasing the sample size did not improve the performance of DF methods, and in some cases caused the DF methods to be more anti-conservative; in the case of sample size 26 and 4 measurements, Type I error rates performed significantly worse in comparison to smaller sample sizes, holding other conditions constant.
+Our simulation results explore two exponential distributions, one with \(\lambda = .9\) and \(\lambda = .2\). Looking at figure \ref{fig:fig2}, at \(\lambda = .2\), we can see that in random slope models, comparing sample size of 10 to 26 marginally improves the DF methods, but only on those that are applied to conditions with more repeated measurements. The relationship between sample size and robustness is not linear, as increasing the sample size from 10 to 18 does not help DF methods achieve less anti-conservative error rates. On the other hand, in random intercept models, increasing the sample size did not improve the performance of DF methods, and in some cases were associated with more anti-conservative Type I error rates; in the case of sample size 26 and 4 measurements, Type I error rates performed significantly worse in comparison to smaller sample sizes, holding other conditions constant.
 
-At \(\lambda = .9\), we see virtually the same trends in terms of the effect of sample size, complexity of model, and number of measurements on the performance of the DF methods. Overall, across both distributions, increasing the number of repeated measures impacted the DF methods' performance and increased robustness, while increasing sample size had less of an effect. Additionally, Kenward-Roger and Satterthwaite methods tended to produce more conservative error rates.
+At \(\lambda = .9\), we see virtually the same trends in terms of the effect of sample size, complexity of model, and number of measurements on the performance of the DF methods. Overall, across both distributions, increasing the number of repeated measures impacted the DF methods' performance and increased robustness, while the effect of sample size was hard to pinpoint. Additionally, Kenward-Roger and Satterthwaite methods tended to produce more conservative error rates.
 
 Despite having different parameter values, the application of DF methods to these two exponential distributions produce similar different trends in error rates. Considering that the two distributions have the same skewness and kurtosis values, we hypothesize whether this similarity in values contributes to the performance of the DF methods. Next, we will examine the performance of DF methods in lognormal distributions.
 
@@ -551,63 +553,63 @@ Despite having different parameter values, the application of DF methods to thes
 \section{Lognormal}\label{lognormal}}
 \begin{figure}
 
-{\centering \includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-5-1} 
+{\centering \includegraphics{Jessica-Yu_StatThesis_files/figure-latex/fig3-1} 
 
 }
 
-\caption{Lognormal}\label{fig:unnamed-chunk-5}
+\caption{Type I Error Rates by DF Method for Lognormal Distribution}\label{fig:fig3}
 \end{figure}
-As seen in the first figure, across the lognormal distributions, DF methods applied to random intercept models had consistently more robust error rates in comparison to random slope.
+Figure \ref{fig:fig3} highlights Type I error rates produced by DF method for lognormal data. As seen in the exponential distribution, across the lognormal distributions, DF methods applied to random intercept models had consistently more robust error rates in comparison to random slope.
 
-Our first lognormal distribution with parameters \((0,.25)\) has lower values of kurtosis and skewness. DF methods appear to be positively impacted by increasing the sample size; this can be seen in both random intercept and random slope model, and the effect is compounded when there are 8 measurements as opposed to 4. In the random slopes model, one can see that the error rates produced by the \(t\)-as-\(z\) and standard DF method are reduced by one fourth when increasing the sample size from 10 to 26.
+Our first lognormal distribution with parameters \((0,.25)\) has lower values of kurtosis and skewness. In the random slope model, increasing sample size from 10 to 18 only improves performance of the \(t\)-as-\(z\) and standard DF method when individuals have 8 measurements each, and in all other cases leads to less robustness. At sample size 26, DF methods are significantly more robust when applied to 8 measurements per individual rather than 4. In the random intercept model, we see a similar lack of consistent pattern of Type I error rates when sample size increases from 10 to 18, but at sample size 26 all methods regardless of number of measurements are robust.
 
-On the other hand, with higher levels of skewness and kurtosis with a lognormal distribution with parameters \((1,.5)\), the effect of number of measurements and sample size are slightly different. While increasing the sample size impacts the DF methods in random intercept models regardless of the number of measurements, it seems to have less of an impact in random slope models when the number of measurements is 4 rather than 8. Overall, it appears that the number of measurements has a significant effect on the performance of the DF methods, as DF methods that are applied to models with larger measurements consistently are more robust and less anti-conservative. In addition, DF methods that are applied to this distribution are slightly less robust on average in comparison to the first distribution.
+On the other hand, with higher levels of skewness and kurtosis with a lognormal distribution with parameters \((1,.5)\), the effect of number of measurements and sample size are slightly different. Increasing the sample size from 10 to 18 has either no effect or an adverse effect on DF methods; in random intercept models the DF methods generally produce Type I error rates that are too conservative, and the opposite is seen in random slope models. Similar to the other lognormal distribution, DF methods applied to random intercept models of size 26 are all robust. The same difference between performance of DF methods of 4 and 8 measurements at size 26 in random slope models are observed, but that difference is widened. All DF methods at 4 measurements aside from the KR method have Type I error rates that almost 4 times the error rates at 8 measurements.
 
-Based on comparisons between the two distributions, our results suggest that increasing skewness and kurtosis can negatively impact robustness of DF methods, and that it can also affect the impact of sample size on how the DF methods will perform.
+Based on comparisons between the two distributions, our results suggest that there are only slight differences that arise, suggesting that to a certain extent, distributions with greater skew and kurtosis may not significantly impact the performance of DF methods. In both distributions, DF methods applied to models with size 26 and 8 measurements were the most robust. Increasing sample size from 10 to 18 yields different Type I error rates across the two distributions, but it is difficult to discern a definite pattern.
 
 \hypertarget{normal-distribution}{%
 \section{Normal Distribution}\label{normal-distribution}}
 \begin{figure}
 
-{\centering \includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1} 
+{\centering \includegraphics{Jessica-Yu_StatThesis_files/figure-latex/fig4-1} 
 
 }
 
-\caption{Normal}\label{fig:unnamed-chunk-6}
+\caption{Type I Error Rates by DF Method for Normal Distribution}\label{fig:fig4}
 \end{figure}
-While nonnormal distributions are the focus of this study, comparing performance of DF methods to the normal distribution is important as a point of reference. It is interesting to note how robustness has decreased for DF methods applied to the normal distribution compared to lognormal and exponential distributions, but it is also important to acknowledge that the methods, especially KR and Satterthwaite, produce conservative error rates, rather than anti-conservative ones. In general, in both random slope and random intercept models, increasing the sample size seems to decrease anti-conservative error rates and increase conservative error rates produced by DF methods and bring them closer to robustness. \(t\)-as-\(z\) and standard DF are more likely to be anti-conservative, while KR and Satterthwaite are more conservative. Increasing the number of measurements isn't strongly associated with DF methods producing more robustness results, but it is associated with more conservative error rates, which is arguably more ideal.
+While nonnormal distributions are the focus of this study, comparing performance of DF methods to the normal distribution is important as a point of reference. As we can see in figure \ref{fig:fig4}, it is interesting to note how robustness has decreased for DF methods applied to the normal distribution compared to lognormal and exponential distributions, but it is also important to acknowledge that the methods, especially KR and Satterthwaite, produce conservative error rates, rather than anti-conservative ones. In most scenarios, KR and Satterthwaite remain unaffected when changing sample size. On the other hand, \(t\)-as-\(z\) and standard DF oftentimes produce the most anti-conservative error rates, but improvements arise when sample size is at 26.
+
+Overall, in the normal distribution, there is a clearer distinction in performance of KR and Satterthwaite vs \(t\)-as-\(z\) and standard DF methods. Increasing the number of measurements is another factor that can affect Type I error rates produced by DF method within a particular method, rather than comparing across them.
 
 \hypertarget{kr-vs-satterthwaite}{%
 \subsection{KR vs Satterthwaite}\label{kr-vs-satterthwaite}}
 \begin{figure}
 
-{\centering \includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-7-1} 
+{\centering \includegraphics{Jessica-Yu_StatThesis_files/figure-latex/fig5-1} 
 
 }
 
-\caption{KR vs Satterthwaite}\label{fig:unnamed-chunk-7}
+\caption{Type I Error Rates Produced by KR vs Satterthwaite}\label{fig:fig5}
 \end{figure}
-Comparing performance across all 4 methods has yielded significant evidence that KR and Satterthwaite are superior methods when using linear mixed models on small samples. Luke (2017) suggests that both KR and Satterthwaite are comparable solutions to obtain adequate Type I error. The following figure aims to narrow in on differences in performance between the two methods. One can see that across random intercept models, KR and Satterthwaite methods have identical performance. Looking more closely at random slope models, it appears that KR consistently produces more conservative error rates when holding distribution, sample size, and number of measurements constant. While in smaller sample sizes of 10 and 18 this trend in KR is more beneficial and can be seen as ``bringing'' the error rate down closer to .05, across all distributions, this conservative trend is less robust at samples of size 26; the Satterthwaite method, while more anti-conservative, produces error rates closer to .05, as the error rate produces by KR is too conservative to be robust.
+Comparing performance across all 4 methods has yielded significant evidence that KR and Satterthwaite are superior methods when using linear mixed models on small samples. Luke (2017) suggests that both KR and Satterthwaite are comparable solutions to obtain adequate Type I error. Figure \ref{fig:fig5} aims to narrow in on differences in performance between the two methods. One can see that across random intercept models, KR and Satterthwaite methods have identical performance. Looking more closely at random slope models, it appears that KR consistently produces more conservative error rates when holding distribution, sample size, and number of measurements constant. In two scenarios, of which models were of size 10 and 18, the KR method produced more conservative error rates, but were not robust, while the Satterthwaite method produced robust error rates.
 
 While in a majority of cases KR is a viable solution when aiming to keep Type I error rates low, it is not necessarily the optimal DF choice in every scenario if the goal is to produce error rates closest to .05.
 
-Tables for all error rates produced by 4 DF methods are located in APPENDIX?
+Tables for all error rates produced by 4 DF methods are located in the appendix \ref{table:tables}
 
 \hypertarget{discussion}{%
 \section{Discussion}\label{discussion}}
 
-After comparing the error rates produced by DF methods across three distributions, sample sizes, and two numbers of measurements and complexity of models totaling to 96 unique conditions, we find that overall, KR and Satterthwaite DF methods yield the most robust error rates overall; in addition, increasing the number of measurements taken per individual also aids the DF methods in increasing robustness. Random slope models are significantly more complicated in terms of using DF methods to produce robust error rates, and also challenge the superiority of the KR method over the Satterthwaite method when looking at random slope models of different sample sizes. This stark contrast in performance between random slope and random intercept models across all distributions requires further investigation.@barr\_random\_2013 suggest that LMM with maximal effects are preferable and can reduce Type I error rates, as random slope models can account for between individual variation in slopes and reduce residual variance. One caveat is that the maximal model must be accurately justified by the design of the study. Since the predictors were arbitrarily constructed for the purpose of the simulation, perhaps the random effects structure imposed on the time variable was not appropriate based on the data.
+After comparing the error rates produced by DF methods across three distributions, three sample sizes, and two numbers of measurements and complexity of models totaling to 96 unique conditions, we find that overall, KR and Satterthwaite DF methods yield the most robust error rates when constructing LMM with small sample sizes. In addition, random slope models are significantly more complicated in terms of using DF methods to produce robust error rates, and also challenge the superiority of the KR method over the Satterthwaite method when looking at robustness of Type I errors of random slope models of smaller sample sizes.
 
-In comparison to the effect that number of measurements had on the performance of DF methods, increasing the sample size was less likely to be associated with the DF method producing more robust Type I error rates; this trend is more apparent in random slope models, as well as distributions with larger skewness and kurtosis values. While increasing the number of individuals in a sample will help improve performance of DF methods overall, it is less imperative than increasing the number of measurements of each individual.
+This stark contrast in performance between random slope and random intercept models across all distributions requires further investigation. Barr, Levy, Scheepers, \& Tily (2013) suggest that LMM with maximal effects are preferable and can reduce Type I error rates, as random slope models can account for between individual variation in slopes and reduce residual variance. However, in their study the distribution of the variable of interest in normal, and random effects were generated from a bivariate normal distribution. In this simulation, random effects for the intercept and time were drawn from two nonnormal distributions which can further complicate the distribution of the outcome variable and complicate the fit of the model.
 
-When comparing and constrasting performance of Satterthwaite and KR methods, which have both been demonstrated to be suitable options for producing robust Type I error, it seems that complexity of the model as well as sample size are two parameters that can differentiate their performance. In random intercept models, performance between the two methods are identical. In random slope models, KR is more conservative, and at a larger sample of size 26, it is too conservative in comparison to Satterthwaite. Given that KR is a further adjustment to Satterthwaite, its more conservative performance is not surprising, but its worse performance at larger samples is.
+When comparing and constrasting performance of Satterthwaite and KR methods, which have both been demonstrated to be suitable options for producing robust Type I error, it seems that complexity of the model as well as sample size are two parameters that can differentiate their performance. In random intercept models, performance between the two methods are identical. In random slope models, KR is more conservative, and in a few conditions where the sample size is less than 26, it is too conservative in comparison to Satterthwaite. Given that KR is a further adjustment to Satterthwaite, its more conservative performance is not surprising; when constructing random slope LMM with smaller samples, it is important to consider both methods, as their performance may not be identical.
 
-While previous studies comparing DF methods focus primarily on normal distributions, the results from this study demonstrate that applying DF methods to LMM with nonnormal distributions can still produce robust Type I error rates. However, careful consideration of the complexity of the model, number of measurements and individuals, as well as the skewness and kurtosis of the data must be considered, as they each have an effect on the DF method not only individual, but when interacting with other parameters as well. Overall, these results also indicate that Type I error rates are closest to .05 overall when employing Kenward-Roger and Satterthwaite methods.
-\begin{itemize}
-\tightlist
-\item
-  Should I keep table of type I error rates of every distribution?
-\end{itemize}
+In terms of sample size and number of measurements, it appears that increasing the number of measurements increases the proportion of DF methods that produce robust Type I error rates in most conditions. Difference in DF method performance across measurement numbers is most evident in random slope models with samples of size 26. On the other hand, increasing sample size is not strongly associated with increased robustness of Type I error rates produced by DF methods. Increasing from sample size from 10 to 18 produces inconclusive patterns: sometimes DF methods produce even more anti-conservative error rates, and in other cases there is virtually no difference. In most cases, sample size of 26 is the most ideal for robustness, but in some nonnormal distributions robustness can only be achieved by also having more repeated measurements. It is plausible that the differences between a sample size of 10 and 18 are insignificant because both are too small in terms of a ``large-enough'' sample of size 30, so the DF methods are not impacted by this increase in sample. Models of sample size 26 may be ideal in some circumstances mainly because of its proximity to being considered sufficiently large enough.
+
+While previous studies comparing DF methods focus primarily on normal distributions, the results from this study demonstrate that applying DF methods to LMM with nonnormal distributions and small sample sizes can still produce robust Type I error rates. However, careful consideration of the complexity of the model, number of measurements and individuals, as well as the skewness and kurtosis of the data must be considered, as they each have an effect on the DF method not only individually, but when interacting with other parameters as well. Overall, these results also indicate that Type I error rates are closest to .05 overall when employing Kenward-Roger and Satterthwaite methods.
+
 \hypertarget{math-sci}{%
 \chapter{Application}\label{math-sci}}
 
@@ -636,46 +638,17 @@ Age and BMI were assessed at every subsequent wave.
 
 \hypertarget{exploration}{%
 \subsection{Exploration}\label{exploration}}
-\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-10-1} \end{center}
-\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-11-1} \end{center}
+\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-5-1} \end{center}
+
+From this histogram depicting distribution of BMI, we can see that it follows a nonnormal trend. The skewness is .95 and the kurtosis is 3.39.
+\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1} \end{center}
 
 While our sample size is small, our initial exploration of alcohol and cigarette use suggests there may be some differences in BMI changes for individuals that have tried these substances at a younger age. In addition, there are unique patterns of BMI change over time by subject, which suggests that creating a mixed effects model with random effects for time may be useful.
 
 \hypertarget{linear-mixed-model}{%
 \subsection{Linear Mixed Model}\label{linear-mixed-model}}
 
-Because we have repeated measurements of the same individual in this study, a regular linear model would not be able to capture the differences in variation between individuals and within individuals. We would hypothesize that changes in weight over time may vary less within a person over the years, as opposed to comparing changes in weight across two separate individuals. We first fit a linear model with no random effects for comparison. Then, we fit an intercept only model, allowing the intercept to vary by individual.
-
-\hypertarget{linear-model}{%
-\subsection{Linear model}\label{linear-model}}
-\begin{verbatim}
-   
-   Call:
-   lm(formula = bmi ~ decisions_eat + run_away + cig + alcohol + 
-       physical_fight + real_age + wave, data = child_data)
-   
-   Residuals:
-      Min     1Q Median     3Q    Max 
-   -5.402 -1.193 -0.100  0.766  6.235 
-   
-   Coefficients:
-                   Estimate Std. Error t value Pr(>|t|)    
-   (Intercept)       12.061      2.859    4.22  0.00023 ***
-   decisions_eat1    -4.052      1.915   -2.12  0.04342 *  
-   run_away3         -0.643      2.202   -0.29  0.77260    
-   cig1              -0.819      1.867   -0.44  0.66450    
-   alcohol1           5.115      1.128    4.53 0.000099 ***
-   physical_fight1   -2.761      2.256   -1.22  0.23121    
-   real_age           0.661      0.246    2.69  0.01192 *  
-   wave              -0.995      1.021   -0.97  0.33818    
-   ---
-   Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-   
-   Residual standard error: 2.7 on 28 degrees of freedom
-   Multiple R-squared:  0.555,  Adjusted R-squared:  0.443 
-   F-statistic: 4.98 on 7 and 28 DF,  p-value: 0.000934
-\end{verbatim}
-In a linear model with no random effects, we can see that having the freedom to make decisions about food, consumption of alcohol, and age are significant predictors of BMI. Being able to make decisions about food choices at the first wave of the study is associated with a 4 point decrease in BMI. Early exposure to alcohol is associated with a 5 point increase in BMI. Lastly, for every one year increase in age, BMI will increase by .66.
+Because we have repeated measurements of the same individual in this study, a regular linear model would not be able to capture the differences in variation between individuals and within individuals. We would hypothesize that changes in weight over time may vary less within a person over the years, as opposed to comparing changes in weight across two separate individuals. First, we fit an intercept only model, allowing the intercept to vary by individual.
 
 \hypertarget{intercept-only-model}{%
 \subsection{Intercept only model}\label{intercept-only-model}}
@@ -723,8 +696,8 @@ In a linear model with no random effects, we can see that having the freedom to 
    wave         0.454  0.232  0.000  0.198 -0.116 -0.116 -0.909
 \end{verbatim}
 First, we can examine the output of the fixed effects similar to how a regular linear regression model is interpreted. Alcohol use is the only significant effect. This means that having already consumed alcohol at the first wave increases the predicted BMI holding all other predictors constant. Next, we turn to the random effects output. The variance for individuals (represented by \texttt{AID}), which depicts variability across individuals, is 5.977, while the residual variance, representing within-subject variability is 3.682. The significantly larger variance across individuals compared to within individuals suggests that this model is more optimal than a regular linear regression model since differences in variability are apparent. The interclass correlation is .62, which indicates that weight measurements taken of the same individual have slightly higher similarity than those of different individuals.
-\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-14-1} \end{center}
-\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-14-2} \end{center}
+\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-8-1} \end{center}
+\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-8-2} \end{center}
 
 The residuals vs fitted plot indicates no heterogeneity in the residuals, and the qqplot indicates that for the most part residuals are normally distributed. The assumptions for fitting a random slope linear mixed model are met.
 \begin{tabular}{l|l|l}
@@ -799,8 +772,8 @@ The summary output referenced above uses Kenward-Roger DF approximation. TABLE ?
 In this model, we add a random effect of time as well as random intercept. This means that we are assuming that for each individual, the relationship between time and BMI is unique. For fixed effects, age is the only significant effect when using the KR method. For every year increase in age, BMI increases by .5. BMI is known to increase with age, so this model does not reveal any new predictors that are associated with it. Variability across individuals is 5.977, and the residual variance is 2.402. The variance for time is 1.299. We see that imposing variability between each individual's relationship of time vs BMI reduces some of the residual variance, which indicates that this structure is improving the model's fit on the data. By accounting for some of the variation through each individual's weight changes over time, this may have reduced variation of BMI attributed to differences in alcohol consumption, rendering it not significant in this model.
 
 Conditions for the model are met as seen by the figures below.
-\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-17-1} \end{center}
-\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-17-2} \end{center}
+\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-11-1} \end{center}
+\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-11-2} \end{center}
 \begin{tabular}{l|l|l}
 \hline
 term & Satterthwaite\_p.value & KR\_p.value\\
@@ -827,7 +800,11 @@ Earlier evaluation of fixed effects uses KR DF method, but FIGURE ? shows that s
 \hypertarget{discussion-1}{%
 \section{Discussion}\label{discussion-1}}
 
-We have demonstrated implementing two linear mixed models on a data set that is small and with a nonnormal continuous outcome. Imposing random effects structure to isolate variation between individuals apart from overall variation improved the model and reduced the number of predictors that were significant. One key result was that comparing KR and Sattherthwaite DF methods resulting in varying significant predictors in the random slope model. One additional predictor, alcohol, was a significant fixed effect when using Satterthwaite, the default output summary for \emph{lmerTest}, in comparison to KR. These results are similar to our simulation in chapter 2, that found that
+We have demonstrated implementing two linear mixed models on a data set that is small and with a nonnormal continuous outcome. Imposing random effects structure to isolate variation between individuals apart from overall variation improved the model and reduced the number of predictors that were significant. One key result was that comparing KR and Sattherthwaite DF methods resulting in varying significant predictors in the random slope model. One additional predictor, alcohol, was a significant fixed effect when using Satterthwaite, the default output summary for \emph{lmerTest}, in comparison to KR. Which method is preferable?
+
+Looking at the results from our simulation study, we can identify which condition most closely resembles the children data, and determine if KR or Satterthwaite would produce more robust results. There was no difference in the fixed effects of the random intercept model, so we only focus on the random slopes model. The skewness and kurtosis values for the application data align most closely with that of the lognormal distribution \(X\sim\mathit{Log}(0,.25).\) We will look at the performance of the two DF methods in this distribution, in a random slope model with a sample size of 10 and 4 measurements per individual. In reference to FIGURE ?, we see that the performance of KR and Satterthwaite are virtually the same. If this is the case, our preference will still be towards KR as it tends to produce slightly less anti-convservative Type I error rates.
+
+Ultimately, our application study supports the idea that linear mixed models can be applied to small samples when using KR or Satterthwaite DF methods. While performance between the two can be equally robust in theory, they can possibly lead to different significant fixed effects and conclusions about data overall.
 
 \hypertarget{ref-labels}{%
 \chapter{Tables, Graphics, References, and Labels}\label{ref-labels}}
@@ -990,11 +967,7 @@ If you'd like to see examples of other things in this template, please contact P
 \chapter*{Conclusion}\label{conclusion-1}}
 \addcontentsline{toc}{chapter}{Conclusion}
 
-If we don't want the conclusion to have a chapter number next to it, we can add the \texttt{\{-\}} attribute.
-
-\textbf{More info}
-
-And here's some other random info: the first paragraph after a chapter title or section head \emph{shouldn't be} indented, because indents are to tell the reader that you're starting a new paragraph. Since that's obvious after a chapter or section title, proper typesetting doesn't add an indent there.
+In this study, we explored how Type I error rates from 4 different DF methods: Kenward-Roger, Satterthwaite, standard DF method, and \(t\)-as-\(z\) compare when evaluating significance of fixed effects of linear mixed models, particularly in small samples and in nonnormal distributions. Using a range of sample sizes, number of measurements, lognormal, and exponential distributions, as well as both random intercept and random slope models, we found distinct differences in performance of DF methods. DF methods applied to random slope models produced more anti-conservative Type I error rates in comparison to random intercept models. While increasing the number of measurements appears to increase robustness of most methods, the same effect for sample size was not identified. Across the 4 DF methods, KR and Satterthwaite DF were consistently more robust and less anti-conservative; while both are preferable, they occasionally differ in performance in random slope models in which KR is too conservative. When fitting linear mixed models to a subset of a children's longitudinal health survey, we find that the significance of fixed effects differs between KR and Satterthwaite DF. Our results indicate that performance of DF methods can vary greatly in small sample sizes, which can in turn impact the conclusions drawn about the fixed effects. Further exploration into other nonnormal distributions and other criteria that could impact DF method is needed.
 
 \appendix
 
@@ -1011,8 +984,6 @@ This first appendix includes all of the R chunks of code that were hidden throug
 
 \hypertarget{the-second-appendix}{%
 \chapter{The Second Appendix}\label{the-second-appendix}}
-
-R code
 
 \hypertarget{corrections}{%
 \chapter*{Corrections}\label{corrections}}
@@ -1035,6 +1006,9 @@ Corrections may be made to the body of the thesis, but every such correction wil
 \setlength{\parskip}{8pt}
 
 \hypertarget{refs}{}
+\leavevmode\hypertarget{ref-barr_random_2013}{}%
+Barr, D. J., Levy, R., Scheepers, C., \& Tily, H. J. (2013). Random effects structure for confirmatory hypothesis testing: Keep it maximal. \emph{Journal of Memory and Language}, \emph{68}(3), 255--278. \url{http://doi.org/10.1016/j.jml.2012.11.001}
+
 \leavevmode\hypertarget{ref-bradley}{}%
 Bradley, J. V. (1978). Robustness? \emph{British Journal of Mathematical and Statistical Psychology}, \emph{31}(2), 144--152. \url{http://doi.org/https://doi.org/10.1111/j.2044-8317.1978.tb00581.x}
 
