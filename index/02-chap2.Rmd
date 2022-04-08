@@ -416,5 +416,3 @@ In terms of sample size and number of measurements, it appears that increasing t
 
 While previous studies comparing DF methods focus primarily on normal distributions, the results from this study demonstrate that applying DF methods to LMM with nonnormal distributions and small sample sizes can still produce robust Type I error rates. However, careful consideration of the complexity of the model, number of measurements and individuals, as well as the skewness and kurtosis of the data must be considered, as they each have an effect on the DF method not only individually, but when interacting with other parameters as well. Overall, these results also indicate that Type I error rates are closest to .05 overall when employing Kenward-Roger and Satterthwaite methods.
 
-- Should I keep table of type I error rates of every distribution? yes, in appendix. remake table 
-- make graph easier to read
