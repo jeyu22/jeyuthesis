@@ -602,13 +602,13 @@ Tables for all error rates produced by 4 DF methods are located in the appendix 
 
 After comparing the error rates produced by DF methods across three distributions, three sample sizes, and two numbers of measurements and complexity of models totaling to 96 unique conditions, we find that overall, KR and Satterthwaite DF methods yield the most robust error rates when constructing LMM with small sample sizes. In addition, random slope models are significantly more complicated in terms of using DF methods to produce robust error rates, and also challenge the superiority of the KR method over the Satterthwaite method when looking at robustness of Type I errors of random slope models of smaller sample sizes.
 
-This stark contrast in performance between random slope and random intercept models across all distributions requires further investigation. Barr, Levy, Scheepers, \& Tily (2013) suggest that LMM with maximal effects are preferable and can reduce Type I error rates, as random slope models can account for between individual variation in slopes and reduce residual variance. However, in their study the distribution of the variable of interest in normal, and random effects were generated from a bivariate normal distribution. In this simulation, random effects for the intercept and time were drawn from two nonnormal distributions which can further complicate the distribution of the outcome variable and complicate the fit of the model.
+This stark contrast in performance between random slope and random intercept models across all distributions requires further investigation. Barr, Levy, Scheepers, \& Tily (2013) suggest that LMM with maximal effects are preferable and can reduce Type I error rates, as random slope models can account for between individual variation in slopes and reduce residual variance. However, in their study the distribution of the variable of interest is normal, and random effects were generated from a bivariate normal distribution. In this simulation, random effects for the intercept and time were drawn from two nonnormal distributions which can further complicate the distribution of the outcome variable and complicate the fit of the model.
 
-When comparing and constrasting performance of Satterthwaite and KR methods, which have both been demonstrated to be suitable options for producing robust Type I error, it seems that complexity of the model as well as sample size are two parameters that can differentiate their performance. In random intercept models, performance between the two methods are identical. In random slope models, KR is more conservative, and in a few conditions where the sample size is less than 26, it is too conservative in comparison to Satterthwaite. Given that KR is a further adjustment to Satterthwaite, its more conservative performance is not surprising; when constructing random slope LMM with smaller samples, it is important to consider both methods, as their performance may not be identical.
+When comparing and constrasting performance of Satterthwaite and KR methods, which have both been demonstrated to be suitable options for producing robust Type I error, it seems that complexity of the model as well as sample size are two parameters that can differentiate their performance. In random intercept models, performance between the two methods are identical. In random slope models, KR is more conservative, and in a few conditions where the sample size is less than 26, it is too conservative in comparison to Satterthwaite. Given that KR is a further adjustment to Satterthwaite, its more conservative performance is not surprising; when constructing random slope LMM with smaller samples, \textasciitilde\textasciitilde it is important to consider both methods, as their performance may not be identical. \textasciitilde\textasciitilde{}
 
 In terms of sample size and number of measurements, it appears that increasing the number of measurements increases the proportion of DF methods that produce robust Type I error rates in most conditions. Difference in DF method performance across measurement numbers is most evident in random slope models with samples of size 26. On the other hand, increasing sample size is not strongly associated with increased robustness of Type I error rates produced by DF methods. Increasing from sample size from 10 to 18 produces inconclusive patterns: sometimes DF methods produce even more anti-conservative error rates, and in other cases there is virtually no difference. In most cases, sample size of 26 is the most ideal for robustness, but in some nonnormal distributions robustness can only be achieved by also having more repeated measurements. It is plausible that the differences between a sample size of 10 and 18 are insignificant because both are too small in terms of a ``large-enough'' sample of size 30, so the DF methods are not impacted by this increase in sample. Models of sample size 26 may be ideal in some circumstances mainly because of its proximity to being considered sufficiently large enough.
 
-While previous studies comparing DF methods focus primarily on normal distributions, the results from this study demonstrate that applying DF methods to LMM with nonnormal distributions and small sample sizes can still produce robust Type I error rates. However, careful consideration of the complexity of the model, number of measurements and individuals, as well as the skewness and kurtosis of the data must be considered, as they each have an effect on the DF method not only individually, but when interacting with other parameters as well. Overall, these results also indicate that Type I error rates are closest to .05 overall when employing Kenward-Roger and Satterthwaite methods.
+While previous studies comparing DF methods focus primarily on normal distributions, the results from this study demonstrate that applying DF methods to LMM with nonnormal distributions and small sample sizes can still produce robust Type I error rates. However, careful consideration of the complexity of the model, number of measurements and individuals, as well as the skewness and kurtosis of the data must be considered, as they each have an effect on the DF method not only individually, but when interacting with other parameters as well. Overall, these results also indicate that Type I error rates are closest to .05 when employing Kenward-Roger and Satterthwaite methods.
 
 \hypertarget{math-sci}{%
 \chapter{Application}\label{math-sci}}
@@ -616,358 +616,196 @@ While previous studies comparing DF methods focus primarily on normal distributi
 \hypertarget{application-to-longitudinal-study-about-childrens-health}{%
 \section{Application to Longitudinal Study about Children's Health}\label{application-to-longitudinal-study-about-childrens-health}}
 
-In this chapter, we will apply linear mixed models to a longitudinal study about Children's Health, and explore how inference of the effects models can possibly change when using various degrees of freedom approximation methods.
+In this chapter, we will apply linear mixed models to a longitudinal study about children's health, and explore how inference of fixed effects can possibly change when using various degrees of freedom approximation methods.
 
 \hypertarget{background}{%
 \subsection{Background}\label{background}}
 
-The National Longitudinal Study of Adolescent to Adult Health is a longitudinal study spanning 1994 to 2008 that surveyed a U.S sample of students in 7-12th grade in the 1994-95 school year. Four waves of data were collected, in which the sample during the last wave was aged 24-32. Questions about mental health, socioeconomic status, and family background were collected, as well as physical measurements of height and weight.
+The National Longitudinal Study of Adolescent to Adult Health is a longitudinal study spanning 1994 to 2008 that surveyed a U.S sample of students in 7-12th grade in the 1994-95 school year (Harris \& Udry, 2022). Four waves of data were collected, in which the sample during the first wave was aged 13-18. Questions about mental health, socioeconomic status, and family background were collected, as well as physical measurements of height and weight.
 
-One question of interest to consider is how salient life experiences that occur during adolescence, such as being exposed to alcohol or being in a physical altercation, may impact changes to one's physical health over time. One way to capture physical health is through BMI, which is known to follow a skewed nonnormal distribution. With this in mind, we can employ methods of degrees of freedom adjustment. While this dataset is large and encompasses approximately 5,000 students, the scope of this application will be narrowed in order to examine the performance of degrees of freedom methods, which are sensitive to sample size.
+One question of interest to consider is how salient life experiences that occur during adolescence, such as being exposed to alcohol or being in a physical altercation, may impact changes to one's physical health over time. One way to capture physical health is through BMI, which is shown to follow a skewed nonnormal distribution (Penman \& Johnson, 2006). With this in mind, we can employ methods of degrees of freedom adjustment. While this dataset is large and encompasses approximately 5,000 students, the scope of this application will be narrowed in order to examine the performance of degrees of freedom methods, which are sensitive to sample size.
 
-We will be focusing on Chinese female respondents who completed at least three waves of the study, which amounts to a sample size of 12. Six variables were chosen based on background knowledge of potential factors that could influence weight. It is hypothesized that early exposure to substances, violence, or parental conflict could potentially affect changes in weight.
+We will be focusing on Chinese female respondents who completed at least three waves of the study, which amounts to a sample size of 12. After initial exploration, alcohol use was chosen for the model. It is hypothesized that early exposure to substances could potentially affect changes in weight.
 
 The following variables were assessed in the first wave of the study (1994):
-- Eating decision: do parents give child the freedom to decide what they eat? (Yes/No)
-- Cigarettes: has the child ever smoked cigarettes? (Yes/No)
-- Physical fight: has the child ever been in a physical fight? (Yes/No)
 - Alcohol: has the child ever had alcohol? (Yes/No)
-- Run away: has the child ever tried to run away? (Yes/No)
-
-Age and BMI were assessed at every subsequent wave.
+- Age
 
 \hypertarget{exploration}{%
 \subsection{Exploration}\label{exploration}}
 \begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 From this histogram depicting distribution of BMI, we can see that it follows a nonnormal trend. The skewness is .95 and the kurtosis is 3.39.
-\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1} \end{center}
+\begin{figure}
 
-While our sample size is small, our initial exploration of alcohol and cigarette use suggests there may be some differences in BMI changes for individuals that have tried these substances at a younger age. In addition, there are unique patterns of BMI change over time by subject, which suggests that creating a mixed effects model with random effects for time may be useful.
+{\centering \includegraphics{Jessica-Yu_StatThesis_files/figure-latex/intercept-1} 
+
+}
+
+\caption{Changes in BMI by Individual}\label{fig:intercept}
+\end{figure}
+Figure \ref{fig:intercept} depicts changes in BMI over time for each individual in the study. The wide variation in BMI values between individuals suggest that including random effects for the intercept would be beneficial. Additionally, different rates of change in BMI across the 3 waves between individuals would suggest that an additional random effect for time is worth exploring.
+\begin{figure}
+
+{\centering \includegraphics{Jessica-Yu_StatThesis_files/figure-latex/alcohol-1} 
+
+}
+
+\caption{Changes in BMI by Individual and Alcohol Use}\label{fig:alcohol}
+\end{figure}
+In a longitudinal study examining youth substance use and body composition, Pasch, Velazquez, Cance, Moe, \& Lytle (2012) found that baseline alcohol use is associated with lower values of BMI at follow-up. The opposite pattern can be seen in Figure \ref{fig:alcohol}. Individuals who had consumed alcohol during the first wave had higher BMI values across all time points. While the data may not be consistent with other research, it highlights the importance of substance use as a potential predictor of BMI.
+
+While our sample size is small, our initial exploration of alcohol use suggests that it may be salient predictor for BMI. In addition, there are unique patterns of BMI change over time by individual, which suggests that creating a mixed effects model with random effects for time and intercept may be useful.
 
 \hypertarget{linear-mixed-model}{%
 \subsection{Linear Mixed Model}\label{linear-mixed-model}}
 
-Because we have repeated measurements of the same individual in this study, a regular linear model would not be able to capture the differences in variation between individuals and within individuals. We would hypothesize that changes in weight over time may vary less within a person over the years, as opposed to comparing changes in weight across two separate individuals. First, we fit an intercept only model, allowing the intercept to vary by individual.
+Because we have repeated measurements of the same individual in this study, a regular linear model would not be appropriate as it assumes independence; implementing this model would inflate Type I error rates.
+\begin{table}
+
+\caption{(\#tab:lm, cap)Linear Model Output}
+\centering
+\begin{tabular}[t]{l|r|r|r|r}
+\hline
+term & estimate & std.error & statistic & p.value\\
+\hline
+(Intercept) & 9.71 & 4.736 & 2.05 & 0.049\\
+\hline
+alcohol1 & 3.13 & 1.044 & 3.00 & 0.005\\
+\hline
+age\_at\_start & 0.42 & 0.288 & 1.46 & 0.154\\
+\hline
+wave & 1.32 & 0.629 & 2.10 & 0.044\\
+\hline
+\end{tabular}
+\end{table}
+Table \ref{tab:lm} shows the results of implementing a linear model with alcohol, age at first wave, and time as predictors. Alcohol use and time are significant predictors in this model. This will only used as a comparison to the other linear mixed models.
 
 \hypertarget{intercept-only-model}{%
 \subsection{Intercept only model}\label{intercept-only-model}}
-\begin{verbatim}
-   Linear mixed model fit by REML. t-tests use Kenward-Roger's
-     method [lmerModLmerTest]
-   Formula: 
-   bmi ~ 1 + decisions_eat + run_away + cig + alcohol + physical_fight +  
-       real_age + (1 | AID) + wave
-      Data: child_data
-   
-   REML criterion at convergence: 143
-   
-   Scaled residuals: 
-       Min      1Q  Median      3Q     Max 
-   -1.6126 -0.2901 -0.0383  0.4383  3.0922 
-   
-   Random effects:
-    Groups   Name        Variance Std.Dev.
-    AID      (Intercept) 5.98     2.44    
-    Residual             3.68     1.92    
-   Number of obs: 36, groups:  AID, 12
-   
-   Fixed effects:
-                   Estimate Std. Error     df t value Pr(>|t|)   
-   (Intercept)       13.540      3.592 12.314    3.77   0.0026 **
-   decisions_eat1    -3.497      3.118  6.292   -1.12   0.3030   
-   run_away3         -0.643      3.796  5.649   -0.17   0.8715   
-   cig1              -0.349      3.085  6.109   -0.11   0.9135   
-   alcohol1           4.944      1.916  5.801    2.58   0.0430 * 
-   physical_fight1   -3.103      3.831  5.801   -0.81   0.4500   
-   real_age           0.490      0.260 27.967    1.88   0.0700 . 
-   wave              -0.398      0.991 27.609   -0.40   0.6915   
-   ---
-   Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-   
-   Correlation of Fixed Effects:
-               (Intr) dcsn_1 rn_wy3 cig1   alchl1 phys_1 real_g
-   decisins_t1 -0.509                                          
-   run_away3    0.000  0.000                                   
-   cig1         0.131  0.056  0.000                            
-   alcohol1    -0.077 -0.336  0.000 -0.334                     
-   physcl_fgh1 -0.077 -0.032 -0.496 -0.640  0.016              
-   real_age    -0.603 -0.255  0.000 -0.218  0.127  0.127       
-   wave         0.454  0.232  0.000  0.198 -0.116 -0.116 -0.909
-\end{verbatim}
-First, we can examine the output of the fixed effects similar to how a regular linear regression model is interpreted. Alcohol use is the only significant effect. This means that having already consumed alcohol at the first wave increases the predicted BMI holding all other predictors constant. Next, we turn to the random effects output. The variance for individuals (represented by \texttt{AID}), which depicts variability across individuals, is 5.977, while the residual variance, representing within-subject variability is 3.682. The significantly larger variance across individuals compared to within individuals suggests that this model is more optimal than a regular linear regression model since differences in variability are apparent. The interclass correlation is .62, which indicates that weight measurements taken of the same individual have slightly higher similarity than those of different individuals.
-\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-8-1} \end{center}
-\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-8-2} \end{center}
+
+We would hypothesize that changes in weight may vary less within a person, as opposed to comparing changes in weight across two separate individuals. Thus, we fit an intercept only model, allowing the intercept to vary by individual. Alcohol, age at first wave, and time are the fixed effects.
+
+\textbackslash begin\{table\}
+
+\textbackslash caption\{(\#tab:intercept\_KR)Fixed Effects for Random Intercept Model Using KR\}
+\centering
+\begin{tabular}[t]{l|r|r|r|r|r}
+\hline
+term & estimate & std.error & statistic & df & p.value\\
+\hline
+(Intercept) & 9.71 & 7.274 & 1.335 & 9.22 & 0.214\\
+\hline
+alcohol1 & 3.13 & 1.653 & 1.897 & 9.00 & 0.090\\
+\hline
+age\_at\_start & 0.42 & 0.456 & 0.921 & 9.00 & 0.381\\
+\hline
+wave & 1.32 & 0.403 & 3.272 & 23.00 & 0.003\\
+\hline
+\end{tabular}
+\textbackslash end\{table\}
+\begin{table}
+\centering
+\begin{tabular}[t]{l|l|r}
+\hline
+group & term & estimate\\
+\hline
+AID & sd\_\_(Intercept) & 2.57\\
+\hline
+Residual & sd\_\_Observation & 1.97\\
+\hline
+\end{tabular}
+\end{table}
+First, we can examine the output of the fixed effects similar to how a regular linear regression model is interpreted. Table @ref(tab:intercept\_KR) shoes that time is the only significant effect. This means that conditional on the random effects, each wave increases the predicted BMI by 1.32. Next, we turn to the random effects output in table @ref(tab:intercept\_rand). The variance for individuals (represented by \texttt{AID}), which depicts variability across individuals, is 6.626, while the residual variance, representing within-subject variability is 3.895. The significantly larger variance across individuals compared to within individuals suggests that this model is more optimal than a regular linear regression model since differences in variability are apparent. The interclass correlation is .63, which indicates that weight measurements taken of the same individual have slightly higher similarity than those of different individuals.
+\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1} \end{center}
+\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-2} \end{center}
 
 The residuals vs fitted plot indicates no heterogeneity in the residuals, and the qqplot indicates that for the most part residuals are normally distributed. The assumptions for fitting a random slope linear mixed model are met.
-\begin{tabular}{l|l|l}
+
+\textbackslash begin\{table\}
+
+\textbackslash caption\{(\#tab:compare\_intercept)Comparison of Fixed Effects P-Values in Random Intercept Model\}
+\centering
+\begin{tabular}[t]{l|l|l}
 \hline
 term & Satterthwaite\_p.value & KR\_p.value\\
 \hline
-(Intercept) & 0.00207739814732441 & 0.00256047801423095\\
+(Intercept) & 0.214028860057237 & 0.214028858602635\\
 \hline
-decisions\_eat1 & 0.299917415292871 & 0.302965383323568\\
+alcohol1 & 0.0903585620561796 & 0.0903585607408565\\
 \hline
-run\_away3 & 0.871311790713272 & 0.871466574788397\\
+age\_at\_start & 0.380940524102144 & 0.380940522986174\\
 \hline
-cig1 & 0.913110518193229 & 0.913491116162318\\
-\hline
-alcohol1 & 0.0418067444391881 & 0.0430223001965457\\
-\hline
-physical\_fight1 & 0.4486496612827 & 0.449963870406887\\
-\hline
-real\_age & 0.0539716109021618 & 0.0700345633237796\\
-\hline
-wave & 0.675063199077659 & 0.691452611430165\\
+wave & 0.00335031625142439 & 0.00335031627116489\\
 \hline
 \end{tabular}
-The summary output referenced above uses Kenward-Roger DF approximation. TABLE ? compares the summary output comparing Satterthwaite and Kenward-Roger. Although there is no difference between the significance of predictors, it is interesting to note that the p-value for \texttt{real\_age} when using Satterthwaite is nearing significance level of .05 in contrast to the p-value when using Kenward-Roger.
+\textbackslash end\{table\}
+
+The summary output referenced above uses Kenward-Roger DF approximation. Table @ref(tab:compare\_intercept) compares the summary output comparing Satterthwaite and Kenward-Roger. There is no significant difference between performance of the two DF methods, which aligns with results of our random intercept models from our simulation study
 
 \hypertarget{intercept-and-random-slope}{%
 \subsection{Intercept and random slope}\label{intercept-and-random-slope}}
-\begin{verbatim}
-   Linear mixed model fit by REML. t-tests use Kenward-Roger's
-     method [lmerModLmerTest]
-   Formula: 
-   bmi ~ decisions_eat + run_away + cig + alcohol + physical_fight +  
-       real_age + wave + (1 + wave | AID)
-      Data: child_data
-   
-   REML criterion at convergence: 142
-   
-   Scaled residuals: 
-       Min      1Q  Median      3Q     Max 
-   -1.9901 -0.3502 -0.0598  0.3001  2.3546 
-   
-   Random effects:
-    Groups   Name        Variance Std.Dev. Corr 
-    AID      (Intercept) 5.93     2.44          
-             wave        1.30     1.14     -0.38
-    Residual             2.40     1.55          
-   Number of obs: 36, groups:  AID, 12
-   
-   Fixed effects:
-                   Estimate Std. Error     df t value Pr(>|t|)   
-   (Intercept)       14.009      3.594 10.832    3.90   0.0026 **
-   decisions_eat1    -3.856      3.440  6.246   -1.12   0.3035   
-   run_away3          1.934      4.256  5.733    0.45   0.6663   
-   cig1              -0.156      3.419  6.100   -0.05   0.9650   
-   alcohol1           5.044      2.139  5.854    2.36   0.0575 . 
-   physical_fight1   -6.281      4.279  5.854   -1.47   0.1937   
-   real_age           0.496      0.220 14.342    2.25   0.0406 * 
-   wave              -0.419      0.897 23.428   -0.47   0.6448   
-   ---
-   Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-   
-   Correlation of Fixed Effects:
-               (Intr) dcsn_1 rn_wy3 cig1   alchl1 phys_1 real_g
-   decisins_t1 -0.587                                          
-   run_away3    0.000  0.000                                   
-   cig1         0.104  0.042  0.000                            
-   alcohol1    -0.060 -0.331  0.000 -0.329                     
-   physcl_fgh1 -0.060 -0.024 -0.497 -0.638  0.012              
-   real_age    -0.549 -0.221  0.000 -0.189  0.110  0.110       
-   wave         0.355  0.186  0.000  0.159 -0.092 -0.092 -0.841
-\end{verbatim}
-In this model, we add a random effect of time as well as random intercept. This means that we are assuming that for each individual, the relationship between time and BMI is unique. For fixed effects, age is the only significant effect when using the KR method. For every year increase in age, BMI increases by .5. BMI is known to increase with age, so this model does not reveal any new predictors that are associated with it. Variability across individuals is 5.977, and the residual variance is 2.402. The variance for time is 1.299. We see that imposing variability between each individual's relationship of time vs BMI reduces some of the residual variance, which indicates that this structure is improving the model's fit on the data. By accounting for some of the variation through each individual's weight changes over time, this may have reduced variation of BMI attributed to differences in alcohol consumption, rendering it not significant in this model.
+
+\textbackslash begin\{table\}
+
+\textbackslash caption\{(\#tab:slope\_kr)Fixed Effects for Random Slope Model Using KR\}
+\centering
+\begin{tabular}[t]{l|r|r|r|r|r}
+\hline
+term & estimate & std.error & statistic & df & p.value\\
+\hline
+(Intercept) & 11.644 & 2.881 & 4.041 & 25.71 & 0.000\\
+\hline
+alcohol1 & 3.461 & 1.666 & 2.077 & 9.64 & 0.066\\
+\hline
+real\_age & 0.394 & 0.209 & 1.885 & 16.52 & 0.077\\
+\hline
+wave & -0.060 & 0.862 & -0.069 & 26.70 & 0.945\\
+\hline
+\end{tabular}
+\textbackslash end\{table\}
+
+In this model, we add a random effect of time as well as random intercept. This means that we are assuming that for each individual, the relationship between time and BMI is unique. There are no significant effects when using the KR method. Variability in BMI across individuals is 16.388, and the residual variance is 2.352. The variance for time is 1.324, which represents variability across individual's BMI rates of change. We see that imposing variability between each individual's relationship of time vs BMI reduces some of the residual variance. When we accounted for some of the variation through each individual's weight changes over time, time as a predictor was no longer signficant as it was in the random intercepts only model.
 
 Conditions for the model are met as seen by the figures below.
-\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-11-1} \end{center}
-\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-11-2} \end{center}
-\begin{tabular}{l|l|l}
+\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-7-1} \end{center}
+\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-7-2} \end{center}
+
+\textbackslash begin\{table\}
+
+\textbackslash caption\{(\#tab:compare\_slope)Comparison of Fixed Effects P-Values in Random Slope Model\}
+\centering
+\begin{tabular}[t]{l|l|l}
 \hline
 term & Satterthwaite\_p.value & KR\_p.value\\
 \hline
-(Intercept) & 0.00123809467296305 & 0.00255546677571188\\
+(Intercept) & 0.000213283766249562 & 0.000426895805163504\\
 \hline
-decisions\_eat1 & 0.241774411457121 & 0.303545737704902\\
+alcohol1 & 0.0459153731793183 & 0.0655425035327326\\
 \hline
-run\_away3 & 0.618675835008715 & 0.666275094375357\\
+real\_age & 0.0572004159149207 & 0.0771903662035183\\
 \hline
-cig1 & 0.959543286935422 & 0.964974662397435\\
-\hline
-alcohol1 & 0.0355203541514873 & 0.057504503016907\\
-\hline
-physical\_fight1 & 0.142050080160751 & 0.193687192266153\\
-\hline
-real\_age & 0.027945907513631 & 0.0405840363078681\\
-\hline
-wave & 0.624535914819271 & 0.64482740958583\\
+wave & 0.942264459160284 & 0.945433676863754\\
 \hline
 \end{tabular}
-Earlier evaluation of fixed effects uses KR DF method, but FIGURE ? shows that significance of fixed effects differ when using Satterthwaite versus KR. In the random slope model, alcohol not a significant effect when using KR, but is significant when using Satterthwaite. This difference affects our interpretation of the model and conclusions that are drawn.
+\textbackslash end\{table\}
+
+Earlier evaluation of fixed effects uses KR DF method, but @ref(tab:compare\_slope) shows that significance of fixed effects differ when using Satterthwaite versus KR. In the random slope model, alcohol not a significant effect when using KR, but is significant when using Satterthwaite. This difference affects our interpretation of the model and conclusions that are drawn.
 
 \hypertarget{discussion-1}{%
 \section{Discussion}\label{discussion-1}}
 
 We have demonstrated implementing two linear mixed models on a data set that is small and with a nonnormal continuous outcome. Imposing random effects structure to isolate variation between individuals apart from overall variation improved the model and reduced the number of predictors that were significant. One key result was that comparing KR and Sattherthwaite DF methods resulting in varying significant predictors in the random slope model. One additional predictor, alcohol, was a significant fixed effect when using Satterthwaite, the default output summary for \emph{lmerTest}, in comparison to KR. Which method is preferable?
 
-Looking at the results from our simulation study, we can identify which condition most closely resembles the children data, and determine if KR or Satterthwaite would produce more robust results. There was no difference in the fixed effects of the random intercept model, so we only focus on the random slopes model. The skewness and kurtosis values for the application data align most closely with that of the lognormal distribution \(X\sim\mathit{Log}(0,.25).\) We will look at the performance of the two DF methods in this distribution, in a random slope model with a sample size of 10 and 4 measurements per individual. In reference to FIGURE ?, we see that the performance of KR and Satterthwaite are virtually the same. If this is the case, our preference will still be towards KR as it tends to produce slightly less anti-convservative Type I error rates.
+Looking at the results from our simulation study, we can identify which condition most closely resembles the children data, and determine if KR or Satterthwaite would produce more robust results. There was no difference in the fixed effects of the random intercept model, so we only focus on the random slopes model. The skewness and kurtosis values for the application data align most closely with that of the lognormal distribution \(X\sim\mathit{Log}(0,.25).\) We will look at the performance of the two DF methods in this distribution, in a random slope model with a sample size of 10 and 4 measurements per individual. In reference to Figure \ref{fig:fig5}, we see that the performance of KR and Satterthwaite are virtually the same. If this is the case, our preference will still be towards KR as it tends to produce slightly less anti-conservative Type I error rates.
 
 Ultimately, our application study supports the idea that linear mixed models can be applied to small samples when using KR or Satterthwaite DF methods. While performance between the two can be equally robust in theory, they can possibly lead to different significant fixed effects and conclusions about data overall.
-
-\hypertarget{ref-labels}{%
-\chapter{Tables, Graphics, References, and Labels}\label{ref-labels}}
-
-\hypertarget{tables}{%
-\section{Tables}\label{tables}}
-
-In addition to the tables that can be automatically generated from a data frame in \textbf{R} that you saw in {[}R Markdown Basics{]} using the \texttt{kable} function, you can also create tables using \emph{pandoc}. (More information is available at \url{http://pandoc.org/README.html\#tables}.) This might be useful if you don't have values specifically stored in \textbf{R}, but you'd like to display them in table form. Below is an example. Pay careful attention to the alignment in the table and hyphens to create the rows and columns.
-\begin{longtable}[]{@{}ccc@{}}
-\caption{\label{tab:inher} Correlation of Inheritance Factors for Parents and Child}\tabularnewline
-\toprule
-\begin{minipage}[b]{0.29\columnwidth}\centering
-Factors\strut
-\end{minipage} & \begin{minipage}[b]{0.46\columnwidth}\centering
-Correlation between Parents \& Child\strut
-\end{minipage} & \begin{minipage}[b]{0.16\columnwidth}\centering
-Inherited\strut
-\end{minipage}\tabularnewline
-\midrule
-\endfirsthead
-\toprule
-\begin{minipage}[b]{0.29\columnwidth}\centering
-Factors\strut
-\end{minipage} & \begin{minipage}[b]{0.46\columnwidth}\centering
-Correlation between Parents \& Child\strut
-\end{minipage} & \begin{minipage}[b]{0.16\columnwidth}\centering
-Inherited\strut
-\end{minipage}\tabularnewline
-\midrule
-\endhead
-\begin{minipage}[t]{0.29\columnwidth}\centering
-Education\strut
-\end{minipage} & \begin{minipage}[t]{0.46\columnwidth}\centering
--0.49\strut
-\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\centering
-Yes\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.29\columnwidth}\centering
-Socio-Economic Status\strut
-\end{minipage} & \begin{minipage}[t]{0.46\columnwidth}\centering
-0.28\strut
-\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\centering
-Slight\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.29\columnwidth}\centering
-Income\strut
-\end{minipage} & \begin{minipage}[t]{0.46\columnwidth}\centering
-0.08\strut
-\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\centering
-No\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.29\columnwidth}\centering
-Family Size\strut
-\end{minipage} & \begin{minipage}[t]{0.46\columnwidth}\centering
-0.18\strut
-\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\centering
-Slight\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.29\columnwidth}\centering
-Occupational Prestige\strut
-\end{minipage} & \begin{minipage}[t]{0.46\columnwidth}\centering
-0.21\strut
-\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\centering
-Slight\strut
-\end{minipage}\tabularnewline
-\bottomrule
-\end{longtable}
-We can also create a link to the table by doing the following: Table \ref{tab:inher}. If you go back to {[}Loading and exploring data{]} and look at the \texttt{kable} table, we can create a reference to this max delays table too: Table \ref{tab:maxdelays}. The addition of the \texttt{(\textbackslash{}\#tab:inher)} option to the end of the table caption allows us to then make a reference to Table \texttt{\textbackslash{}@ref(tab:label)}. Note that this reference could appear anywhere throughout the document after the table has appeared.
-
-\clearpage
-
-\hypertarget{figures}{%
-\section{Figures}\label{figures}}
-
-If your thesis has a lot of figures, \emph{R Markdown} might behave better for you than that other word processor. One perk is that it will automatically number the figures accordingly in each chapter. You'll also be able to create a label for each figure, add a caption, and then reference the figure in a way similar to what we saw with tables earlier. If you label your figures, you can move the figures around and \emph{R Markdown} will automatically adjust the numbering for you. No need for you to remember! So that you don't have to get too far into LaTeX to do this, a couple \textbf{R} functions have been created for you to assist. You'll see their use below.
-
-In the \textbf{R} chunk below, we will load in a picture stored as \texttt{amherst.png} in our main directory. We then give it the caption of ``Amherst logo'', the label of ``amherstlogo'', and specify that this is a figure. Make note of the different \textbf{R} chunk options that are given in the R Markdown file (not shown in the knitted document).
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{figures/amherst} 
-
-}
-
-\caption{Amherst logo}\label{fig:amherstlogo}
-\end{figure}
-Here is a reference to the Amherst logo: Figure \ref{fig:amherstlogo}. Note the use of the \texttt{fig:} code here. By naming the \textbf{R} chunk that contains the figure, we can then reference that figure later as done in the first sentence here. We can also specify the caption for the figure via the R chunk option \texttt{fig.cap}.
-
-\clearpage
-
-Below we will investigate how to save the output of an \textbf{R} plot and label it in a way similar to that done above. Recall the \texttt{flights} dataset from Chapter \ref{rmd-basics}. (Note that we've shown a different way to reference a section or chapter here.) We will next explore a bar graph with the mean flight departure delays by airline from Portland for 2014. Note also the use of the \texttt{scale} parameter which is discussed on the next page.
-
-Here is a reference to this image: Figure \ref{fig:delaysboxplot}.
-
-A table linking these carrier codes to airline names is available at \url{https://github.com/ismayc/pnwflights14/blob/master/data/airlines.csv}.
-
-\clearpage
-
-Next, we will explore the use of the \texttt{out.extra} chunk option, which can be used to shrink or expand an image loaded from a file by specifying \texttt{"scale=\ "}. Here we use the mathematical graph stored in the ``subdivision.pdf'' file.
-\begin{figure}
-
-{\centering \includegraphics[scale=0.75]{figures/subdivision} 
-
-}
-
-\caption{Subdiv. graph}\label{fig:subd}
-\end{figure}
-Here is a reference to this image: Figure \ref{fig:subd}. Note that \texttt{echo=FALSE} is specified so that the \textbf{R} code is hidden in the document.
-
-\textbf{More Figure Stuff}
-
-Lastly, we will explore how to rotate and enlarge figures using the \texttt{out.extra} chunk option. (Currently this only works in the PDF version of the book.)
-\begin{figure}
-
-{\centering \includegraphics[angle=180, scale=1.1]{figures/subdivision} 
-
-}
-
-\caption{A Larger Figure, Flipped Upside Down}\label{fig:subd2}
-\end{figure}
-As another example, here is a reference: Figure \ref{fig:subd2}.
-
-\hypertarget{footnotes-and-endnotes}{%
-\section{Footnotes and Endnotes}\label{footnotes-and-endnotes}}
-
-You might want to footnote something.\footnote{footnote text} The footnote will be in a smaller font and placed appropriately. Endnotes work in much the same way. More information can be found about both on the Reed Thesis site \url{https://www.reed.edu/cis/help/latex/thesis.html} or feel free to reach out to Prof.~Bailey at \href{mailto:bebailey@amherst.edu}{\nolinkurl{bebailey@amherst.edu}}.
-
-\hypertarget{bibliographies}{%
-\section{Bibliographies}\label{bibliographies}}
-
-Of course you will need to cite things, and you will probably accumulate an armful of sources. There are a variety of tools available for creating a bibliography database (stored with the .bib extension). In addition to BibTeX suggested below, you may want to consider using the free and easy-to-use tool called Zotero. The Amherst librarians have created Zotero documentation at \url{https://www.amherst.edu/library/find/citation/zotero}. In addition, a tutorial is available from Middlebury College at \url{http://sites.middlebury.edu/zoteromiddlebury/}.
-
-\emph{R Markdown} uses \emph{pandoc} (\url{http://pandoc.org/}) to build its bibliographies. One nice caveat of this is that you won't have to do a second compile to load in references as standard LaTeX requires. To cite references in your thesis (after creating your bibliography database), place the reference name inside square brackets and precede it by the ``at'' symbol. For example, here's a reference to a book about worrying: ({\textbf{???}}). This \texttt{Molina1994} entry appears in a file called \texttt{thesis.bib} in the \texttt{bib} folder. This bibliography database file was created by a program called BibTeX. You can call this file something else if you like (look at the YAML header in the main .Rmd file) and, by default, is to placed in the \texttt{bib} folder.
-
-For more information about BibTeX and bibliographies, see the Reed College CUS site (\url{http://web.reed.edu/cis/help/latex/index.html})\footnote{({\textbf{???}})}. There are three pages on this topic: \emph{bibtex} (which talks about using BibTeX, at \url{http://web.reed.edu/cis/help/latex/bibtex.html}), \emph{bibtexstyles} (about how to find and use the bibliography style that best suits your needs, at \url{http://web.reed.edu/cis/help/latex/bibtexstyles.html}) and \emph{bibman} (which covers how to make and maintain a bibliography by hand, without BibTeX, at \url{http://web.reed.edu/cis/help/latex/bibman.html}). The last page will not be useful unless you have only a few sources.
-
-If you look at the YAML header at the top of the main .Rmd file you can see that we can specify the style of the bibliography by referencing the appropriate csl file. You can download a variety of different style files at \url{https://www.zotero.org/styles}. Make sure to download the file into the csl folder.
-
-\textbf{Tips for Bibliographies}
-\begin{itemize}
-\tightlist
-\item
-  Like with thesis formatting, the sooner you start compiling your bibliography for something as large as thesis, the better. Typing in source after source is mind-numbing enough; do you really want to do it for hours on end in late April? Think of it as procrastination.
-\item
-  The cite key (a citation's label) needs to be unique from the other entries.
-\item
-  When you have more than one author or editor, you need to separate each author's name by the word ``and'' e.g.~\texttt{Author\ =\ \{Noble,\ Sam\ and\ Youngberg,\ Jessica\},}.
-\item
-  Bibliographies made using BibTeX (whether manually or using a manager) accept LaTeX markup, so you can italicize and add symbols as necessary.
-\item
-  To force capitalization in an article title or where all lowercase is generally used, bracket the capital letter in curly braces.
-\item
-  You can add a Reed Thesis citation\footnote{({\textbf{???}})} option. The best way to do this is to use the phdthesis type of citation, and use the optional ``type'' field to enter ``Reed thesis'' or ``Undergraduate thesis.''
-\end{itemize}
-\hypertarget{anything-else}{%
-\section{Anything else?}\label{anything-else}}
-
-If you'd like to see examples of other things in this template, please contact Professor Bailey (email \href{mailto:bebailey@amherst.edu}{\nolinkurl{bebailey@amherst.edu}}) with your suggestions.
 
 \hypertarget{conclusion-1}{%
 \chapter*{Conclusion}\label{conclusion-1}}
 \addcontentsline{toc}{chapter}{Conclusion}
 
-In this study, we explored how Type I error rates from 4 different DF methods: Kenward-Roger, Satterthwaite, standard DF method, and \(t\)-as-\(z\) compare when evaluating significance of fixed effects of linear mixed models, particularly in small samples and in nonnormal distributions. Using a range of sample sizes, number of measurements, lognormal, and exponential distributions, as well as both random intercept and random slope models, we found distinct differences in performance of DF methods. DF methods applied to random slope models produced more anti-conservative Type I error rates in comparison to random intercept models. While increasing the number of measurements appears to increase robustness of most methods, the same effect for sample size was not identified. Across the 4 DF methods, KR and Satterthwaite DF were consistently more robust and less anti-conservative; while both are preferable, they occasionally differ in performance in random slope models in which KR is too conservative. When fitting linear mixed models to a subset of a children's longitudinal health survey, we find that the significance of fixed effects differs between KR and Satterthwaite DF. Our results indicate that performance of DF methods can vary greatly in small sample sizes, which can in turn impact the conclusions drawn about the fixed effects. Further exploration into other nonnormal distributions and other criteria that could impact DF method is needed.
+In this study, we explored how Type I error rates from 4 different DF methods: Kenward-Roger, Satterthwaite, standard DF method, and \(t\)-as-\(z\) compare when evaluating significance of fixed effects of linear mixed models, particularly in small samples and in nonnormal distributions. Using a range of sample sizes, number of measurements, lognormal, and exponential distributions, as well as both random intercept and random slope models, we found distinct differences in performance of DF methods. DF methods applied to random slope models produced more anti-conservative Type I error rates in comparison to random intercept models. While increasing the number of measurements appears to increase robustness of most methods, the same effect for sample size was not identified. Across the 4 DF methods, KR and Satterthwaite DF were consistently more robust and less anti-conservative; while both are preferable, KR is consistently less anti-conservative, which makes it a more optimal choice. When fitting linear mixed models to a subset of a children's longitudinal health survey, we find that the significance of fixed effects differs between KR and Satterthwaite DF. Our results indicate that performance of DF methods can vary greatly in small sample sizes, which can in turn impact the conclusions drawn about the fixed effects. Further exploration into other nonnormal distributions and other criteria that could impact DF method is needed.
 
 \appendix
 
@@ -1018,8 +856,17 @@ Fialkowski, A. C. (2018). \emph{SimMultiCorrData: Simulation of correlated data 
 \leavevmode\hypertarget{ref-fitzmaurice_applied_2011}{}%
 Fitzmaurice, G. M., Laird, N. M., \& Ware, J. H. (2011). \emph{Applied longitudinal analysis} (2nd ed). Hoboken, N.J: Wiley.
 
+\leavevmode\hypertarget{ref-harris_national_2022}{}%
+Harris, K. M., \& Udry, J. R. (2022). National longitudinal study of adolescent to adult health (add health), 1994-2018 {[}public use{]}. Carolina Population Center, University of North Carolina-Chapel Hill {[}distributor{]}, Inter-university Consortium for Political; Social Research {[}distributor{]}. \url{http://doi.org/10.3886/ICPSR21600.v24}
+
 \leavevmode\hypertarget{ref-luke_evaluating_2017}{}%
 Luke, S. G. (2017). Evaluating significance in linear mixed-effects models in r. \emph{Behavior Research Methods}, \emph{49}(4), 1494--1502. \url{http://doi.org/10.3758/s13428-016-0809-y}
+
+\leavevmode\hypertarget{ref-pasch_youth_2012}{}%
+Pasch, K. E., Velazquez, C. E., Cance, J. D., Moe, S. G., \& Lytle, L. A. (2012). Youth substance use and body composition: Does risk in one area predict risk in the other? \emph{Journal of Youth and Adolescence}, \emph{41}(1), 14--26. \url{http://doi.org/10.1007/s10964-011-9706-y}
+
+\leavevmode\hypertarget{ref-penman_changing_2006}{}%
+Penman, A. D., \& Johnson, W. D. (2006). The changing shape of the body mass index distribution curve in the population: Implications for public health policy to reduce the prevalence of adult obesity. \emph{Preventing Chronic Disease}, \emph{3}(3), A74--A74. Retrieved from \url{https://pubmed.ncbi.nlm.nih.gov/16776875}
 
 \leavevmode\hypertarget{ref-zeng_chinese_2017}{}%
 Zeng, Y., Vaupel, J., Xiao, Z., Liu, Y., \& Zhang, C. (2017). Chinese longitudinal healthy longevity survey (CLHLS), 1998-2014. Inter-university Consortium for Political; Social Research {[}distributor{]}. \url{http://doi.org/10.3886/ICPSR36692.v1}

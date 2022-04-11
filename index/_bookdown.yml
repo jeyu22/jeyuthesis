@@ -6,7 +6,7 @@ book_filename: "Jessica-Yu_StatThesis"
 # they are automatically processed in the index.Rmd file
 rmd_files: ["index.Rmd",
             "01-chap1.Rmd", "02-chap2.Rmd",
-            "03-chap3.Rmd", "04-chap4.Rmd",
+            "03-chap3.Rmd", 
             "05-conclusion.Rmd",
             "06-appendixA.Rmd", "07-appendixB.Rmd",
             "98-corrections.Rmd",

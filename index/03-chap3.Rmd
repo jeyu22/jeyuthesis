@@ -10,28 +10,26 @@ library(kableExtra)
 library(lmerTest)
 knitr::opts_chunk$set(echo = FALSE, message = F, warning = F)
 child_data <- readRDS(here::here("child_data.Rds"))
+child_data <- child_data %>%
+  group_by(AID) %>%
+  mutate(age_at_start = min(real_age))
 ```
 
 ## Application to Longitudinal Study about Children's Health
 
-In this chapter, we will apply linear mixed models to a longitudinal study about Children's Health, and explore how inference of the effects models can possibly change when using various degrees of freedom approximation methods. 
+In this chapter, we will apply linear mixed models to a longitudinal study about children's health, and explore how inference of fixed effects can possibly change when using various degrees of freedom approximation methods. 
 
 ### Background
 
-The National Longitudinal Study of Adolescent to Adult Health is a longitudinal study spanning 1994 to 2008 that surveyed a U.S sample of students in 7-12th grade in the 1994-95 school year. Four waves of data were collected, in which the sample during the last wave was aged 24-32. Questions about mental health, socioeconomic status, and family background were collected, as well as physical measurements of height and weight. 
+The National Longitudinal Study of Adolescent to Adult Health is a longitudinal study spanning 1994 to 2008 that surveyed a U.S sample of students in 7-12th grade in the 1994-95 school year [@harris_national_2022]. Four waves of data were collected, in which the sample during the first wave was aged 13-18. Questions about mental health, socioeconomic status, and family background were collected, as well as physical measurements of height and weight. 
 
-One question of interest to consider is how salient life experiences that occur during adolescence, such as being exposed to alcohol or being in a physical altercation, may impact changes to one's physical health over time. One way to capture physical health is through BMI, which is known to follow a skewed nonnormal distribution. With this in mind, we can employ methods of degrees of freedom adjustment. While this dataset is large and encompasses approximately 5,000 students, the scope of this application will be narrowed in order to examine the performance of degrees of freedom methods, which are sensitive to sample size. 
+One question of interest to consider is how salient life experiences that occur during adolescence, such as being exposed to alcohol or being in a physical altercation, may impact changes to one's physical health over time. One way to capture physical health is through BMI, which is shown to follow a skewed nonnormal distribution [@penman_changing_2006]. With this in mind, we can employ methods of degrees of freedom adjustment. While this dataset is large and encompasses approximately 5,000 students, the scope of this application will be narrowed in order to examine the performance of degrees of freedom methods, which are sensitive to sample size. 
 
-We will be focusing on Chinese female respondents who completed at least three waves of the study, which amounts to a sample size of 12. Six variables were chosen based on background knowledge of potential factors that could influence weight. It is hypothesized that early exposure to substances, violence, or parental conflict could potentially affect changes in weight. 
+We will be focusing on Chinese female respondents who completed at least three waves of the study, which amounts to a sample size of 12. After initial exploration, alcohol use was chosen for the model. It is hypothesized that early exposure to substances could potentially affect changes in weight. 
 
 The following variables were assessed in the first wave of the study (1994):
-- Eating decision: do parents give child the freedom to decide what they eat? (Yes/No)
-- Cigarettes: has the child ever smoked cigarettes? (Yes/No)
-- Physical fight: has the child ever been in a physical fight? (Yes/No)
 - Alcohol: has the child ever had alcohol? (Yes/No)
-- Run away: has the child ever tried to run away? (Yes/No)
-
-Age and BMI were assessed at every subsequent wave. 
+- Age 
 
 ### Exploration
 
@@ -40,37 +38,56 @@ hist(child_data$bmi)
 ```
 From this histogram depicting distribution of BMI, we can see that it follows a nonnormal trend. The skewness is .95 and the kurtosis is 3.39. 
 
-```{r}
+```{r intercept, fig.cap= "Changes in BMI by Individual"}
 
-a<-ggplot(child_data, aes(wave, bmi, color=alcohol)) + geom_point() + geom_line(aes(group = AID)) 
-b<-ggplot(child_data, aes(wave, bmi, color=cig)) + geom_point() + geom_line(aes(group = AID))
-cowplot::plot_grid(a,b,nrow=1)
+ggplot(child_data, aes(wave, bmi, color=AID))  + 
+  #geom_line(aes(group = AID))  + 
+  geom_smooth(method = "lm", se = FALSE, aes(group = AID))
+
+```
+Figure \@ref(fig:intercept) depicts changes in BMI over time for each individual in the study. The wide variation in BMI values between individuals suggest that including random effects for the intercept would be beneficial. Additionally, different rates of change in BMI across the 3 waves between individuals would suggest that an additional random effect for time is worth exploring. 
+
+```{r alcohol, fig.cap= "Changes in BMI by Individual and Alcohol Use"}
+ggplot(child_data, aes(wave, bmi, color=alcohol)) + geom_point() + geom_line(aes(group = AID)) + 
+  geom_smooth(method = "lm", se = FALSE, aes(group = AID)) +
+  scale_color_manual(labels = c("No", "Yes"), values = c("red","blue")) + labs(color = "Alcohol")
 ```
 
-While our sample size is small, our initial exploration of alcohol and cigarette use suggests there may be some differences in BMI changes for individuals that have tried these substances at a younger age. In addition, there are unique patterns of BMI change over time by subject, which suggests that creating a mixed effects model with random effects for time may be useful.  
+In a longitudinal study examining youth substance use and body composition, @pasch_youth_2012 found that baseline alcohol use is associated with lower values of BMI at follow-up. The opposite pattern can be seen in Figure \@ref(fig:alcohol). Individuals who had consumed alcohol during the first wave had higher BMI values across all time points. While the data may not be consistent with other research, it highlights the importance of substance use as a potential predictor of BMI.
+
+While our sample size is small, our initial exploration of alcohol use suggests that it may be salient predictor for BMI. In addition, there are unique patterns of BMI change over time by individual, which suggests that creating a mixed effects model with random effects for time and intercept may be useful.  
 
 ### Linear Mixed Model 
-Because we have repeated measurements of the same individual in this study, a regular linear model would not be able to capture the differences in variation between individuals and within individuals. We would hypothesize that changes in weight over time may vary less within a person over the years, as opposed to comparing changes in weight across two separate individuals. First, we fit an intercept only model, allowing the intercept to vary by individual. 
+Because we have repeated measurements of the same individual in this study, a regular linear model would not be appropriate as it assumes independence; implementing this model would inflate Type I error rates. 
 
-
-### Intercept only model
-```{r}
-intercept_model <- lmer(bmi ~  1+ decisions_eat +  run_away + cig + alcohol + physical_fight + real_age + (1|AID) + wave, child_data) 
-
-summary(intercept_model,ddf = "Kenward-Roger")
-
-S <-broom.mixed::tidy(intercept_model,ddf = "Satterthwaite") %>%
-  filter(effect == "fixed")  %>%
-  dplyr::select(term, estimate, std.error, statistic,df,p.value)
-
-KR <-broom.mixed::tidy(intercept_model,ddf = "Kenward-Roger") %>%
-  filter(effect == "fixed")  %>%
-  dplyr::select(term, estimate, std.error, statistic,df,p.value)
-
-  
+```{r lm, cap}
+lm.model <- lm(bmi~alcohol + age_at_start + wave, child_data)
+broom::tidy(lm.model) %>% kbl(caption = "Linear Model Output") %>%kable_classic(full_width = F)
 ```
 
-First, we can examine the output of the fixed effects similar to how a regular linear regression model is interpreted. Alcohol use is the only significant effect. This means that having already consumed alcohol at the first wave increases the predicted BMI holding all other predictors constant. Next, we turn to the random effects output. The variance for individuals (represented by `AID`), which depicts variability across individuals, is 5.977, while the residual variance, representing within-subject variability  is 3.682. The significantly larger variance across individuals compared to within individuals suggests that this model is more optimal than a regular linear regression model since differences in variability are apparent. The interclass correlation is .62, which indicates that weight measurements taken of the same individual have slightly higher similarity than those of different individuals. 
+Table \@ref(tab:lm) shows the results of implementing a linear model with alcohol, age at first wave, and time as predictors. Alcohol use and time are significant predictors in this model. This will only used as a comparison to the other linear mixed models.
+
+### Intercept only model
+
+We would hypothesize that changes in weight may vary less within a person, as opposed to comparing changes in weight across two separate individuals. Thus, we fit an intercept only model, allowing the intercept to vary by individual. Alcohol, age at first wave, and time are the fixed effects. 
+
+```{r intercept_KR}
+intercept_model <- lmer(bmi ~  1+  alcohol  + age_at_start + (1|AID) + wave, child_data) 
+KR<-broom.mixed::tidy(intercept_model,ddf = "Kenward-Roger") %>%
+  filter(effect == "fixed")  %>%
+  dplyr::select(term, estimate, std.error, statistic,df,p.value)
+S <- broom.mixed::tidy(intercept_model,ddf = "Satterthwaite") %>%
+  filter(effect == "fixed")  %>%
+  dplyr::select(term, estimate, std.error, statistic,df,p.value)
+KR %>% kbl(caption = "Fixed Effects for Random Intercept Model Using KR") %>%kable_classic(full_width = F)
+```
+
+```{r intercept_rand}
+broom.mixed::tidy(intercept_model,ddf = "Kenward-Roger")  %>%
+  filter(effect == "ran_pars") %>%
+  select(group,term,estimate)%>% kbl() %>%kable_classic(full_width = F)
+```
+First, we can examine the output of the fixed effects similar to how a regular linear regression model is interpreted. Table \@ref(tab:intercept_KR) shoes that time is the only significant effect. This means that conditional on the random effects, each wave increases the predicted BMI by 1.32. Next, we turn to the random effects output in table \@ref(tab:intercept_rand). The variance for individuals (represented by `AID`), which depicts variability across individuals, is 6.626, while the residual variance, representing within-subject variability is 3.895. The significantly larger variance across individuals compared to within individuals suggests that this model is more optimal than a regular linear regression model since differences in variability are apparent. The interclass correlation is .63, which indicates that weight measurements taken of the same individual have slightly higher similarity than those of different individuals. 
 
 ```{r}
 par(mfrow=c(1,2))
@@ -80,29 +97,29 @@ qqline(residuals(intercept_model), col = 2,lwd=2,lty=2)
 ```
 The residuals vs fitted plot indicates no heterogeneity in the residuals, and the qqplot indicates that for the most part residuals are normally distributed. The assumptions for fitting a random slope linear mixed model are met. 
 
-```{r}
-data.frame(cbind(term = S$term, Satterthwaite_p.value = S$p.value, KR_p.value =KR$p.value)) %>% kable()
+```{r compare_intercept}
+data.frame(cbind(term = S$term, Satterthwaite_p.value = S$p.value, KR_p.value =KR$p.value)) %>%  kbl(caption = "Comparison of Fixed Effects P-Values in Random Intercept Model") %>%kable_classic(full_width = F)
 ```
 
-The summary output referenced above uses Kenward-Roger DF approximation. TABLE ? compares the summary output comparing Satterthwaite and Kenward-Roger. Although there is no difference between the significance of predictors, it is interesting to note that the p-value for `real_age` when using Satterthwaite is nearing significance level of .05 in contrast to the p-value when using Kenward-Roger.
+The summary output referenced above uses Kenward-Roger DF approximation. Table \@ref(tab:compare_intercept) compares the summary output comparing Satterthwaite and Kenward-Roger. There is no significant difference between performance of the two DF methods, which aligns with results of our random intercept models from our simulation study
 
 ### Intercept and random slope 
 
-```{r}
-intercept_slope_model <- lmer(bmi ~  decisions_eat +  run_away + cig + alcohol + physical_fight + real_age + wave + ( 1 + wave|AID), child_data) 
+```{r slope_kr}
+intercept_slope_model <- lmer(bmi ~ alcohol + real_age + wave + ( 1 + wave|AID), child_data) 
 
-summary(intercept_slope_model,ddf = "Kenward-Roger")
-
-S <-broom.mixed::tidy(intercept_slope_model,ddf = "Satterthwaite") %>%
+S_s <-broom.mixed::tidy(intercept_slope_model,ddf = "Satterthwaite") %>%
   filter(effect == "fixed")  %>%
   dplyr::select(term, estimate, std.error, statistic,df,p.value)
 
-KR <-broom.mixed::tidy(intercept_slope_model,ddf = "Kenward-Roger") %>%
+KR_s <-broom.mixed::tidy(intercept_slope_model,ddf = "Kenward-Roger") %>%
   filter(effect == "fixed")  %>%
   dplyr::select(term, estimate, std.error, statistic,df,p.value)
+
+KR_s %>%  kbl(caption = "Fixed Effects for Random Slope Model Using KR") %>%kable_classic(full_width = F)
 ```
 
-In this model, we add a random effect of time as well as random intercept. This means that we are assuming that for each individual, the relationship between time and BMI is unique. For fixed effects, age is the only significant effect when using the KR method. For every year increase in age, BMI increases by .5. BMI is known to increase with age, so this model does not reveal any new predictors that are associated with it. Variability across individuals is 5.977, and the residual variance is 2.402. The variance for time is 1.299. We see that imposing variability between each individual's relationship of time vs BMI reduces some of the residual variance, which indicates that this structure is improving the model's fit on the data. By accounting for some of the variation through each individual's weight changes over time, this may have reduced variation of BMI attributed to differences in alcohol consumption, rendering it not significant in this model. 
+In this model, we add a random effect of time as well as random intercept. This means that we are assuming that for each individual, the relationship between time and BMI is unique. There are no significant effects when using the KR method. Variability in BMI across individuals is 16.388, and the residual variance is 2.352. The variance for time is 1.324, which represents variability across individual's BMI rates of change. We see that imposing variability between each individual's relationship of time vs BMI reduces some of the residual variance. When we accounted for some of the variation through each individual's weight changes over time, time as a predictor was no longer signficant as it was in the random intercepts only model. 
 
 Conditions for the model are met as seen by the figures below. 
 ```{r}
@@ -111,17 +128,17 @@ qqline(residuals(intercept_slope_model), col = 2,lwd=2,lty=2)
 plot(intercept_slope_model)
 ```
 
-```{r}
-data.frame(cbind(term = S$term, Satterthwaite_p.value = S$p.value, KR_p.value =KR$p.value)) %>% kable()
+```{r compare_slope}
+data.frame(cbind(term = S_s$term, Satterthwaite_p.value = S_s$p.value, KR_p.value =KR_s$p.value)) %>% kbl(caption = "Comparison of Fixed Effects P-Values in Random Slope Model")  %>%kable_classic(full_width = F)
 ```
 
-Earlier evaluation of fixed effects uses KR DF method, but FIGURE ? shows that significance of fixed effects differ when using Satterthwaite versus KR. In the random slope model, alcohol not a significant effect when using KR, but is significant when using Satterthwaite. This difference affects our interpretation of the model and conclusions that are drawn.
+Earlier evaluation of fixed effects uses KR DF method, but \@ref(tab:compare_slope) shows that significance of fixed effects differ when using Satterthwaite versus KR. In the random slope model, alcohol not a significant effect when using KR, but is significant when using Satterthwaite. This difference affects our interpretation of the model and conclusions that are drawn.
 
 ## Discussion
 
 We have demonstrated implementing two linear mixed models on a data set that is small and with a nonnormal continuous outcome. Imposing random effects structure to isolate variation between individuals apart from overall variation improved the model and reduced the number of predictors that were significant. One key result was that comparing KR and Sattherthwaite DF methods resulting in varying significant predictors in the random slope model. One additional predictor, alcohol, was a significant fixed effect when using Satterthwaite, the default output summary for *lmerTest*, in comparison to KR. Which method is preferable?
 
-Looking at the results from our simulation study, we can identify which condition most closely resembles the children data, and determine if KR or Satterthwaite would produce more robust results. There was no difference in the fixed effects of the random intercept model, so we only focus on the random slopes model. The skewness and kurtosis values for the application data align most closely with that of the lognormal distribution $X\sim\mathit{Log}(0,.25).$ We will look at the performance of the two DF methods in this distribution, in a random slope model with a sample size of 10 and 4 measurements per individual. In reference to FIGURE ?, we see that the performance of KR and Satterthwaite are virtually the same. If this is the case, our preference will still be towards KR as it tends to produce slightly less anti-convservative Type I error rates. 
+Looking at the results from our simulation study, we can identify which condition most closely resembles the children data, and determine if KR or Satterthwaite would produce more robust results. There was no difference in the fixed effects of the random intercept model, so we only focus on the random slopes model. The skewness and kurtosis values for the application data align most closely with that of the lognormal distribution $X\sim\mathit{Log}(0,.25).$ We will look at the performance of the two DF methods in this distribution, in a random slope model with a sample size of 10 and 4 measurements per individual. In reference to Figure \@ref(fig:fig5), we see that the performance of KR and Satterthwaite are virtually the same. If this is the case, our preference will still be towards KR as it tends to produce slightly less anti-conservative Type I error rates. 
 
 Ultimately, our application study supports the idea that linear mixed models can be applied to small samples when using KR or Satterthwaite DF methods. While performance between the two can be equally robust in theory, they can possibly lead to different significant fixed effects and conclusions about data overall. 
 
