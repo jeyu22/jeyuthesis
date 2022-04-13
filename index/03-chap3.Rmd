@@ -50,7 +50,8 @@ Figure \@ref(fig:intercept) depicts changes in BMI over time for each individual
 ```{r alcohol, fig.cap= "Changes in BMI by Individual and Alcohol Use"}
 ggplot(child_data, aes(wave, bmi, color=alcohol)) + geom_point() + geom_line(aes(group = AID)) + 
   geom_smooth(method = "lm", se = FALSE, aes(group = AID)) +
-  scale_color_manual(labels = c("No", "Yes"), values = c("red","blue")) + labs(color = "Alcohol")
+  scale_color_manual(labels = c("No", "Yes"), values = c("red","blue")) + 
+  labs(color = "Alcohol")
 ```
 
 In a longitudinal study examining youth substance use and body composition, @pasch_youth_2012 found that baseline alcohol use is associated with lower values of BMI at follow-up. The opposite pattern can be seen in Figure \@ref(fig:alcohol). Individuals who had consumed alcohol during the first wave had higher BMI values across all time points. While the data may not be consistent with other research, it highlights the importance of substance use as a potential predictor of BMI.
@@ -118,7 +119,7 @@ KR_s <-broom.mixed::tidy(intercept_slope_model,ddf = "Kenward-Roger") %>%
 KR_s %>%  kbl(caption = "Fixed Effects for Random Slope Model Using KR") %>%kable_classic(full_width = F)
 ```
 
-In this model, we add a random effect of time as well as random intercept. This means that we are assuming that for each individual, the relationship between time and BMI is unique. There are no significant effects when using the KR method. Variability in BMI across individuals is 16.388, and the residual variance is 2.352. The variance for time is 1.324, which represents variability across individual's BMI rates of change. We see that imposing variability between each individual's relationship of time vs BMI reduces some of the residual variance. When we accounted for some of the variation through each individual's weight changes over time, time as a predictor was no longer signficant as it was in the random intercepts only model. 
+In this model, we add a random effect of time as well as random intercept. This means that we are assuming that for each individual, the relationship between time and BMI is unique. There are no significant effects when using the KR method. Variability in BMI across individuals is 16.388, and the residual variance is 2.352. The variance for time is 1.324, which represents variability across individual's BMI rates of change. We see that imposing variability between each individual's relationship of time vs BMI reduces some of the residual variance. When we accounted for some of the variation through each individual's weight changes over time, time as a predictor was no longer significant as it was in the random intercepts only model. 
 
 Conditions for the model are met as seen by the figures below. 
 ```{r}
