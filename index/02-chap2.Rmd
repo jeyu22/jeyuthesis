@@ -3,7 +3,7 @@ output:
   pdf_document: default
   html_document: default
 ---
-# Methods for tests of fixed effects in small and nonnormal samples {#rmd-basics}
+# Degrees of Freedom Methods and Simulation Study{#rmd-basics}
 <!--
 This file is for including Chapter 2.  
 
@@ -33,7 +33,7 @@ $$ is approximately $\chi^2(q)$ (Rencher and Schaalje, 2008). For a null hypothe
 Likelihood ratio tests are another method to make inferences about $\beta$. While there are benefits to using the likelihood ratio test, the rest of this study will focus on method of using the Wald statistic.
 
 
-### Inference in small sample sizes 
+### Inference in Small Sample Sizes 
 One crucial assumption when conducting inference using the ML estimate for $\beta$ is that the sample size is sufficient enough where it does not affect the estimate for $\Sigma_i.$ However, what happens when the sample size is too small? This causes $\hat\Sigma_i$ to underestimate the true variance, which in turn causes $\widehat {\text{Cov}}(\hat\beta)$ to be too small since it relies on covariance estimator. If $\widehat {\text{Cov}}(\hat\beta)$ is too small, the denominator of the test statistic is inflated, leading to increased Type I error. One can see that the bias of the covariance estimator weakens the entire foundation of estimation and inference. 
 
 In very limited cases, where data are complete, balanced, and produce nonnegative values in REML estimation, is it possible to perform exact small-sample inferences. If $[L(X'\widehat {\text{Cov}}(\hat\beta)X)^-L']^{-1}$ with $g$ degrees of freedom can be rewritten such that $$ \frac{(L\hat\beta)'Q(L\hat\beta)}{g}\frac{w}{d} =  \frac{(L\hat\beta)'[L(X'\widehat {\text{Cov}}(\hat\beta)X)^-L']^{-1}(L\hat\beta)}{g},$$ where $w$ is a chi-square random variable with $d$ degrees of freedom. If so, this statistic is F-distributed. 
@@ -65,7 +65,7 @@ This Wald statistic that uses the adjusted estimator is scaled in the form: $$F^
 $$m = 4 + \frac{l+2}{l\rho-1},$$ where $\rho = \frac{V[F]}{2E[F]^2}$ and 
 $\lambda = \frac{m}{E[F](m-2)}.$ This statistic will ultimately follow an exact $F_{l,m}$ distribution. 
 
-## Other methods
+## Other Methods
 
 *Residual DDF:* The DDF is calculated as $N-rank[X],$ where N is the total number of individuals in the dataset. This method is only suitable for data that are independent and identically distributed, so it is not typically used in linear mixed models.
 
@@ -75,7 +75,7 @@ In the containment method, random effects that contain the fixed effect of inter
 *Between-Within Method* 
 Schluchter and Elashoff (1990) propose a DDF method where residual DDF are calculated for both between-subject and within-subject subgroups. If there are changes in the fixed effect within subjects, then the within-subject DDF is used, otherwise the between-subject DDF is used. 
 
-## Existing literature
+## Existing Literature
 
 Both KR and Satterthwaite methods are frequently used and compared, and its performance is highly dependent on the structure of the data.
 A majority of studies focusing on DF method comparison in mixed models use split-plot design, as small sample sizes are more common in agricultural and biological fields. Schaalje, et al. (2002) found that in comparison to other degrees of freedom-adjusting methods like Satterthaite, KR was the most suitable for small sample data. Using factors such as imbalance, covariance structure, and sample size, they demonstrated that the KR method produced simulated Type I error rates closest to target values. However, their focus was primarily on complexity of covariance structure, and they found that more complicated structures, such as ante-dependence, produced inflated error rates when coupled with small sample size. Arnau (2009) found that KR produces more robust results compared to Satterthwaite and Between-Within approaches, especially in cases where larger sample size was paired with covariance matricies with larger values. 
@@ -85,24 +85,24 @@ These studies are conducted with data drawn from normal distributions. However, 
 Existing research evaluating the performance of methods that reduce Type I error rate in small samples are thorough, however, the differences in simulation setup and structure of data used make generalizations difficult. Although the KR method has been shown as a viable option for analysis of small samples in many occasions, it should continue to evaluated against other methods. To date, there is no literature on the performance of Satterthwaite for nonnormal longitudinal data design. Given the prevalence of nonnormal and small data samples, it is important to continue exploring methods that ensure robust results. 
 
 
-## Goals of this study:
+## Goals of This Study:
 
 In this study, we aim to expand on previous work evaluating how methods for estimating fixed effects perform under different nonnormal distributions, sample sizes, number of measurements, and complexity. The aforementioned studies often use a split-plot design and impose a covariance structure, but the goal of this study will be to compare performance of KR and Satterthwaite methods for repeated measures longitudinal data fitted with a linear mixed effects model, and an unstructured covariance structure imposed by the random effects. 
 
 
-## Simulation Set up:
+## Simulation Set Up:
 
 The overarching goal is to compare performance of DF methods across various conditions, with a specific goal of looking at scenarios with smaller sample sizes and number of measurements in order to see variability in Type I error rates. There is flexibility in how the parameters are chosen; in order to narrow the scope, we aim to design conditions that are relatively similar to an application data set that will be further explored in Chapter 3. In the following sections, the range of parameters used will be similar to the characteristics of a longitudinal study about Children's Health. 
 
-### Generating data: Sample size
+### Generating Data: Sample Dize
 
 In this study, we consider a linear mixed effects model with time as a continuous variable and treatment as a factor. The range of possible values that time takes on depends on how many number of measurements per individual, which can be 4 or 8. The treatment covariate takes on values of 0 or 1, and each assigned to half of the sample. The number of individuals take on possible values of 10, 18, and 26. These were chosen to reflect possible samples that would not hold under the common assumption that the sample size must be at least 30 for it to be considered sufficient enough for the Central Limit Theorem to hold. 
 
-### Generating data: Fixed Effects
+### Generating Data: Fixed Effects
 
 We have three fixed effects: the intercept value, time and treatment. The intercept, an arbitrary value, is set at $B_0 = 3.1$. The coefficients for time and treatment have a value of $B_1 = B_2 = 0$ for simplicity and so we can evaluate Type 1 error rates. 
 
-### Generating data: Random effects
+### Generating Data: Random effects
 
 We generate our intercept and slope random effects values from nonnormal distributions, which are either exponential or lognormal. Previous research shows that many data used in social and health sciences follow nonnormal distributions (Limpert, Stahel, & Abbt, 2001). More specifically  many follow lognormal distributions, such as age of onset of Alzheimer’s disease (Horner, 1987), or exponential distribution to model survival data. In order to cover a wide range of exponential and lognormal distributions, parameters were chosen to model distinct distributions. For exponential distributions, $X\sim\mathit{Exp}(\lambda),$ where  $\lambda = .2$ or $ .9$ Lognormal distributions were $X\sim\mathit{Log}(0,.25)$ and $X\sim\mathit{Log}(1,.5).$ 
 
@@ -136,7 +136,7 @@ plot(x, dexp(x, .9),
 
 
 
-### Linear mixed effects model
+### Linear Mixed Effects Model
 
 In a linear mixed effects model, the amount of random effects that will be modeled depends on the research question at hand. Here, we will examine both a random intercepts model, where only the intercept of the model is assumed to have a random effects structure, as well as a random intercept and slope model, where in addition to intercept, the covariate time will also have a random effects structure. The random intercept model can be represented as: $$Y_{ij} = \beta_0 + \beta_1Trt_i + \beta_2Time_{ij} + b_{0j} + e_{ij},$$ and the random slope model can be represented as: $$Y_{ij} = \beta_0 + \beta_1Trt_i + \beta_2Time_{ij} + b_{0j} + b_{1i}Time_{ij} + e_{ij}.$$
 
@@ -240,7 +240,7 @@ At $\lambda = .9$, we see virtually the same trends in terms of the effect of sa
 Despite having different parameter values, the application of DF methods to these two exponential distributions produce similar different trends in error rates. Considering that the two distributions have the same skewness and kurtosis values, we hypothesize whether this similarity in values contributes to the performance of the DF methods. Next, we will examine the performance of DF methods in lognormal distributions. 
 
 
-## Lognormal 
+## Lognormal Distribution
 ```{r fig3, fig.width= 6 ,fig.height = 6, fig.cap="Type I Error Rates by DF Method for Lognormal Distribution"}
  
  

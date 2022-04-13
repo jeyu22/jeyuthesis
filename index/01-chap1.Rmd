@@ -23,7 +23,7 @@ The measure that captures the observed changes within an individual is referred 
 Apart from comparing just the response trajectories, it may also be of interest to compare individual differences in the relationship between covariates and the response trajectory. This can be captured using various statistical models. The choice of model depends on several characteristics of the data.
 
 
-## Characteristics of longitudinal data
+## Characteristics of Longitudinal Data
 
 While the only requirement of longitudinal data is that there is more than one observation for a given individual, there are other characteristics that affect the model chosen. Data can be unbalanced or balanced: *balanced* data refers to when all individuals have the same number of repeated measurements taken at the same occasions. In addition, data can also be missing, resulting in automatically unbalanced data. For example, a study measuring the weights of children over time may be unbalanced if some children are measured at 5 and 10 years old, while others are measured at 5, 7 and 15 years old, since measurements are not taken at the same time points. If children drop out of the study as they get older, this will result in missing data points. 
 
@@ -53,10 +53,10 @@ Now that we have estimates for $\beta$, we can make inferences through construct
 $$Z = \frac{\hat \beta_k}{\sqrt{\hat Var(\hat \beta_k)}}.$$ In later chapters we will explore how inference may be impacted in smaller sample sizes. 
 
 
-## Linear models for longitudinal data
+## Linear Models for Longitudinal Data
 
 
-### Notation and distribution assumptions
+### Notation and Distribution Assumptions
 
 Throughout the rest of the text, we will use a standard set of notation. $Y_{ij}$ represents the response variable for the $i^{th}$ individual at the $j^{th}$ measurement. When we have repeated $n_i$ measurements for an individual, we can construct a vector, $$Y_i = \begin{pmatrix} Y_{i1}\\ Y_{i2} \\ .. \\  Y_{in_i}  \end{pmatrix}.$$ For each $Y_{ij}$ response, there is a $X_{ij}$ vector of covariates that has $p$ rows representing the number of covariates. Covariates in $X_{ij}$ can be fixed or change over time. 
 
@@ -67,7 +67,7 @@ The linear model can be divided into a systematic component, $X_i\beta,$ and a r
 
 Oftentimes, the mean response vector $E(Y_i|X_i) = X_i\beta$ is used for for modeling longitudinal responses. In the following sections, we will discuss three specific methods of linear models: 1) response profile analysis, 2) parametric time model, and 3) linear mixed effects model.
 
-### Response profile analysis
+### Response Profile Analysis
 
 In response profile analysis, we allow for arbitrary patterns in the mean response over time. A sequence of means over time is known as the mean response profile. The main goal of this analysis is to identify differences in pattern of change in mean response profile among two or more groups. This method requires that the data be balanced. 
 
@@ -166,7 +166,7 @@ $$\hat Y_i = X_i\hat\beta +Z_i\hat b_i.$$
 This equation to estimate the mean response profile can be extended to incorporate $R_i$, which represents within-subject variability. From this extension, we see that the equation and the empirical BLUP account for the weighting of both the within-subject variability and between-subject variability. If there is more within-subject variability, then more weight is assigned to $X_i\hat\beta$, the population mean response profile, in comparison to the subject's individual responses, and vice versa. 
 
 
-## Choosing the best model 
+## Choosing the Best Model 
 
 After presenting three methods of evaluating longitudinal data, the natural question arises of how to choose the most appropriate model. While there is no definite correct answer, there are several factors to consider. If data are unbalanced, response profile analysis should not be considered; rather, parametric time model or linear mixed effect model would be more optimal. If time order is important to the analysis, then only parametric time model and linear mixed effect model should be used. If there is a need to distinguish between the two types of variation that can occur, then only linear mixed effect models are appropriate. The model should ultimately be chosen based on the characteristics and constraints of the data, as well as the specificity of the research question at hand. 
 
