@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.12)  12 APR 2022 22:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.12)  13 APR 2022 13:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -922,14 +922,10 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 7133) has occurred while \output is active []
 
 [44 <./Jessica-Yu_StatThesis_files/figure-latex/alcohol-1.pdf>]
-
-LaTeX Warning: Reference `fig:lm' on page 45 undefined on input line 682.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [45]
-<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1.pdf, id=652, 469.75
+<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1.pdf, id=653, 469.75
 5pt x 325.215pt>
 File: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1.pdf Graphic fi
 le (type pdf)
@@ -946,7 +942,7 @@ Overfull \hbox (36.13387pt too wide) in paragraph at lines 720--720
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [46]
-<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-2.pdf, id=658, 469.75
+<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-2.pdf, id=659, 469.75
 5pt x 325.215pt>
 File: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-2.pdf Graphic fi
 le (type pdf)
@@ -968,7 +964,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 747--747
 |[]\T1/lmr/bx/n/12 Intercept and ran-dom slope|
  []
 
-<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-7-1.pdf, id=680, 469.75
+<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-7-1.pdf, id=681, 469.75
 5pt x 325.215pt>
 File: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-7-1.pdf Graphic fi
 le (type pdf)
@@ -985,7 +981,7 @@ Overfull \hbox (36.13387pt too wide) in paragraph at lines 771--771
 Underfull \vbox (badness 3635) has occurred while \output is active []
 
 [49]
-<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-7-2.pdf, id=686, 469.75
+<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-7-2.pdf, id=687, 469.75
 5pt x 325.215pt>
 File: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-7-2.pdf Graphic fi
 le (type pdf)
@@ -1084,11 +1080,11 @@ Package rerunfilecheck Info: File `Jessica-Yu_StatThesis.out' has not changed.
 Here is how much of TeX's memory you used:
  14706 strings out of 480238
  244487 string characters out of 5894762
- 523256 words of memory out of 5000000
+ 523323 words of memory out of 5000000
  32165 multiletter control sequences out of 15000+600000
  529936 words of font info for 64 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,12n,69p,1497b,677s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,12n,69p,1497b,676s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/Users/jessicayu/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm
 /lm-ec.enc}{/Users/jessicayu/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-r
 m.enc}{/Users/jessicayu/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit
@@ -1110,10 +1106,10 @@ u/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></Users/jessicayu/
 Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></Users/jessicayu/Li
 brary/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt12.pfb></Users/jessicayu/Lib
 rary/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Jessica-Yu_StatThesis.pdf (78 pages, 478161 bytes).
+Output written on Jessica-Yu_StatThesis.pdf (78 pages, 478374 bytes).
 PDF statistics:
- 909 PDF objects out of 1000 (max. 8388607)
- 761 compressed objects within 8 object streams
+ 910 PDF objects out of 1000 (max. 8388607)
+ 762 compressed objects within 8 object streams
  191 named destinations out of 1000 (max. 500000)
  458 words of extra memory for PDF output out of 10000 (max. 10000000)
 

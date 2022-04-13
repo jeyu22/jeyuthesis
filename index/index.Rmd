@@ -1,5 +1,5 @@
 ---
-title: 'Degrees of Freedom Approximation in Linear Mixed Models with Nonnormal Distributions'
+title: 'Robustness of Degrees of Freedom Approximation in Linear Mixed Models with Nonnormal Distributions'
 author: 'Jessica Yu'
 date: 'April 15, 2022'
 institution: 'Amherst College'

@@ -171,7 +171,7 @@ Lastly, I want to thank my family for the sacrifices they've made so I can pursu
   framerule = 1.5mm, rulecolor = \color{black!15}
   }
 
-\title{Degrees of Freedom Approximation in Linear Mixed Models with Nonnormal Distributions}
+\title{Robustness of Degrees of Freedom Approximation in Linear Mixed Models with Nonnormal Distributions}
 \author{Jessica Yu}
 \date{April 15, 2022}
 \division{}
@@ -663,7 +663,7 @@ While our sample size is small, our initial exploration of alcohol use suggests 
 Because we have repeated measurements of the same individual in this study, a regular linear model would not be appropriate as it assumes independence; implementing this model would inflate Type I error rates.
 \begin{table}
 
-\caption{(\#tab:lm, cap)Linear Model Output}
+\caption{\label{tab:lm}Linear Model Output}
 \centering
 \begin{tabular}[t]{l|r|r|r|r}
 \hline
@@ -679,7 +679,7 @@ wave & 1.32 & 0.629 & 2.10 & 0.044\\
 \hline
 \end{tabular}
 \end{table}
-Table \ref{fig:lm} shows the results of implementing a linear model with alcohol, age at first wave, and time as predictors. Alcohol use and time are significant predictors in this model. This will only used as a comparison to the other linear mixed models.
+Table \ref{tab:lm} shows the results of implementing a linear model with alcohol, age at first wave, and time as predictors. Alcohol use and time are significant predictors in this model. This will only used as a comparison to the other linear mixed models.
 
 \hypertarget{intercept-only-model}{%
 \subsection{Intercept Only Model}\label{intercept-only-model}}
@@ -716,7 +716,7 @@ Residual & sd\_\_Observation & 1.97\\
 \hline
 \end{tabular}
 \end{table}
-First, we can examine the output of the fixed effects similar to how a regular linear regression model is interpreted. Table @ref(fig:intercept\_KR) shoes that time is the only significant effect. This means that conditional on the random effects, each wave increases the predicted BMI by 1.32. Next, we turn to the random effects output in table @ref(fig:intercept\_rand). The variance for individuals (represented by \texttt{AID}), which depicts variability across individuals, is 6.626, while the residual variance, representing within-subject variability is 3.895. The significantly larger variance across individuals compared to within individuals suggests that this model is more optimal than a regular linear regression model since differences in variability are apparent. The interclass correlation is .63, which indicates that weight measurements taken of the same individual have slightly higher similarity than those of different individuals.
+First, we can examine the output of the fixed effects similar to how a regular linear regression model is interpreted. Table @ref(tab:intercept\_KR) shoes that time is the only significant effect. This means that conditional on the random effects, each wave increases the predicted BMI by 1.32. Next, we turn to the random effects output in table @ref(tab:intercept\_rand). The variance for individuals (represented by \texttt{AID}), which depicts variability across individuals, is 6.626, while the residual variance, representing within-subject variability is 3.895. The significantly larger variance across individuals compared to within individuals suggests that this model is more optimal than a regular linear regression model since differences in variability are apparent. The interclass correlation is .63, which indicates that weight measurements taken of the same individual have slightly higher similarity than those of different individuals.
 \begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1} \end{center}
 \begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-2} \end{center}
 
@@ -741,7 +741,7 @@ wave & 0.00335031625142439 & 0.00335031627116489\\
 \end{tabular}
 \textbackslash end\{table\}
 
-The summary output referenced above uses Kenward-Roger DF approximation. Table @ref(fig:compare\_intercept) compares the summary output comparing Satterthwaite and Kenward-Roger. There is no significant difference between performance of the two DF methods, which aligns with results of our random intercept models from our simulation study
+The summary output referenced above uses Kenward-Roger DF approximation. Table @ref(tab:compare\_intercept) compares the summary output comparing Satterthwaite and Kenward-Roger. There is no significant difference between performance of the two DF methods, which aligns with results of our random intercept models from our simulation study
 
 \hypertarget{intercept-and-random-slope}{%
 \subsection{Intercept and random slope}\label{intercept-and-random-slope}}
@@ -790,7 +790,7 @@ wave & 0.942264459160284 & 0.945433676863754\\
 \end{tabular}
 \textbackslash end\{table\}
 
-Earlier evaluation of fixed effects uses KR DF method, but @ref(fig:compare\_slope) shows that significance of fixed effects differ when using Satterthwaite versus KR. In the random slope model, alcohol not a significant effect when using KR, but is significant when using Satterthwaite. This difference affects our interpretation of the model and conclusions that are drawn.
+Earlier evaluation of fixed effects uses KR DF method, but @ref(tab:compare\_slope) shows that significance of fixed effects differ when using Satterthwaite versus KR. In the random slope model, alcohol not a significant effect when using KR, but is significant when using Satterthwaite. This difference affects our interpretation of the model and conclusions that are drawn.
 
 \hypertarget{discussion-1}{%
 \section{Discussion}\label{discussion-1}}
