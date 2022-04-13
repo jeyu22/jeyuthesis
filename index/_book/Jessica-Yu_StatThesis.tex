@@ -466,7 +466,7 @@ Schluchter and Elashoff (1990) propose a DDF method where residual DDF are calcu
 \section{Existing Literature}\label{existing-literature}}
 
 Both KR and Satterthwaite methods are frequently used and compared, and its performance is highly dependent on the structure of the data.
-A majority of studies focusing on DF method comparison in mixed models use split-plot design, as small sample sizes are more common in agricultural and biological fields. Schaalje, et al.~(2002) found that in comparison to other degrees of freedom-adjusting methods like Satterthaite, KR was the most suitable for small sample data. Using factors such as imbalance, covariance structure, and sample size, they demonstrated that the KR method produced simulated Type I error rates closest to target values. However, their focus was primarily on complexity of covariance structure, and they found that more complicated structures, such as ante-dependence, produced inflated error rates when coupled with small sample size. Arnau (2009) found that KR produces more robust results compared to Satterthwaite and Between-Within approaches, especially in cases where larger sample size was paired with covariance matricies with larger values.
+A majority of studies focusing on DF method comparison in mixed models use split-plot design, as small sample sizes are more common in agricultural and biological fields. Schaalje, McBride, \& Fellingham (2002) found that in comparison to other degrees of freedom-adjusting methods like Satterthaite, KR was the most suitable for small sample data. Using factors such as imbalance, covariance structure, and sample size, they demonstrated that the KR method produced simulated Type I error rates closest to target values. However, their focus was primarily on complexity of covariance structure, and they found that more complicated structures, such as ante-dependence, produced inflated error rates when coupled with small sample size. Arnau, Bono, \& Vallejo (2009) found that KR produces more robust results compared to Satterthwaite and Between-Within approaches, especially in cases where larger sample size was paired with covariance matricies with larger values.
 
 These studies are conducted with data drawn from normal distributions. However, real-world data used in fields such as psychometrics have distributions that are nonnormal. In Arnau et. al's 2012 paper, the authors extend their evaluation of KR for split-plot data that follow a log-normal or exponential distribution, and for when the kurtosis and skewness values are manipulated. They found that, compared to normal distribution, the test is less robust for log-normal distributions, but that there is no signficant difference in performance between exponential and normal distributions. In addition, they suggest that skewness has a bigger effect on robustness of KR compared to kurtosis.
 
@@ -685,10 +685,9 @@ Table \ref{tab:lm} shows the results of implementing a linear model with alcohol
 \subsection{Intercept Only Model}\label{intercept-only-model}}
 
 We would hypothesize that changes in weight may vary less within a person, as opposed to comparing changes in weight across two separate individuals. Thus, we fit an intercept only model, allowing the intercept to vary by individual. Alcohol, age at first wave, and time are the fixed effects.
+\begin{table}
 
-\textbackslash begin\{table\}
-
-\textbackslash caption\{(\#tab:intercept\_KR)Fixed Effects for Random Intercept Model Using KR\}
+\caption{\label{tab:interceptKR}Fixed Effects for Random Intercept Model Using KR}
 \centering
 \begin{tabular}[t]{l|r|r|r|r|r}
 \hline
@@ -703,7 +702,7 @@ age\_at\_start & 0.42 & 0.456 & 0.921 & 9.00 & 0.381\\
 wave & 1.32 & 0.403 & 3.272 & 23.00 & 0.003\\
 \hline
 \end{tabular}
-\textbackslash end\{table\}
+\end{table}
 \begin{table}
 \centering
 \begin{tabular}[t]{l|l|r}
@@ -716,15 +715,14 @@ Residual & sd\_\_Observation & 1.97\\
 \hline
 \end{tabular}
 \end{table}
-First, we can examine the output of the fixed effects similar to how a regular linear regression model is interpreted. Table @ref(tab:intercept\_KR) shoes that time is the only significant effect. This means that conditional on the random effects, each wave increases the predicted BMI by 1.32. Next, we turn to the random effects output in table @ref(tab:intercept\_rand). The variance for individuals (represented by \texttt{AID}), which depicts variability across individuals, is 6.626, while the residual variance, representing within-subject variability is 3.895. The significantly larger variance across individuals compared to within individuals suggests that this model is more optimal than a regular linear regression model since differences in variability are apparent. The interclass correlation is .63, which indicates that weight measurements taken of the same individual have slightly higher similarity than those of different individuals.
+First, we can examine the output of the fixed effects similar to how a regular linear regression model is interpreted. Table \ref{tab:interceptKR} shoes that time is the only significant effect. This means that conditional on the random effects, each wave increases the predicted BMI by 1.32. Next, we turn to the random effects output in table \ref{tab:interceptrand}. The variance for individuals (represented by \texttt{AID}), which depicts variability across individuals, is 6.626, while the residual variance, representing within-subject variability is 3.895. The significantly larger variance across individuals compared to within individuals suggests that this model is more optimal than a regular linear regression model since differences in variability are apparent. The interclass correlation is .63, which indicates that weight measurements taken of the same individual have slightly higher similarity than those of different individuals.
 \begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1} \end{center}
 \begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-2} \end{center}
 
 The residuals vs fitted plot indicates no heterogeneity in the residuals, and the qqplot indicates that for the most part residuals are normally distributed. The assumptions for fitting a random slope linear mixed model are met.
+\begin{table}
 
-\textbackslash begin\{table\}
-
-\textbackslash caption\{(\#tab:compare\_intercept)Comparison of Fixed Effects P-Values in Random Intercept Model\}
+\caption{\label{tab:compareintercept}Comparison of Fixed Effects P-Values in Random Intercept Model}
 \centering
 \begin{tabular}[t]{l|l|l}
 \hline
@@ -739,16 +737,14 @@ age\_at\_start & 0.380940524102144 & 0.380940522986174\\
 wave & 0.00335031625142439 & 0.00335031627116489\\
 \hline
 \end{tabular}
-\textbackslash end\{table\}
-
-The summary output referenced above uses Kenward-Roger DF approximation. Table @ref(tab:compare\_intercept) compares the summary output comparing Satterthwaite and Kenward-Roger. There is no significant difference between performance of the two DF methods, which aligns with results of our random intercept models from our simulation study
+\end{table}
+The summary output referenced above uses Kenward-Roger DF approximation. Table \ref{tab:compareintercept} compares the summary output comparing Satterthwaite and Kenward-Roger. There is no significant difference between performance of the two DF methods, which aligns with results of our random intercept models from our simulation study
 
 \hypertarget{intercept-and-random-slope}{%
 \subsection{Intercept and random slope}\label{intercept-and-random-slope}}
+\begin{table}
 
-\textbackslash begin\{table\}
-
-\textbackslash caption\{(\#tab:slope\_kr)Fixed Effects for Random Slope Model Using KR\}
+\caption{\label{tab:slopekr}Fixed Effects for Random Slope Model Using KR}
 \centering
 \begin{tabular}[t]{l|r|r|r|r|r}
 \hline
@@ -763,17 +759,15 @@ real\_age & 0.394 & 0.209 & 1.885 & 16.52 & 0.077\\
 wave & -0.060 & 0.862 & -0.069 & 26.70 & 0.945\\
 \hline
 \end{tabular}
-\textbackslash end\{table\}
-
+\end{table}
 In this model, we add a random effect of time as well as random intercept. This means that we are assuming that for each individual, the relationship between time and BMI is unique. There are no significant effects when using the KR method. Variability in BMI across individuals is 16.388, and the residual variance is 2.352. The variance for time is 1.324, which represents variability across individual's BMI rates of change. We see that imposing variability between each individual's relationship of time vs BMI reduces some of the residual variance. When we accounted for some of the variation through each individual's weight changes over time, time as a predictor was no longer significant as it was in the random intercepts only model.
 
 Conditions for the model are met as seen by the figures below.
 \begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-7-1} \end{center}
 \begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-7-2} \end{center}
+\begin{table}
 
-\textbackslash begin\{table\}
-
-\textbackslash caption\{(\#tab:compare\_slope)Comparison of Fixed Effects P-Values in Random Slope Model\}
+\caption{\label{tab:compareslope}Comparison of Fixed Effects P-Values in Random Slope Model}
 \centering
 \begin{tabular}[t]{l|l|l}
 \hline
@@ -788,9 +782,8 @@ real\_age & 0.0572004159149207 & 0.0771903662035183\\
 wave & 0.942264459160284 & 0.945433676863754\\
 \hline
 \end{tabular}
-\textbackslash end\{table\}
-
-Earlier evaluation of fixed effects uses KR DF method, but @ref(tab:compare\_slope) shows that significance of fixed effects differ when using Satterthwaite versus KR. In the random slope model, alcohol not a significant effect when using KR, but is significant when using Satterthwaite. This difference affects our interpretation of the model and conclusions that are drawn.
+\end{table}
+Earlier evaluation of fixed effects uses KR DF method, but \ref{tab:compareslope} shows that significance of fixed effects differ when using Satterthwaite versus KR. In the random slope model, alcohol not a significant effect when using KR, but is significant when using Satterthwaite. This difference affects our interpretation of the model and conclusions that are drawn.
 
 \hypertarget{discussion-1}{%
 \section{Discussion}\label{discussion-1}}
@@ -844,6 +837,9 @@ Corrections may be made to the body of the thesis, but every such correction wil
 \setlength{\parskip}{8pt}
 
 \hypertarget{refs}{}
+\leavevmode\hypertarget{ref-arnau_analyzing_2009}{}%
+Arnau, J., Bono, R., \& Vallejo, G. (2009). Analyzing small samples of repeated measures data with the mixed-model adjusted \emph{f} test. \emph{Communications in Statistics - Simulation and Computation}, \emph{38}(5), 1083--1103. \url{http://doi.org/10.1080/03610910902785746}
+
 \leavevmode\hypertarget{ref-barr_random_2013}{}%
 Barr, D. J., Levy, R., Scheepers, C., \& Tily, H. J. (2013). Random effects structure for confirmatory hypothesis testing: Keep it maximal. \emph{Journal of Memory and Language}, \emph{68}(3), 255--278. \url{http://doi.org/10.1016/j.jml.2012.11.001}
 
@@ -867,6 +863,9 @@ Pasch, K. E., Velazquez, C. E., Cance, J. D., Moe, S. G., \& Lytle, L. A. (2012)
 
 \leavevmode\hypertarget{ref-penman_changing_2006}{}%
 Penman, A. D., \& Johnson, W. D. (2006). The changing shape of the body mass index distribution curve in the population: Implications for public health policy to reduce the prevalence of adult obesity. \emph{Preventing Chronic Disease}, \emph{3}(3), A74--A74. Retrieved from \url{https://pubmed.ncbi.nlm.nih.gov/16776875}
+
+\leavevmode\hypertarget{ref-schaalje_adequacy_2002}{}%
+Schaalje, G. B., McBride, J. B., \& Fellingham, G. W. (2002). Adequacy of approximations to distributions of test statistics in complex mixed linear models. \emph{Journal of Agricultural, Biological, and Environmental Statistics}, \emph{7}(4), 512--524. \url{http://doi.org/10.1198/108571102726}
 
 \leavevmode\hypertarget{ref-zeng_chinese_2017}{}%
 Zeng, Y., Vaupel, J., Xiao, Z., Liu, Y., \& Zhang, C. (2017). Chinese longitudinal healthy longevity survey (CLHLS), 1998-2014. Inter-university Consortium for Political; Social Research {[}distributor{]}. \url{http://doi.org/10.3886/ICPSR36692.v1}

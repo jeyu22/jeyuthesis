@@ -72,7 +72,7 @@ Table \@ref(tab:lm) shows the results of implementing a linear model with alcoho
 
 We would hypothesize that changes in weight may vary less within a person, as opposed to comparing changes in weight across two separate individuals. Thus, we fit an intercept only model, allowing the intercept to vary by individual. Alcohol, age at first wave, and time are the fixed effects. 
 
-```{r intercept_KR}
+```{r interceptKR}
 intercept_model <- lmer(bmi ~  1+  alcohol  + age_at_start + (1|AID) + wave, child_data) 
 KR<-broom.mixed::tidy(intercept_model,ddf = "Kenward-Roger") %>%
   filter(effect == "fixed")  %>%
@@ -83,12 +83,12 @@ S <- broom.mixed::tidy(intercept_model,ddf = "Satterthwaite") %>%
 KR %>% kbl(caption = "Fixed Effects for Random Intercept Model Using KR") %>%kable_classic(full_width = F)
 ```
 
-```{r intercept_rand}
+```{r interceptrand}
 broom.mixed::tidy(intercept_model,ddf = "Kenward-Roger")  %>%
   filter(effect == "ran_pars") %>%
   select(group,term,estimate)%>% kbl() %>%kable_classic(full_width = F)
 ```
-First, we can examine the output of the fixed effects similar to how a regular linear regression model is interpreted. Table \@ref(tab:intercept_KR) shoes that time is the only significant effect. This means that conditional on the random effects, each wave increases the predicted BMI by 1.32. Next, we turn to the random effects output in table \@ref(tab:intercept_rand). The variance for individuals (represented by `AID`), which depicts variability across individuals, is 6.626, while the residual variance, representing within-subject variability is 3.895. The significantly larger variance across individuals compared to within individuals suggests that this model is more optimal than a regular linear regression model since differences in variability are apparent. The interclass correlation is .63, which indicates that weight measurements taken of the same individual have slightly higher similarity than those of different individuals. 
+First, we can examine the output of the fixed effects similar to how a regular linear regression model is interpreted. Table \@ref(tab:interceptKR) shows that time is the only significant effect. This means that conditional on the random effects, each wave increases the predicted BMI by 1.32. Next, we turn to the random effects output in table \@ref(tab:interceptrand). The variance for individuals (represented by `AID`), which depicts variability across individuals, is 6.626, while the residual variance, representing within-subject variability is 3.895. The significantly larger variance across individuals compared to within individuals suggests that this model is more optimal than a regular linear regression model since differences in variability are apparent. The interclass correlation is .63, which indicates that weight measurements taken of the same individual have slightly higher similarity than those of different individuals. 
 
 ```{r}
 plot(intercept_model)
@@ -97,15 +97,15 @@ qqline(residuals(intercept_model), col = 2,lwd=2,lty=2)
 ```
 The residuals vs fitted plot indicates no heterogeneity in the residuals, and the qqplot indicates that for the most part residuals are normally distributed. The assumptions for fitting a random slope linear mixed model are met. 
 
-```{r compare_intercept}
+```{r compareintercept}
 data.frame(cbind(term = S$term, Satterthwaite_p.value = S$p.value, KR_p.value =KR$p.value)) %>%  kbl(caption = "Comparison of Fixed Effects P-Values in Random Intercept Model") %>%kable_classic(full_width = F)
 ```
 
-The summary output referenced above uses Kenward-Roger DF approximation. Table \@ref(tab:compare_intercept) compares the summary output comparing Satterthwaite and Kenward-Roger. There is no significant difference between performance of the two DF methods, which aligns with results of our random intercept models from our simulation study
+The summary output referenced above uses Kenward-Roger DF approximation. Table \@ref(tab:compareintercept) compares the summary output comparing Satterthwaite and Kenward-Roger. There is no significant difference between performance of the two DF methods, which aligns with results of our random intercept models from our simulation study
 
 ### Intercept and random slope 
 
-```{r slope_kr}
+```{r slopekr}
 intercept_slope_model <- lmer(bmi ~ alcohol + real_age + wave + ( 1 + wave|AID), child_data) 
 
 S_s <-broom.mixed::tidy(intercept_slope_model,ddf = "Satterthwaite") %>%
@@ -128,11 +128,11 @@ qqline(residuals(intercept_slope_model), col = 2,lwd=2,lty=2)
 plot(intercept_slope_model)
 ```
 
-```{r compare_slope}
+```{r compareslope}
 data.frame(cbind(term = S_s$term, Satterthwaite_p.value = S_s$p.value, KR_p.value =KR_s$p.value)) %>% kbl(caption = "Comparison of Fixed Effects P-Values in Random Slope Model")  %>%kable_classic(full_width = F)
 ```
 
-Earlier evaluation of fixed effects uses KR DF method, but \@ref(tab:compare_slope) shows that significance of fixed effects differ when using Satterthwaite versus KR. In the random slope model, alcohol not a significant effect when using KR, but is significant when using Satterthwaite. This difference affects our interpretation of the model and conclusions that are drawn.
+Earlier evaluation of fixed effects uses KR DF method, but \@ref(tab:compareslope) shows that significance of fixed effects differ when using Satterthwaite versus KR. In the random slope model, alcohol not a significant effect when using KR, but is significant when using Satterthwaite. This difference affects our interpretation of the model and conclusions that are drawn.
 
 ## Discussion
 
