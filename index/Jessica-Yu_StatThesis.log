@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.12)  13 APR 2022 13:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.12)  13 APR 2022 13:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1044,7 +1044,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 821--821
 Appendix B.
 
 Underfull \hbox (badness 10000) in paragraph at lines 824--824
-|[]\T1/lmr/bx/n/17.28 The Sec-ond Ap-pendix|
+|[]\T1/lmr/bx/n/17.28 R Code|
  []
 
 [59] [60
@@ -1071,7 +1071,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `Jessica-Yu_StatThesis.out' has not changed.
-(rerunfilecheck)             Checksum: 5CE02792301D34AE01F9B5916228D3BF;8223.
+(rerunfilecheck)             Checksum: 7E1B3F0C1FA94484F75D9F4BBAED9833;8155.
  )
 (\end occurred inside a group at level 1)
 
@@ -1079,8 +1079,8 @@ Package rerunfilecheck Info: File `Jessica-Yu_StatThesis.out' has not changed.
 ### bottom level 
 Here is how much of TeX's memory you used:
  14706 strings out of 480238
- 244487 string characters out of 5894762
- 523323 words of memory out of 5000000
+ 244461 string characters out of 5894762
+ 523310 words of memory out of 5000000
  32165 multiletter control sequences out of 15000+600000
  529936 words of font info for 64 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -1106,7 +1106,7 @@ u/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></Users/jessicayu/
 Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></Users/jessicayu/Li
 brary/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt12.pfb></Users/jessicayu/Lib
 rary/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Jessica-Yu_StatThesis.pdf (78 pages, 478374 bytes).
+Output written on Jessica-Yu_StatThesis.pdf (78 pages, 478270 bytes).
 PDF statistics:
  910 PDF objects out of 1000 (max. 8388607)
  762 compressed objects within 8 object streams

@@ -2,5 +2,5 @@
 # R Code
 <!-- including external code -->
 
-```{r, code=xfun::read_utf8('SimulationCode/Sim.R'), eval = FALSE}
+```{r, code=xfun::read_utf8('../SimulationCode/Sim.R'), eval = FALSE}
 ```
