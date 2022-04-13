@@ -83,12 +83,12 @@ S <- broom.mixed::tidy(intercept_model,ddf = "Satterthwaite") %>%
 KR %>% kbl(caption = "Fixed Effects for Random Intercept Model Using KR") %>%kable_classic(full_width = F)
 ```
 
-```{r interceptrand}
+```{r interceptr}
 broom.mixed::tidy(intercept_model,ddf = "Kenward-Roger")  %>%
   filter(effect == "ran_pars") %>%
-  select(group,term,estimate)%>% kbl() %>%kable_classic(full_width = F)
+  select(group,term,estimate)%>% kbl(caption = "Random Effects for Random Intercept Model Using KR") %>%kable_classic(full_width = F)
 ```
-First, we can examine the output of the fixed effects similar to how a regular linear regression model is interpreted. Table \@ref(tab:interceptKR) shows that time is the only significant effect. This means that conditional on the random effects, each wave increases the predicted BMI by 1.32. Next, we turn to the random effects output in table \@ref(tab:interceptrand). The variance for individuals (represented by `AID`), which depicts variability across individuals, is 6.626, while the residual variance, representing within-subject variability is 3.895. The significantly larger variance across individuals compared to within individuals suggests that this model is more optimal than a regular linear regression model since differences in variability are apparent. The interclass correlation is .63, which indicates that weight measurements taken of the same individual have slightly higher similarity than those of different individuals. 
+First, we can examine the output of the fixed effects similar to how a regular linear regression model is interpreted. Table \@ref(tab:interceptKR) shows that time is the only significant effect. This means that conditional on the random effects, each wave increases the predicted BMI by 1.32. Next, we turn to the random effects output in table \@ref(tab:interceptr). The variance for individuals (represented by `AID`), which depicts variability across individuals, is 6.626, while the residual variance, representing within-subject variability is 3.895. The significantly larger variance across individuals compared to within individuals suggests that this model is more optimal than a regular linear regression model since differences in variability are apparent. The interclass correlation is .63, which indicates that weight measurements taken of the same individual have slightly higher similarity than those of different individuals. 
 
 ```{r}
 plot(intercept_model)

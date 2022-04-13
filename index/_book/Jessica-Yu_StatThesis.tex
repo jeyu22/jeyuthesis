@@ -704,6 +704,8 @@ wave & 1.32 & 0.403 & 3.272 & 23.00 & 0.003\\
 \end{tabular}
 \end{table}
 \begin{table}
+
+\caption{\label{tab:interceptr}Random Effects for Random Intercept Model Using KR}
 \centering
 \begin{tabular}[t]{l|l|r}
 \hline
@@ -715,7 +717,7 @@ Residual & sd\_\_Observation & 1.97\\
 \hline
 \end{tabular}
 \end{table}
-First, we can examine the output of the fixed effects similar to how a regular linear regression model is interpreted. Table \ref{tab:interceptKR} shoes that time is the only significant effect. This means that conditional on the random effects, each wave increases the predicted BMI by 1.32. Next, we turn to the random effects output in table \ref{tab:interceptrand}. The variance for individuals (represented by \texttt{AID}), which depicts variability across individuals, is 6.626, while the residual variance, representing within-subject variability is 3.895. The significantly larger variance across individuals compared to within individuals suggests that this model is more optimal than a regular linear regression model since differences in variability are apparent. The interclass correlation is .63, which indicates that weight measurements taken of the same individual have slightly higher similarity than those of different individuals.
+First, we can examine the output of the fixed effects similar to how a regular linear regression model is interpreted. Table \ref{tab:interceptKR} shows that time is the only significant effect. This means that conditional on the random effects, each wave increases the predicted BMI by 1.32. Next, we turn to the random effects output in table \ref{tab:interceptr}. The variance for individuals (represented by \texttt{AID}), which depicts variability across individuals, is 6.626, while the residual variance, representing within-subject variability is 3.895. The significantly larger variance across individuals compared to within individuals suggests that this model is more optimal than a regular linear regression model since differences in variability are apparent. The interclass correlation is .63, which indicates that weight measurements taken of the same individual have slightly higher similarity than those of different individuals.
 \begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1} \end{center}
 \begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-2} \end{center}
 
