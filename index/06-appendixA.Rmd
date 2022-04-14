@@ -9,6 +9,28 @@ The first appendix must start with the above text. Do not remove!
 
 This first appendix includes all of the R chunks of code that were hidden throughout the document (using the `include = FALSE` chunk tag) to help with readibility and/or setup.
 
+
+## In the main file \@ref(ref-labels):
+
+```{r ref.label=knitr::all_labels(), results = 'hide', echo = TRUE, eval = FALSE}
+```
+
+# Simulation Code
+<!-- including external code -->
+
+```{r, code=xfun::read_utf8('../SimulationCode/Sim.R'), eval = FALSE, echo = TRUE}
+```
+
+<!--
+
+## In Chapter \@ref(ch:math-sci):
+
+
+```{r ref.label = 'intercept', results = 'hide', echo = TRUE}
+```
+
+
+
 ## In the main file \@ref(ref-labels):
 
 ```{r ref.label = 'include_packages', results = 'hide', echo = TRUE}
@@ -17,3 +39,4 @@ This first appendix includes all of the R chunks of code that were hidden throug
 
 
 ## In Chapter \@ref(ref-labels):
+-->
