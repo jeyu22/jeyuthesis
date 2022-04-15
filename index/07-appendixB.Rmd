@@ -1,6 +1,108 @@
 
-# R Code
+# P-values from DF Methods {#pvalue-tables}
 <!-- including external code -->
 
-```{r, code=xfun::read_utf8('../SimulationCode/Sim.R'), eval = FALSE}
+```{r, echo = TRUE}
+library(here)
+library(tidyverse)
+all_sim <- readRDS(here("SimulationData", "all_sim.rds"))
+
+all_sim_sum <- all_sim %>%
+  filter(KR_term == "treatment") %>%
+  group_by(
+    distribution,
+    number_individuals,
+    params,
+    number_measurements,
+    rslope,
+    KR_effect, KR_term, skew, kurtosis
+  ) %>%
+  summarize(
+    n = n(),
+    KR_t1err = mean(KR_sig),
+    KR_t1err_sd = sd(KR_sig),
+    S_t1err = mean(S_sig),
+    S_t1err_sd = sd(S_sig),
+    Z_t1err = mean(Z_sig),
+    Z_t1err_sd = sd(Z_sig),
+    t_t1err = mean(t_sig),
+    t_t1err_sd = sd(t_sig),
+  )
+
+all_sim_sum %>%
+  filter(KR_term == "treatment") %>%
+  pivot_longer(cols = c("KR_t1err", "S_t1err", "Z_t1err", "t_t1err"), 
+               names_to = "DF_method", values_to = "error_rate") %>%
+  filter(DF_method %in% c("KR_t1err", "S_t1err")) %>%
+  pivot_wider(
+    names_from = c("rslope"),
+    values_from = "error_rate", names_prefix = "slope"
+  ) %>%
+  group_by(number_individuals, skew, kurtosis, DF_method) %>%
+  summarize(
+    random_intercept = mean(slopeFALSE, na.rm = TRUE),
+    random_slope = mean(slopeTRUE, na.rm = TRUE)
+  ) %>%
+  pivot_wider(
+    names_from = c("number_individuals"),
+    values_from = c("random_intercept", "random_slope")
+  ) %>%
+  select(
+    skew, kurtosis, DF_method, random_intercept_10, random_slope_10, 
+    random_intercept_18,
+    random_slope_18, random_intercept_26, random_slope_26
+  ) %>%
+  ungroup() %>%
+  kbl() %>%
+  pack_rows("Exponential", 7, 8) %>%
+  pack_rows("Normal", 1, 2) %>%
+  pack_rows("Lognormal", 3, 6) %>%
+  add_header_above(c(
+    " " = 3, "Random Intercept" = 1, "Random Slope" = 1, "Random Intercept" = 1,
+    "Random Slope" = 1, "Random Intercept" = 1, "Random Slope" = 1
+  )) %>%
+  add_header_above(c(" " = 3, "10" = 2, "18" = 2, "26" = 2)) %>%
+  add_header_above(c(" " = 3, "Sample Size" = 6)) %>%
+  kable_styling(latex_options="scale_down")
+
 ```
+
+```{r, echo = T}
+all_sim_sum %>%
+  filter(KR_term == "treatment") %>%
+  pivot_longer(cols = c("KR_t1err", "S_t1err", "Z_t1err", "t_t1err"), 
+               names_to = "DF_method", values_to = "error_rate") %>%
+  filter(DF_method %in% c("Z_t1err", "t_t1err")) %>%
+  pivot_wider(
+    names_from = c("rslope"),
+    values_from = "error_rate", names_prefix = "slope"
+  ) %>%
+  group_by(number_individuals, skew, kurtosis, DF_method) %>%
+  summarize(
+    random_intercept = mean(slopeFALSE, na.rm = TRUE),
+    random_slope = mean(slopeTRUE, na.rm = TRUE)
+  ) %>%
+  pivot_wider(
+    names_from = c("number_individuals"),
+    values_from = c("random_intercept", "random_slope")
+  ) %>%
+  select(
+    skew, kurtosis, DF_method, random_intercept_10, random_slope_10, 
+    random_intercept_18,
+    random_slope_18, random_intercept_26, random_slope_26
+  ) %>%
+  ungroup() %>%
+  kbl() %>%
+  pack_rows("Exponential", 7, 8) %>%
+  pack_rows("Normal", 1, 2) %>%
+  pack_rows("Lognormal", 3, 6) %>%
+  add_header_above(c(
+    " " = 3, "Random Intercept" = 1, "Random Slope" = 1, "Random Intercept" = 1,
+    "Random Slope" = 1, "Random Intercept" = 1, "Random Slope" = 1
+  )) %>%
+  add_header_above(c(" " = 3, "10" = 2, "18" = 2, "26" = 2)) %>%
+  add_header_above(c(" " = 3, "Sample Size" = 6)) %>%
+  kable_styling(latex_options="scale_down")
+
+```
+

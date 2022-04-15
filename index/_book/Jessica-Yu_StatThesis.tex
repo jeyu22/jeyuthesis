@@ -140,8 +140,7 @@ Linear mixed-effects models are widely used in social and biological sciences, a
 }
 
 \Acknowledgments{
-I would like to thank the Amherst statistics department for their continuous support during my undergraduate career. I especially want to thank Professor Horton, whose encouragement and constant enthusiasm inspired me to pursue statistics. Additionally, this thesis would not be possible without the guidance of Professor Bailey, who has helped me through this challenging process and allowed me to learn about myself as a researcher.I also want to shout out my SDS partner-in-crime, Kenny Chen. There's no one else I'd rather do group projects with.
-Lastly, I want to thank my family for the sacrifices they've made so I can pursue my passions. They've instilled a love of learning in me that I will have for the rest of my life.
+I would like to thank the Amherst statistics department for their continuous support during my undergraduate career. I especially want to thank Professor Horton, whose encouragement and constant enthusiasm inspired me to pursue statistics. Additionally, this thesis would not be possible without the guidance of Professor Bailey, who has helped me through this challenging process and allowed me to learn about myself as a researcher. I also want to shout out my SDS partner-in-crime, Kenny Chen. There's no one else I'd rather do group projects with. Thank you to my wonderful friends Maya, Clara, Reylyn, Mina, Libby, and Umaimah for always being by my side and making my college experience so much better. Lastly, I want to thank my family for the sacrifices they've made so I can pursue my passions. They've instilled a love of learning in me that I will have for the rest of my life.
 }
 
 \Dedication{
@@ -154,6 +153,46 @@ Lastly, I want to thank my family for the sacrifices they've made so I can pursu
 
 % Formatting R code display
 % Syntax highlighting #22
+  \usepackage{color}
+  \usepackage{fancyvrb}
+  \newcommand{\VerbBar}{|}
+  \newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+  \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+  % Add ',fontsize=\small' for more characters per line
+  \usepackage{framed}
+  \definecolor{shadecolor}{RGB}{248,248,248}
+  \newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+  \newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+  \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+  \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+  \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+  \newcommand{\BuiltInTok}[1]{#1}
+  \newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+  \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+  \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+  \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+  \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+  \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+  \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+  \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+  \newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+  \newcommand{\ExtensionTok}[1]{#1}
+  \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+  \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+  \newcommand{\ImportTok}[1]{#1}
+  \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+  \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+  \newcommand{\NormalTok}[1]{#1}
+  \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+  \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+  \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+  \newcommand{\RegionMarkerTok}[1]{#1}
+  \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+  \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+  \newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+  \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+  \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+  \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 
 % Formatting R code: set baselinestretch = 1.5 for double-spacing
 \DefineVerbatimEnvironment{Highlighting}{Verbatim}{
@@ -226,8 +265,7 @@ Lastly, I want to thank my family for the sacrifices they've made so I can pursu
     Linear mixed-effects models are widely used in social and biological sciences, and are also used for longitudinal data analysis. In cases where sample sizes are small, evaluating the significance of fixed effects becomes challenging, and Type I error rates across different degrees-of-freedom (DF) methods vary. While previous studies have shown that Kenward-Roger and Satterthwaite DF produce robust Type I error rates for smaller samples, the performance of these methods on small nonnormal distributions has not been explored. Through a simulation study, we show that model complexity, sample size, and number of measurements play a role in the performance of 4 DF methods across distributions of varying skewness and kurtosis. Additionally, we find that Kenward-Roger and Satterthwaite DF methods produce favorable Type I error rates in comparison to DF methods designed for larger sample sizes.
   \end{abstract}
   \begin{acknowledgments}
-    I would like to thank the Amherst statistics department for their continuous support during my undergraduate career. I especially want to thank Professor Horton, whose encouragement and constant enthusiasm inspired me to pursue statistics. Additionally, this thesis would not be possible without the guidance of Professor Bailey, who has helped me through this challenging process and allowed me to learn about myself as a researcher.I also want to shout out my SDS partner-in-crime, Kenny Chen. There's no one else I'd rather do group projects with.
-    Lastly, I want to thank my family for the sacrifices they've made so I can pursue my passions. They've instilled a love of learning in me that I will have for the rest of my life.
+    I would like to thank the Amherst statistics department for their continuous support during my undergraduate career. I especially want to thank Professor Horton, whose encouragement and constant enthusiasm inspired me to pursue statistics. Additionally, this thesis would not be possible without the guidance of Professor Bailey, who has helped me through this challenging process and allowed me to learn about myself as a researcher. I also want to shout out my SDS partner-in-crime, Kenny Chen. There's no one else I'd rather do group projects with. Thank you to my wonderful friends Maya, Clara, Reylyn, Mina, Libby, and Umaimah for always being by my side and making my college experience so much better. Lastly, I want to thank my family for the sacrifices they've made so I can pursue my passions. They've instilled a love of learning in me that I will have for the rest of my life.
   \end{acknowledgments}
 
   \hypersetup{linkcolor=black}
@@ -246,7 +284,7 @@ Lastly, I want to thank my family for the sacrifices they've made so I can pursu
 \hypertarget{intro}{%
 \chapter{Introduction}\label{intro}}
 
-In standard undergraduate curricula, there is a strong focus on cross sectional data, and thus no emphasis on how time-sequence data is analyzed. However, a significant portion of data that we encounter in the real world is dependent on time. If we want to track trends and changes over time, such as an effect of a certain drug on the body or growth of a company, longitudinal data and analysis will help us examine those points of interest. For example, the Chinese Longitudinal Healthy Longevity Survey from Duke University assessed physical and mental well-being of Chinese elders for over almost 2 decades and re-interviewed survivors every few years Zeng, Vaupel, Xiao, Liu, \& Zhang (2017). This follow up in data collection allowed researchers to investigate the aging process over time and identify risk factors and causes leading up to death.
+In standard undergraduate curricula, there is a strong focus on cross sectional data, and thus no emphasis on how time-sequence data is analyzed. However, a significant portion of data that we encounter in the real world is dependent on time. If we want to track trends and changes over time, such as an effect of a certain drug on the body or growth of a company, longitudinal data and analysis will help us examine those points of interest. For example, the Chinese Longitudinal Healthy Longevity Survey from Duke University assessed physical and mental well-being of Chinese elders for over almost two decades and re-interviewed survivors every few years (Zeng, Vaupel, Xiao, Liu, \& Zhang, 2017). This follow up in data collection allowed researchers to investigate the aging process over time and identify risk factors and causes leading up to death.
 
 Not only can we observe change over time in individuals, but we can look at higher-level grouping, such as change in schools, counties, and organizations. It should be emphasized that only longitudinal data can capture changes within a subject or group; cross-sectional data contain responses that are captured at only one occasion that are then compared to other subjects. Ultimately, it cannot provide information about changes over time.
 
@@ -261,9 +299,9 @@ Apart from comparing just the response trajectories, it may also be of interest 
 
 While the only requirement of longitudinal data is that there is more than one observation for a given individual, there are other characteristics that affect the model chosen. Data can be unbalanced or balanced: \emph{balanced} data refers to when all individuals have the same number of repeated measurements taken at the same occasions. In addition, data can also be missing, resulting in automatically unbalanced data. For example, a study measuring the weights of children over time may be unbalanced if some children are measured at 5 and 10 years old, while others are measured at 5, 7 and 15 years old, since measurements are not taken at the same time points. If children drop out of the study as they get older, this will result in missing data points.
 
-Another unique characteristic of longitudinal data is that repeated measurements within each individual are typically positively correlated, while measurements between individuals are independent Fitzmaurice, Laird, \& Ware (2011). This feature violates conditions of other common statistical methods such as linear regression, where measurements are assumed to be independent. This positive correlation allows for more accurate estimates of the model coefficients and response trajectories since there is reduced uncertainty knowing that a previous measurement can help predict the next one.
+Another unique characteristic of longitudinal data is that repeated measurements within each individual are typically positively correlated, while measurements between individuals are independent (Fitzmaurice, Laird, \& Ware, 2011). This feature violates conditions of other common statistical methods such as linear regression, where measurements are assumed to be independent. This positive correlation allows for more accurate estimates of the model coefficients and response trajectories since there is reduced uncertainty knowing that a previous measurement can help predict the next one.
 
-We can capture the associations among repeated measures within each individual by constructing a covariance matrix. In longitudinal analysis, a covariance matrix is calculated for each individual and all of their measurements. The diagonal element of this matrix represents the variance of each of the measurements, which may not be constant over time for longitudinal data. The off-diagonal elements of the matrix are non-zero to account for the lack of independence between measurements, and are usually not constant because correlations between measurements tend to decrease over time. While these values are rarely 0, they are also rarely 1 (Fitzmaurice et al. (2011)). There are different covariance pattern structures that are imposed that account for these features.
+We can capture the associations among repeated measures within each individual by constructing a covariance matrix. In longitudinal analysis, a covariance matrix is calculated for each individual and all of their measurements. The diagonal element of this matrix represents the variance of each of the measurements, which may not be constant over time for longitudinal data. The off-diagonal elements of the matrix are non-zero to account for the lack of independence between measurements, and are usually not constant because correlations between measurements tend to decrease over time. While these values are rarely 0, they are also rarely 1 (Fitzmaurice et al., 2011). There are different covariance pattern structures that are imposed that account for these features.
 
 These features of the covariance of longitudinal data can be explained when we separate the total variation into three distinct parts: 1) between-individual variation, 2) within-individual variation, and 3) measurement error.
 
@@ -339,7 +377,7 @@ For quadratic trends, the changes in mean are no longer constant since the rate 
 Using the previous example of treatment vs.~control group, we have the model:
 \[E(Y_{ij}) = \beta_1 + \beta_2Time_{ij}+\beta_3Time^2_{ij}+\beta_4Group_i + \beta_5Time_{ij} \times Group_i + \beta_6Time^2_{ij} \times Group_i.\]
 
-As we can see from the models above, the inclusion of an additional parameter \(Time^2_{ij}\) changes the mean response rate. One problem that may arise from using quadratic trends is that there is collinearity between \(Time_{ij}\) and \(Time^2_{ij}\), which can affect the estimation of \(\beta\). To account for this, we can center the \(Time_{ij}\) variable around the mean time value for all individuals, instead of centering it around zero as done in normal analysis. For example if we have a set of times \(Time = {0,1,2,...10}\), then the mean time value is five. Thus time zero would be recentered as -5. The interpretation of the intercept changes to represent the mean response at that recentered mean time value.
+As we can see from the models above, the inclusion of an additional parameter \(Time^2_{ij}\) changes the mean response rate. One problem that may arise from using quadratic trends is that there is collinearity between \(Time_{ij}\) and \(Time^2_{ij}\), which can affect the estimation of \(\beta\). To account for this, we can center the \(Time_{ij}\) variable around the mean time value for all individuals, instead of centering it around zero as done in normal analysis. For example if we have a set of times \(Time = {0,1,2,...10}\), then the mean time value is five. Thus time zero would be recentered as \(-5\). The interpretation of the intercept changes to represent the mean response at that recentered mean time value.
 
 \hypertarget{linear-mixed-effects}{%
 \subsection{Linear Mixed Effects}\label{linear-mixed-effects}}
@@ -413,7 +451,7 @@ In chapter 1, we outlined the basics of analyzing longitudinal data and introduc
 In statistical inference, the goal is to make conclusions about the underlying characteristics of a set of data and establish a relationship between certain variables. Hypothesis testing is one of the primary examples of inference, and is carried out in order to assess the true value of a population parameter. In linear models, the significance of a slope parameter, \(\beta_k\), is often assessed, where the null hypothesis, \(H_0\) is \(\beta_k = 0,\) and the alternative hypothesis \(H_a\) is \(\beta_k \neq 0.\) A test of the null hypothesis involves using a Wald statistic in the form \[ Z = \frac{\hat\beta_k}{\sqrt{\widehat{Var(\hat\beta_k)}}},\] which is then compared to the normal distribution, and a subsequent p-value is obtained.
 
 Building on foundations of a general linear hypothesis test, given a matrix \(L\) of size \(q \times p,\) where \(q\) represents the number of estimable functions of \(\beta,\) \[(L\hat\beta-L\beta)'[L(X'\widehat {Cov}(\hat\beta)X)^-L']^{-1}(L\hat\beta-L\beta)
-\] is approximately \(\chi^2(q)\) (Rencher and Schaalje, 2008). For a null hypothesis \(H_0: L\beta = 0,\) the test statistic \(G\) is \[(L\hat\beta)'[L(X'\widehat {Cov}(\hat\beta)X)^-L']^{-1}(L\hat\beta).\]
+\] is approximately \(\chi^2(q)\) (``Linear mixed models,'' 2007). For a null hypothesis \(H_0: L\beta = 0,\) the test statistic \(G\) is \[(L\hat\beta)'[L(X'\widehat {Cov}(\hat\beta)X)^-L']^{-1}(L\hat\beta).\]
 
 Likelihood ratio tests are another method to make inferences about \(\beta\). While there are benefits to using the likelihood ratio test, the rest of this study will focus on method of using the Wald statistic.
 
@@ -422,7 +460,7 @@ Likelihood ratio tests are another method to make inferences about \(\beta\). Wh
 
 One crucial assumption when conducting inference using the ML estimate for \(\beta\) is that the sample size is sufficient enough where it does not affect the estimate for \(\Sigma_i.\) However, what happens when the sample size is too small? This causes \(\hat\Sigma_i\) to underestimate the true variance, which in turn causes \(\widehat {\text{Cov}}(\hat\beta)\) to be too small since it relies on covariance estimator. If \(\widehat {\text{Cov}}(\hat\beta)\) is too small, the denominator of the test statistic is inflated, leading to increased Type I error. One can see that the bias of the covariance estimator weakens the entire foundation of estimation and inference.
 
-In very limited cases, where data are complete, balanced, and produce nonnegative values in REML estimation, is it possible to perform exact small-sample inferences. If \([L(X'\widehat {\text{Cov}}(\hat\beta)X)^-L']^{-1}\) with \(g\) degrees of freedom can be rewritten such that \[ \frac{(L\hat\beta)'Q(L\hat\beta)}{g}\frac{w}{d} =  \frac{(L\hat\beta)'[L(X'\widehat {\text{Cov}}(\hat\beta)X)^-L']^{-1}(L\hat\beta)}{g},\] where \(w\) is a chi-square random variable with \(d\) degrees of freedom. If so, this statistic is F-distributed.
+In very limited cases, where data are complete, balanced, and produce nonnegative values in REML estimation, is it possible to perform exact small-sample inferences. If \([L(X'\widehat {\text{Cov}}(\hat\beta)X)^-L']^{-1}\) with \(g\) degrees of freedom can be rewritten such that \[ \frac{(L\hat\beta)'Q(L\hat\beta)}{g}\frac{w}{d} =  \frac{(L\hat\beta)'[L(X'\widehat {\text{Cov}}(\hat\beta)X)^-L']^{-1}(L\hat\beta)}{g},\] where \(w\) is a chi-square random variable with \(d\) degrees of freedom, then this statistic is F-distributed.
 
 However, in most scenarios, an approximate small-sample method must be used, in which the statistic \[F = \frac{(L\hat\beta)'[L(X'\widehat {\text{Cov}}(\hat\beta)X)^-L']^{-1}(L\hat\beta)}{g}\] follows a distribution with numerator degrees of freedom \(g,\) and unknown denominator degrees of freedom (DDF). There are several ways to approximate the DDF.
 
@@ -431,7 +469,7 @@ Both Satterthwaite and KR are proposed methods of reductions to the DDF when con
 \hypertarget{satterthwaite}{%
 \section{Satterthwaite}\label{satterthwaite}}
 
-Sattherthwaite approximation was developed by Fai \& Cornelius (1996), with the F statistic following the form:
+Sattherthwaite approximation was developed by Hrong-Tai Fai \& Cornelius (1996), with the F statistic following the form:
 
 \[F = \frac{1}{l}\hat\beta'L'(L\widehat {\text{Cov}}(\hat\beta) L')^{-1}L\hat\beta.\] For the denominator degrees of freedom we perform spectral decomposition on \(L'\widehat {\text{Cov}}(\hat\beta) L=P'DP,\) where \(D\) is a diagonal matrix of eigenvalues and \(P\) is an orthogonal matrix of eigenvectors. When \(r\) represents the \(r^{th}\) row of \(P'L\), we have \(v_r = \frac{2(d_r)^2}{g'_rWg_r},\) where \(g_r\) is a gradient vector, \(d_r\) is the \(r^{th}\) diagonal element of D, and \(W\) is the covariance matrix of \(\hat\sigma^2.\) The denominator degrees of freedom is calculated by:
 \[\frac{2E}{E-l},\] where \(E = \sum_{r = 1}^{l} \frac{v_r}{v_r-2}I(v_r>2)\) if \(E >l,\) otherwise \(DF = 1.\)
@@ -441,7 +479,7 @@ When \(l =1\) the KR and Satterthwaite approximation will produce the same denom
 \hypertarget{kenward-roger}{%
 \section{Kenward-Roger}\label{kenward-roger}}
 
-In Kenward-Roger (1997), a Wald statistic is proposed in the form of:
+In Kenward \& Roger (1997), a Wald statistic is proposed in the form of:
 \[F = 1/l(\hat\beta-\beta)^TL(L^T\hat\Phi_A L)^{-1}L^T(\hat\beta-\beta),\] where \(l\) represents the number of linear combinations of the elements in \(\beta,\) \(L\) is a fixed matrix, and \(\hat\Phi_A\) is the adjusted estimator for the covariance matrix of \(\hat\beta\). As mentioned previously, \(\widehat {\text{Cov}}(\hat\beta)\) is a biased estimator of \(\text{Cov}(\hat\beta)\) when samples are small, and underestimates. This adjusted estimator is broken down into \(\hat\Phi_A = \widehat {\text {Cov}}(\hat\beta) + 2\hat\Lambda\), where \(\hat\Lambda\) accounts for the amount of variation that was underestimated by the original estimator of covariance of \(\hat\beta\). The value \(\Lambda\) is approximated using a Taylor series expansion around \(\sigma,\) to be \[\Lambda\text{Cov}(\hat\beta)[\sum_{i=1}^{r}\sum_{j=1}^{r}W_{ij}(Q_{ij}-P_i\text{Cov}(\hat\beta)P_j)]\text{Cov}(\hat\beta),\] where
 \(P_i = X^T\frac{\partial\Sigma^{-1}}{\partial\sigma_i}X\)
 \(Q_{ij} = X^T \frac{\partial\Sigma^{-1}}{\partial\sigma_i}\Sigma\frac{\partial\Sigma^{-1}}{\partial\sigma_j}X,\) and \(W_{ij}\) is the \((i,j)\)th element of \(\text W = V[\hat\sigma].\)
@@ -460,7 +498,7 @@ This Wald statistic that uses the adjusted estimator is scaled in the form: \[F^
 In the containment method, random effects that contain the fixed effect of interest are isolated. The smallest rank contribution to the \([X Z]\) matrix among these random effects becomes the DDF. If there are no effects found, then the DDF is equal to the residual DDF.
 
 \emph{Between-Within Method}
-Schluchter and Elashoff (1990) propose a DDF method where residual DDF are calculated for both between-subject and within-subject subgroups. If there are changes in the fixed effect within subjects, then the within-subject DDF is used, otherwise the between-subject DDF is used.
+D.Schluchter \& Elashoff (1990) propose a DDF method where residual DDF are calculated for both between-subject and within-subject subgroups. If there are changes in the fixed effect within subjects, then the within-subject DDF is used, otherwise the between-subject DDF is used.
 
 \hypertarget{existing-literature}{%
 \section{Existing Literature}\label{existing-literature}}
@@ -468,7 +506,7 @@ Schluchter and Elashoff (1990) propose a DDF method where residual DDF are calcu
 Both KR and Satterthwaite methods are frequently used and compared, and its performance is highly dependent on the structure of the data.
 A majority of studies focusing on DF method comparison in mixed models use split-plot design, as small sample sizes are more common in agricultural and biological fields. Schaalje, McBride, \& Fellingham (2002) found that in comparison to other degrees of freedom-adjusting methods like Satterthaite, KR was the most suitable for small sample data. Using factors such as imbalance, covariance structure, and sample size, they demonstrated that the KR method produced simulated Type I error rates closest to target values. However, their focus was primarily on complexity of covariance structure, and they found that more complicated structures, such as ante-dependence, produced inflated error rates when coupled with small sample size. Arnau, Bono, \& Vallejo (2009) found that KR produces more robust results compared to Satterthwaite and Between-Within approaches, especially in cases where larger sample size was paired with covariance matricies with larger values.
 
-These studies are conducted with data drawn from normal distributions. However, real-world data used in fields such as psychometrics have distributions that are nonnormal. In Arnau et. al's 2012 paper, the authors extend their evaluation of KR for split-plot data that follow a log-normal or exponential distribution, and for when the kurtosis and skewness values are manipulated. They found that, compared to normal distribution, the test is less robust for log-normal distributions, but that there is no signficant difference in performance between exponential and normal distributions. In addition, they suggest that skewness has a bigger effect on robustness of KR compared to kurtosis.
+These studies are conducted with data drawn from normal distributions. However, real-world data used in fields such as psychometrics have distributions that are nonnormal. In their paper, Arnau, Bono, Blanca, \& Bendayan (2012) extend their evaluation of KR for split-plot data that follow a log-normal or exponential distribution, and for when the kurtosis and skewness values are manipulated. They found that, compared to normal distribution, KR is less robust for log-normal distributions, but that there is no significant difference in performance between exponential and normal distributions. In addition, they suggest that skewness has a bigger effect on robustness of KR compared to kurtosis.
 
 Existing research evaluating the performance of methods that reduce Type I error rate in small samples are thorough, however, the differences in simulation setup and structure of data used make generalizations difficult. Although the KR method has been shown as a viable option for analysis of small samples in many occasions, it should continue to evaluated against other methods. To date, there is no literature on the performance of Satterthwaite for nonnormal longitudinal data design. Given the prevalence of nonnormal and small data samples, it is important to continue exploring methods that ensure robust results.
 
@@ -495,9 +533,9 @@ We have three fixed effects: the intercept value, time and treatment. The interc
 \hypertarget{generating-data-random-effects}{%
 \subsection{Generating Data: Random effects}\label{generating-data-random-effects}}
 
-We generate our intercept and slope random effects values from nonnormal distributions, which are either exponential or lognormal. Previous research shows that many data used in social and health sciences follow nonnormal distributions (Limpert, Stahel, \& Abbt, 2001). More specifically many follow lognormal distributions, such as age of onset of Alzheimer's disease (Horner, 1987), or exponential distribution to model survival data. In order to cover a wide range of exponential and lognormal distributions, parameters were chosen to model distinct distributions. For exponential distributions, \(X\sim\mathit{Exp}(\lambda),\) where \(\lambda = .2\) or \$ .9\$ Lognormal distributions were \(X\sim\mathit{Log}(0,.25)\) and \(X\sim\mathit{Log}(1,.5).\)
+We generate our intercept and slope random effects values from nonnormal distributions, which are either exponential or lognormal. Previous research shows that many data used in social and health sciences follow nonnormal distributions (Limpert, Stahel, \& Abbt, 2001). More specifically many follow lognormal distributions, such as age of onset of Alzheimer's disease (Horner, 1987), or exponential distribution to model survival data. In order to cover a wide range of exponential and lognormal distributions, parameters were chosen to model distinct distributions. For exponential distributions, \(X\sim\mathit{Exp}(\lambda),\) where \(\lambda = .2\) or \(.9\) Lognormal distributions were \(X\sim\mathit{Log}(0,.25)\) and \(X\sim\mathit{Log}(1,.5).\)
 
-Using the \emph{SimMultiCorrData} package, values are generated through Fleishman's method for simulating nonnormal data by matching moments using mean, variance, skew, and kurtosis and then transforming normally distributed values Fialkowski (2018).
+Using the \emph{SimMultiCorrData} package, values are generated through Fleishman's method for simulating nonnormal data by matching moments using mean, variance, skew, and kurtosis and then transforming normally distributed values (Fialkowski, 2018).
 
 When simulation data from nonnormal distributions, we use the standard deviation produced by Fleishman's method as the parameter. In order to align the simulation data from the Children's Health study, we use the same ratio of variances between the residual variance and variance of the random effects of time and intercept derived from modeling linear mixed models on that data in our simulation.
 
@@ -506,19 +544,19 @@ In the intercept only model, only one non-normal continuous variable is generate
 In the case of the linear model that has both random effects for intercept and slope, we want to generate random effects values that are correlated. Using \texttt{SimMultiCorrData::rcorrvar()}, we use a similar process for generating one nonnormal continuous variable, but extend it to generating variables from multivariate normal distribution that take in to account a specified correlation matrix, and are then transformed to be nonnormal. Also, in order to maintain the same ratio of variances to the application data, the variance of the distribution that the slope random effects are generated is equal to \(\frac{1}{8}\text{Var},\) where \(\text{Var}\) refers to the variance of the distribution that the random effects for the intercept are generated from. On a similar note, we use a correlation value of -.38 to generate the random effects for the intercept and slope, which is based off the correlation observed between the random effects of time and intercept when fitting a random slope model in Chapter 3. For random slope models, the measurement error is simulated for a distribution \(X\sim\mathit{N}(0,\sqrt{.168}SD.\)
 
 Distributions used are depicted below.
-\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-1-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-1-1} \end{center}
 
 \hypertarget{linear-mixed-effects-model}{%
 \subsection{Linear Mixed Effects Model}\label{linear-mixed-effects-model}}
 
 In a linear mixed effects model, the amount of random effects that will be modeled depends on the research question at hand. Here, we will examine both a random intercepts model, where only the intercept of the model is assumed to have a random effects structure, as well as a random intercept and slope model, where in addition to intercept, the covariate time will also have a random effects structure. The random intercept model can be represented as: \[Y_{ij} = \beta_0 + \beta_1Trt_i + \beta_2Time_{ij} + b_{0j} + e_{ij},\] and the random slope model can be represented as: \[Y_{ij} = \beta_0 + \beta_1Trt_i + \beta_2Time_{ij} + b_{0j} + b_{1i}Time_{ij} + e_{ij}.\]
 
-We use the \emph{lmerTest} package to fit the linear mixed effects model and evaluate random and fiexed effects. To evaluate significance of the treatment variable, we compare the performance and resulting p-values from 4 different Wald-type tests: KR, Satterthwaite, standard DF method, and \(t\)-as-\(z\). \(t\)-as-\(z\) and standard DF formula are not adjustments to account for smaller sample sizes, and are used as comparison to Satterthwaite and KR, since they are expected to be anti-conservative. Because the value of the treatment in our model is fixed at 0 in order to identify Type I error, we expect to see that the p-value to not be significant (\(p\) \textgreater{} .05) in an ideal scenario.
+We use the \emph{lmerTest} package to fit the linear mixed effects model and evaluate random and fixed effects. To evaluate significance of the treatment variable, we compare the performance and resulting p-values from 4 different Wald-type tests: KR, Satterthwaite, standard DF method, and \(t\)-as-\(z\). \(t\)-as-\(z\) and standard DF formula are not adjustments to account for smaller sample sizes, and are used as comparison to Satterthwaite and KR, since they are expected to be anti-conservative. Because the value of the treatment in our model is fixed at 0 in order to identify Type I error, we expect to see that the p-value to not be significant (\(p\) \textgreater{} .05) in an ideal scenario.
 
 \hypertarget{evaluating-and-results}{%
 \section{Evaluating and Results}\label{evaluating-and-results}}
 
-After performing 400 replications of each condition at a significance level of .05, we evaluate robustness using Bradley's criterion, which considers a test to robust if the empirical error rate is between .025 and .075 Bradley (1978). In the following section, we will compare Type I error rates produced from KR and Satterthwaite methods as well as \(t\)-as-\(z\) and using the standard DF formula, further stratified by distribution and other manipulated parameters.
+After performing 400 replications of each condition at a significance level of .05, we evaluate robustness using Bradley's criterion, which considers a test to robust if the empirical error rate is between .025 and .075 (Bradley, 1978). In the following section, we will compare Type I error rates produced from KR and Satterthwaite methods as well as \(t\)-as-\(z\) and using the standard DF formula, further stratified by distribution and other manipulated parameters.
 \begin{figure}
 
 {\centering \includegraphics[angle=90]{Jessica-Yu_StatThesis_files/figure-latex/fig1-1} 
@@ -595,7 +633,7 @@ Comparing performance across all 4 methods has yielded significant evidence that
 
 While in a majority of cases KR is a viable solution when aiming to keep Type I error rates low, it is not necessarily the optimal DF choice in every scenario if the goal is to produce error rates closest to .05.
 
-Tables for all error rates produced by 4 DF methods are located in the appendix \ref{table:tables}
+Tables for all error rates produced by 4 DF methods are located in the appendix \ref{:tables}
 
 \hypertarget{discussion}{%
 \section{Discussion}\label{discussion}}
@@ -604,8 +642,7 @@ After comparing the error rates produced by DF methods across three distribution
 
 This stark contrast in performance between random slope and random intercept models across all distributions requires further investigation. Barr, Levy, Scheepers, \& Tily (2013) suggest that LMM with maximal effects are preferable and can reduce Type I error rates, as random slope models can account for between individual variation in slopes and reduce residual variance. However, in their study the distribution of the variable of interest is normal, and random effects were generated from a bivariate normal distribution. In this simulation, random effects for the intercept and time were drawn from two nonnormal distributions which can further complicate the distribution of the outcome variable and complicate the fit of the model.
 
-When comparing and constrasting performance of Satterthwaite and KR methods, which have both been demonstrated to be suitable options for producing robust Type I error, it seems that complexity of the model as well as sample size are two parameters that can differentiate their performance. In random intercept models, performance between the two methods are identical. In random slope models, KR is more conservative, and in a few conditions where the sample size is less than 26, it is too conservative in comparison to Satterthwaite. Given that KR is a further adjustment to Satterthwaite, its more conservative performance is not surprising; when constructing random slope LMM with smaller samples, \textasciitilde\textasciitilde it is important to consider both methods, as their performance may not be identical. \textasciitilde\textasciitilde{}
-
+When comparing and constrasting performance of Satterthwaite and KR methods, which have both been demonstrated to be suitable options for producing robust Type I error, it seems that complexity of the model as well as sample size are two parameters that can differentiate their performance. In random intercept models, performance between the two methods are identical. In random slope models, KR is more conservative, and in a few conditions where the sample size is less than 26, it is too conservative in comparison to Satterthwaite. Given that KR is a further adjustment to Satterthwaite, its more conservative performance is not surprising; however, when evaluating fixed effects, conservative Type I error rates are preferable to anti-conservative rates. Thus, we prefer KR as the DF approximation in small and nonnormally distributed samples.
 In terms of sample size and number of measurements, it appears that increasing the number of measurements increases the proportion of DF methods that produce robust Type I error rates in most conditions. Difference in DF method performance across measurement numbers is most evident in random slope models with samples of size 26. On the other hand, increasing sample size is not strongly associated with increased robustness of Type I error rates produced by DF methods. Increasing from sample size from 10 to 18 produces inconclusive patterns: sometimes DF methods produce even more anti-conservative error rates, and in other cases there is virtually no difference. In most cases, sample size of 26 is the most ideal for robustness, but in some nonnormal distributions robustness can only be achieved by also having more repeated measurements. It is plausible that the differences between a sample size of 10 and 18 are insignificant because both are too small in terms of a ``large-enough'' sample of size 30, so the DF methods are not impacted by this increase in sample. Models of sample size 26 may be ideal in some circumstances mainly because of its proximity to being considered sufficiently large enough.
 
 While previous studies comparing DF methods focus primarily on normal distributions, the results from this study demonstrate that applying DF methods to LMM with nonnormal distributions and small sample sizes can still produce robust Type I error rates. However, careful consideration of the complexity of the model, number of measurements and individuals, as well as the skewness and kurtosis of the data must be considered, as they each have an effect on the DF method not only individually, but when interacting with other parameters as well. Overall, these results also indicate that Type I error rates are closest to .05 when employing Kenward-Roger and Satterthwaite methods.
@@ -625,11 +662,8 @@ The National Longitudinal Study of Adolescent to Adult Health is a longitudinal 
 
 One question of interest to consider is how salient life experiences that occur during adolescence, such as being exposed to alcohol or being in a physical altercation, may impact changes to one's physical health over time. One way to capture physical health is through BMI, which is shown to follow a skewed nonnormal distribution (Penman \& Johnson, 2006). With this in mind, we can employ methods of degrees of freedom adjustment. While this dataset is large and encompasses approximately 5,000 students, the scope of this application will be narrowed in order to examine the performance of degrees of freedom methods, which are sensitive to sample size.
 
-We will be focusing on Chinese female respondents who completed at least three waves of the study, which amounts to a sample size of 12. After initial exploration, alcohol use was chosen for the model. It is hypothesized that early exposure to substances could potentially affect changes in weight.
-
-The following variables were assessed in the first wave of the study (1994):
-- Alcohol: has the child ever had alcohol? (Yes/No)
-- Age
+We will be focusing on Chinese female respondents who completed at least three waves of the study, which amounts to a sample size of 12. It is hypothesized that early exposure to substances could potentially affect changes in weight. Previous studies have demonstrated a significant relationship between alcohol consumption and BMI (Pasch, Velazquez, Cance, Moe, \& Lytle, 2012). Thus, our model will use alcohol use as the predictor of BMI.
+At the first wave of the study in 1994, children were asked whether they had consumed alcohol before. This, along with their age at the start of the first wave, will be used to model changes in BMI across three waves.
 
 \hypertarget{exploration}{%
 \subsection{Exploration}\label{exploration}}
@@ -638,7 +672,7 @@ The following variables were assessed in the first wave of the study (1994):
 From this histogram depicting distribution of BMI, we can see that it follows a nonnormal trend. The skewness is .95 and the kurtosis is 3.39.
 \begin{figure}
 
-{\centering \includegraphics{Jessica-Yu_StatThesis_files/figure-latex/intercept-1} 
+{\centering \includegraphics[width=0.48\linewidth]{Jessica-Yu_StatThesis_files/figure-latex/intercept-1} 
 
 }
 
@@ -647,13 +681,13 @@ From this histogram depicting distribution of BMI, we can see that it follows a 
 Figure \ref{fig:intercept} depicts changes in BMI over time for each individual in the study. The wide variation in BMI values between individuals suggest that including random effects for the intercept would be beneficial. Additionally, different rates of change in BMI across the 3 waves between individuals would suggest that an additional random effect for time is worth exploring.
 \begin{figure}
 
-{\centering \includegraphics{Jessica-Yu_StatThesis_files/figure-latex/alcohol-1} 
+{\centering \includegraphics[width=0.49\linewidth]{Jessica-Yu_StatThesis_files/figure-latex/alcohol-1} 
 
 }
 
 \caption{Changes in BMI by Individual and Alcohol Use}\label{fig:alcohol}
 \end{figure}
-In a longitudinal study examining youth substance use and body composition, Pasch, Velazquez, Cance, Moe, \& Lytle (2012) found that baseline alcohol use is associated with lower values of BMI at follow-up. The opposite pattern can be seen in Figure \ref{fig:alcohol}. Individuals who had consumed alcohol during the first wave had higher BMI values across all time points. While the data may not be consistent with other research, it highlights the importance of substance use as a potential predictor of BMI.
+In a longitudinal study examining youth substance use and body composition, Pasch et al. (2012) found that baseline alcohol use is associated with lower values of BMI at follow-up. The opposite pattern can be seen in Figure \ref{fig:alcohol}. Individuals who had consumed alcohol during the first wave had higher BMI values across all time points. While the data may not be consistent with other research, it highlights the importance of substance use as a potential predictor of BMI.
 
 While our sample size is small, our initial exploration of alcohol use suggests that it may be salient predictor for BMI. In addition, there are unique patterns of BMI change over time by individual, which suggests that creating a mixed effects model with random effects for time and intercept may be useful.
 
@@ -718,11 +752,11 @@ Residual & sd\_\_Observation & 1.97\\
 \end{tabular}
 \end{table}
 First, we can examine the output of the fixed effects similar to how a regular linear regression model is interpreted. Table \ref{tab:interceptKR} shows that time is the only significant effect. This means that conditional on the random effects, each wave increases the predicted BMI by 1.32. Next, we turn to the random effects output in table \ref{tab:interceptr}. The variance for individuals (represented by \texttt{AID}), which depicts variability across individuals, is 6.626, while the residual variance, representing within-subject variability is 3.895. The significantly larger variance across individuals compared to within individuals suggests that this model is more optimal than a regular linear regression model since differences in variability are apparent. The interclass correlation is .63, which indicates that weight measurements taken of the same individual have slightly higher similarity than those of different individuals.
-\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1} \end{center}
-\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-2} \end{center}
+\begin{center}\includegraphics[width=0.49\linewidth]{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1} \end{center}
+\begin{center}\includegraphics[width=0.49\linewidth]{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-2} \end{center}
 
-The residuals vs fitted plot indicates no heterogeneity in the residuals, and the qqplot indicates that for the most part residuals are normally distributed. The assumptions for fitting a random slope linear mixed model are met.
-\begin{table}
+The residuals vs fitted plot indicates no heterogeneity in the residuals, however, the normality assumption of the residuals is not met as seen in the QQ plot. This is to be expected as the random effects are nonnormal. We will proceed with evaluating the fixed effects in order to see how DF methods perform when normal assumptions do not hold.
+\begin{table}[H]
 
 \caption{\label{tab:compareintercept}Comparison of Fixed Effects P-Values in Random Intercept Model}
 \centering
@@ -744,7 +778,7 @@ The summary output referenced above uses Kenward-Roger DF approximation. Table \
 
 \hypertarget{intercept-and-random-slope}{%
 \subsection{Intercept and random slope}\label{intercept-and-random-slope}}
-\begin{table}
+\begin{table}[H]
 
 \caption{\label{tab:slopekr}Fixed Effects for Random Slope Model Using KR}
 \centering
@@ -763,11 +797,11 @@ wave & -0.060 & 0.862 & -0.069 & 26.70 & 0.945\\
 \end{tabular}
 \end{table}
 In this model, we add a random effect of time as well as random intercept. This means that we are assuming that for each individual, the relationship between time and BMI is unique. There are no significant effects when using the KR method. Variability in BMI across individuals is 16.388, and the residual variance is 2.352. The variance for time is 1.324, which represents variability across individual's BMI rates of change. We see that imposing variability between each individual's relationship of time vs BMI reduces some of the residual variance. When we accounted for some of the variation through each individual's weight changes over time, time as a predictor was no longer significant as it was in the random intercepts only model.
+\begin{center}\includegraphics[width=0.49\linewidth]{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-7-1} \end{center}
+\begin{center}\includegraphics[width=0.49\linewidth]{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-7-2} \end{center}
 
-Conditions for the model are met as seen by the figures below.
-\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-7-1} \end{center}
-\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-7-2} \end{center}
-\begin{table}
+Similar to the random intercept model, there is homogeneity in variance of the residuals, but normality is not met. We will proceed to evaluation.
+\begin{table}[H]
 
 \caption{\label{tab:compareslope}Comparison of Fixed Effects P-Values in Random Slope Model}
 \centering
@@ -809,15 +843,931 @@ In this study, we explored how Type I error rates from 4 different DF methods: K
 
 This first appendix includes all of the R chunks of code that were hidden throughout the document (using the \texttt{include\ =\ FALSE} chunk tag) to help with readibility and/or setup.
 
-\hypertarget{in-the-main-file-refref-labels}{%
-\section{In the main file \ref{ref-labels}:}\label{in-the-main-file-refref-labels}}
+\hypertarget{all-code}{%
+\section{All Code:}\label{all-code}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# acthesis package loads dpylr, ggplot2, knitr, bookdown, and remotes}
+\KeywordTok{require}\NormalTok{(acthesis)}
+\CommentTok{# Default width of R ouput}
+\KeywordTok{options}\NormalTok{(}\DataTypeTok{width =} \DecValTok{65}\NormalTok{, }\DataTypeTok{digits =} \DecValTok{3}\NormalTok{)}
+\CommentTok{# Define a new code chunk option 'linewidth' for wrapping unruly R output}
+\NormalTok{hook_output =}\StringTok{ }\NormalTok{knitr}\OperatorTok{::}\NormalTok{knit_hooks}\OperatorTok{$}\KeywordTok{get}\NormalTok{(}\StringTok{'output'}\NormalTok{)}
+\NormalTok{knitr}\OperatorTok{::}\NormalTok{knit_hooks}\OperatorTok{$}\KeywordTok{set}\NormalTok{(}\DataTypeTok{output =} \ControlFlowTok{function}\NormalTok{(x, options) \{}
+  \CommentTok{# this hook is used only when the linewidth option is not NULL}
+  \ControlFlowTok{if}\NormalTok{ (}\OperatorTok{!}\KeywordTok{is.null}\NormalTok{(n <-}\StringTok{ }\NormalTok{options}\OperatorTok{$}\NormalTok{linewidth)) \{}
+\NormalTok{    x =}\StringTok{ }\NormalTok{knitr}\OperatorTok{:::}\KeywordTok{split_lines}\NormalTok{(x)}
+    \CommentTok{# any lines wider than n should be wrapped}
+    \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{any}\NormalTok{(}\KeywordTok{nchar}\NormalTok{(x) }\OperatorTok{>}\StringTok{ }\NormalTok{n)) x =}\StringTok{ }\KeywordTok{strwrap}\NormalTok{(x, }\DataTypeTok{width =}\NormalTok{ n, }\DataTypeTok{exdent =} \DecValTok{3}\NormalTok{, }\DataTypeTok{indent =} \DecValTok{3}\NormalTok{)}
+\NormalTok{    x =}\StringTok{ }\KeywordTok{paste}\NormalTok{(x, }\DataTypeTok{collapse =} \StringTok{'}\CharTok{\textbackslash{}n}\StringTok{'}\NormalTok{)}
+\NormalTok{  \}}
+  \KeywordTok{hook_output}\NormalTok{(x, options)}
+\NormalTok{\})}
+\CommentTok{# Note: set linewidth = 65 when needed.}
+\CommentTok{# download latest thesis cover sheet}
+\ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{file.exists}\NormalTok{(}\StringTok{"CoverSheet.pdf"}\NormalTok{))\{}
+  \KeywordTok{download.file}\NormalTok{(}\StringTok{"https://www.amherst.edu/system/files/media/Thesis%2520Copyright.pdf"}\NormalTok{, }\StringTok{"CoverSheet.pdf"}\NormalTok{)}
+\NormalTok{\}}
+\KeywordTok{library}\NormalTok{(mosaic)}
+\KeywordTok{library}\NormalTok{(kableExtra)}
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\KeywordTok{library}\NormalTok{(SimMultiCorrData)}
+\KeywordTok{library}\NormalTok{(here)}
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\KeywordTok{library}\NormalTok{(kableExtra)}
+\NormalTok{knitr}\OperatorTok{::}\NormalTok{opts_chunk}\OperatorTok{$}\KeywordTok{set}\NormalTok{(}\DataTypeTok{echo =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{message =}\NormalTok{ F, }\DataTypeTok{warning =}\NormalTok{ F)}
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\KeywordTok{curve}\NormalTok{(}\KeywordTok{dlnorm}\NormalTok{(x, }\DataTypeTok{meanlog =} \DecValTok{0}\NormalTok{, }\DataTypeTok{sdlog =} \FloatTok{.25}\NormalTok{), }\DataTypeTok{from =} \DecValTok{0}\NormalTok{, }\DataTypeTok{to =} \DecValTok{5}\NormalTok{, }
+      \DataTypeTok{main =} \StringTok{"Lognormal dist with meanlog 0 and sdlog .25"}\NormalTok{,}\DataTypeTok{cex.main =} \FloatTok{.6}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\KeywordTok{dlnorm}\NormalTok{(x, }\DataTypeTok{meanlog =} \DecValTok{1}\NormalTok{, }\DataTypeTok{sdlog =} \FloatTok{.5}\NormalTok{), }\DataTypeTok{from =} \DecValTok{0}\NormalTok{, }\DataTypeTok{to =} \DecValTok{5}\NormalTok{, }
+      \DataTypeTok{main =} \StringTok{"Lognormal dist with meanlog 1 and sdlog .5"}\NormalTok{,}\DataTypeTok{cex.main =} \FloatTok{.6}\NormalTok{)}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{8}\NormalTok{, }\FloatTok{0.1}\NormalTok{)}
+\NormalTok{x_norm <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{5}\NormalTok{, }\DecValTok{5}\NormalTok{, }\FloatTok{.1}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(x, }\KeywordTok{dexp}\NormalTok{(x, }\FloatTok{.2}\NormalTok{),}
+  \DataTypeTok{type =} \StringTok{"l"}\NormalTok{,}
+  \DataTypeTok{ylab =} \StringTok{""}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Exponential dist with lambda = .2"}
+\NormalTok{)}
 
-\hypertarget{in-chapter-refref-labels}{%
-\section{In Chapter \ref{ref-labels}:}\label{in-chapter-refref-labels}}
+\KeywordTok{plot}\NormalTok{(x, }\KeywordTok{dexp}\NormalTok{(x, }\FloatTok{.9}\NormalTok{),}
+  \DataTypeTok{type =} \StringTok{"l"}\NormalTok{,}
+  \DataTypeTok{ylab =} \StringTok{""}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Exponential dist with lambda = .9"}
+\NormalTok{)}
+\CommentTok{# plot(x, dnorm(x, 0,.2))}
+\KeywordTok{options}\NormalTok{(}\DataTypeTok{scipen =} \DecValTok{9999}\NormalTok{)}
+\NormalTok{all_sim <-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(}\KeywordTok{here}\NormalTok{(}\StringTok{"SimulationData"}\NormalTok{, }\StringTok{"all_sim.rds"}\NormalTok{))}
 
-\hypertarget{r-code}{%
-\chapter{R Code}\label{r-code}}
+\NormalTok{all_sim_sum <-}\StringTok{ }\NormalTok{all_sim }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(KR_term }\OperatorTok{==}\StringTok{ "treatment"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(}
+\NormalTok{    distribution,}
+\NormalTok{    number_individuals,}
+\NormalTok{    params,}
+\NormalTok{    number_measurements,}
+\NormalTok{    rslope,}
+\NormalTok{    KR_effect, KR_term, skew, kurtosis}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}
+    \DataTypeTok{n =} \KeywordTok{n}\NormalTok{(),}
+    \DataTypeTok{KR_t1err =} \KeywordTok{mean}\NormalTok{(KR_sig),}
+    \DataTypeTok{KR_t1err_sd =} \KeywordTok{sd}\NormalTok{(KR_sig),}
+    \DataTypeTok{S_t1err =} \KeywordTok{mean}\NormalTok{(S_sig),}
+    \DataTypeTok{S_t1err_sd =} \KeywordTok{sd}\NormalTok{(S_sig),}
+    \DataTypeTok{Z_t1err =} \KeywordTok{mean}\NormalTok{(Z_sig),}
+    \DataTypeTok{Z_t1err_sd =} \KeywordTok{sd}\NormalTok{(Z_sig),}
+    \DataTypeTok{t_t1err =} \KeywordTok{mean}\NormalTok{(t_sig),}
+    \DataTypeTok{t_t1err_sd =} \KeywordTok{sd}\NormalTok{(t_sig),}
+\NormalTok{  )}
+\NormalTok{transformed_data <-}\StringTok{ }\NormalTok{all_sim_sum }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(KR_term }\OperatorTok{==}\StringTok{ "treatment"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}
+    \DataTypeTok{KR_t1err_1 =} \KeywordTok{paste}\NormalTok{(KR_t1err, KR_t1err_sd),}
+    \DataTypeTok{S_t1err_1 =} \KeywordTok{paste}\NormalTok{(S_t1err, S_t1err_sd),}
+    \DataTypeTok{Z_t1err_1 =} \KeywordTok{paste}\NormalTok{(Z_t1err, Z_t1err_sd),}
+    \DataTypeTok{t_t1err_1 =} \KeywordTok{paste}\NormalTok{(t_t1err, t_t1err_sd),}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_longer}\NormalTok{(}\DataTypeTok{cols =} \KeywordTok{c}\NormalTok{(}\StringTok{"KR_t1err_1"}\NormalTok{, }\StringTok{"S_t1err_1"}\NormalTok{, }\StringTok{"Z_t1err_1"}\NormalTok{, }\StringTok{"t_t1err_1"}\NormalTok{), }
+               \DataTypeTok{names_to =} \StringTok{"DF_method"}\NormalTok{, }\DataTypeTok{values_to =} \StringTok{"error_rate_1"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{type =} \KeywordTok{paste}\NormalTok{(distribution, params, }\DataTypeTok{sep =} \StringTok{":"}\NormalTok{))}
+\NormalTok{transformed_data[}\KeywordTok{c}\NormalTok{(}\StringTok{"error_rate"}\NormalTok{, }\StringTok{"sd"}\NormalTok{)] <-}\StringTok{ }\KeywordTok{str_split_fixed}\NormalTok{(transformed_data}\OperatorTok{$}\NormalTok{error_rate_}\DecValTok{1}\NormalTok{, }
+                                                           \StringTok{" "}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\NormalTok{transformed_data <-}\StringTok{ }\NormalTok{transformed_data }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}
+    \DataTypeTok{error_rate =} \KeywordTok{as.double}\NormalTok{(error_rate),}
+    \DataTypeTok{sd =} \KeywordTok{as.double}\NormalTok{(sd),}
+    \DataTypeTok{method_number =} \KeywordTok{paste}\NormalTok{(DF_method, number_measurements)}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{interval =} \FloatTok{1.96} \OperatorTok{*}\StringTok{ }\NormalTok{(sd }\OperatorTok{/}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{600}\NormalTok{)))}
 
+\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}
+  \DataTypeTok{x =} \KeywordTok{as.factor}\NormalTok{(number_individuals), }\DataTypeTok{y =}\NormalTok{ error_rate, }\DataTypeTok{color =}\NormalTok{ DF_method,}
+  \DataTypeTok{ymin =}\NormalTok{ error_rate }\OperatorTok{-}\StringTok{ }\NormalTok{interval, }\DataTypeTok{ymax =}\NormalTok{ error_rate }\OperatorTok{+}\StringTok{ }\NormalTok{interval,}
+  \DataTypeTok{group =} \KeywordTok{as.factor}\NormalTok{(number_measurements)}
+\NormalTok{), }\DataTypeTok{data =}\NormalTok{ transformed_data) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(rslope }\OperatorTok{~}\StringTok{ }\NormalTok{type) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_pointrange}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{.4}\NormalTok{, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{shape =} \KeywordTok{as.factor}\NormalTok{(number_measurements)), }
+                  \DataTypeTok{position =} \KeywordTok{position_jitter}\NormalTok{(}\DataTypeTok{h =} \DecValTok{0}\NormalTok{, }\DataTypeTok{w =} \FloatTok{0.4}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_hline}\NormalTok{(}\DataTypeTok{yintercept =} \FloatTok{.05}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{limits =} \KeywordTok{c}\NormalTok{(}\OperatorTok{-}\NormalTok{.}\DecValTok{02}\NormalTok{, }\FloatTok{.3}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{annotate}\NormalTok{(}\StringTok{"rect"}\NormalTok{, }\DataTypeTok{xmin =} \FloatTok{-.1}\NormalTok{, }\DataTypeTok{xmax =} \DecValTok{4}\NormalTok{, }\DataTypeTok{ymin =} \FloatTok{0.025}\NormalTok{, }\DataTypeTok{ymax =} \FloatTok{.075}\NormalTok{, }
+           \DataTypeTok{alpha =} \FloatTok{.4}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"KR"}\NormalTok{, }\StringTok{"Satterthwaite"}\NormalTok{, }\StringTok{"Standard DF"}\NormalTok{, }\StringTok{"T-as-z"}\NormalTok{), }
+                     \DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"green"}\NormalTok{, }\StringTok{"purple"}\NormalTok{, }\StringTok{"blue"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Number of Individuals"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Error Rate"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{color =} \StringTok{"DF Method"}\NormalTok{, }\DataTypeTok{shape =} \StringTok{"Number of Measurements"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"bottom"}\NormalTok{, }\DataTypeTok{legend.box =} \StringTok{"vertical"}\NormalTok{)}
+
+
+\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}
+  \DataTypeTok{x =} \KeywordTok{as.factor}\NormalTok{(number_individuals), }\DataTypeTok{y =}\NormalTok{ error_rate, }\DataTypeTok{color =}\NormalTok{ DF_method,}
+  \DataTypeTok{ymin =}\NormalTok{ error_rate }\OperatorTok{-}\StringTok{ }\NormalTok{interval, }\DataTypeTok{ymax =}\NormalTok{ error_rate }\OperatorTok{+}\StringTok{ }\NormalTok{interval,}
+  \DataTypeTok{group =} \KeywordTok{as.factor}\NormalTok{(number_measurements)}
+\NormalTok{), }\DataTypeTok{data =}\NormalTok{ transformed_data }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(distribution }\OperatorTok{==}\StringTok{ "Exponential"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(rslope }\OperatorTok{~}\StringTok{ }\NormalTok{type) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_pointrange}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{.4}\NormalTok{, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{shape =} \KeywordTok{as.factor}\NormalTok{(number_measurements)), }
+                  \DataTypeTok{position =} \KeywordTok{position_jitter}\NormalTok{(}\DataTypeTok{h =} \DecValTok{0}\NormalTok{, }\DataTypeTok{w =} \FloatTok{0.4}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_hline}\NormalTok{(}\DataTypeTok{yintercept =} \FloatTok{.05}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{limits =} \KeywordTok{c}\NormalTok{(}\OperatorTok{-}\NormalTok{.}\DecValTok{02}\NormalTok{, }\FloatTok{.3}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{annotate}\NormalTok{(}\StringTok{"rect"}\NormalTok{, }\DataTypeTok{xmin =} \FloatTok{-.1}\NormalTok{, }\DataTypeTok{xmax =} \DecValTok{4}\NormalTok{, }\DataTypeTok{ymin =} \FloatTok{0.025}\NormalTok{, }\DataTypeTok{ymax =} \FloatTok{.075}\NormalTok{, }
+           \DataTypeTok{alpha =} \FloatTok{.4}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Number of Individuals"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"KR"}\NormalTok{, }\StringTok{"Satterthwaite"}\NormalTok{, }\StringTok{"Standard DF"}\NormalTok{, }\StringTok{"T-as-z"}\NormalTok{), }
+                     \DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"green"}\NormalTok{, }\StringTok{"purple"}\NormalTok{, }\StringTok{"blue"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Error Rate"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{color =} \StringTok{"DF Method"}\NormalTok{, }\DataTypeTok{shape =} \StringTok{"Number of Measurements"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"bottom"}\NormalTok{, }\DataTypeTok{legend.box =} \StringTok{"vertical"}\NormalTok{)}
+
+
+\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}
+  \DataTypeTok{x =} \KeywordTok{as.factor}\NormalTok{(number_individuals), }\DataTypeTok{y =}\NormalTok{ error_rate, }\DataTypeTok{color =}\NormalTok{ DF_method,}
+  \DataTypeTok{ymin =}\NormalTok{ error_rate }\OperatorTok{-}\StringTok{ }\NormalTok{interval, }\DataTypeTok{ymax =}\NormalTok{ error_rate }\OperatorTok{+}\StringTok{ }\NormalTok{interval,}
+  \DataTypeTok{group =} \KeywordTok{as.factor}\NormalTok{(number_measurements)}
+\NormalTok{), }\DataTypeTok{data =}\NormalTok{ transformed_data }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(distribution }\OperatorTok{==}\StringTok{ "Lognormal"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(rslope }\OperatorTok{~}\StringTok{ }\NormalTok{type) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_pointrange}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{.4}\NormalTok{, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{shape =} \KeywordTok{as.factor}\NormalTok{(number_measurements)), }
+                  \DataTypeTok{position =} \KeywordTok{position_jitter}\NormalTok{(}\DataTypeTok{h =} \DecValTok{0}\NormalTok{, }\DataTypeTok{w =} \FloatTok{0.4}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_hline}\NormalTok{(}\DataTypeTok{yintercept =} \FloatTok{.05}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{limits =} \KeywordTok{c}\NormalTok{(}\OperatorTok{-}\NormalTok{.}\DecValTok{02}\NormalTok{, }\FloatTok{.3}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{annotate}\NormalTok{(}\StringTok{"rect"}\NormalTok{, }\DataTypeTok{xmin =} \FloatTok{-.1}\NormalTok{, }\DataTypeTok{xmax =} \DecValTok{4}\NormalTok{, }\DataTypeTok{ymin =} \FloatTok{0.025}\NormalTok{, }\DataTypeTok{ymax =} \FloatTok{.075}\NormalTok{, }
+           \DataTypeTok{alpha =} \FloatTok{.4}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Number of Individuals"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"KR"}\NormalTok{, }\StringTok{"Satterthwaite"}\NormalTok{, }\StringTok{"Standard DF"}\NormalTok{, }\StringTok{"T-as-z"}\NormalTok{), }
+                     \DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"green"}\NormalTok{, }\StringTok{"purple"}\NormalTok{, }\StringTok{"blue"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Error Rate"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{color =} \StringTok{"DF Method"}\NormalTok{, }\DataTypeTok{shape =} \StringTok{"Number of Measurements"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"bottom"}\NormalTok{, }\DataTypeTok{legend.box =} \StringTok{"vertical"}\NormalTok{)}
+\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}
+  \DataTypeTok{x =} \KeywordTok{as.factor}\NormalTok{(number_individuals), }\DataTypeTok{y =}\NormalTok{ error_rate, }\DataTypeTok{color =}\NormalTok{ DF_method,}
+  \DataTypeTok{group =} \KeywordTok{as.factor}\NormalTok{(number_measurements), }\DataTypeTok{ymin =}\NormalTok{ error_rate }\OperatorTok{-}\StringTok{ }\NormalTok{interval, }
+  \DataTypeTok{ymax =}\NormalTok{ error_rate }\OperatorTok{+}\StringTok{ }\NormalTok{interval,}
+\NormalTok{), }\DataTypeTok{data =}\NormalTok{ transformed_data }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(distribution }\OperatorTok{==}\StringTok{ "Gaussian"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(rslope }\OperatorTok{~}\StringTok{ }\NormalTok{type) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_pointrange}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{.5}\NormalTok{, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{shape =} \KeywordTok{as.factor}\NormalTok{(number_measurements)), }
+                  \DataTypeTok{position =} \KeywordTok{position_jitter}\NormalTok{(}\DataTypeTok{h =} \DecValTok{0}\NormalTok{, }\DataTypeTok{w =} \FloatTok{0.3}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_hline}\NormalTok{(}\DataTypeTok{yintercept =} \FloatTok{.05}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{limits =} \KeywordTok{c}\NormalTok{(}\OperatorTok{-}\NormalTok{.}\DecValTok{03}\NormalTok{, }\FloatTok{.30}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{annotate}\NormalTok{(}\StringTok{"rect"}\NormalTok{,}
+    \DataTypeTok{xmin =} \FloatTok{-.1}\NormalTok{, }\DataTypeTok{xmax =} \DecValTok{4}\NormalTok{, }\DataTypeTok{ymin =} \FloatTok{0.025}\NormalTok{, }\DataTypeTok{ymax =} \FloatTok{.075}\NormalTok{,}
+    \DataTypeTok{alpha =} \FloatTok{.4}
+\NormalTok{  ) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Number of Individuals"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"KR"}\NormalTok{, }\StringTok{"Satterthwaite"}\NormalTok{, }\StringTok{"Standard DF"}\NormalTok{, }\StringTok{"T-as-z"}\NormalTok{), }
+                     \DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"green"}\NormalTok{, }\StringTok{"purple"}\NormalTok{, }\StringTok{"blue"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Error Rate"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{color =} \StringTok{"DF Method"}\NormalTok{, }\DataTypeTok{shape =} \StringTok{"Number of Measurements"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"bottom"}\NormalTok{, }\DataTypeTok{legend.box =} \StringTok{"vertical"}\NormalTok{)}
+\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}
+  \DataTypeTok{x =} \KeywordTok{as.factor}\NormalTok{(number_individuals), }\DataTypeTok{y =}\NormalTok{ error_rate,}
+  \DataTypeTok{color =}\NormalTok{ DF_method, }\DataTypeTok{group =} \KeywordTok{as.factor}\NormalTok{(number_measurements), }
+  \DataTypeTok{ymin =}\NormalTok{ error_rate }\OperatorTok{-}\StringTok{ }\NormalTok{interval, }\DataTypeTok{ymax =}\NormalTok{ error_rate }\OperatorTok{+}\StringTok{ }\NormalTok{interval}
+\NormalTok{), }\DataTypeTok{data =}\NormalTok{ transformed_data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(DF_method }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"KR_t1err_1"}\NormalTok{, }\StringTok{"S_t1err_1"}\NormalTok{))) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(rslope }\OperatorTok{~}\StringTok{ }\NormalTok{type) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_pointrange}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{.4}\NormalTok{, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{shape =} \KeywordTok{as.factor}\NormalTok{(number_measurements)), }
+                  \DataTypeTok{position =} \KeywordTok{position_jitter}\NormalTok{(}\DataTypeTok{h =} \DecValTok{0}\NormalTok{, }\DataTypeTok{w =} \FloatTok{0.1}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_hline}\NormalTok{(}\DataTypeTok{yintercept =} \FloatTok{.05}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{annotate}\NormalTok{(}\StringTok{"rect"}\NormalTok{, }\DataTypeTok{xmin =} \FloatTok{-.1}\NormalTok{, }\DataTypeTok{xmax =} \DecValTok{4}\NormalTok{, }\DataTypeTok{ymin =} \FloatTok{0.025}\NormalTok{, }\DataTypeTok{ymax =} \FloatTok{.075}\NormalTok{, }
+           \DataTypeTok{alpha =} \FloatTok{.4}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Number of Individuals"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"KR"}\NormalTok{, }\StringTok{"Satterthwaite"}\NormalTok{), }
+                     \DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"green"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Error Rate"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{color =} \StringTok{"DF Method"}\NormalTok{, }\DataTypeTok{shape =} \StringTok{"Number of Measurements"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"bottom"}\NormalTok{, }\DataTypeTok{legend.box =} \StringTok{"vertical"}\NormalTok{)}
+\NormalTok{all_sim_sum }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(KR_term }\OperatorTok{==}\StringTok{ "treatment"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_longer}\NormalTok{(}\DataTypeTok{cols =} \KeywordTok{c}\NormalTok{(}\StringTok{"KR_t1err"}\NormalTok{, }\StringTok{"S_t1err"}\NormalTok{, }\StringTok{"Z_t1err"}\NormalTok{, }\StringTok{"t_t1err"}\NormalTok{), }
+               \DataTypeTok{names_to =} \StringTok{"DF_method"}\NormalTok{, }\DataTypeTok{values_to =} \StringTok{"error_rate"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(DF_method }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"KR_t1err"}\NormalTok{, }\StringTok{"S_t1err"}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_wider}\NormalTok{(}
+    \DataTypeTok{names_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"rslope"}\NormalTok{),}
+    \DataTypeTok{values_from =} \StringTok{"error_rate"}\NormalTok{, }\DataTypeTok{names_prefix =} \StringTok{"slope"}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(number_individuals, skew, kurtosis, DF_method) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}
+    \DataTypeTok{random_intercept =} \KeywordTok{mean}\NormalTok{(slopeFALSE),}
+    \DataTypeTok{random_slope =} \KeywordTok{mean}\NormalTok{(slopeTRUE)}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_wider}\NormalTok{(}
+    \DataTypeTok{names_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"number_individuals"}\NormalTok{),}
+    \DataTypeTok{values_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"random_intercept"}\NormalTok{, }\StringTok{"random_slope"}\NormalTok{)}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(}
+\NormalTok{    skew, kurtosis, DF_method, random_intercept_}\DecValTok{10}\NormalTok{, random_slope_}\DecValTok{10}\NormalTok{, }
+\NormalTok{    random_intercept_}\DecValTok{18}\NormalTok{,}
+\NormalTok{    random_slope_}\DecValTok{18}\NormalTok{, random_intercept_}\DecValTok{26}\NormalTok{, random_slope_}\DecValTok{26}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ungroup}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kbl}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Exponential"}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Normal"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Lognormal"}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}
+    \StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{,}
+    \StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}
+\NormalTok{  )) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"10"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"18"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"26"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Sample Size"}\NormalTok{ =}\StringTok{ }\DecValTok{6}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{landscape}\NormalTok{()}
+
+\NormalTok{all_sim_sum }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(KR_term }\OperatorTok{==}\StringTok{ "treatment"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_longer}\NormalTok{(}\DataTypeTok{cols =} \KeywordTok{c}\NormalTok{(}\StringTok{"KR_t1err"}\NormalTok{, }\StringTok{"S_t1err"}\NormalTok{, }\StringTok{"Z_t1err"}\NormalTok{, }\StringTok{"t_t1err"}\NormalTok{), }
+               \DataTypeTok{names_to =} \StringTok{"DF_method"}\NormalTok{, }\DataTypeTok{values_to =} \StringTok{"error_rate"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(DF_method }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"KR_t1err"}\NormalTok{, }\StringTok{"S_t1err"}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_wider}\NormalTok{(}
+    \DataTypeTok{names_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"rslope"}\NormalTok{),}
+    \DataTypeTok{values_from =} \StringTok{"error_rate"}\NormalTok{, }\DataTypeTok{names_prefix =} \StringTok{"slope"}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(number_individuals, skew, kurtosis, DF_method) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}
+    \DataTypeTok{random_intercept =} \KeywordTok{mean}\NormalTok{(slopeFALSE),}
+    \DataTypeTok{random_slope =} \KeywordTok{mean}\NormalTok{(slopeTRUE)}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_wider}\NormalTok{(}
+    \DataTypeTok{names_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"number_individuals"}\NormalTok{),}
+    \DataTypeTok{values_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"random_intercept"}\NormalTok{, }\StringTok{"random_slope"}\NormalTok{)}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(}
+\NormalTok{    skew, kurtosis, DF_method, random_intercept_}\DecValTok{10}\NormalTok{, random_slope_}\DecValTok{10}\NormalTok{, }
+\NormalTok{    random_intercept_}\DecValTok{18}\NormalTok{,}
+\NormalTok{    random_slope_}\DecValTok{18}\NormalTok{, random_intercept_}\DecValTok{26}\NormalTok{, random_slope_}\DecValTok{26}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ungroup}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kbl}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Exponential"}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Normal"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Lognormal"}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}
+    \StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{,}
+    \StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}
+\NormalTok{  )) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"10"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"18"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"26"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Sample Size"}\NormalTok{ =}\StringTok{ }\DecValTok{6}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{landscape}\NormalTok{()}
+\NormalTok{all_sim_sum }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(KR_term }\OperatorTok{==}\StringTok{ "treatment"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_longer}\NormalTok{(}\DataTypeTok{cols =} \KeywordTok{c}\NormalTok{(}\StringTok{"KR_t1err"}\NormalTok{, }\StringTok{"S_t1err"}\NormalTok{, }\StringTok{"Z_t1err"}\NormalTok{, }\StringTok{"t_t1err"}\NormalTok{), }
+               \DataTypeTok{names_to =} \StringTok{"DF_method"}\NormalTok{, }\DataTypeTok{values_to =} \StringTok{"error_rate"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(DF_method }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Z_t1err"}\NormalTok{, }\StringTok{"t_t1err"}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_wider}\NormalTok{(}
+    \DataTypeTok{names_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"rslope"}\NormalTok{),}
+    \DataTypeTok{values_from =} \StringTok{"error_rate"}\NormalTok{, }\DataTypeTok{names_prefix =} \StringTok{"slope"}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(number_individuals, skew, kurtosis, DF_method) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}
+    \DataTypeTok{random_intercept =} \KeywordTok{mean}\NormalTok{(slopeFALSE),}
+    \DataTypeTok{random_slope =} \KeywordTok{mean}\NormalTok{(slopeTRUE)}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_wider}\NormalTok{(}
+    \DataTypeTok{names_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"number_individuals"}\NormalTok{),}
+    \DataTypeTok{values_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"random_intercept"}\NormalTok{, }\StringTok{"random_slope"}\NormalTok{)}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(}
+\NormalTok{    skew, kurtosis, DF_method, random_intercept_}\DecValTok{10}\NormalTok{, random_slope_}\DecValTok{10}\NormalTok{, }
+\NormalTok{    random_intercept_}\DecValTok{18}\NormalTok{,}
+\NormalTok{    random_slope_}\DecValTok{18}\NormalTok{, random_intercept_}\DecValTok{26}\NormalTok{, random_slope_}\DecValTok{26}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ungroup}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kbl}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Exponential"}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Normal"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Lognormal"}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}
+    \StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{,}
+    \StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}
+\NormalTok{  )) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"10"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"18"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"26"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Sample Size"}\NormalTok{ =}\StringTok{ }\DecValTok{6}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{landscape}\NormalTok{()}
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\KeywordTok{library}\NormalTok{(SimMultiCorrData)}
+\KeywordTok{options}\NormalTok{(}\DataTypeTok{scipen =} \DecValTok{99999}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(lme4)}
+\KeywordTok{library}\NormalTok{(kableExtra)}
+\KeywordTok{library}\NormalTok{(lmerTest)}
+\NormalTok{knitr}\OperatorTok{::}\NormalTok{opts_chunk}\OperatorTok{$}\KeywordTok{set}\NormalTok{(}\DataTypeTok{echo =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{message =}\NormalTok{ F, }\DataTypeTok{warning =}\NormalTok{ F)}
+\NormalTok{child_data <-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(here}\OperatorTok{::}\KeywordTok{here}\NormalTok{(}\StringTok{"child_data.Rds"}\NormalTok{))}
+\NormalTok{child_data <-}\StringTok{ }\NormalTok{child_data }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(AID) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{age_at_start =} \KeywordTok{min}\NormalTok{(real_age))}
+\KeywordTok{hist}\NormalTok{(child_data}\OperatorTok{$}\NormalTok{bmi, }\DataTypeTok{main =} \StringTok{"Distribution of BMI Across Sample"}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{"BMI"}\NormalTok{)}
+
+\KeywordTok{ggplot}\NormalTok{(child_data, }\KeywordTok{aes}\NormalTok{(wave, bmi, }\DataTypeTok{color =}\NormalTok{ AID)) }\OperatorTok{+}
+\StringTok{  }\CommentTok{# geom_line(aes(group = AID))  +}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{group =}\NormalTok{ AID))}
+\KeywordTok{ggplot}\NormalTok{(child_data, }\KeywordTok{aes}\NormalTok{(wave, bmi, }\DataTypeTok{color =}\NormalTok{ alcohol)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{group =}\NormalTok{ AID)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"No"}\NormalTok{, }\StringTok{"Yes"}\NormalTok{), }\DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"blue"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{color =} \StringTok{"Alcohol"}\NormalTok{)}
+\NormalTok{lm.model <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(bmi }\OperatorTok{~}\StringTok{ }\NormalTok{alcohol }\OperatorTok{+}\StringTok{ }\NormalTok{age_at_start }\OperatorTok{+}\StringTok{ }\NormalTok{wave, child_data)}
+\NormalTok{broom}\OperatorTok{::}\KeywordTok{tidy}\NormalTok{(lm.model) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Linear Model Output"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kable_classic}\NormalTok{(}\DataTypeTok{full_width =}\NormalTok{ F)}
+\NormalTok{intercept_model <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(}
+\NormalTok{  bmi }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{alcohol }\OperatorTok{+}\StringTok{ }\NormalTok{age_at_start }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{AID) }\OperatorTok{+}\StringTok{ }\NormalTok{wave,}
+\NormalTok{  child_data}
+\NormalTok{)}
+\NormalTok{KR <-}\StringTok{ }\NormalTok{broom.mixed}\OperatorTok{::}\KeywordTok{tidy}\NormalTok{(intercept_model, }\DataTypeTok{ddf =} \StringTok{"Kenward-Roger"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(effect }\OperatorTok{==}\StringTok{ "fixed"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{select}\NormalTok{(term, estimate, std.error, statistic, df, p.value)}
+\NormalTok{S <-}\StringTok{ }\NormalTok{broom.mixed}\OperatorTok{::}\KeywordTok{tidy}\NormalTok{(intercept_model, }\DataTypeTok{ddf =} \StringTok{"Satterthwaite"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(effect }\OperatorTok{==}\StringTok{ "fixed"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{select}\NormalTok{(term, estimate, std.error, statistic, df, p.value)}
+\NormalTok{KR }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Fixed Effects for Random Intercept Model Using KR"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kable_classic}\NormalTok{(}\DataTypeTok{full_width =}\NormalTok{ F)}
+\NormalTok{broom.mixed}\OperatorTok{::}\KeywordTok{tidy}\NormalTok{(intercept_model, }\DataTypeTok{ddf =} \StringTok{"Kenward-Roger"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(effect }\OperatorTok{==}\StringTok{ "ran_pars"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(group, term, estimate) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Random Effects for Random Intercept Model Using KR"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kable_classic}\NormalTok{(}\DataTypeTok{full_width =}\NormalTok{ F)}
+\KeywordTok{plot}\NormalTok{(intercept_model)}
+\KeywordTok{qqnorm}\NormalTok{(}\KeywordTok{residuals}\NormalTok{(intercept_model))}
+\KeywordTok{qqline}\NormalTok{(}\KeywordTok{residuals}\NormalTok{(intercept_model), }\DataTypeTok{col =} \DecValTok{2}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{, }\DataTypeTok{lty =} \DecValTok{2}\NormalTok{)}
+\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{cbind}\NormalTok{(}\DataTypeTok{term =}\NormalTok{ S}\OperatorTok{$}\NormalTok{term, }\DataTypeTok{Satterthwaite_p.value =}\NormalTok{ S}\OperatorTok{$}\NormalTok{p.value, }\DataTypeTok{KR_p.value =}\NormalTok{ KR}\OperatorTok{$}\NormalTok{p.value)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Comparison of Fixed Effects P-Values in Random Intercept Model"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kable_classic}\NormalTok{(}\DataTypeTok{full_width =}\NormalTok{ F) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options =} \StringTok{"HOLD_position"}\NormalTok{)}
+\NormalTok{intercept_slope_model <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(bmi }\OperatorTok{~}\StringTok{ }\NormalTok{alcohol }\OperatorTok{+}\StringTok{ }\NormalTok{real_age }\OperatorTok{+}\StringTok{ }\NormalTok{wave }\OperatorTok{+}\StringTok{ }
+\StringTok{                                }\NormalTok{(}\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{wave }\OperatorTok{|}\StringTok{ }\NormalTok{AID), child_data)}
+
+\NormalTok{S_s <-}\StringTok{ }\NormalTok{broom.mixed}\OperatorTok{::}\KeywordTok{tidy}\NormalTok{(intercept_slope_model, }\DataTypeTok{ddf =} \StringTok{"Satterthwaite"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(effect }\OperatorTok{==}\StringTok{ "fixed"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{select}\NormalTok{(term, estimate, std.error, statistic, df, p.value)}
+
+\NormalTok{KR_s <-}\StringTok{ }\NormalTok{broom.mixed}\OperatorTok{::}\KeywordTok{tidy}\NormalTok{(intercept_slope_model, }\DataTypeTok{ddf =} \StringTok{"Kenward-Roger"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(effect }\OperatorTok{==}\StringTok{ "fixed"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{select}\NormalTok{(term, estimate, std.error, statistic, df, p.value)}
+
+\NormalTok{KR_s }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Fixed Effects for Random Slope Model Using KR"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kable_classic}\NormalTok{(}\DataTypeTok{full_width =}\NormalTok{ F) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options =} \StringTok{"HOLD_position"}\NormalTok{)}
+\KeywordTok{qqnorm}\NormalTok{(}\KeywordTok{residuals}\NormalTok{(intercept_slope_model))}
+\KeywordTok{qqline}\NormalTok{(}\KeywordTok{residuals}\NormalTok{(intercept_slope_model), }\DataTypeTok{col =} \DecValTok{2}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{, }\DataTypeTok{lty =} \DecValTok{2}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(intercept_slope_model)}
+\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{cbind}\NormalTok{(}\DataTypeTok{term =}\NormalTok{ S_s}\OperatorTok{$}\NormalTok{term, }\DataTypeTok{Satterthwaite_p.value =}\NormalTok{ S_s}\OperatorTok{$}\NormalTok{p.value, }
+                 \DataTypeTok{KR_p.value =}\NormalTok{ KR_s}\OperatorTok{$}\NormalTok{p.value)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Comparison of Fixed Effects P-Values in Random Slope Model"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kable_classic}\NormalTok{(}\DataTypeTok{full_width =}\NormalTok{ F) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options =} \StringTok{"HOLD_position"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(here)}
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\NormalTok{all_sim <-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(}\KeywordTok{here}\NormalTok{(}\StringTok{"SimulationData"}\NormalTok{, }\StringTok{"all_sim.rds"}\NormalTok{))}
+
+\NormalTok{all_sim_sum <-}\StringTok{ }\NormalTok{all_sim }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(KR_term }\OperatorTok{==}\StringTok{ "treatment"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(}
+\NormalTok{    distribution,}
+\NormalTok{    number_individuals,}
+\NormalTok{    params,}
+\NormalTok{    number_measurements,}
+\NormalTok{    rslope,}
+\NormalTok{    KR_effect, KR_term, skew, kurtosis}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}
+    \DataTypeTok{n =} \KeywordTok{n}\NormalTok{(),}
+    \DataTypeTok{KR_t1err =} \KeywordTok{mean}\NormalTok{(KR_sig),}
+    \DataTypeTok{KR_t1err_sd =} \KeywordTok{sd}\NormalTok{(KR_sig),}
+    \DataTypeTok{S_t1err =} \KeywordTok{mean}\NormalTok{(S_sig),}
+    \DataTypeTok{S_t1err_sd =} \KeywordTok{sd}\NormalTok{(S_sig),}
+    \DataTypeTok{Z_t1err =} \KeywordTok{mean}\NormalTok{(Z_sig),}
+    \DataTypeTok{Z_t1err_sd =} \KeywordTok{sd}\NormalTok{(Z_sig),}
+    \DataTypeTok{t_t1err =} \KeywordTok{mean}\NormalTok{(t_sig),}
+    \DataTypeTok{t_t1err_sd =} \KeywordTok{sd}\NormalTok{(t_sig),}
+\NormalTok{  )}
+
+\NormalTok{all_sim_sum }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(KR_term }\OperatorTok{==}\StringTok{ "treatment"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_longer}\NormalTok{(}\DataTypeTok{cols =} \KeywordTok{c}\NormalTok{(}\StringTok{"KR_t1err"}\NormalTok{, }\StringTok{"S_t1err"}\NormalTok{, }\StringTok{"Z_t1err"}\NormalTok{, }\StringTok{"t_t1err"}\NormalTok{), }
+               \DataTypeTok{names_to =} \StringTok{"DF_method"}\NormalTok{, }\DataTypeTok{values_to =} \StringTok{"error_rate"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(DF_method }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"KR_t1err"}\NormalTok{, }\StringTok{"S_t1err"}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_wider}\NormalTok{(}
+    \DataTypeTok{names_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"rslope"}\NormalTok{),}
+    \DataTypeTok{values_from =} \StringTok{"error_rate"}\NormalTok{, }\DataTypeTok{names_prefix =} \StringTok{"slope"}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(number_individuals, skew, kurtosis, DF_method) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}
+    \DataTypeTok{random_intercept =} \KeywordTok{mean}\NormalTok{(slopeFALSE, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
+    \DataTypeTok{random_slope =} \KeywordTok{mean}\NormalTok{(slopeTRUE, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_wider}\NormalTok{(}
+    \DataTypeTok{names_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"number_individuals"}\NormalTok{),}
+    \DataTypeTok{values_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"random_intercept"}\NormalTok{, }\StringTok{"random_slope"}\NormalTok{)}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(}
+\NormalTok{    skew, kurtosis, DF_method, random_intercept_}\DecValTok{10}\NormalTok{, random_slope_}\DecValTok{10}\NormalTok{, }
+\NormalTok{    random_intercept_}\DecValTok{18}\NormalTok{,}
+\NormalTok{    random_slope_}\DecValTok{18}\NormalTok{, random_intercept_}\DecValTok{26}\NormalTok{, random_slope_}\DecValTok{26}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ungroup}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kbl}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Exponential"}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Normal"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Lognormal"}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}
+    \StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{,}
+    \StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}
+\NormalTok{  )) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"10"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"18"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"26"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Sample Size"}\NormalTok{ =}\StringTok{ }\DecValTok{6}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options=}\StringTok{"scale_down"}\NormalTok{)}
+
+\NormalTok{all_sim_sum }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(KR_term }\OperatorTok{==}\StringTok{ "treatment"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_longer}\NormalTok{(}\DataTypeTok{cols =} \KeywordTok{c}\NormalTok{(}\StringTok{"KR_t1err"}\NormalTok{, }\StringTok{"S_t1err"}\NormalTok{, }\StringTok{"Z_t1err"}\NormalTok{, }\StringTok{"t_t1err"}\NormalTok{), }
+               \DataTypeTok{names_to =} \StringTok{"DF_method"}\NormalTok{, }\DataTypeTok{values_to =} \StringTok{"error_rate"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(DF_method }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Z_t1err"}\NormalTok{, }\StringTok{"t_t1err"}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_wider}\NormalTok{(}
+    \DataTypeTok{names_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"rslope"}\NormalTok{),}
+    \DataTypeTok{values_from =} \StringTok{"error_rate"}\NormalTok{, }\DataTypeTok{names_prefix =} \StringTok{"slope"}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(number_individuals, skew, kurtosis, DF_method) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}
+    \DataTypeTok{random_intercept =} \KeywordTok{mean}\NormalTok{(slopeFALSE, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
+    \DataTypeTok{random_slope =} \KeywordTok{mean}\NormalTok{(slopeTRUE, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_wider}\NormalTok{(}
+    \DataTypeTok{names_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"number_individuals"}\NormalTok{),}
+    \DataTypeTok{values_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"random_intercept"}\NormalTok{, }\StringTok{"random_slope"}\NormalTok{)}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(}
+\NormalTok{    skew, kurtosis, DF_method, random_intercept_}\DecValTok{10}\NormalTok{, random_slope_}\DecValTok{10}\NormalTok{, }
+\NormalTok{    random_intercept_}\DecValTok{18}\NormalTok{,}
+\NormalTok{    random_slope_}\DecValTok{18}\NormalTok{, random_intercept_}\DecValTok{26}\NormalTok{, random_slope_}\DecValTok{26}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ungroup}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kbl}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Exponential"}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Normal"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Lognormal"}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}
+    \StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{,}
+    \StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}
+\NormalTok{  )) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"10"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"18"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"26"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Sample Size"}\NormalTok{ =}\StringTok{ }\DecValTok{6}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options=}\StringTok{"scale_down"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\KeywordTok{library}\NormalTok{(lmerTest)}
+\KeywordTok{library}\NormalTok{(SimMultiCorrData)}
+\KeywordTok{library}\NormalTok{(purrr)}
+\KeywordTok{library}\NormalTok{(broom)}
+\KeywordTok{library}\NormalTok{(broom.mixed)}
+
+\CommentTok{## Function that returns output from LME model using KR & Satterthwaite DF}
+\NormalTok{sim_mixedeffects <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(dist, parameters, }\DataTypeTok{random_slopes =} \OtherTok{TRUE}\NormalTok{,}
+\NormalTok{                             n.indiv, n.measurements, corr) \{}
+\NormalTok{  corr.data <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, corr, corr, }\DecValTok{1}\NormalTok{)}
+\NormalTok{  corr1 <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(corr.data, }\DataTypeTok{nrow =} \DecValTok{2}\NormalTok{)}
+
+  \CommentTok{# save kurtosis and skew values}
+\NormalTok{  m <-}\StringTok{ }\KeywordTok{round}\NormalTok{(}\KeywordTok{calc_theory}\NormalTok{(}\DataTypeTok{Dist =}\NormalTok{ dist, }\DataTypeTok{params =}\NormalTok{ parameters), }\DecValTok{8}\NormalTok{)}
+
+  \ControlFlowTok{if}\NormalTok{ (random_slopes }\OperatorTok{==}\StringTok{ }\OtherTok{TRUE}\NormalTok{) \{}
+\NormalTok{    r_effects <-}\StringTok{ }\KeywordTok{rcorrvar}\NormalTok{(}
+      \DataTypeTok{n =}\NormalTok{ n.indiv, }\DataTypeTok{k_cont =} \DecValTok{2}\NormalTok{, }\DataTypeTok{method =} \StringTok{"Fleishman"}\NormalTok{, }
+      \DataTypeTok{means =} \KeywordTok{c}\NormalTok{(m[}\DecValTok{1}\NormalTok{], m[}\DecValTok{1}\NormalTok{]), }\DataTypeTok{vars =} \KeywordTok{c}\NormalTok{(m[}\DecValTok{2}\NormalTok{]}\OperatorTok{^}\DecValTok{2}\NormalTok{, (m[}\DecValTok{2}\NormalTok{]}\OperatorTok{^}\DecValTok{2}\NormalTok{) }\OperatorTok{/}\StringTok{ }\DecValTok{18}\NormalTok{), }
+      \DataTypeTok{skews =} \KeywordTok{c}\NormalTok{(m[}\DecValTok{3}\NormalTok{], m[}\DecValTok{3}\NormalTok{]),}
+      \DataTypeTok{skurts =} \KeywordTok{c}\NormalTok{(m[}\DecValTok{4}\NormalTok{], m[}\DecValTok{4}\NormalTok{]),}
+      \DataTypeTok{errorloop =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{rho =}\NormalTok{ corr1, }\DataTypeTok{seed =} \KeywordTok{sample}\NormalTok{(}\DecValTok{1000}\OperatorTok{:}\DecValTok{9999}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{    )}
+  
+    \CommentTok{# centering the mean at 0 }
+\NormalTok{    r_effects1 <-}\StringTok{ }\NormalTok{r_effects}\OperatorTok{$}\NormalTok{continuous_variables}\OperatorTok{$}\NormalTok{V1 }\OperatorTok{-}\StringTok{ }\NormalTok{m[}\DecValTok{1}\NormalTok{]}
+\NormalTok{    r_effects2 <-}\StringTok{ }\NormalTok{r_effects}\OperatorTok{$}\NormalTok{continuous_variables}\OperatorTok{$}\NormalTok{V2 }\OperatorTok{-}\StringTok{ }\NormalTok{m[}\DecValTok{1}\NormalTok{]}
+
+\NormalTok{    errors <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(n.indiv }\OperatorTok{*}\StringTok{ }\NormalTok{n.measurements, }\DecValTok{0}\NormalTok{, m[}\DecValTok{2}\NormalTok{] }\OperatorTok{*}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(.}\DecValTok{168}\NormalTok{))}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{ }
+    \CommentTok{# random intercept model }
+\NormalTok{    r_effects1 <-}\StringTok{ }\KeywordTok{nonnormvar1}\NormalTok{(}\StringTok{"Fleishman"}\NormalTok{,}
+      \DataTypeTok{means =}\NormalTok{ m[}\DecValTok{1}\NormalTok{], }\DataTypeTok{vars =}\NormalTok{ m[}\DecValTok{2}\NormalTok{]}\OperatorTok{^}\DecValTok{2}\NormalTok{, }\DataTypeTok{skews =}\NormalTok{ m[}\DecValTok{3}\NormalTok{],}
+      \DataTypeTok{skurts =}\NormalTok{ m[}\DecValTok{4}\NormalTok{], }\DataTypeTok{n =}\NormalTok{ n.indiv, }\DataTypeTok{seed =} \KeywordTok{sample}\NormalTok{(}\DecValTok{1000}\OperatorTok{:}\DecValTok{9999}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{    )}\OperatorTok{$}\NormalTok{continuous_variable}\OperatorTok{$}\NormalTok{V1}
+
+\NormalTok{    r_effects1 <-}\StringTok{ }\NormalTok{r_effects1 }\OperatorTok{-}\StringTok{ }\NormalTok{m[}\DecValTok{1}\NormalTok{]}
+\NormalTok{    r_effects2 <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, n.indiv)}
+    
+\NormalTok{    errors <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(n.indiv }\OperatorTok{*}\StringTok{ }\NormalTok{n.measurements, }\DecValTok{0}\NormalTok{, m[}\DecValTok{2}\NormalTok{] }\OperatorTok{*}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(.}\DecValTok{4}\NormalTok{))}
+\NormalTok{  \}}
+
+\NormalTok{  data <-}\StringTok{ }\KeywordTok{expand.grid}\NormalTok{(}\DataTypeTok{time =} \DecValTok{1}\OperatorTok{:}\NormalTok{n.measurements, }\DataTypeTok{indiv =} \KeywordTok{as.factor}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n.indiv))}
+\NormalTok{  data}\OperatorTok{$}\NormalTok{treatment <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\OperatorTok{:}\DecValTok{1}\NormalTok{, }\DataTypeTok{each =}\NormalTok{ (n.indiv }\OperatorTok{*}\StringTok{ }\NormalTok{n.measurements) }\OperatorTok{/}\StringTok{ }\DecValTok{2}\NormalTok{)}
+  
+  \CommentTok{# model matrix for fixed effects}
+\NormalTok{  matrix_fixedeffects <-}\StringTok{ }\KeywordTok{model.matrix}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{time }\OperatorTok{+}\StringTok{ }\NormalTok{treatment, data) }
+
+  \CommentTok{# fixed effects coefficient vector}
+\NormalTok{  betas <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{3.1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{) }
+
+  \CommentTok{# model matrix for random intercepts}
+\NormalTok{  matrix_intercept <-}\StringTok{ }\KeywordTok{model.matrix}\NormalTok{(}\OperatorTok{~}\StringTok{ }\DecValTok{0} \OperatorTok{+}\StringTok{ }\NormalTok{indiv, data)}
+
+  \CommentTok{# model matrix for random slopes}
+\NormalTok{  matrix_slope <-}\StringTok{ }\KeywordTok{model.matrix}\NormalTok{(}\OperatorTok{~}\StringTok{ }\DecValTok{0} \OperatorTok{+}\StringTok{ }\NormalTok{indiv, data) }\OperatorTok{*}\StringTok{ }\NormalTok{data}\OperatorTok{$}\NormalTok{time}
+
+
+\NormalTok{  data}\OperatorTok{$}\NormalTok{Y_val <-}\StringTok{ }\NormalTok{(matrix_fixedeffects }\OperatorTok{%*%}\StringTok{ }\NormalTok{betas }\OperatorTok{+}
+\StringTok{    }\NormalTok{matrix_intercept }\OperatorTok{%*%}\StringTok{ }\NormalTok{r_effects1 }\OperatorTok{+}
+\StringTok{    }\NormalTok{matrix_slope }\OperatorTok{%*%}\StringTok{ }\NormalTok{r_effects2 }\OperatorTok{+}\StringTok{ }\NormalTok{errors)[, }\DecValTok{1}\NormalTok{]}
+
+
+
+  \CommentTok{# construct model}
+  \ControlFlowTok{if}\NormalTok{ (random_slopes }\OperatorTok{==}\StringTok{ }\OtherTok{FALSE}\NormalTok{) \{}
+\NormalTok{    model <-}\StringTok{ }\NormalTok{lmerTest}\OperatorTok{::}\KeywordTok{lmer}\NormalTok{(Y_val }\OperatorTok{~}\StringTok{ }\NormalTok{time }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{indiv) }\OperatorTok{+}\StringTok{ }\NormalTok{treatment, data)}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{    model <-}\StringTok{ }\NormalTok{lmerTest}\OperatorTok{::}\KeywordTok{lmer}\NormalTok{(Y_val }\OperatorTok{~}\StringTok{ }\NormalTok{time }\OperatorTok{+}\StringTok{ }\NormalTok{(time }\OperatorTok{|}\StringTok{ }\NormalTok{indiv) }\OperatorTok{+}\StringTok{ }\NormalTok{treatment, data)}
+\NormalTok{  \}}
+
+  \CommentTok{# extract p-values/summary output from KR and Satterthwaite}
+\NormalTok{  KR <-}\StringTok{ }\NormalTok{broom.mixed}\OperatorTok{::}\KeywordTok{tidy}\NormalTok{(model, }\DataTypeTok{ddf =} \StringTok{"Kenward-Roger"}\NormalTok{)}
+  \KeywordTok{colnames}\NormalTok{(KR) <-}\StringTok{ }\KeywordTok{paste}\NormalTok{(}\StringTok{"KR"}\NormalTok{, }\KeywordTok{colnames}\NormalTok{(KR), }\DataTypeTok{sep =} \StringTok{"_"}\NormalTok{)}
+
+\NormalTok{  S <-}\StringTok{ }\NormalTok{broom.mixed}\OperatorTok{::}\KeywordTok{tidy}\NormalTok{(model, }\DataTypeTok{ddf =} \StringTok{"Satterthwaite"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{rename_with}\NormalTok{(}\DataTypeTok{.cols =} \KeywordTok{everything}\NormalTok{(), }\DataTypeTok{.fn =} \OperatorTok{~}\StringTok{ }\KeywordTok{str_c}\NormalTok{(}\StringTok{"S_"}\NormalTok{, .x)) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{add_column}\NormalTok{(}
+      \DataTypeTok{.before =} \StringTok{"S_effect"}\NormalTok{,}
+      \DataTypeTok{distribution =}\NormalTok{ dist, }\DataTypeTok{number_individuals =}\NormalTok{ n.indiv,}
+      \DataTypeTok{params =} \KeywordTok{paste0}\NormalTok{(parameters, }\DataTypeTok{collapse =} \StringTok{","}\NormalTok{),}
+      \DataTypeTok{number_measurements =}\NormalTok{ n.measurements,}
+      \DataTypeTok{rslope =}\NormalTok{ random_slopes, }\DataTypeTok{mean =}\NormalTok{ m[}\DecValTok{1}\NormalTok{], }\DataTypeTok{sd =}\NormalTok{ m[}\DecValTok{2}\NormalTok{], }\DataTypeTok{skew =}\NormalTok{ m[}\DecValTok{3}\NormalTok{], }
+      \DataTypeTok{kurtosis =}\NormalTok{ m[}\DecValTok{4}\NormalTok{],}
+      \DataTypeTok{fifth =}\NormalTok{ m[}\DecValTok{5}\NormalTok{], }\DataTypeTok{sixth =}\NormalTok{ m[}\DecValTok{6}\NormalTok{]}
+\NormalTok{    )}
+
+
+  \KeywordTok{return}\NormalTok{(}\KeywordTok{cbind}\NormalTok{(S, KR))}
+\NormalTok{\}}
+
+
+
+\CommentTok{## Setting up factors for lognormal condition}
+\NormalTok{dist <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Lognormal"}\NormalTok{)}
+\NormalTok{corr <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\NormalTok{.}\DecValTok{38}\NormalTok{)}
+\NormalTok{parameters <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{.25}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\FloatTok{.5}\NormalTok{))}
+\NormalTok{random_slopes <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OtherTok{TRUE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{)}
+\NormalTok{n.indiv <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{18}\NormalTok{, }\DecValTok{26}\NormalTok{)}
+\NormalTok{n.measurements <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{8}\NormalTok{)}
+
+\CommentTok{# all possible combinations}
+\NormalTok{combos_lnormal <-}\StringTok{ }\KeywordTok{crossing}\NormalTok{(}
+\NormalTok{  dist, parameters, random_slopes,}
+\NormalTok{  n.indiv, n.measurements, corr}
+\NormalTok{)}
+
+
+\CommentTok{## Setting up factors for exponential condition}
+\NormalTok{dist <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Exponential"}\NormalTok{)}
+\NormalTok{corr <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\NormalTok{.}\DecValTok{38}\NormalTok{)}
+\NormalTok{parameters <-}\StringTok{ }\KeywordTok{c}\NormalTok{(.}\DecValTok{2}\NormalTok{, }\FloatTok{.9}\NormalTok{)}
+\NormalTok{random_slopes <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OtherTok{TRUE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{)}
+\NormalTok{n.indiv <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{18}\NormalTok{, }\DecValTok{26}\NormalTok{)}
+\NormalTok{n.measurements <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{8}\NormalTok{)}
+
+\CommentTok{# all possible combinations}
+\NormalTok{combos_exp <-}\StringTok{ }\KeywordTok{crossing}\NormalTok{(}
+\NormalTok{  dist, parameters, random_slopes,}
+\NormalTok{  n.indiv, n.measurements, corr}
+\NormalTok{)}
+
+
+\NormalTok{numsim <-}\StringTok{ }\DecValTok{80} 
+
+\CommentTok{###### Lognormal Distribution: 400 total simulations}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{2021}\NormalTok{)}
+
+\NormalTok{simulations_lnormal_}\DecValTok{1}\NormalTok{ <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\NormalTok{numsim }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{map_df}\NormalTok{(}\OperatorTok{~}\StringTok{ }\KeywordTok{pmap_dfr}\NormalTok{(}\KeywordTok{list}\NormalTok{(}
+\NormalTok{    combos_lnormal}\OperatorTok{$}\NormalTok{dist, combos_lnormal}\OperatorTok{$}\NormalTok{parameters,}
+\NormalTok{    combos_lnormal}\OperatorTok{$}\NormalTok{random_slopes, combos_lnormal}\OperatorTok{$}\NormalTok{n.indiv,}
+\NormalTok{    combos_lnormal}\OperatorTok{$}\NormalTok{n.measurements, combos_lnormal}\OperatorTok{$}\NormalTok{corr}
+\NormalTok{  ),}
+  \DataTypeTok{.f =}\NormalTok{ sim_mixedeffects}
+\NormalTok{  ))}
+
+\CommentTok{# saveRDS(simulations_lnormal_1, "simulations_lnormal_1.rds")}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{2005}\NormalTok{)}
+
+\NormalTok{simulations_lnormal_}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\NormalTok{numsim }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{map_df}\NormalTok{(}\OperatorTok{~}\StringTok{ }\KeywordTok{pmap_dfr}\NormalTok{(}\KeywordTok{list}\NormalTok{(}
+\NormalTok{    combos_lnormal}\OperatorTok{$}\NormalTok{dist, combos_lnormal}\OperatorTok{$}\NormalTok{parameters,}
+\NormalTok{    combos_lnormal}\OperatorTok{$}\NormalTok{random_slopes, combos_lnormal}\OperatorTok{$}\NormalTok{n.indiv,}
+\NormalTok{    combos_lnormal}\OperatorTok{$}\NormalTok{n.measurements, combos_lnormal}\OperatorTok{$}\NormalTok{corr}
+\NormalTok{  ),}
+  \DataTypeTok{.f =}\NormalTok{ sim_mixedeffects}
+\NormalTok{  ))}
+\CommentTok{# saveRDS(simulations_lnormal_2, "simulations_lnormal_2.rds")}
+
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{2011}\NormalTok{)}
+
+\NormalTok{simulations_lnormal_}\DecValTok{3}\NormalTok{ <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\NormalTok{numsim }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{map_df}\NormalTok{(}\OperatorTok{~}\StringTok{ }\KeywordTok{pmap_dfr}\NormalTok{(}\KeywordTok{list}\NormalTok{(}
+\NormalTok{    combos_lnormal}\OperatorTok{$}\NormalTok{dist, combos_lnormal}\OperatorTok{$}\NormalTok{parameters,}
+\NormalTok{    combos_lnormal}\OperatorTok{$}\NormalTok{random_slopes, combos_lnormal}\OperatorTok{$}\NormalTok{n.indiv,}
+\NormalTok{    combos_lnormal}\OperatorTok{$}\NormalTok{n.measurements, combos_lnormal}\OperatorTok{$}\NormalTok{corr}
+\NormalTok{  ),}
+  \DataTypeTok{.f =}\NormalTok{ sim_mixedeffects}
+\NormalTok{  ))}
+\CommentTok{# saveRDS(simulations_lnormal_3, "simulations_lnormal_3.rds")}
+
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1012}\NormalTok{)}
+\NormalTok{simulations_lnormal_}\DecValTok{4}\NormalTok{ <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\NormalTok{numsim }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{map_df}\NormalTok{(}\OperatorTok{~}\StringTok{ }\KeywordTok{pmap_dfr}\NormalTok{(}\KeywordTok{list}\NormalTok{(}
+\NormalTok{    combos_lnormal}\OperatorTok{$}\NormalTok{dist, combos_lnormal}\OperatorTok{$}\NormalTok{parameters,}
+\NormalTok{    combos_lnormal}\OperatorTok{$}\NormalTok{random_slopes, combos_lnormal}\OperatorTok{$}\NormalTok{n.indiv,}
+\NormalTok{    combos_lnormal}\OperatorTok{$}\NormalTok{n.measurements, combos_lnormal}\OperatorTok{$}\NormalTok{corr}
+\NormalTok{  ),}
+  \DataTypeTok{.f =}\NormalTok{ sim_mixedeffects}
+\NormalTok{  ))}
+\CommentTok{# saveRDS(simulations_lnormal_4, "simulations_lnormal_4.rds")}
+
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{3434}\NormalTok{)}
+\NormalTok{simulations_lnormal_}\DecValTok{5}\NormalTok{ <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\NormalTok{numsim }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{map_df}\NormalTok{(}\OperatorTok{~}\StringTok{ }\KeywordTok{pmap_dfr}\NormalTok{(}\KeywordTok{list}\NormalTok{(}
+\NormalTok{    combos_lnormal}\OperatorTok{$}\NormalTok{dist, combos_lnormal}\OperatorTok{$}\NormalTok{parameters,}
+\NormalTok{    combos_lnormal}\OperatorTok{$}\NormalTok{random_slopes, combos_lnormal}\OperatorTok{$}\NormalTok{n.indiv,}
+\NormalTok{    combos_lnormal}\OperatorTok{$}\NormalTok{n.measurements, combos_lnormal}\OperatorTok{$}\NormalTok{corr}
+\NormalTok{  ),}
+  \DataTypeTok{.f =}\NormalTok{ sim_mixedeffects}
+\NormalTok{  ))}
+\CommentTok{# saveRDS(simulations_lnormal_5, "simulations_lnormal_5.rds")}
+
+
+\CommentTok{########### Normal distribution: 400 simulations}
+
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{7006}\NormalTok{)}
+\NormalTok{simulations_normal_}\DecValTok{1}\NormalTok{ <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\NormalTok{numsim }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{map_df}\NormalTok{(}\OperatorTok{~}\StringTok{ }\KeywordTok{pmap_dfr}\NormalTok{(}\KeywordTok{list}\NormalTok{(}
+\NormalTok{    combos_normal}\OperatorTok{$}\NormalTok{dist, combos_normal}\OperatorTok{$}\NormalTok{parameters,}
+\NormalTok{    combos_normal}\OperatorTok{$}\NormalTok{random_slopes, combos_normal}\OperatorTok{$}\NormalTok{n.indiv,}
+\NormalTok{    combos_normal}\OperatorTok{$}\NormalTok{n.measurements, combos_normal}\OperatorTok{$}\NormalTok{corr}
+\NormalTok{  ),}
+  \DataTypeTok{.f =}\NormalTok{ sim_mixedeffects}
+\NormalTok{  ))}
+\CommentTok{# saveRDS(simulations_normal_1, "simulations_normal_1.rds")}
+
+
+
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{3692}\NormalTok{)}
+\NormalTok{simulations_normal_}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\NormalTok{numsim }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{map_df}\NormalTok{(}\OperatorTok{~}\StringTok{ }\KeywordTok{pmap_dfr}\NormalTok{(}\KeywordTok{list}\NormalTok{(combos_normal}\OperatorTok{$}\NormalTok{dist, combos_normal}\OperatorTok{$}\NormalTok{parameters, }
+\NormalTok{                         combos_normal}\OperatorTok{$}\NormalTok{random_slopes, combos_normal}\OperatorTok{$}\NormalTok{n.indiv, }
+\NormalTok{                         combos_normal}\OperatorTok{$}\NormalTok{n.measurements, combos_normal}\OperatorTok{$}\NormalTok{corr), }
+                    \DataTypeTok{.f =}\NormalTok{ sim_mixedeffects))}
+\CommentTok{# saveRDS(simulations_normal_2, "simulations_normal_2.rds")}
+
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{0814}\NormalTok{)}
+\NormalTok{simulations_normal_}\DecValTok{3}\NormalTok{ <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\NormalTok{numsim }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{map_df}\NormalTok{(}\OperatorTok{~}\StringTok{ }\KeywordTok{pmap_dfr}\NormalTok{(}\KeywordTok{list}\NormalTok{(combos_normal}\OperatorTok{$}\NormalTok{dist, combos_normal}\OperatorTok{$}\NormalTok{parameters, }
+\NormalTok{                         combos_normal}\OperatorTok{$}\NormalTok{random_slopes, combos_normal}\OperatorTok{$}\NormalTok{n.indiv, }
+\NormalTok{                         combos_normal}\OperatorTok{$}\NormalTok{n.measurements, combos_normal}\OperatorTok{$}\NormalTok{corr), }
+                    \DataTypeTok{.f =}\NormalTok{ sim_mixedeffects))}
+\CommentTok{# saveRDS(simulations_normal_3, "simulations_normal_3.rds")}
+
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{0904}\NormalTok{)}
+\NormalTok{simulations_normal_}\DecValTok{4}\NormalTok{ <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\NormalTok{numsim }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{map_df}\NormalTok{(}\OperatorTok{~}\StringTok{ }\KeywordTok{pmap_dfr}\NormalTok{(}\KeywordTok{list}\NormalTok{(combos_normal}\OperatorTok{$}\NormalTok{dist, combos_normal}\OperatorTok{$}\NormalTok{parameters, }
+\NormalTok{                         combos_normal}\OperatorTok{$}\NormalTok{random_slopes, combos_normal}\OperatorTok{$}\NormalTok{n.indiv, }
+\NormalTok{                         combos_normal}\OperatorTok{$}\NormalTok{n.measurements, combos_normal}\OperatorTok{$}\NormalTok{corr), }
+                    \DataTypeTok{.f =}\NormalTok{ sim_mixedeffects))}
+\CommentTok{# saveRDS(simulations_normal_4, "simulations_normal_4.rds")}
+
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1111}\NormalTok{)}
+\NormalTok{simulations_normal_}\DecValTok{5}\NormalTok{ <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\NormalTok{numsim }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{map_df}\NormalTok{(}\OperatorTok{~}\StringTok{ }\KeywordTok{pmap_dfr}\NormalTok{(}\KeywordTok{list}\NormalTok{(combos_normal}\OperatorTok{$}\NormalTok{dist, combos_normal}\OperatorTok{$}\NormalTok{parameters, }
+\NormalTok{                         combos_normal}\OperatorTok{$}\NormalTok{random_slopes, combos_normal}\OperatorTok{$}\NormalTok{n.indiv, }
+\NormalTok{                         combos_normal}\OperatorTok{$}\NormalTok{n.measurements, combos_normal}\OperatorTok{$}\NormalTok{corr), }
+                    \DataTypeTok{.f =}\NormalTok{ sim_mixedeffects))}
+\CommentTok{# saveRDS(simulations_normal_5, "simulations_normal_5.rds")}
+
+
+\CommentTok{######### Exponential Distribution: 400 simulations}
+
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{9998}\NormalTok{)}
+\NormalTok{simulations_exp_}\DecValTok{1}\NormalTok{ <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\NormalTok{numsim }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{map_df}\NormalTok{(}\OperatorTok{~}\StringTok{ }\KeywordTok{pmap_dfr}\NormalTok{(}\KeywordTok{list}\NormalTok{(combos_exp}\OperatorTok{$}\NormalTok{dist, combos_exp}\OperatorTok{$}\NormalTok{parameters, }
+\NormalTok{                         combos_exp}\OperatorTok{$}\NormalTok{random_slopes, combos_exp}\OperatorTok{$}\NormalTok{n.indiv, }
+\NormalTok{                         combos_exp}\OperatorTok{$}\NormalTok{n.measurements, combos_exp}\OperatorTok{$}\NormalTok{corr), }
+                    \DataTypeTok{.f =}\NormalTok{ sim_mixedeffects))}
+\CommentTok{# saveRDS(simulations_exp_1, "simulations_exp_1.rds")}
+
+
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{9997}\NormalTok{)}
+\NormalTok{simulations_exp_}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\NormalTok{numsim }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{map_df}\NormalTok{(}\OperatorTok{~}\StringTok{ }\KeywordTok{pmap_dfr}\NormalTok{(}\KeywordTok{list}\NormalTok{(combos_exp}\OperatorTok{$}\NormalTok{dist, combos_exp}\OperatorTok{$}\NormalTok{parameters, }
+\NormalTok{                         combos_exp}\OperatorTok{$}\NormalTok{random_slopes, combos_exp}\OperatorTok{$}\NormalTok{n.indiv, }
+\NormalTok{                         combos_exp}\OperatorTok{$}\NormalTok{n.measurements, combos_exp}\OperatorTok{$}\NormalTok{corr), }
+                    \DataTypeTok{.f =}\NormalTok{ sim_mixedeffects))}
+\CommentTok{# saveRDS(simulations_exp_2, "simulations_exp_2.rds")}
+
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{4035}\NormalTok{)}
+\NormalTok{simulations_exp_}\DecValTok{3}\NormalTok{ <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\NormalTok{numsim }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{map_df}\NormalTok{(}\OperatorTok{~}\StringTok{ }\KeywordTok{pmap_dfr}\NormalTok{(}\KeywordTok{list}\NormalTok{(combos_exp}\OperatorTok{$}\NormalTok{dist, combos_exp}\OperatorTok{$}\NormalTok{parameters, }
+\NormalTok{                         combos_exp}\OperatorTok{$}\NormalTok{random_slopes, combos_exp}\OperatorTok{$}\NormalTok{n.indiv, }
+\NormalTok{                         combos_exp}\OperatorTok{$}\NormalTok{n.measurements, combos_exp}\OperatorTok{$}\NormalTok{corr), }
+                    \DataTypeTok{.f =}\NormalTok{ sim_mixedeffects))}
+\CommentTok{# saveRDS(simulations_exp_3, "simulations_exp_3.rds")}
+
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{42847}\NormalTok{)}
+\NormalTok{simulations_exp_}\DecValTok{4}\NormalTok{ <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\NormalTok{numsim }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{map_df}\NormalTok{(}\OperatorTok{~}\StringTok{ }\KeywordTok{pmap_dfr}\NormalTok{(}\KeywordTok{list}\NormalTok{(combos_exp}\OperatorTok{$}\NormalTok{dist, combos_exp}\OperatorTok{$}\NormalTok{parameters, }
+\NormalTok{                         combos_exp}\OperatorTok{$}\NormalTok{random_slopes, combos_exp}\OperatorTok{$}\NormalTok{n.indiv, }
+\NormalTok{                         combos_exp}\OperatorTok{$}\NormalTok{n.measurements, combos_exp}\OperatorTok{$}\NormalTok{corr), }
+                    \DataTypeTok{.f =}\NormalTok{ sim_mixedeffects))}
+\CommentTok{# saveRDS(simulations_exp_4, "simulations_exp_4.rds")}
+
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{0505}\NormalTok{)}
+\NormalTok{simulations_exp_}\DecValTok{5}\NormalTok{ <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\NormalTok{numsim }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{map_df}\NormalTok{(}\OperatorTok{~}\StringTok{ }\KeywordTok{pmap_dfr}\NormalTok{(}\KeywordTok{list}\NormalTok{(combos_exp}\OperatorTok{$}\NormalTok{dist, combos_exp}\OperatorTok{$}\NormalTok{parameters, }
+\NormalTok{                         combos_exp}\OperatorTok{$}\NormalTok{random_slopes, combos_exp}\OperatorTok{$}\NormalTok{n.indiv, }
+\NormalTok{                         combos_exp}\OperatorTok{$}\NormalTok{n.measurements, combos_exp}\OperatorTok{$}\NormalTok{corr), }
+                    \DataTypeTok{.f =}\NormalTok{ sim_mixedeffects))}
+\CommentTok{# saveRDS(simulations_exp_5, "simulations_exp_5.rds")}
+\end{Highlighting}
+\end{Shaded}
+\hypertarget{pvalue-tables}{%
+\chapter{P-values from DF Methods}\label{pvalue-tables}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(here)}
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\NormalTok{all_sim <-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(}\KeywordTok{here}\NormalTok{(}\StringTok{"SimulationData"}\NormalTok{, }\StringTok{"all_sim.rds"}\NormalTok{))}
+
+\NormalTok{all_sim_sum <-}\StringTok{ }\NormalTok{all_sim }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(KR_term }\OperatorTok{==}\StringTok{ "treatment"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(}
+\NormalTok{    distribution,}
+\NormalTok{    number_individuals,}
+\NormalTok{    params,}
+\NormalTok{    number_measurements,}
+\NormalTok{    rslope,}
+\NormalTok{    KR_effect, KR_term, skew, kurtosis}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}
+    \DataTypeTok{n =} \KeywordTok{n}\NormalTok{(),}
+    \DataTypeTok{KR_t1err =} \KeywordTok{mean}\NormalTok{(KR_sig),}
+    \DataTypeTok{KR_t1err_sd =} \KeywordTok{sd}\NormalTok{(KR_sig),}
+    \DataTypeTok{S_t1err =} \KeywordTok{mean}\NormalTok{(S_sig),}
+    \DataTypeTok{S_t1err_sd =} \KeywordTok{sd}\NormalTok{(S_sig),}
+    \DataTypeTok{Z_t1err =} \KeywordTok{mean}\NormalTok{(Z_sig),}
+    \DataTypeTok{Z_t1err_sd =} \KeywordTok{sd}\NormalTok{(Z_sig),}
+    \DataTypeTok{t_t1err =} \KeywordTok{mean}\NormalTok{(t_sig),}
+    \DataTypeTok{t_t1err_sd =} \KeywordTok{sd}\NormalTok{(t_sig),}
+\NormalTok{  )}
+
+\NormalTok{all_sim_sum }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(KR_term }\OperatorTok{==}\StringTok{ "treatment"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_longer}\NormalTok{(}\DataTypeTok{cols =} \KeywordTok{c}\NormalTok{(}\StringTok{"KR_t1err"}\NormalTok{, }\StringTok{"S_t1err"}\NormalTok{, }\StringTok{"Z_t1err"}\NormalTok{, }\StringTok{"t_t1err"}\NormalTok{), }
+               \DataTypeTok{names_to =} \StringTok{"DF_method"}\NormalTok{, }\DataTypeTok{values_to =} \StringTok{"error_rate"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(DF_method }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"KR_t1err"}\NormalTok{, }\StringTok{"S_t1err"}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_wider}\NormalTok{(}
+    \DataTypeTok{names_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"rslope"}\NormalTok{),}
+    \DataTypeTok{values_from =} \StringTok{"error_rate"}\NormalTok{, }\DataTypeTok{names_prefix =} \StringTok{"slope"}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(number_individuals, skew, kurtosis, DF_method) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}
+    \DataTypeTok{random_intercept =} \KeywordTok{mean}\NormalTok{(slopeFALSE, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
+    \DataTypeTok{random_slope =} \KeywordTok{mean}\NormalTok{(slopeTRUE, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_wider}\NormalTok{(}
+    \DataTypeTok{names_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"number_individuals"}\NormalTok{),}
+    \DataTypeTok{values_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"random_intercept"}\NormalTok{, }\StringTok{"random_slope"}\NormalTok{)}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(}
+\NormalTok{    skew, kurtosis, DF_method, random_intercept_}\DecValTok{10}\NormalTok{, random_slope_}\DecValTok{10}\NormalTok{, }
+\NormalTok{    random_intercept_}\DecValTok{18}\NormalTok{,}
+\NormalTok{    random_slope_}\DecValTok{18}\NormalTok{, random_intercept_}\DecValTok{26}\NormalTok{, random_slope_}\DecValTok{26}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ungroup}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kbl}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Exponential"}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Normal"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Lognormal"}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}
+    \StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{,}
+    \StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}
+\NormalTok{  )) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"10"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"18"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"26"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Sample Size"}\NormalTok{ =}\StringTok{ }\DecValTok{6}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options=}\StringTok{"scale_down"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\begin{table}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{r|r|l|r|r|r|r|r|r}
+\hline
+\multicolumn{3}{c|}{ } & \multicolumn{6}{c}{Sample Size} \\
+\cline{4-9}
+\multicolumn{3}{c|}{ } & \multicolumn{2}{c|}{10} & \multicolumn{2}{c|}{18} & \multicolumn{2}{c}{26} \\
+\cline{4-5} \cline{6-7} \cline{8-9}
+\multicolumn{3}{c|}{ } & \multicolumn{1}{c|}{Random Intercept} & \multicolumn{1}{c|}{Random Slope} & \multicolumn{1}{c|}{Random Intercept} & \multicolumn{1}{c|}{Random Slope} & \multicolumn{1}{c|}{Random Intercept} & \multicolumn{1}{c}{Random Slope} \\
+\cline{4-4} \cline{5-5} \cline{6-6} \cline{7-7} \cline{8-8} \cline{9-9}
+skew & kurtosis & DF\_method & random\_intercept\_10 & random\_slope\_10 & random\_intercept\_18 & random\_slope\_18 & random\_intercept\_26 & random\_slope\_26\\
+\hline
+\multicolumn{9}{l}{\textbf{Normal}}\\
+\hline
+\hspace{1em}0.000 & 0.0 & KR\_t1err & 0.010 & 0.014 & 0.012 & 0.062 & 0.024 & 0.013\\
+\hline
+\hspace{1em}0.000 & 0.0 & S\_t1err & 0.010 & 0.075 & 0.012 & 0.062 & 0.024 & 0.016\\
+\hline
+\multicolumn{9}{l}{\textbf{Lognormal}}\\
+\hline
+\hspace{1em}0.778 & 1.1 & KR\_t1err & 0.017 & 0.050 & 0.015 & 0.067 & 0.043 & 0.066\\
+\hline
+\hspace{1em}0.778 & 1.1 & S\_t1err & 0.017 & 0.067 & 0.015 & 0.107 & 0.043 & 0.069\\
+\hline
+\hspace{1em}1.750 & 5.9 & KR\_t1err & 0.021 & 0.053 & 0.009 & 0.139 & 0.047 & 0.065\\
+\hline
+\hspace{1em}1.750 & 5.9 & S\_t1err & 0.021 & 0.059 & 0.009 & 0.179 & 0.047 & 0.118\\
+\hline
+\multicolumn{9}{l}{\textbf{Exponential}}\\
+\hline
+\hspace{1em}2.000 & 6.0 & KR\_t1err & 0.022 & 0.075 & 0.015 & 0.132 & 0.079 & 0.065\\
+\hline
+\hspace{1em}2.000 & 6.0 & S\_t1err & 0.022 & 0.081 & 0.015 & 0.132 & 0.079 & 0.077\\
+\hline
+\end{tabular}}
+\end{table}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{all_sim_sum }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(KR_term }\OperatorTok{==}\StringTok{ "treatment"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_longer}\NormalTok{(}\DataTypeTok{cols =} \KeywordTok{c}\NormalTok{(}\StringTok{"KR_t1err"}\NormalTok{, }\StringTok{"S_t1err"}\NormalTok{, }\StringTok{"Z_t1err"}\NormalTok{, }\StringTok{"t_t1err"}\NormalTok{), }
+               \DataTypeTok{names_to =} \StringTok{"DF_method"}\NormalTok{, }\DataTypeTok{values_to =} \StringTok{"error_rate"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(DF_method }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Z_t1err"}\NormalTok{, }\StringTok{"t_t1err"}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_wider}\NormalTok{(}
+    \DataTypeTok{names_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"rslope"}\NormalTok{),}
+    \DataTypeTok{values_from =} \StringTok{"error_rate"}\NormalTok{, }\DataTypeTok{names_prefix =} \StringTok{"slope"}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(number_individuals, skew, kurtosis, DF_method) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}
+    \DataTypeTok{random_intercept =} \KeywordTok{mean}\NormalTok{(slopeFALSE, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
+    \DataTypeTok{random_slope =} \KeywordTok{mean}\NormalTok{(slopeTRUE, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_wider}\NormalTok{(}
+    \DataTypeTok{names_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"number_individuals"}\NormalTok{),}
+    \DataTypeTok{values_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"random_intercept"}\NormalTok{, }\StringTok{"random_slope"}\NormalTok{)}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(}
+\NormalTok{    skew, kurtosis, DF_method, random_intercept_}\DecValTok{10}\NormalTok{, random_slope_}\DecValTok{10}\NormalTok{, }
+\NormalTok{    random_intercept_}\DecValTok{18}\NormalTok{,}
+\NormalTok{    random_slope_}\DecValTok{18}\NormalTok{, random_intercept_}\DecValTok{26}\NormalTok{, random_slope_}\DecValTok{26}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ungroup}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kbl}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Exponential"}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Normal"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Lognormal"}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}
+    \StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{,}
+    \StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}
+\NormalTok{  )) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"10"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"18"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"26"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Sample Size"}\NormalTok{ =}\StringTok{ }\DecValTok{6}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options=}\StringTok{"scale_down"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\begin{table}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{r|r|l|r|r|r|r|r|r}
+\hline
+\multicolumn{3}{c|}{ } & \multicolumn{6}{c}{Sample Size} \\
+\cline{4-9}
+\multicolumn{3}{c|}{ } & \multicolumn{2}{c|}{10} & \multicolumn{2}{c|}{18} & \multicolumn{2}{c}{26} \\
+\cline{4-5} \cline{6-7} \cline{8-9}
+\multicolumn{3}{c|}{ } & \multicolumn{1}{c|}{Random Intercept} & \multicolumn{1}{c|}{Random Slope} & \multicolumn{1}{c|}{Random Intercept} & \multicolumn{1}{c|}{Random Slope} & \multicolumn{1}{c|}{Random Intercept} & \multicolumn{1}{c}{Random Slope} \\
+\cline{4-4} \cline{5-5} \cline{6-6} \cline{7-7} \cline{8-8} \cline{9-9}
+skew & kurtosis & DF\_method & random\_intercept\_10 & random\_slope\_10 & random\_intercept\_18 & random\_slope\_18 & random\_intercept\_26 & random\_slope\_26\\
+\hline
+\multicolumn{9}{l}{\textbf{Normal}}\\
+\hline
+\hspace{1em}0.000 & 0.0 & t\_t1err & 0.072 & 0.143 & 0.127 & 0.068 & 0.025 & 0.079\\
+\hline
+\hspace{1em}0.000 & 0.0 & Z\_t1err & 0.073 & 0.147 & 0.127 & 0.072 & 0.026 & 0.080\\
+\hline
+\multicolumn{9}{l}{\textbf{Lognormal}}\\
+\hline
+\hspace{1em}0.778 & 1.1 & t\_t1err & 0.024 & 0.122 & 0.029 & 0.148 & 0.043 & 0.071\\
+\hline
+\hspace{1em}0.778 & 1.1 & Z\_t1err & 0.067 & 0.124 & 0.030 & 0.159 & 0.048 & 0.071\\
+\hline
+\hspace{1em}1.750 & 5.9 & t\_t1err & 0.027 & 0.082 & 0.013 & 0.179 & 0.055 & 0.122\\
+\hline
+\hspace{1em}1.750 & 5.9 & Z\_t1err & 0.028 & 0.083 & 0.025 & 0.189 & 0.057 & 0.122\\
+\hline
+\multicolumn{9}{l}{\textbf{Exponential}}\\
+\hline
+\hspace{1em}2.000 & 6.0 & t\_t1err & 0.028 & 0.126 & 0.038 & 0.135 & 0.085 & 0.100\\
+\hline
+\hspace{1em}2.000 & 6.0 & Z\_t1err & 0.044 & 0.128 & 0.038 & 0.169 & 0.087 & 0.100\\
+\hline
+\end{tabular}}
+\end{table}
 \hypertarget{corrections}{%
 \chapter*{Corrections}\label{corrections}}
 \addcontentsline{toc}{chapter}{Corrections}
@@ -839,6 +1789,9 @@ Corrections may be made to the body of the thesis, but every such correction wil
 \setlength{\parskip}{8pt}
 
 \hypertarget{refs}{}
+\leavevmode\hypertarget{ref-arnau_using_2012}{}%
+Arnau, J., Bono, R., Blanca, M. J., \& Bendayan, R. (2012). Using the linear mixed model to analyze nonnormal data distributions in longitudinal designs. \emph{Behavior Research Methods}, \emph{44}(4), 1224--1238. \url{http://doi.org/10.3758/s13428-012-0196-y}
+
 \leavevmode\hypertarget{ref-arnau_analyzing_2009}{}%
 Arnau, J., Bono, R., \& Vallejo, G. (2009). Analyzing small samples of repeated measures data with the mixed-model adjusted \emph{f} test. \emph{Communications in Statistics - Simulation and Computation}, \emph{38}(5), 1083--1103. \url{http://doi.org/10.1080/03610910902785746}
 
@@ -848,6 +1801,9 @@ Barr, D. J., Levy, R., Scheepers, C., \& Tily, H. J. (2013). Random effects stru
 \leavevmode\hypertarget{ref-bradley}{}%
 Bradley, J. V. (1978). Robustness? \emph{British Journal of Mathematical and Statistical Psychology}, \emph{31}(2), 144--152. \url{http://doi.org/https://doi.org/10.1111/j.2044-8317.1978.tb00581.x}
 
+\leavevmode\hypertarget{ref-Schluchte}{}%
+D.Schluchter, M., \& Elashoff, J. T. (1990). Small-sample adjustments to tests with unbalanced repeated measures assuming several covariance structures. \emph{Journal of Statistical Computation and Simulation}, \emph{37}(1-2), 69--87. \url{http://doi.org/10.1080/00949659008811295}
+
 \leavevmode\hypertarget{ref-Simtest}{}%
 Fialkowski, A. C. (2018). \emph{SimMultiCorrData: Simulation of correlated data with multiple variable types}. Retrieved from \url{https://CRAN.R-project.org/package=SimMultiCorrData}
 
@@ -856,6 +1812,21 @@ Fitzmaurice, G. M., Laird, N. M., \& Ware, J. H. (2011). \emph{Applied longitudi
 
 \leavevmode\hypertarget{ref-harris_national_2022}{}%
 Harris, K. M., \& Udry, J. R. (2022). National longitudinal study of adolescent to adult health (add health), 1994-2018 {[}public use{]}. Carolina Population Center, University of North Carolina-Chapel Hill {[}distributor{]}, Inter-university Consortium for Political; Social Research {[}distributor{]}. \url{http://doi.org/10.3886/ICPSR21600.v24}
+
+\leavevmode\hypertarget{ref-horner_age_1987}{}%
+Horner, R. D. (1987). Age At Onset Of Alzheimer'S Disease: Clue To The Relative Importance Of Etiologic Factors?1. \emph{American Journal of Epidemiology}, \emph{126}(3), 409--414. \url{http://doi.org/10.1093/oxfordjournals.aje.a114672}
+
+\leavevmode\hypertarget{ref-hrong-tai_fai_approximate_1996}{}%
+Hrong-Tai Fai, A., \& Cornelius, P. L. (1996). Approximate f-tests of multiple degree of freedom hypotheses in generalized least squares analyses of unbalanced split-plot experiments. \emph{Journal of Statistical Computation and Simulation}, \emph{54}(4), 363--378. \url{http://doi.org/10.1080/00949659608811740}
+
+\leavevmode\hypertarget{ref-kenward_small_1997}{}%
+Kenward, M. G., \& Roger, J. H. (1997). Small sample inference for fixed effects from restricted maximum likelihood. \emph{Biometrics}, \emph{53}(3), 983. \url{http://doi.org/10.2307/2533558}
+
+\leavevmode\hypertarget{ref-limpert_log-normal_2001}{}%
+Limpert, E., Stahel, W. A., \& Abbt, M. (2001). Log-normal distributions across the sciences: Keys and clues: On the charms of statistics, and how mechanical models resembling gambling machines offer a link to a handy way to characterize log-normal distributions, which can provide deeper insight into variability and probability---normal or log-normal: That is the question. \emph{BioScience}, \emph{51}(5), 341--352. \url{http://doi.org/10.1641/0006-3568(2001)051\%5B0341:LNDATS\%5D2.0.CO;2}
+
+\leavevmode\hypertarget{ref-lme_instatistics}{}%
+Linear mixed models. (2007). In \emph{Linear models in statistics} (pp. 479--506). John Wiley \& Sons, Ltd. \url{http://doi.org/https://doi.org/10.1002/9780470192610.ch17}
 
 \leavevmode\hypertarget{ref-luke_evaluating_2017}{}%
 Luke, S. G. (2017). Evaluating significance in linear mixed-effects models in r. \emph{Behavior Research Methods}, \emph{49}(4), 1494--1502. \url{http://doi.org/10.3758/s13428-016-0809-y}
