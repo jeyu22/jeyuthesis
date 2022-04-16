@@ -633,7 +633,7 @@ Comparing performance across all 4 methods has yielded significant evidence that
 
 While in a majority of cases KR is a viable solution when aiming to keep Type I error rates low, it is not necessarily the optimal DF choice in every scenario if the goal is to produce error rates closest to .05.
 
-Tables for all error rates produced by 4 DF methods are located in the appendix \ref{:tables}
+Tables for all error rates produced by 4 DF methods are located in the appendix \ref{pvalue-tables}
 
 \hypertarget{discussion}{%
 \section{Discussion}\label{discussion}}
@@ -672,7 +672,7 @@ At the first wave of the study in 1994, children were asked whether they had con
 From this histogram depicting distribution of BMI, we can see that it follows a nonnormal trend. The skewness is .95 and the kurtosis is 3.39.
 \begin{figure}
 
-{\centering \includegraphics[width=0.48\linewidth]{Jessica-Yu_StatThesis_files/figure-latex/intercept-1} 
+{\centering \includegraphics{Jessica-Yu_StatThesis_files/figure-latex/intercept-1} 
 
 }
 
@@ -796,6 +796,39 @@ wave & -0.060 & 0.862 & -0.069 & 26.70 & 0.945\\
 \hline
 \end{tabular}
 \end{table}
+\begin{verbatim}
+   ANOVA-like table for random-effects: Single term deletions
+   
+   Model:
+   bmi ~ alcohol + real_age + wave + (1 + wave | AID)
+                            npar logLik AIC  LRT Df Pr(>Chisq)
+   <none>                      8  -80.5 177                   
+   wave in (1 + wave | AID)    6  -81.7 175 2.35  2       0.31
+\end{verbatim}
+\begin{verbatim}
+   Single term deletions using Satterthwaite's method:
+   
+   Model:
+   bmi ~ alcohol + real_age + wave + (1 + wave | AID)
+            Sum Sq Mean Sq NumDF DenDF F value Pr(>F)  
+   alcohol   12.22   12.22     1  9.96    5.20  0.046 *
+   real_age   9.81    9.81     1 16.73    4.17  0.057 .
+   wave       0.01    0.01     1 26.96    0.01  0.942  
+   ---
+   Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+\begin{verbatim}
+   Data: child_data
+   Models:
+   intercept_model: bmi ~ 1 + alcohol + age_at_start + (1 | AID) + wave
+   intercept_slope_model: bmi ~ alcohol + real_age + wave + (1 + wave | AID)
+                         npar AIC BIC logLik deviance Chisq Df
+   intercept_model          6 176 186  -82.1      164         
+   intercept_slope_model    8 177 190  -80.5      161  3.24  2
+                         Pr(>Chisq)
+   intercept_model                 
+   intercept_slope_model        0.2
+\end{verbatim}
 In this model, we add a random effect of time as well as random intercept. This means that we are assuming that for each individual, the relationship between time and BMI is unique. There are no significant effects when using the KR method. Variability in BMI across individuals is 16.388, and the residual variance is 2.352. The variance for time is 1.324, which represents variability across individual's BMI rates of change. We see that imposing variability between each individual's relationship of time vs BMI reduces some of the residual variance. When we accounted for some of the variation through each individual's weight changes over time, time as a predictor was no longer significant as it was in the random intercepts only model.
 \begin{center}\includegraphics[width=0.49\linewidth]{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-7-1} \end{center}
 \begin{center}\includegraphics[width=0.49\linewidth]{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-7-2} \end{center}
@@ -1202,6 +1235,11 @@ This first appendix includes all of the R chunks of code that were hidden throug
 \NormalTok{KR_s }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Fixed Effects for Random Slope Model Using KR"}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{kable_classic}\NormalTok{(}\DataTypeTok{full_width =}\NormalTok{ F) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options =} \StringTok{"HOLD_position"}\NormalTok{)}
+
+\KeywordTok{ranova}\NormalTok{(intercept_slope_model)}
+\KeywordTok{drop1}\NormalTok{(intercept_slope_model)}
+
+\KeywordTok{anova}\NormalTok{(intercept_model, intercept_slope_model, }\DataTypeTok{refit =}\NormalTok{ F)}
 \KeywordTok{qqnorm}\NormalTok{(}\KeywordTok{residuals}\NormalTok{(intercept_slope_model))}
 \KeywordTok{qqline}\NormalTok{(}\KeywordTok{residuals}\NormalTok{(intercept_slope_model), }\DataTypeTok{col =} \DecValTok{2}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{, }\DataTypeTok{lty =} \DecValTok{2}\NormalTok{)}
 \KeywordTok{plot}\NormalTok{(intercept_slope_model)}

@@ -451,7 +451,7 @@ all_sim_sum %>%
   landscape()
 ```
 
-Tables for all error rates produced by 4 DF methods are located in the appendix \@ref(:tables)
+Tables for all error rates produced by 4 DF methods are located in Appendix \@ref(pvalue-tables)
 
 ## Discussion
 
