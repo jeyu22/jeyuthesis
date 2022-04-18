@@ -140,7 +140,7 @@ Linear mixed-effects models are widely used in social and biological sciences, a
 }
 
 \Acknowledgments{
-I would like to thank the Amherst statistics department for their continuous support during my undergraduate career. I especially want to thank Professor Horton, whose encouragement and constant enthusiasm inspired me to pursue statistics. Additionally, this thesis would not be possible without the guidance of Professor Bailey, who has helped me through this challenging process and allowed me to learn about myself as a researcher. I also want to shout out my SDS partner-in-crime, Kenny Chen. There's no one else I'd rather do group projects with. Thank you to my wonderful friends Maya, Clara, Reylyn, Mina, Libby, and Umaimah for always being by my side and making my college experience so much better. Lastly, I want to thank my family for the sacrifices they've made so I can pursue my passions. They've instilled a love of learning in me that I will have for the rest of my life.
+I would like to thank the Amherst statistics department for their continuous support during my undergraduate career. I especially want to thank Professor Horton, whose encouragement and constant enthusiasm inspired me to pursue statistics. Additionally, this thesis would not be possible without the guidance of Professor Bailey, who has helped me through this challenging process and allowed me to learn about myself as a researcher. I also want to shout out my SDS partner-in-crime, Kenny. There's no one else I'd rather do group projects with. Thank you to my wonderful friends Maya, Clara, Reylyn, Mina, Libby, and Umaimah for always being by my side and making my college experience so much better. Lastly, I want to thank my family for the sacrifices they've made so I can pursue my passions. They've instilled a love of learning in me that I will have for the rest of my life.
 }
 
 \Dedication{
@@ -265,7 +265,7 @@ I would like to thank the Amherst statistics department for their continuous sup
     Linear mixed-effects models are widely used in social and biological sciences, and are also used for longitudinal data analysis. In cases where sample sizes are small, evaluating the significance of fixed effects becomes challenging, and Type I error rates across different degrees-of-freedom (DF) methods vary. While previous studies have shown that Kenward-Roger and Satterthwaite DF produce robust Type I error rates for smaller samples, the performance of these methods on small nonnormal distributions has not been explored. Through a simulation study, we show that model complexity, sample size, and number of measurements play a role in the performance of 4 DF methods across distributions of varying skewness and kurtosis. Additionally, we find that Kenward-Roger and Satterthwaite DF methods produce favorable Type I error rates in comparison to DF methods designed for larger sample sizes.
   \end{abstract}
   \begin{acknowledgments}
-    I would like to thank the Amherst statistics department for their continuous support during my undergraduate career. I especially want to thank Professor Horton, whose encouragement and constant enthusiasm inspired me to pursue statistics. Additionally, this thesis would not be possible without the guidance of Professor Bailey, who has helped me through this challenging process and allowed me to learn about myself as a researcher. I also want to shout out my SDS partner-in-crime, Kenny Chen. There's no one else I'd rather do group projects with. Thank you to my wonderful friends Maya, Clara, Reylyn, Mina, Libby, and Umaimah for always being by my side and making my college experience so much better. Lastly, I want to thank my family for the sacrifices they've made so I can pursue my passions. They've instilled a love of learning in me that I will have for the rest of my life.
+    I would like to thank the Amherst statistics department for their continuous support during my undergraduate career. I especially want to thank Professor Horton, whose encouragement and constant enthusiasm inspired me to pursue statistics. Additionally, this thesis would not be possible without the guidance of Professor Bailey, who has helped me through this challenging process and allowed me to learn about myself as a researcher. I also want to shout out my SDS partner-in-crime, Kenny. There's no one else I'd rather do group projects with. Thank you to my wonderful friends Maya, Clara, Reylyn, Mina, Libby, and Umaimah for always being by my side and making my college experience so much better. Lastly, I want to thank my family for the sacrifices they've made so I can pursue my passions. They've instilled a love of learning in me that I will have for the rest of my life.
   \end{acknowledgments}
 
   \hypersetup{linkcolor=black}
@@ -451,7 +451,7 @@ In chapter 1, we outlined the basics of analyzing longitudinal data and introduc
 In statistical inference, the goal is to make conclusions about the underlying characteristics of a set of data and establish a relationship between certain variables. Hypothesis testing is one of the primary examples of inference, and is carried out in order to assess the true value of a population parameter. In linear models, the significance of a slope parameter, \(\beta_k\), is often assessed, where the null hypothesis, \(H_0\) is \(\beta_k = 0,\) and the alternative hypothesis \(H_a\) is \(\beta_k \neq 0.\) A test of the null hypothesis involves using a Wald statistic in the form \[ Z = \frac{\hat\beta_k}{\sqrt{\widehat{Var(\hat\beta_k)}}},\] which is then compared to the normal distribution, and a subsequent p-value is obtained.
 
 Building on foundations of a general linear hypothesis test, given a matrix \(L\) of size \(q \times p,\) where \(q\) represents the number of estimable functions of \(\beta,\) \[(L\hat\beta-L\beta)'[L(X'\widehat {Cov}(\hat\beta)X)^-L']^{-1}(L\hat\beta-L\beta)
-\] is approximately \(\chi^2(q)\) (``Linear mixed models,'' 2007). For a null hypothesis \(H_0: L\beta = 0,\) the test statistic \(G\) is \[(L\hat\beta)'[L(X'\widehat {Cov}(\hat\beta)X)^-L']^{-1}(L\hat\beta).\]
+\] is approximately \(\chi^2(q)\) (Rencher \& Schaalje, 2007). For a null hypothesis \(H_0: L\beta = 0,\) the test statistic \(G\) is \[(L\hat\beta)'[L(X'\widehat {Cov}(\hat\beta)X)^-L']^{-1}(L\hat\beta).\]
 
 Likelihood ratio tests are another method to make inferences about \(\beta\). While there are benefits to using the likelihood ratio test, the rest of this study will focus on method of using the Wald statistic.
 
@@ -469,18 +469,15 @@ Both Satterthwaite and KR are proposed methods of reductions to the DDF when con
 \hypertarget{satterthwaite}{%
 \section{Satterthwaite}\label{satterthwaite}}
 
-Sattherthwaite approximation was developed by Hrong-Tai Fai \& Cornelius (1996), with the F statistic following the form:
+Sattherthwaite approximation was developed by Hrong-Tai Fai \& Cornelius (1996) to develop a test for \(H_0:L\beta = 0\) by obtaining the approximate small-sample distribution of \[F = \frac{(L\hat\beta-L\beta)^{'}[L(X' \widehat{\text{Cov}(\hat\beta)}X)^-L']^{-1}(L\hat\beta-L\beta)}{g}.\] We assume that \(F\) approximately follows a F distribution with numerator degrees of freedom \(g,\) and unknown denominator degrees of freedom \(v.\) For the denominator degrees of freedom we perform spectral decomposition on \(L'\widehat {\text{Cov}}(\hat\beta) L=P'DP,\) where \(D\) is a diagonal matrix of eigenvalues and \(P\) is an orthogonal matrix of eigenvectors of \([L(X' \text{Cov}(\hat\beta)X)^-L']^{-1}\) (Rencher \& Schaalje, 2007). After performing spectral decomposition, \(G = gF\) is written as \[G = \sum_{i=1}^{g}\frac{(p'_iL\hat\beta)^2}{\lambda_i} = \sum_{i=1}^{g}t_i^2,\] where \(G\) is the sum of \(g\) independent squared \(t\)-variables with degrees of freedom \(v_i.\) \(V_i\)'s are computed using the small-sample test of \(H_0: c'\beta=0,\) assuming that \[ t = \frac{c'\hat\beta}{\sqrt{c'X'\widehat{\text{Cov}(\hat\beta)}}}\] follows a \(t\) distribution with unknown degrees of freedom \(d\) (Giesbrecht \& Burns, 1985). \(d\) is approximated by \[\frac{2[c'(X'\text{Cov}(\hat\beta)X)^-c]^2))}{\text{var}[c'(X'\text{Cov}(\hat\beta)X)^-)c]}.\] Rencher \& Schaalje (2007) posit that a squared t-distributed random variable with \(v_i\) degrees of freedom is an F-distributed variable with 1 and \(v_i\) degrees of freedom, so that \[E(G) = E(\sum_{i=1}^{g}t_i^2) = \sum_{i=1}^{g} \frac{v_i}{v_i-2}.\] In order to find \(v,\) the Satterthwaite denominator degrees of freedom, we use \(F = g^{-1}G,\) which is distributed as \(F_{g,v},\) and knowing that \(E(F) = \frac{1}{g}\) and \(E(G) = \frac{v}{v-2},\) \[v = \frac{2E(G)}{E(G)-g} = 2(\sum_{i=1}^{g}\frac{v_i}{v_i-2})/[(\sum_{i=1}^{g}\frac{v_i}{v_i-2})-g].\]
 
-\[F = \frac{1}{l}\hat\beta'L'(L\widehat {\text{Cov}}(\hat\beta) L')^{-1}L\hat\beta.\] For the denominator degrees of freedom we perform spectral decomposition on \(L'\widehat {\text{Cov}}(\hat\beta) L=P'DP,\) where \(D\) is a diagonal matrix of eigenvalues and \(P\) is an orthogonal matrix of eigenvectors. When \(r\) represents the \(r^{th}\) row of \(P'L\), we have \(v_r = \frac{2(d_r)^2}{g'_rWg_r},\) where \(g_r\) is a gradient vector, \(d_r\) is the \(r^{th}\) diagonal element of D, and \(W\) is the covariance matrix of \(\hat\sigma^2.\) The denominator degrees of freedom is calculated by:
-\[\frac{2E}{E-l},\] where \(E = \sum_{r = 1}^{l} \frac{v_r}{v_r-2}I(v_r>2)\) if \(E >l,\) otherwise \(DF = 1.\)
-
-When \(l =1\) the KR and Satterthwaite approximation will produce the same denominator degrees of freedom. However, since the statistic used for the two methods are not the same, the results for inference will not be the same. It is important to note that both methods are only valid when using REML.
+When \(L =1\) the KR and Satterthwaite approximation will produce the same denominator degrees of freedom. However, since the statistic used for the two methods are not the same, the results for inference will not be the same. It is important to note that both methods are only valid when using REML.
 
 \hypertarget{kenward-roger}{%
 \section{Kenward-Roger}\label{kenward-roger}}
 
 In Kenward \& Roger (1997), a Wald statistic is proposed in the form of:
-\[F = 1/l(\hat\beta-\beta)^TL(L^T\hat\Phi_A L)^{-1}L^T(\hat\beta-\beta),\] where \(l\) represents the number of linear combinations of the elements in \(\beta,\) \(L\) is a fixed matrix, and \(\hat\Phi_A\) is the adjusted estimator for the covariance matrix of \(\hat\beta\). As mentioned previously, \(\widehat {\text{Cov}}(\hat\beta)\) is a biased estimator of \(\text{Cov}(\hat\beta)\) when samples are small, and underestimates. This adjusted estimator is broken down into \(\hat\Phi_A = \widehat {\text {Cov}}(\hat\beta) + 2\hat\Lambda\), where \(\hat\Lambda\) accounts for the amount of variation that was underestimated by the original estimator of covariance of \(\hat\beta\). The value \(\Lambda\) is approximated using a Taylor series expansion around \(\sigma,\) to be \[\Lambda\text{Cov}(\hat\beta)[\sum_{i=1}^{r}\sum_{j=1}^{r}W_{ij}(Q_{ij}-P_i\text{Cov}(\hat\beta)P_j)]\text{Cov}(\hat\beta),\] where
+\[F = 1/l(\hat\beta-\beta)^TL(L^T\hat\Phi_A L)^{-1}L^T(\hat\beta-\beta),\] where \(l\) represents the number of linear combinations of the elements in \(\beta,\) \(L\) is a fixed matrix, and \(\hat\Phi_A\) is the adjusted estimator for the covariance matrix of \(\hat\beta\). As mentioned previously, \(\widehat {\text{Cov}}(\hat\beta)\) is a biased estimator of \(\text{Cov}(\hat\beta)\) when samples are small, and underestimates. This adjusted estimator is broken down into \(\hat\Phi_A = \widehat {\text {Cov}}(\hat\beta) + 2\hat\Lambda\), where \(\hat\Lambda\) accounts for the amount of variation that was underestimated by the original estimator of covariance of \(\hat\beta\). The value \(\Lambda\) is approximated using a Taylor series expansion around \(\sigma,\) to be \[\Lambda =\text{Cov}(\hat\beta)[\sum_{i=1}^{r}\sum_{j=1}^{r}W_{ij}(Q_{ij}-P_i\text{Cov}(\hat\beta)P_j)]\text{Cov}(\hat\beta),\] where
 \(P_i = X^T\frac{\partial\Sigma^{-1}}{\partial\sigma_i}X\)
 \(Q_{ij} = X^T \frac{\partial\Sigma^{-1}}{\partial\sigma_i}\Sigma\frac{\partial\Sigma^{-1}}{\partial\sigma_j}X,\) and \(W_{ij}\) is the \((i,j)\)th element of \(\text W = V[\hat\sigma].\)
 
@@ -492,7 +489,7 @@ This Wald statistic that uses the adjusted estimator is scaled in the form: \[F^
 \hypertarget{other-methods}{%
 \section{Other Methods}\label{other-methods}}
 
-\emph{Residual DDF:} The DDF is calculated as \(N-rank[X],\) where N is the total number of individuals in the dataset. This method is only suitable for data that are independent and identically distributed, so it is not typically used in linear mixed models.
+\emph{Residual DDF:} The DDF is calculated as \(N-rank[X],\) where N is the total number of individuals in the dataset. This method is only suitable for data that are independent and identically distributed, so it is not typically used in linear mixed models (Huang, 2020).
 
 \emph{Containment Method}
 In the containment method, random effects that contain the fixed effect of interest are isolated. The smallest rank contribution to the \([X Z]\) matrix among these random effects becomes the DDF. If there are no effects found, then the DDF is equal to the residual DDF.
@@ -633,19 +630,23 @@ Comparing performance across all 4 methods has yielded significant evidence that
 
 While in a majority of cases KR is a viable solution when aiming to keep Type I error rates low, it is not necessarily the optimal DF choice in every scenario if the goal is to produce error rates closest to .05.
 
-Tables for all error rates produced by 4 DF methods are located in the appendix \ref{pvalue-tables}
+Tables for all error rates produced by 4 DF methods are located in Appendix \ref{pvalue-tables}
 
 \hypertarget{discussion}{%
 \section{Discussion}\label{discussion}}
 
 After comparing the error rates produced by DF methods across three distributions, three sample sizes, and two numbers of measurements and complexity of models totaling to 96 unique conditions, we find that overall, KR and Satterthwaite DF methods yield the most robust error rates when constructing LMM with small sample sizes. In addition, random slope models are significantly more complicated in terms of using DF methods to produce robust error rates, and also challenge the superiority of the KR method over the Satterthwaite method when looking at robustness of Type I errors of random slope models of smaller sample sizes.
 
-This stark contrast in performance between random slope and random intercept models across all distributions requires further investigation. Barr, Levy, Scheepers, \& Tily (2013) suggest that LMM with maximal effects are preferable and can reduce Type I error rates, as random slope models can account for between individual variation in slopes and reduce residual variance. However, in their study the distribution of the variable of interest is normal, and random effects were generated from a bivariate normal distribution. In this simulation, random effects for the intercept and time were drawn from two nonnormal distributions which can further complicate the distribution of the outcome variable and complicate the fit of the model.
+This stark contrast in performance between random slope and random intercept models across all distributions requires further investigation. Barr, Levy, Scheepers, \& Tily (2013) suggest that linear mixed models with maximal effects (each predictor having its own random effect) are preferable and can reduce Type I error rates, as random slope models can account for between individual variation in slopes and reduce residual variance. However, in their study the distribution of the variable of interest is normal, and random effects were generated from a bivariate normal distribution. In this simulation, random effects for the intercept and time were drawn from two nonnormal distributions which can further complicate the distribution of the outcome variable and complicate the fit of the model.
 
-When comparing and constrasting performance of Satterthwaite and KR methods, which have both been demonstrated to be suitable options for producing robust Type I error, it seems that complexity of the model as well as sample size are two parameters that can differentiate their performance. In random intercept models, performance between the two methods are identical. In random slope models, KR is more conservative, and in a few conditions where the sample size is less than 26, it is too conservative in comparison to Satterthwaite. Given that KR is a further adjustment to Satterthwaite, its more conservative performance is not surprising; however, when evaluating fixed effects, conservative Type I error rates are preferable to anti-conservative rates. Thus, we prefer KR as the DF approximation in small and nonnormally distributed samples.
+When comparing and contrasting performance of Satterthwaite and KR methods, which have both been demonstrated to be suitable options for producing robust Type I error, it seems that complexity of the model as well as sample size are two parameters that can differentiate their performance. In random intercept models, performance between the two methods are identical. In random slope models, KR is more conservative, and in a few conditions where the sample size is less than 26, it is too conservative in comparison to Satterthwaite. Given that KR is a further adjustment to Satterthwaite, its more conservative performance is not surprising; however, when evaluating fixed effects, conservative Type I error rates are preferable to anti-conservative rates. Thus, we prefer KR as the DF approximation in small and nonnormally distributed samples.
 In terms of sample size and number of measurements, it appears that increasing the number of measurements increases the proportion of DF methods that produce robust Type I error rates in most conditions. Difference in DF method performance across measurement numbers is most evident in random slope models with samples of size 26. On the other hand, increasing sample size is not strongly associated with increased robustness of Type I error rates produced by DF methods. Increasing from sample size from 10 to 18 produces inconclusive patterns: sometimes DF methods produce even more anti-conservative error rates, and in other cases there is virtually no difference. In most cases, sample size of 26 is the most ideal for robustness, but in some nonnormal distributions robustness can only be achieved by also having more repeated measurements. It is plausible that the differences between a sample size of 10 and 18 are insignificant because both are too small in terms of a ``large-enough'' sample of size 30, so the DF methods are not impacted by this increase in sample. Models of sample size 26 may be ideal in some circumstances mainly because of its proximity to being considered sufficiently large enough.
 
-While previous studies comparing DF methods focus primarily on normal distributions, the results from this study demonstrate that applying DF methods to LMM with nonnormal distributions and small sample sizes can still produce robust Type I error rates. However, careful consideration of the complexity of the model, number of measurements and individuals, as well as the skewness and kurtosis of the data must be considered, as they each have an effect on the DF method not only individually, but when interacting with other parameters as well. Overall, these results also indicate that Type I error rates are closest to .05 when employing Kenward-Roger and Satterthwaite methods.
+After conducting our simulation study, we recommend KR and Satterthwaite DF methods when working with smaller sample sizes. However, there are other considerations and alternatives that have not been discussed. Similar to what has been discussed in Luke (2017), this exploration of performance of DF methods does not include analysis of power. While the authors of that study initially found that KR and Satterthwaite approximations yielded inferior power compared to other DF methods, after adjusting for Type I error, corrected power of KR and Satterthwaite methods were comparable. Additionally, there appears to be a relationship between sample size, number of measurements, and power, that could be further studied. Given that the sample sizes are small, caution is needed when interpreting results; furthermore, when attempting to generalize those results to this simulation, we must acknowledge that the effects of skewness and kurtosis on power in linear models are unknown.
+
+Although this project focuses on evaluating significance of fixed effects using DF approximation, it would be remiss to not mention other possible methods that do not make assumptions about the degrees of freedom. Parametric bootstrapping involves taking repeated measures and computing an alternative LR test statistic. Luke (2017) found that it produced p-values with better Type I error rates than using LRT or \(t\)-as-\(z\) DF method, although it was sensitive to changes in sample size. The parametric bootstrap approach is worth exploring for small and nonnormal data, as Ye, Xu, Luo, \& Jiang (2019) found adequate Type I error rates even when random effects were skew-normal.The downside of parametric bootstrapping is that it is a computationally complex procedure (Luke, 2017), so DF approximation methods are a more feasible option. Future studies should explore the performance of a variety of methods involving and not involving DF approximation in nonnormal distributions.
+
+In summary, while previous studies comparing DF methods focus primarily on normal distributions, the results from this study demonstrate that applying DF methods to LMM with nonnormal distributions and small sample sizes can still produce robust Type I error rates. However, careful consideration of the complexity of the model, number of measurements and individuals, as well as the skewness and kurtosis of the data must be considered, as they each have an effect on the DF method not only individually, but when interacting with other parameters as well. Overall, these results also indicate that Type I error rates are closest to .05 when employing Kenward-Roger and Satterthwaite methods.
 
 \hypertarget{math-sci}{%
 \chapter{Application}\label{math-sci}}
@@ -658,30 +659,29 @@ In this chapter, we will apply linear mixed models to a longitudinal study about
 \hypertarget{background}{%
 \subsection{Background}\label{background}}
 
-The National Longitudinal Study of Adolescent to Adult Health is a longitudinal study spanning 1994 to 2008 that surveyed a U.S sample of students in 7-12th grade in the 1994-95 school year (Harris \& Udry, 2022). Four waves of data were collected, in which the sample during the first wave was aged 13-18. Questions about mental health, socioeconomic status, and family background were collected, as well as physical measurements of height and weight.
+The National Longitudinal Study of Adolescent to Adult Health is a longitudinal study spanning 1994 to 2008 that surveyed 15,000 U.S students in 7-12th grade in the 1994-95 school year (Harris \& Udry, 2022). Four waves of data were collected in 1994, 1996, 2001, and 2008; the sample during the first wave was aged 13-18. Questions about mental health, socioeconomic status, and family background were collected, as well as physical measurements of height and weight.
 
-One question of interest to consider is how salient life experiences that occur during adolescence, such as being exposed to alcohol or being in a physical altercation, may impact changes to one's physical health over time. One way to capture physical health is through BMI, which is shown to follow a skewed nonnormal distribution (Penman \& Johnson, 2006). With this in mind, we can employ methods of degrees of freedom adjustment. While this dataset is large and encompasses approximately 5,000 students, the scope of this application will be narrowed in order to examine the performance of degrees of freedom methods, which are sensitive to sample size.
+One question of interest to consider is how salient life experiences that occur during adolescence, such as being exposed to alcohol or being in a physical altercation, may impact changes to one's physical health over time. One way to capture physical health is through BMI, which tends to follow a right-skewed distribution (Penman \& Johnson, 2006). We can see this in the distribution of children's BMI in figure \ref{fig:intercept}. While this dataset is large and encompasses approximately 5,000 students, the scope of this application will be narrowed in order to examine the performance of degrees of freedom methods, which are sensitive to sample size.
 
 We will be focusing on Chinese female respondents who completed at least three waves of the study, which amounts to a sample size of 12. It is hypothesized that early exposure to substances could potentially affect changes in weight. Previous studies have demonstrated a significant relationship between alcohol consumption and BMI (Pasch, Velazquez, Cance, Moe, \& Lytle, 2012). Thus, our model will use alcohol use as the predictor of BMI.
 At the first wave of the study in 1994, children were asked whether they had consumed alcohol before. This, along with their age at the start of the first wave, will be used to model changes in BMI across three waves.
 
 \hypertarget{exploration}{%
 \subsection{Exploration}\label{exploration}}
-\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-5-1} \end{center}
-
-From this histogram depicting distribution of BMI, we can see that it follows a nonnormal trend. The skewness is .95 and the kurtosis is 3.39.
 \begin{figure}
 
-{\centering \includegraphics{Jessica-Yu_StatThesis_files/figure-latex/intercept-1} 
+{\centering \includegraphics{Jessica-Yu_StatThesis_files/figure-latex/exp-1} 
 
 }
 
-\caption{Changes in BMI by Individual}\label{fig:intercept}
+\caption{Distribution of BMI Across Sample}\label{fig:exp}
 \end{figure}
-Figure \ref{fig:intercept} depicts changes in BMI over time for each individual in the study. The wide variation in BMI values between individuals suggest that including random effects for the intercept would be beneficial. Additionally, different rates of change in BMI across the 3 waves between individuals would suggest that an additional random effect for time is worth exploring.
+From this histogram depicting distribution of BMI, we can see that it follows a nonnormal trend. The skewness is .95 and the kurtosis is 3.39. The skewness and kurtosis values for align most closely with that of the lognormal distribution \(X\sim\mathit{Lognormal}(0,.25)\) used in the simulation study.
+
+Figure \ref{fig:alcohol} depicts changes in BMI over time for each individual in the study. The wide variation in BMI values between individuals suggest that including random effects for the intercept would be beneficial. Additionally, there are slight variations in pattern of change in BMI over time. At least two individuals in the sample have a pattern of BMI change that is noticeably different from the rest. Given that the sample size is small, it may not be necessary to examine implementing random effects for time, but it will be explored briefly.
 \begin{figure}
 
-{\centering \includegraphics[width=0.49\linewidth]{Jessica-Yu_StatThesis_files/figure-latex/alcohol-1} 
+{\centering \includegraphics{Jessica-Yu_StatThesis_files/figure-latex/alcohol-1} 
 
 }
 
@@ -695,173 +695,122 @@ While our sample size is small, our initial exploration of alcohol use suggests 
 \subsection{Linear Mixed Model}\label{linear-mixed-model}}
 
 Because we have repeated measurements of the same individual in this study, a regular linear model would not be appropriate as it assumes independence; implementing this model would inflate Type I error rates.
-\begin{table}
+\begin{table}[H]
 
 \caption{\label{tab:lm}Linear Model Output}
 \centering
-\begin{tabular}[t]{l|r|r|r|r}
-\hline
+\begin{tabular}[t]{lrrrr}
+\toprule
 term & estimate & std.error & statistic & p.value\\
-\hline
-(Intercept) & 9.71 & 4.736 & 2.05 & 0.049\\
-\hline
-alcohol1 & 3.13 & 1.044 & 3.00 & 0.005\\
-\hline
-age\_at\_start & 0.42 & 0.288 & 1.46 & 0.154\\
-\hline
-wave & 1.32 & 0.629 & 2.10 & 0.044\\
-\hline
+\midrule
+(Intercept) & 17.688 & 0.981 & 18.04 & 0.000\\
+alcohol1 & 3.134 & 1.037 & 3.02 & 0.005\\
+age\_at\_start\_scaled & 0.420 & 0.286 & 1.47 & 0.152\\
+time & 0.547 & 0.248 & 2.20 & 0.035\\
+\bottomrule
 \end{tabular}
 \end{table}
 Table \ref{tab:lm} shows the results of implementing a linear model with alcohol, age at first wave, and time as predictors. Alcohol use and time are significant predictors in this model. This will only used as a comparison to the other linear mixed models.
 
 \hypertarget{intercept-only-model}{%
 \subsection{Intercept Only Model}\label{intercept-only-model}}
-
-We would hypothesize that changes in weight may vary less within a person, as opposed to comparing changes in weight across two separate individuals. Thus, we fit an intercept only model, allowing the intercept to vary by individual. Alcohol, age at first wave, and time are the fixed effects.
-\begin{table}
+\begin{table}[H]
 
 \caption{\label{tab:interceptKR}Fixed Effects for Random Intercept Model Using KR}
 \centering
-\begin{tabular}[t]{l|r|r|r|r|r}
-\hline
+\begin{tabular}[t]{lrrrrr}
+\toprule
 term & estimate & std.error & statistic & df & p.value\\
-\hline
-(Intercept) & 9.71 & 7.274 & 1.335 & 9.22 & 0.214\\
-\hline
-alcohol1 & 3.13 & 1.653 & 1.897 & 9.00 & 0.090\\
-\hline
-age\_at\_start & 0.42 & 0.456 & 0.921 & 9.00 & 0.381\\
-\hline
-wave & 1.32 & 0.403 & 3.272 & 23.00 & 0.003\\
-\hline
+\midrule
+(Intercept) & 17.688 & 1.313 & 13.475 & 10.5 & 0.000\\
+alcohol1 & 3.134 & 1.653 & 1.897 & 9.0 & 0.090\\
+age\_at\_start\_scaled & 0.420 & 0.456 & 0.921 & 9.0 & 0.381\\
+time & 0.547 & 0.157 & 3.491 & 23.0 & 0.002\\
+\bottomrule
 \end{tabular}
 \end{table}
-\begin{table}
+\begin{table}[H]
 
 \caption{\label{tab:interceptr}Random Effects for Random Intercept Model Using KR}
 \centering
-\begin{tabular}[t]{l|l|r}
-\hline
+\begin{tabular}[t]{llr}
+\toprule
 group & term & estimate\\
-\hline
-AID & sd\_\_(Intercept) & 2.57\\
-\hline
-Residual & sd\_\_Observation & 1.97\\
-\hline
+\midrule
+AID & sd\_\_(Intercept) & 2.58\\
+Residual & sd\_\_Observation & 1.93\\
+\bottomrule
 \end{tabular}
 \end{table}
-First, we can examine the output of the fixed effects similar to how a regular linear regression model is interpreted. Table \ref{tab:interceptKR} shows that time is the only significant effect. This means that conditional on the random effects, each wave increases the predicted BMI by 1.32. Next, we turn to the random effects output in table \ref{tab:interceptr}. The variance for individuals (represented by \texttt{AID}), which depicts variability across individuals, is 6.626, while the residual variance, representing within-subject variability is 3.895. The significantly larger variance across individuals compared to within individuals suggests that this model is more optimal than a regular linear regression model since differences in variability are apparent. The interclass correlation is .63, which indicates that weight measurements taken of the same individual have slightly higher similarity than those of different individuals.
-\begin{center}\includegraphics[width=0.49\linewidth]{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1} \end{center}
-\begin{center}\includegraphics[width=0.49\linewidth]{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-2} \end{center}
+Table \ref{tab:interceptKR} shows that time is the only significant effect in our model with only a random intercept. There is no significant relationship between early alcohol use and BMI. For individuals that have the same value for the random intercept, each year after the initial wave increases the predicted BMI by .5. In this model, an individual who is 16 years old at the initial wave and hasn't consumed alcohol has a predicted BMI of 17.7. Next, we turn to the random effects output in table \ref{tab:interceptr}. The variance for individuals (represented by \texttt{AID}), which depicts variability across individuals, is 2.6, while the residual variance, representing within-subject variability is 1.9. The significantly larger variance across individuals compared to within individuals suggests that distinguishing different types of variation is useful. The intraclass correlation is .63, which indicates that weight measurements taken of the same individual have slightly higher similarity than those of different individuals.
+\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
-The residuals vs fitted plot indicates no heterogeneity in the residuals, however, the normality assumption of the residuals is not met as seen in the QQ plot. This is to be expected as the random effects are nonnormal. We will proceed with evaluating the fixed effects in order to see how DF methods perform when normal assumptions do not hold.
+When checking to see if the assumptions of the linear mixed model hold, we see that in the QQ plot the normality assumption of the residuals is not met. This is to be expected as the random effects generated are nonnormal, as well as the continuous outcome variable. We will proceed with evaluating the fixed effects in order to see how DF methods perform when normal assumptions do not hold.
 \begin{table}[H]
 
 \caption{\label{tab:compareintercept}Comparison of Fixed Effects P-Values in Random Intercept Model}
 \centering
-\begin{tabular}[t]{l|l|l}
-\hline
+\begin{tabular}[t]{lll}
+\toprule
 term & Satterthwaite\_p.value & KR\_p.value\\
-\hline
-(Intercept) & 0.214028860057237 & 0.214028858602635\\
-\hline
-alcohol1 & 0.0903585620561796 & 0.0903585607408565\\
-\hline
-age\_at\_start & 0.380940524102144 & 0.380940522986174\\
-\hline
-wave & 0.00335031625142439 & 0.00335031627116489\\
-\hline
+\midrule
+(Intercept) & 0.0000000553755002743052 & 0.0000000553754719963339\\
+alcohol1 & 0.0903585631404512 & 0.090358561560752\\
+age\_at\_start\_scaled & 0.380940525477476 & 0.380940524349758\\
+time & 0.0019689955685938 & 0.00196899558572261\\
+\bottomrule
 \end{tabular}
 \end{table}
-The summary output referenced above uses Kenward-Roger DF approximation. Table \ref{tab:compareintercept} compares the summary output comparing Satterthwaite and Kenward-Roger. There is no significant difference between performance of the two DF methods, which aligns with results of our random intercept models from our simulation study
+The summary output referenced above uses Kenward-Roger DF approximation. Table \ref{tab:compareintercept} compares the summary output comparing Satterthwaite and Kenward-Roger. There is no significant difference between performance of the two DF methods, which aligns with results of our random intercept models from our simulation study.
 
 \hypertarget{intercept-and-random-slope}{%
-\subsection{Intercept and random slope}\label{intercept-and-random-slope}}
+\subsection{Intercept and Random Slope}\label{intercept-and-random-slope}}
+
+While we explore the random slope model, it is important to recognize that this model may not be optimal given the sample size. Smaller sample sizes make parameter estimation more complicated; considering that the random slope model is more complex, we turn to the random intercept model as the most parsimonious.
 \begin{table}[H]
 
 \caption{\label{tab:slopekr}Fixed Effects for Random Slope Model Using KR}
 \centering
-\begin{tabular}[t]{l|r|r|r|r|r}
-\hline
+\begin{tabular}[t]{lrrrrr}
+\toprule
 term & estimate & std.error & statistic & df & p.value\\
-\hline
-(Intercept) & 11.644 & 2.881 & 4.041 & 25.71 & 0.000\\
-\hline
-alcohol1 & 3.461 & 1.666 & 2.077 & 9.64 & 0.066\\
-\hline
-real\_age & 0.394 & 0.209 & 1.885 & 16.52 & 0.077\\
-\hline
-wave & -0.060 & 0.862 & -0.069 & 26.70 & 0.945\\
-\hline
+\midrule
+(Intercept) & 17.500 & 1.448 & 12.083 & 11.5 & 0.000\\
+alcohol1 & 3.458 & 1.756 & 1.969 & 9.0 & 0.080\\
+age\_at\_start\_scaled & 0.346 & 0.485 & 0.714 & 9.0 & 0.493\\
+time & 0.547 & 0.193 & 2.835 & 11.0 & 0.016\\
+\bottomrule
 \end{tabular}
 \end{table}
-\begin{verbatim}
-   ANOVA-like table for random-effects: Single term deletions
-   
-   Model:
-   bmi ~ alcohol + real_age + wave + (1 + wave | AID)
-                            npar logLik AIC  LRT Df Pr(>Chisq)
-   <none>                      8  -80.5 177                   
-   wave in (1 + wave | AID)    6  -81.7 175 2.35  2       0.31
-\end{verbatim}
-\begin{verbatim}
-   Single term deletions using Satterthwaite's method:
-   
-   Model:
-   bmi ~ alcohol + real_age + wave + (1 + wave | AID)
-            Sum Sq Mean Sq NumDF DenDF F value Pr(>F)  
-   alcohol   12.22   12.22     1  9.96    5.20  0.046 *
-   real_age   9.81    9.81     1 16.73    4.17  0.057 .
-   wave       0.01    0.01     1 26.96    0.01  0.942  
-   ---
-   Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-\end{verbatim}
-\begin{verbatim}
-   Data: child_data
-   Models:
-   intercept_model: bmi ~ 1 + alcohol + age_at_start + (1 | AID) + wave
-   intercept_slope_model: bmi ~ alcohol + real_age + wave + (1 + wave | AID)
-                         npar AIC BIC logLik deviance Chisq Df
-   intercept_model          6 176 186  -82.1      164         
-   intercept_slope_model    8 177 190  -80.5      161  3.24  2
-                         Pr(>Chisq)
-   intercept_model                 
-   intercept_slope_model        0.2
-\end{verbatim}
-In this model, we add a random effect of time as well as random intercept. This means that we are assuming that for each individual, the relationship between time and BMI is unique. There are no significant effects when using the KR method. Variability in BMI across individuals is 16.388, and the residual variance is 2.352. The variance for time is 1.324, which represents variability across individual's BMI rates of change. We see that imposing variability between each individual's relationship of time vs BMI reduces some of the residual variance. When we accounted for some of the variation through each individual's weight changes over time, time as a predictor was no longer significant as it was in the random intercepts only model.
-\begin{center}\includegraphics[width=0.49\linewidth]{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-7-1} \end{center}
-\begin{center}\includegraphics[width=0.49\linewidth]{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-7-2} \end{center}
+In this model, we add a random effect of time as well as random intercept. This means that we are assuming that for each individual, the relationship between time and BMI is unique. Similar to the random intercept model, there is no significant relationship between early alcohol use and BMI. Variability in BMI across individuals is 11.1, and the residual variance is .3. The variance for time is 1.9, which represents variability across individual's BMI rates of change. We see that imposing variability between each individual's relationship of time vs BMI does not affect the residual variance.
+\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1} \end{center}
 
-Similar to the random intercept model, there is homogeneity in variance of the residuals, but normality is not met. We will proceed to evaluation.
+Similar to the random intercept model, the normality condition is not met. We will proceed to evaluation.
 \begin{table}[H]
 
 \caption{\label{tab:compareslope}Comparison of Fixed Effects P-Values in Random Slope Model}
 \centering
-\begin{tabular}[t]{l|l|l}
-\hline
+\begin{tabular}[t]{lll}
+\toprule
 term & Satterthwaite\_p.value & KR\_p.value\\
-\hline
-(Intercept) & 0.000213283766249562 & 0.000426895805163504\\
-\hline
-alcohol1 & 0.0459153731793183 & 0.0655425035327326\\
-\hline
-real\_age & 0.0572004159149207 & 0.0771903662035183\\
-\hline
-wave & 0.942264459160284 & 0.945433676863754\\
-\hline
+\midrule
+(Intercept) & 0.0000000337151816480186 & 0.000000070232660638338\\
+alcohol1 & 0.0574680061459303 & 0.080466881591359\\
+age\_at\_start\_scaled & 0.45028851358607 & 0.493414746304317\\
+time & 0.0162342701737678 & 0.0162345458909457\\
+\bottomrule
 \end{tabular}
 \end{table}
-Earlier evaluation of fixed effects uses KR DF method, but \ref{tab:compareslope} shows that significance of fixed effects differ when using Satterthwaite versus KR. In the random slope model, alcohol not a significant effect when using KR, but is significant when using Satterthwaite. This difference affects our interpretation of the model and conclusions that are drawn.
+Earlier evaluation of fixed effects uses KR DF method, but \ref{tab:compareslope} shows that significance of fixed effects differ when using Satterthwaite versus KR. In the random slope model, alcohol not a significant effect when using KR, but is significant when using Satterthwaite. This difference affects our interpretation of the model and conclusions that are drawn, and serves to justify why a simulation study comparing KR and Satterthwaite is relevant. By using Satterthwaite method, we could possibly falsely conclude that early alcohol use has an impact on BMI over time, after adjusting for age and person-specific variability in BMI.
 
 \hypertarget{discussion-1}{%
 \section{Discussion}\label{discussion-1}}
 
-We have demonstrated implementing two linear mixed models on a data set that is small and with a nonnormal continuous outcome. Imposing random effects structure to isolate variation between individuals apart from overall variation improved the model and reduced the number of predictors that were significant. One key result was that comparing KR and Sattherthwaite DF methods resulting in varying significant predictors in the random slope model. One additional predictor, alcohol, was a significant fixed effect when using Satterthwaite, the default output summary for \emph{lmerTest}, in comparison to KR. Which method is preferable?
+We have demonstrated implementing two linear mixed models on a data set that is small and with a nonnormal continuous outcome. Imposing random effects structure to appropriately account for the correlation between repeated measures within each person improved the model and reduced the number of predictors that were significant. One key result was that comparing KR and Sattherthwaite DF methods resulting in varying significant predictors in the random slope model. One additional predictor, alcohol, was a significant fixed effect when using Satterthwaite, the default output summary for \textbf{lmerTest}, in comparison to KR. Which DF method is preferable?
 
 Looking at the results from our simulation study, we can identify which condition most closely resembles the children data, and determine if KR or Satterthwaite would produce more robust results. There was no difference in the fixed effects of the random intercept model, so we only focus on the random slopes model. The skewness and kurtosis values for the application data align most closely with that of the lognormal distribution \(X\sim\mathit{Log}(0,.25).\) We will look at the performance of the two DF methods in this distribution, in a random slope model with a sample size of 10 and 4 measurements per individual. In reference to Figure \ref{fig:fig5}, we see that the performance of KR and Satterthwaite are virtually the same. If this is the case, our preference will still be towards KR as it tends to produce slightly less anti-conservative Type I error rates.
 
-Ultimately, our application study supports the idea that linear mixed models can be applied to small samples when using KR or Satterthwaite DF methods. While performance between the two can be equally robust in theory, they can possibly lead to different significant fixed effects and conclusions about data overall.
+Ultimately, our application study supports the idea that linear mixed models can be applied to small samples when using KR or Satterthwaite DF methods. While performance between the two can be equally robust in theory, they can possibly lead to different conclusions with the same fitted model.
 
 \hypertarget{conclusion-1}{%
 \chapter*{Conclusion}\label{conclusion-1}}
@@ -1183,22 +1132,23 @@ This first appendix includes all of the R chunks of code that were hidden throug
 \NormalTok{child_data <-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(here}\OperatorTok{::}\KeywordTok{here}\NormalTok{(}\StringTok{"child_data.Rds"}\NormalTok{))}
 \NormalTok{child_data <-}\StringTok{ }\NormalTok{child_data }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(AID) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{age_at_start =} \KeywordTok{min}\NormalTok{(real_age))}
-\KeywordTok{hist}\NormalTok{(child_data}\OperatorTok{$}\NormalTok{bmi, }\DataTypeTok{main =} \StringTok{"Distribution of BMI Across Sample"}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{"BMI"}\NormalTok{)}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{age_at_start =} \KeywordTok{min}\NormalTok{(real_age)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{time =} \KeywordTok{case_when}\NormalTok{(wave }\OperatorTok{==}\StringTok{ }\DecValTok{1} \OperatorTok{~}\StringTok{ }\DecValTok{0}\NormalTok{, wave }\OperatorTok{==}\StringTok{ }\DecValTok{2} \OperatorTok{~}\StringTok{ }\DecValTok{2}\NormalTok{, wave }\OperatorTok{==}\StringTok{ }\DecValTok{3} \OperatorTok{~}\StringTok{ }\DecValTok{5}\NormalTok{))}
 
-\KeywordTok{ggplot}\NormalTok{(child_data, }\KeywordTok{aes}\NormalTok{(wave, bmi, }\DataTypeTok{color =}\NormalTok{ AID)) }\OperatorTok{+}
-\StringTok{  }\CommentTok{# geom_line(aes(group = AID))  +}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{group =}\NormalTok{ AID))}
+\NormalTok{child_data[,}\StringTok{"age_at_start_scaled"}\NormalTok{] <-}\StringTok{ }\KeywordTok{scale}\NormalTok{(child_data}\OperatorTok{$}\NormalTok{age_at_start, }\DataTypeTok{scale =}\NormalTok{ F)}
+
+\KeywordTok{hist}\NormalTok{(child_data}\OperatorTok{$}\NormalTok{bmi, }\DataTypeTok{xlab =} \StringTok{"BMI"}\NormalTok{, }\DataTypeTok{main =} \StringTok{"BMI Distribution"}\NormalTok{)}
 \KeywordTok{ggplot}\NormalTok{(child_data, }\KeywordTok{aes}\NormalTok{(wave, bmi, }\DataTypeTok{color =}\NormalTok{ alcohol)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{group =}\NormalTok{ AID)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"No"}\NormalTok{, }\StringTok{"Yes"}\NormalTok{), }\DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"blue"}\NormalTok{)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{color =} \StringTok{"Alcohol"}\NormalTok{)}
-\NormalTok{lm.model <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(bmi }\OperatorTok{~}\StringTok{ }\NormalTok{alcohol }\OperatorTok{+}\StringTok{ }\NormalTok{age_at_start }\OperatorTok{+}\StringTok{ }\NormalTok{wave, child_data)}
+\NormalTok{lm.model <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(bmi }\OperatorTok{~}\StringTok{ }\NormalTok{alcohol }\OperatorTok{+}\StringTok{ }\NormalTok{age_at_start_scaled }\OperatorTok{+}\StringTok{ }\NormalTok{time, child_data)}
 \NormalTok{broom}\OperatorTok{::}\KeywordTok{tidy}\NormalTok{(lm.model) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Linear Model Output"}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{kable_classic}\NormalTok{(}\DataTypeTok{full_width =}\NormalTok{ F)}
+\StringTok{  }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Linear Model Output"}\NormalTok{,}\DataTypeTok{booktabs =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{digits =}\DecValTok{3}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kable_classic}\NormalTok{(}\DataTypeTok{full_width =}\NormalTok{ F) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options =} \StringTok{"HOLD_position"}\NormalTok{)}
 \NormalTok{intercept_model <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(}
-\NormalTok{  bmi }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{alcohol }\OperatorTok{+}\StringTok{ }\NormalTok{age_at_start }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{AID) }\OperatorTok{+}\StringTok{ }\NormalTok{wave,}
+\NormalTok{  bmi }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{alcohol }\OperatorTok{+}\StringTok{ }\NormalTok{age_at_start_scaled }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{AID) }\OperatorTok{+}\StringTok{ }\NormalTok{time,}
 \NormalTok{  child_data}
 \NormalTok{)}
 \NormalTok{KR <-}\StringTok{ }\NormalTok{broom.mixed}\OperatorTok{::}\KeywordTok{tidy}\NormalTok{(intercept_model, }\DataTypeTok{ddf =} \StringTok{"Kenward-Roger"}\NormalTok{) }\OperatorTok{%>%}
@@ -1208,21 +1158,27 @@ This first appendix includes all of the R chunks of code that were hidden throug
 \StringTok{  }\KeywordTok{filter}\NormalTok{(effect }\OperatorTok{==}\StringTok{ "fixed"}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{select}\NormalTok{(term, estimate, std.error, statistic, df, p.value)}
 \NormalTok{KR }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Fixed Effects for Random Intercept Model Using KR"}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{kable_classic}\NormalTok{(}\DataTypeTok{full_width =}\NormalTok{ F)}
+\StringTok{  }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Fixed Effects for Random Intercept Model Using KR"}\NormalTok{, }
+      \DataTypeTok{booktabs =}\NormalTok{ T, }\DataTypeTok{digits =} \DecValTok{3}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kable_classic}\NormalTok{(}\DataTypeTok{full_width =}\NormalTok{ F)}\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options =} \StringTok{"HOLD_position"}\NormalTok{)}
 \NormalTok{broom.mixed}\OperatorTok{::}\KeywordTok{tidy}\NormalTok{(intercept_model, }\DataTypeTok{ddf =} \StringTok{"Kenward-Roger"}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{filter}\NormalTok{(effect }\OperatorTok{==}\StringTok{ "ran_pars"}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{select}\NormalTok{(group, term, estimate) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Random Effects for Random Intercept Model Using KR"}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{kable_classic}\NormalTok{(}\DataTypeTok{full_width =}\NormalTok{ F)}
-\KeywordTok{plot}\NormalTok{(intercept_model)}
+\StringTok{  }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Random Effects for Random Intercept Model Using KR"}\NormalTok{,}
+      \DataTypeTok{booktabs =}\NormalTok{ T, }\DataTypeTok{digits =}\DecValTok{3}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kable_classic}\NormalTok{(}\DataTypeTok{full_width =}\NormalTok{ F)}\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options =} \StringTok{"HOLD_position"}\NormalTok{)}
 \KeywordTok{qqnorm}\NormalTok{(}\KeywordTok{residuals}\NormalTok{(intercept_model))}
 \KeywordTok{qqline}\NormalTok{(}\KeywordTok{residuals}\NormalTok{(intercept_model), }\DataTypeTok{col =} \DecValTok{2}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{, }\DataTypeTok{lty =} \DecValTok{2}\NormalTok{)}
-\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{cbind}\NormalTok{(}\DataTypeTok{term =}\NormalTok{ S}\OperatorTok{$}\NormalTok{term, }\DataTypeTok{Satterthwaite_p.value =}\NormalTok{ S}\OperatorTok{$}\NormalTok{p.value, }\DataTypeTok{KR_p.value =}\NormalTok{ KR}\OperatorTok{$}\NormalTok{p.value)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Comparison of Fixed Effects P-Values in Random Intercept Model"}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{kable_classic}\NormalTok{(}\DataTypeTok{full_width =}\NormalTok{ F) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options =} \StringTok{"HOLD_position"}\NormalTok{)}
-\NormalTok{intercept_slope_model <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(bmi }\OperatorTok{~}\StringTok{ }\NormalTok{alcohol }\OperatorTok{+}\StringTok{ }\NormalTok{real_age }\OperatorTok{+}\StringTok{ }\NormalTok{wave }\OperatorTok{+}\StringTok{ }
-\StringTok{                                }\NormalTok{(}\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{wave }\OperatorTok{|}\StringTok{ }\NormalTok{AID), child_data)}
+\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{cbind}\NormalTok{(}\DataTypeTok{term =}\NormalTok{ S}\OperatorTok{$}\NormalTok{term, }\DataTypeTok{Satterthwaite_p.value =}\NormalTok{ S}\OperatorTok{$}\NormalTok{p.value,}
+                 \DataTypeTok{KR_p.value =}\NormalTok{ KR}\OperatorTok{$}\NormalTok{p.value)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Comparison of Fixed Effects P-Values in Random Intercept Model"}\NormalTok{, }
+      \DataTypeTok{booktabs =}\NormalTok{ T, }\DataTypeTok{digits =} \DecValTok{3}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kable_classic}\NormalTok{(}\DataTypeTok{full_width =}\NormalTok{ F) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options =} \StringTok{"HOLD_position"}\NormalTok{)}
+\NormalTok{intercept_slope_model <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(bmi }\OperatorTok{~}\StringTok{ }\NormalTok{alcohol }\OperatorTok{+}\StringTok{ }\NormalTok{age_at_start_scaled }\OperatorTok{+}\StringTok{ }\NormalTok{time }\OperatorTok{+}\StringTok{ }
+\StringTok{                                }\NormalTok{(}\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{time }\OperatorTok{|}\StringTok{ }\NormalTok{AID), child_data)}
 
 \NormalTok{S_s <-}\StringTok{ }\NormalTok{broom.mixed}\OperatorTok{::}\KeywordTok{tidy}\NormalTok{(intercept_slope_model, }\DataTypeTok{ddf =} \StringTok{"Satterthwaite"}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{filter}\NormalTok{(effect }\OperatorTok{==}\StringTok{ "fixed"}\NormalTok{) }\OperatorTok{%>%}
@@ -1233,20 +1189,21 @@ This first appendix includes all of the R chunks of code that were hidden throug
 \StringTok{  }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{select}\NormalTok{(term, estimate, std.error, statistic, df, p.value)}
 
 \NormalTok{KR_s }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Fixed Effects for Random Slope Model Using KR"}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{kable_classic}\NormalTok{(}\DataTypeTok{full_width =}\NormalTok{ F) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options =} \StringTok{"HOLD_position"}\NormalTok{)}
+\StringTok{  }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Fixed Effects for Random Slope Model Using KR"}\NormalTok{, }
+      \DataTypeTok{booktabs =}\NormalTok{ T, }\DataTypeTok{digits =} \DecValTok{3}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kable_classic}\NormalTok{(}\DataTypeTok{full_width =}\NormalTok{ F) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options =} \StringTok{"HOLD_position"}\NormalTok{)}
 
-\KeywordTok{ranova}\NormalTok{(intercept_slope_model)}
-\KeywordTok{drop1}\NormalTok{(intercept_slope_model)}
-
-\KeywordTok{anova}\NormalTok{(intercept_model, intercept_slope_model, }\DataTypeTok{refit =}\NormalTok{ F)}
 \KeywordTok{qqnorm}\NormalTok{(}\KeywordTok{residuals}\NormalTok{(intercept_slope_model))}
 \KeywordTok{qqline}\NormalTok{(}\KeywordTok{residuals}\NormalTok{(intercept_slope_model), }\DataTypeTok{col =} \DecValTok{2}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{, }\DataTypeTok{lty =} \DecValTok{2}\NormalTok{)}
-\KeywordTok{plot}\NormalTok{(intercept_slope_model)}
-\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{cbind}\NormalTok{(}\DataTypeTok{term =}\NormalTok{ S_s}\OperatorTok{$}\NormalTok{term, }\DataTypeTok{Satterthwaite_p.value =}\NormalTok{ S_s}\OperatorTok{$}\NormalTok{p.value, }
-                 \DataTypeTok{KR_p.value =}\NormalTok{ KR_s}\OperatorTok{$}\NormalTok{p.value)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Comparison of Fixed Effects P-Values in Random Slope Model"}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{kable_classic}\NormalTok{(}\DataTypeTok{full_width =}\NormalTok{ F) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options =} \StringTok{"HOLD_position"}\NormalTok{)}
+\NormalTok{tab<-}\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{cbind}\NormalTok{(}\DataTypeTok{term =}\NormalTok{ S_s}\OperatorTok{$}\NormalTok{term, }\DataTypeTok{Satterthwaite_p.value =}\NormalTok{ S_s}\OperatorTok{$}\NormalTok{p.value, }
+                 \DataTypeTok{KR_p.value =}\NormalTok{ KR_s}\OperatorTok{$}\NormalTok{p.value)) }
+
+\NormalTok{tab }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Comparison of Fixed Effects P-Values in Random Slope Model"}\NormalTok{, }
+      \DataTypeTok{booktabs =}\NormalTok{ T, }\DataTypeTok{digits =} \DecValTok{3}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kable_classic}\NormalTok{(}\DataTypeTok{full_width =}\NormalTok{ F) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options =} \StringTok{"HOLD_position"}\NormalTok{)}
 \KeywordTok{library}\NormalTok{(here)}
 \KeywordTok{library}\NormalTok{(tidyverse)}
 \NormalTok{all_sim <-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(}\KeywordTok{here}\NormalTok{(}\StringTok{"SimulationData"}\NormalTok{, }\StringTok{"all_sim.rds"}\NormalTok{))}
@@ -1848,6 +1805,9 @@ Fialkowski, A. C. (2018). \emph{SimMultiCorrData: Simulation of correlated data 
 \leavevmode\hypertarget{ref-fitzmaurice_applied_2011}{}%
 Fitzmaurice, G. M., Laird, N. M., \& Ware, J. H. (2011). \emph{Applied longitudinal analysis} (2nd ed). Hoboken, N.J: Wiley.
 
+\leavevmode\hypertarget{ref-burns1985}{}%
+Giesbrecht, F. G., \& Burns, J. C. (1985). Two-stage analysis based on a mixed model: Large-sample asymptotic theory and small-sample simulation results. \emph{Biometrics}, \emph{41}(2), 477--486. Retrieved from \url{http://www.jstor.org/stable/2530872}
+
 \leavevmode\hypertarget{ref-harris_national_2022}{}%
 Harris, K. M., \& Udry, J. R. (2022). National longitudinal study of adolescent to adult health (add health), 1994-2018 {[}public use{]}. Carolina Population Center, University of North Carolina-Chapel Hill {[}distributor{]}, Inter-university Consortium for Political; Social Research {[}distributor{]}. \url{http://doi.org/10.3886/ICPSR21600.v24}
 
@@ -1857,14 +1817,14 @@ Horner, R. D. (1987). Age At Onset Of Alzheimer'S Disease: Clue To The Relative 
 \leavevmode\hypertarget{ref-hrong-tai_fai_approximate_1996}{}%
 Hrong-Tai Fai, A., \& Cornelius, P. L. (1996). Approximate f-tests of multiple degree of freedom hypotheses in generalized least squares analyses of unbalanced split-plot experiments. \emph{Journal of Statistical Computation and Simulation}, \emph{54}(4), 363--378. \url{http://doi.org/10.1080/00949659608811740}
 
-\leavevmode\hypertarget{ref-kenward_small_1997}{}%
+\leavevmode\hypertarget{ref-huang_comparison_2020}{}%
+Huang, P.-C. (2020, May). \emph{Comparison of denominator degrees of freedom approximations for linear mixed models in small-sample simulations} (PhD thesis). Arizona State University.
+
+\leavevmode\hypertarget{ref-kenward-small-1997}{}%
 Kenward, M. G., \& Roger, J. H. (1997). Small sample inference for fixed effects from restricted maximum likelihood. \emph{Biometrics}, \emph{53}(3), 983. \url{http://doi.org/10.2307/2533558}
 
 \leavevmode\hypertarget{ref-limpert_log-normal_2001}{}%
 Limpert, E., Stahel, W. A., \& Abbt, M. (2001). Log-normal distributions across the sciences: Keys and clues: On the charms of statistics, and how mechanical models resembling gambling machines offer a link to a handy way to characterize log-normal distributions, which can provide deeper insight into variability and probability---normal or log-normal: That is the question. \emph{BioScience}, \emph{51}(5), 341--352. \url{http://doi.org/10.1641/0006-3568(2001)051\%5B0341:LNDATS\%5D2.0.CO;2}
-
-\leavevmode\hypertarget{ref-lme_instatistics}{}%
-Linear mixed models. (2007). In \emph{Linear models in statistics} (pp. 479--506). John Wiley \& Sons, Ltd. \url{http://doi.org/https://doi.org/10.1002/9780470192610.ch17}
 
 \leavevmode\hypertarget{ref-luke_evaluating_2017}{}%
 Luke, S. G. (2017). Evaluating significance in linear mixed-effects models in r. \emph{Behavior Research Methods}, \emph{49}(4), 1494--1502. \url{http://doi.org/10.3758/s13428-016-0809-y}
@@ -1875,8 +1835,14 @@ Pasch, K. E., Velazquez, C. E., Cance, J. D., Moe, S. G., \& Lytle, L. A. (2012)
 \leavevmode\hypertarget{ref-penman_changing_2006}{}%
 Penman, A. D., \& Johnson, W. D. (2006). The changing shape of the body mass index distribution curve in the population: Implications for public health policy to reduce the prevalence of adult obesity. \emph{Preventing Chronic Disease}, \emph{3}(3), A74--A74. Retrieved from \url{https://pubmed.ncbi.nlm.nih.gov/16776875}
 
+\leavevmode\hypertarget{ref-rencher_schaalje_2007}{}%
+Rencher, A. C., \& Schaalje, G. B. (2007). Linear models in statistics. \url{http://doi.org/10.1002/9780470192610}
+
 \leavevmode\hypertarget{ref-schaalje_adequacy_2002}{}%
 Schaalje, G. B., McBride, J. B., \& Fellingham, G. W. (2002). Adequacy of approximations to distributions of test statistics in complex mixed linear models. \emph{Journal of Agricultural, Biological, and Environmental Statistics}, \emph{7}(4), 512--524. \url{http://doi.org/10.1198/108571102726}
+
+\leavevmode\hypertarget{ref-ye_parametric_2019}{}%
+Ye, R.-d., Xu, L.-j., Luo, K., \& Jiang, L. (2019). A parametric bootstrap approach for one-way classification model with skew-normal random effects. \emph{Applied Mathematics-A Journal of Chinese Universities}, \emph{34}(4), 423--435. \url{http://doi.org/10.1007/s11766-019-3564-x}
 
 \leavevmode\hypertarget{ref-zeng_chinese_2017}{}%
 Zeng, Y., Vaupel, J., Xiao, Z., Liu, Y., \& Zhang, C. (2017). Chinese longitudinal healthy longevity survey (CLHLS), 1998-2014. Inter-university Consortium for Political; Social Research {[}distributor{]}. \url{http://doi.org/10.3886/ICPSR36692.v1}
