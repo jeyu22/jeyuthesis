@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.12)  17 APR 2022 23:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.12)  18 APR 2022 23:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -717,7 +717,7 @@ l.302 A
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [3]
-Underfull \vbox (badness 2495) has occurred while \output is active []
+Underfull \vbox (badness 1917) has occurred while \output is active []
 
 [4]
 Underfull \vbox (badness 3260) has occurred while \output is active []
@@ -755,13 +755,13 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 ]
 Chapter 2.
 [17] [18]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 3482) has occurred while \output is active []
 
 [19]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [20]
-Underfull \vbox (badness 2653) has occurred while \output is active []
+Underfull \vbox (badness 6094) has occurred while \output is active []
 
 [21] [22]
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -772,7 +772,7 @@ LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 5
 (/Users/jessicayu/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-1-1.pdf, id=475, 469.75
+<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-1-1.pdf, id=476, 469.75
 5pt x 325.215pt>
 File: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-1-1.pdf Graphic fi
 le (type pdf)
@@ -787,7 +787,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 7397) has occurred while \output is active []
 
 [27 <./Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-1-1.pdf>]
-<Jessica-Yu_StatThesis_files/figure-latex/fig1-1.pdf, id=492, 578.16pt x 505.89
+<Jessica-Yu_StatThesis_files/figure-latex/fig1-1.pdf, id=493, 578.16pt x 505.89
 pt>
 File: Jessica-Yu_StatThesis_files/figure-latex/fig1-1.pdf Graphic file (type pd
 f)
@@ -807,7 +807,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [29 <./Jessica-Yu_StatThesis_files/figure-latex/fig1-1.pdf>]
-<Jessica-Yu_StatThesis_files/figure-latex/fig2-1.pdf, id=513, 433.62pt x 433.62
+<Jessica-Yu_StatThesis_files/figure-latex/fig2-1.pdf, id=514, 433.62pt x 433.62
 pt>
 File: Jessica-Yu_StatThesis_files/figure-latex/fig2-1.pdf Graphic file (type pd
 f)
@@ -819,7 +819,7 @@ sed on input line 575.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [30] [31 <./Jessica-Yu_StatThesis_files/figure-latex/fig2-1.pdf>]
-<Jessica-Yu_StatThesis_files/figure-latex/fig3-1.pdf, id=533, 433.62pt x 433.62
+<Jessica-Yu_StatThesis_files/figure-latex/fig3-1.pdf, id=534, 433.62pt x 433.62
 pt>
 File: Jessica-Yu_StatThesis_files/figure-latex/fig3-1.pdf Graphic file (type pd
 f)
@@ -834,7 +834,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [34]
-<Jessica-Yu_StatThesis_files/figure-latex/fig4-1.pdf, id=557, 433.62pt x 433.62
+<Jessica-Yu_StatThesis_files/figure-latex/fig4-1.pdf, id=558, 433.62pt x 433.62
 pt>
 File: Jessica-Yu_StatThesis_files/figure-latex/fig4-1.pdf Graphic file (type pd
 f)
@@ -843,7 +843,7 @@ Package pdftex.def Info: Jessica-Yu_StatThesis_files/figure-latex/fig4-1.pdf  u
 sed on input line 609.
 (pdftex.def)             Requested size: 433.61894pt x 433.61894pt.
 [35 <./Jessica-Yu_StatThesis_files/figure-latex/fig4-1.pdf>]
-<Jessica-Yu_StatThesis_files/figure-latex/fig5-1.pdf, id=576, 433.62pt x 433.62
+<Jessica-Yu_StatThesis_files/figure-latex/fig5-1.pdf, id=577, 433.62pt x 433.62
 pt>
 File: Jessica-Yu_StatThesis_files/figure-latex/fig5-1.pdf Graphic file (type pd
 f)
@@ -875,16 +875,16 @@ LaTeX Warning: Reference `fig:intercept' on page 43 undefined on input line 664
 Underfull \vbox (badness 3189) has occurred while \output is active []
 
 [43]
-<Jessica-Yu_StatThesis_files/figure-latex/exp-1.pdf, id=626, 259.97125pt x 172.
-645pt>
+<Jessica-Yu_StatThesis_files/figure-latex/exp-1.pdf, id=627, 259.97125pt x 201.
+75375pt>
 File: Jessica-Yu_StatThesis_files/figure-latex/exp-1.pdf Graphic file (type pdf
 )
 <use Jessica-Yu_StatThesis_files/figure-latex/exp-1.pdf>
 Package pdftex.def Info: Jessica-Yu_StatThesis_files/figure-latex/exp-1.pdf  us
 ed on input line 673.
-(pdftex.def)             Requested size: 259.97061pt x 172.64456pt.
+(pdftex.def)             Requested size: 259.97061pt x 201.75325pt.
 [44 <./Jessica-Yu_StatThesis_files/figure-latex/exp-1.pdf>]
-<Jessica-Yu_StatThesis_files/figure-latex/alcohol-1.pdf, id=639, 259.97125pt x 
+<Jessica-Yu_StatThesis_files/figure-latex/alcohol-1.pdf, id=640, 259.97125pt x 
 172.645pt>
 File: Jessica-Yu_StatThesis_files/figure-latex/alcohol-1.pdf Graphic file (type
  pdf)
@@ -892,166 +892,168 @@ File: Jessica-Yu_StatThesis_files/figure-latex/alcohol-1.pdf Graphic file (type
 Package pdftex.def Info: Jessica-Yu_StatThesis_files/figure-latex/alcohol-1.pdf
   used on input line 684.
 (pdftex.def)             Requested size: 259.97061pt x 172.64456pt.
-[45 <./Jessica-Yu_StatThesis_files/figure-latex/alcohol-1.pdf>] [46]
-<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-5-1.pdf, id=659, 259.97
-125pt x 172.645pt>
+[45 <./Jessica-Yu_StatThesis_files/figure-latex/alcohol-1.pdf>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[46] [47]
+<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-5-1.pdf, id=665, 259.97
+125pt x 201.75375pt>
 File: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-5-1.pdf Graphic fi
 le (type pdf)
 <use Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-5-1.pdf>
 Package pdftex.def Info: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk
 -5-1.pdf  used on input line 746.
-(pdftex.def)             Requested size: 259.97061pt x 172.64456pt.
-[47 <./Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-5-1.pdf>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[48]
-<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1.pdf, id=678, 259.97
-125pt x 172.645pt>
+(pdftex.def)             Requested size: 259.97061pt x 201.75325pt.
+[48 <./Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-5-1.pdf>] [49]
+<Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1.pdf, id=684, 259.97
+125pt x 201.75375pt>
 File: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1.pdf Graphic fi
 le (type pdf)
 <use Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1.pdf>
 Package pdftex.def Info: Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk
--6-1.pdf  used on input line 786.
-(pdftex.def)             Requested size: 259.97061pt x 172.64456pt.
-[49 <./Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1.pdf>] [50] [5
-1] [52
+-6-1.pdf  used on input line 801.
+(pdftex.def)             Requested size: 259.97061pt x 201.75325pt.
+[50 <./Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1.pdf>]
+Underfull \vbox (badness 3657) has occurred while \output is active []
 
-] [53] [54
+[51] [52] [53
+
+] [54
 
 ]
 Appendix A.
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 833.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 848.
 LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-836.
+851.
 (/Users/jessicayu/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [55]
-Underfull \vbox (badness 10000) detected at line 1305
+Underfull \vbox (badness 10000) detected at line 1325
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1305
+Underfull \vbox (badness 10000) detected at line 1325
  []
 
 [56]
-Underfull \vbox (badness 10000) detected at line 1305
+Underfull \vbox (badness 10000) detected at line 1325
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1305
+Underfull \vbox (badness 10000) detected at line 1325
  []
 
 [57]
-Underfull \vbox (badness 10000) detected at line 1305
+Underfull \vbox (badness 10000) detected at line 1325
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1305
+Underfull \vbox (badness 10000) detected at line 1325
  []
 
 [58]
-Underfull \vbox (badness 10000) detected at line 1305
+Underfull \vbox (badness 10000) detected at line 1325
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1305
+Underfull \vbox (badness 10000) detected at line 1325
  []
 
 [59]
-Underfull \vbox (badness 10000) detected at line 1305
+Underfull \vbox (badness 10000) detected at line 1325
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1305
+Underfull \vbox (badness 10000) detected at line 1325
  []
 
 [60]
-Underfull \vbox (badness 10000) detected at line 1305
+Underfull \vbox (badness 10000) detected at line 1325
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1305
+Underfull \vbox (badness 10000) detected at line 1325
  []
 
 [61]
-Underfull \vbox (badness 10000) detected at line 1305
+Underfull \vbox (badness 10000) detected at line 1325
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1305
+Underfull \vbox (badness 10000) detected at line 1325
  []
 
 [62]
-Underfull \vbox (badness 10000) detected at line 1305
+Underfull \vbox (badness 10000) detected at line 1325
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1305
+Underfull \vbox (badness 10000) detected at line 1325
  []
 
 [63]
-Underfull \vbox (badness 10000) detected at line 1305
+Underfull \vbox (badness 10000) detected at line 1325
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1305
+Underfull \vbox (badness 10000) detected at line 1325
  []
 
 [64]
-Underfull \vbox (badness 10000) detected at line 1305
+Underfull \vbox (badness 10000) detected at line 1325
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1305
+Underfull \vbox (badness 10000) detected at line 1325
  []
 
 [65] [66]
-Underfull \vbox (badness 10000) detected at line 1585
+Underfull \vbox (badness 10000) detected at line 1605
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1585
+Underfull \vbox (badness 10000) detected at line 1605
  []
 
 [67]
-Underfull \vbox (badness 10000) detected at line 1585
+Underfull \vbox (badness 10000) detected at line 1605
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1585
+Underfull \vbox (badness 10000) detected at line 1605
  []
 
 [68]
-Underfull \vbox (badness 10000) detected at line 1585
+Underfull \vbox (badness 10000) detected at line 1605
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1585
+Underfull \vbox (badness 10000) detected at line 1605
  []
 
 [69]
-Underfull \vbox (badness 10000) detected at line 1585
+Underfull \vbox (badness 10000) detected at line 1605
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1585
+Underfull \vbox (badness 10000) detected at line 1605
  []
 
 [70]
-Underfull \vbox (badness 10000) detected at line 1585
+Underfull \vbox (badness 10000) detected at line 1605
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1585
+Underfull \vbox (badness 10000) detected at line 1605
  []
 
 [71]
-Underfull \vbox (badness 10000) detected at line 1585
+Underfull \vbox (badness 10000) detected at line 1605
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1585
+Underfull \vbox (badness 10000) detected at line 1605
  []
 
 [72] [73] [74
@@ -1071,7 +1073,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [82]
-Underfull \hbox (badness 4995) in paragraph at lines 1826--1828
+Underfull \hbox (badness 4995) in paragraph at lines 1846--1848
  \T1/lmr/m/it/12 51\T1/lmr/m/n/12 (5), 341--352. [][]$\T1/lmtt/m/n/12 http : / 
 / doi . org / 10 . 1641 / 0006 -[] 3568(2001 ) 051 % 5B0341 :
  []
@@ -1084,26 +1086,26 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `Jessica-Yu_StatThesis.out' has not changed.
-(rerunfilecheck)             Checksum: A3CC6D381E155DE4F7A413C3B3D4B97B;8055.
+(rerunfilecheck)             Checksum: 2846BE298E9C7B28755182D7259E4A33;8065.
  )
 (\end occurred inside a group at level 1)
 
 ### semi simple group (level 1) entered at line 255 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 14864 strings out of 480238
- 245468 string characters out of 5894762
- 625002 words of memory out of 5000000
- 32279 multiletter control sequences out of 15000+600000
+ 14866 strings out of 480238
+ 245511 string characters out of 5894762
+ 625617 words of memory out of 5000000
+ 32280 multiletter control sequences out of 15000+600000
  531186 words of font info for 68 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,12n,69p,1995b,665s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,12n,69p,1999b,665s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/Users/jessicayu/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm
 /lm-ts1.enc}{/Users/jessicayu/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-
 ec.enc}{/Users/jessicayu/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.en
 c}{/Users/jessicayu/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc
-}{/Users/jessicayu/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}
-{/Users/jessicayu/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}<
+}{/Users/jessicayu/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}
+{/Users/jessicayu/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}<
 /Users/jessicayu/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></
 Users/jessicayu/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></
 Users/jessicayu/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb></U
@@ -1120,12 +1122,11 @@ brary/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></Users/jessicayu/Libr
 ary/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></Users/jessicayu/Librar
 y/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></Users/jessicayu/Library
 /TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt12.pfb></Users/jessicayu/Library/
-TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb></Users/jessicayu/Library/
-TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Jessica-Yu_StatThesis.pdf (98 pages, 553807 bytes).
+TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
+Output written on Jessica-Yu_StatThesis.pdf (98 pages, 551313 bytes).
 PDF statistics:
- 1049 PDF objects out of 1200 (max. 8388607)
+ 1047 PDF objects out of 1200 (max. 8388607)
  880 compressed objects within 9 object streams
- 227 named destinations out of 1000 (max. 500000)
+ 228 named destinations out of 1000 (max. 500000)
  435 words of extra memory for PDF output out of 10000 (max. 10000000)
 
