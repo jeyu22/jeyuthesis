@@ -410,7 +410,7 @@ Longitudinal analysis is a valuable method to analyze changes over time. It is i
 In subsequent chapters we will dive more deeply into how inference in longitudinal analysis is affected when sample sizes are not sufficient through both simulation and application.
 
 \hypertarget{rmd-basics}{%
-\chapter{Degrees of Freedom Methods and Simulation Study}\label{rmd-basics}}
+\chapter{Estimation and Inference in Linear Mixed Models}\label{rmd-basics}}
 
 In chapter 1, we outlined the basics of analyzing longitudinal data and introduced linear mixed models. Next, we will examine inference of linear mixed models, and how methods such as Kenward-Roger (KR) and Satterthwaite can be used in situations where standard procedures for inference may produce questionable results.
 
@@ -471,15 +471,18 @@ These studies are conducted with data drawn from normal distributions. However, 
 
 Existing research evaluating the performance of methods that reduce Type I error rate in small samples are thorough, however, the differences in simulation setup and structure of data used make generalizations difficult. Although the KR method has been shown as a viable option for analysis of small samples in many occasions, it should continue to evaluated against other methods. To date, there is no literature on the performance of Satterthwaite for nonnormal longitudinal data design. Given the prevalence of nonnormal and small data samples, it is important to continue exploring methods that ensure robust results.
 
+\hypertarget{sim-study}{%
+\chapter{Simulation Study}\label{sim-study}}
+
 \hypertarget{goals-of-this-study}{%
-\section{Goals of This Study:}\label{goals-of-this-study}}
+\section{Goals of This Study}\label{goals-of-this-study}}
 
 In this study, we aim to expand on previous work evaluating how methods for estimating fixed effects perform under different nonnormal distributions, sample sizes, number of measurements, and complexity. The aforementioned studies often use a split-plot design and impose a covariance structure, but the goal of this study will be to compare performance of KR and Satterthwaite methods for repeated measures longitudinal data fitted with a linear mixed effects model, and an unstructured covariance structure imposed by the random effects.
 
 \hypertarget{simulation-set-up}{%
-\section{Simulation Set Up:}\label{simulation-set-up}}
+\section{Simulation Set Up}\label{simulation-set-up}}
 
-The overarching goal is to compare performance of DF methods across various conditions, with a specific goal of looking at scenarios with smaller sample sizes and number of measurements in order to see variability in Type I error rates. There is flexibility in how the parameters are chosen; in order to narrow the scope, we aim to design conditions that are relatively similar to an application data set that will be further explored in Chapter 3. In the following sections, the range of parameters used will be similar to the characteristics of a longitudinal study about children's health.
+The overarching goal is to compare performance of DF methods across various conditions, with a specific goal of looking at scenarios with smaller sample sizes and number of measurements in order to see variability in Type I error rates. There is flexibility in how the parameters are chosen; in order to narrow the scope, we aim to design conditions that are relatively similar to an application data set that will be further explored in Chapter 4. In the following sections, the range of parameters used will be similar to the characteristics of a longitudinal study about children's health.
 
 \hypertarget{generating-data-sample-size}{%
 \subsection{Generating Data: Sample Size}\label{generating-data-sample-size}}
@@ -502,7 +505,7 @@ When simulation data from nonnormal distributions, we use the standard deviation
 
 In the intercept only model, only one non-normal continuous variable is generated for the random effect, so the function \texttt{nonnormvar1()} is used. In order to generate measurement error, we simulate values from a \(t_{ij}\sim\mathit{N}(0,\sqrt{4}\sigma,\) where \(\sigma\) is the standard deviation from each distribution we want explore.
 
-In the case of the linear model that has both random effects for intercept and slope, we want to generate random effects values that are correlated. Using \texttt{SimMultiCorrData::rcorrvar()}, we use a similar process for generating one nonnormal continuous variable, but extend it to generating variables from multivariate normal distribution that take in to account a specified correlation matrix, and are then transformed to be nonnormal. Also, in order to maintain the same ratio of variances to the application data, the variance of the distribution that the slope random effects are generated is equal to \(\frac{1}{8}\sigma^2,\) where \(\sigma^2\) refers to the variance of the distribution that the random effects for the intercept are generated from. On a similar note, we use a correlation value of -.38 to generate the random effects for the intercept and slope, which is based off the correlation observed between the random effects of time and intercept when fitting a random slope model in Chapter 3. For random slope models, the measurement error is simulated for a distribution \(e_{ij}\sim\mathit{N}(0,\sqrt{.168}SD.\)
+In the case of the linear model that has both random effects for intercept and slope, we want to generate random effects values that are correlated. Using \texttt{SimMultiCorrData::rcorrvar()}, we use a similar process for generating one nonnormal continuous variable, but extend it to generating variables from multivariate normal distribution that take in to account a specified correlation matrix, and are then transformed to be nonnormal. Also, in order to maintain the same ratio of variances to the application data, the variance of the distribution that the slope random effects are generated is equal to \(\frac{1}{8}\sigma^2,\) where \(\sigma^2\) refers to the variance of the distribution that the random effects for the intercept are generated from. On a similar note, we use a correlation value of -.38 to generate the random effects for the intercept and slope, which is based off the correlation observed between the random effects of time and intercept when fitting a random slope model in Chapter 4. For random slope models, the measurement error is simulated for a distribution \(e_{ij}\sim\mathit{N}(0,\sqrt{.168}SD.\)
 
 Distributions used are depicted below.
 \begin{center}\includegraphics[width=0.9\linewidth]{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-1-1} \end{center}
@@ -513,9 +516,7 @@ Distributions used are depicted below.
 In a linear mixed effects model, the amount of random effects that will be modeled depends on the research question at hand. Here, we will examine both a random intercepts model, where only the intercept of the model is assumed to have a random effects structure, as well as a random intercept and slope model, where in addition to intercept, the covariate time will also have a random effects structure. The random intercept model can be represented as: \[Y_{ij} = \beta_0 + \beta_1Trt_i + \beta_2Time_{ij} + b_{0j} + e_{ij},\] and the random slope model can be represented as: \[Y_{ij} = \beta_0 + \beta_1Trt_i + \beta_2Time_{ij} + b_{0j} + b_{1i}Time_{ij} + e_{ij}.\]
 
 We use the \emph{lme4} package to fit the linear mixed effects model and \emph{lmerTest} to evaluate random and fixed effects. To evaluate significance of the treatment variable, we compare the performance and resulting p-values from 4 different Wald-type tests: KR, Satterthwaite, standard DF method, and \(t\)-as-\(z\). \(t\)-as-\(z\) and standard DF formula are not adjustments to account for smaller sample sizes, and are used as comparison to Satterthwaite and KR, since they are expected to be anti-conservative. Because the value of the treatment in our model is fixed at 0 in order to identify Type I error, we expect to see that the p-value to not be significant (\(p\) \textgreater{} .05) in an ideal scenario.
-
-\hypertarget{evaluating-and-results}{%
-\section{Evaluating and Results}\label{evaluating-and-results}}
+\#\# Evaluating and Results
 
 After performing 400 replications of each condition at a significance level of .05, we evaluate robustness using Bradley's criterion, which considers a test to robust if the empirical error rate is between .025 and .075 (Bradley, 1978). In the following section, we will compare Type I error rates produced from KR and Satterthwaite methods as well as \(t\)-as-\(z\) and using the standard DF formula, further stratified by distribution and other manipulated parameters.
 \begin{figure}
@@ -616,7 +617,7 @@ In summary, while previous studies comparing DF methods focus primarily on norma
 \chapter{Application}\label{math-sci}}
 
 \hypertarget{application-to-longitudinal-study-about-childrens-health}{%
-\section{Application to Longitudinal Study about Children's Health}\label{application-to-longitudinal-study-about-childrens-health}}
+\section{Application to Longitudinal Study About Children's Health}\label{application-to-longitudinal-study-about-childrens-health}}
 
 In this chapter, we will apply linear mixed models to a longitudinal study about children's health, and explore how inference of fixed effects can possibly change when using various degrees of freedom approximation methods.
 
@@ -653,8 +654,11 @@ Figure \ref{fig:alcohol} depicts changes in BMI over time for each individual in
 \end{figure}
 In a longitudinal study examining youth substance use and body composition, Pasch et al. (2012) found that baseline alcohol use is associated with lower values of BMI at follow-up. The opposite pattern can be seen in Figure \ref{fig:alcohol}. Individuals who had consumed alcohol during the first wave had higher BMI values across all time points. While the data may not be consistent with other research, it highlights the importance of substance use as a potential predictor of BMI.
 
-While our sample size is small, our initial exploration of alcohol use suggests that it may be salient predictor for BMI. In addition, there are unique patterns of BMI change over time by individual, which suggests that creating a mixed effects model with random effects for time and intercept may be useful.\\
-\#\#\# Linear Mixed Model
+While our sample size is small, our initial exploration of alcohol use suggests that it may be salient predictor for BMI. In addition, there are unique patterns of BMI change over time by individual, which suggests that creating a mixed effects model with random effects for time and intercept may be useful.
+
+\hypertarget{linear-mixed-model}{%
+\subsection{Linear Mixed Model}\label{linear-mixed-model}}
+
 Because we have repeated measurements of the same individual in this study, a regular linear model would not be appropriate as it assumes independence; implementing this model would inflate Type I error rates.
 \begin{table}[H]
 
@@ -704,7 +708,7 @@ Residual & sd\_\_Observation & 1.93\\
 \end{tabular}
 \end{table}
 Table \ref{tab:interceptKR} shows that time is the only significant effect in our model with only a random intercept. There is no significant relationship between early alcohol use and BMI. For individuals that have the same value for the random intercept, each year after the initial wave increases the predicted BMI by .5. In this model, an individual who is 16 years old at the initial wave and hasn't consumed alcohol has a predicted BMI of 17.7. Next, we turn to the random effects output in table \ref{tab:interceptr}. The variance for individuals (represented by \texttt{AID}), which depicts variability across individuals, is 6.7, while the residual variance, representing within-subject variability is 3.7. The significantly larger variance across individuals compared to within individuals suggests that distinguishing different types of variation is useful. The intraclass correlation is .64, which indicates that weight measurements taken of the same individual have slightly higher similarity than those of different individuals.
-\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-5-1} \end{center}
+\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 When checking to see if the assumptions of the linear mixed model hold, we see that in the QQ plot the normality assumption of the residuals is not met. This is to be expected as the random effects generated are nonnormal, as well as the continuous outcome variable. We will proceed with evaluating the fixed effects in order to see how DF methods perform when normal assumptions do not hold.
 \begin{table}[H]
@@ -759,7 +763,7 @@ Residual & sd\_\_Observation & 1.401\\
 \end{tabular}
 \end{table}
 In this model, we add a random effect of time as well as random intercept. This means that we are assuming that for each individual, the relationship between time and BMI is unique. Similar to the random intercept model, there is no significant relationship between early alcohol use and BMI. Variability in BMI across individuals is 11.1, and the residual variance is .3 (as shown in table \ref{tab:randefs}. The variance for time is 1.9, which represents variability across individual's BMI rates of change. We see that imposing variability between each individual's relationship of time vs BMI does not affect the residual variance.
-\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-6-1} \end{center}
+\begin{center}\includegraphics{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 Similar to the random intercept model, the normality condition is not met. We will proceed to evaluation.
 \begin{table}[H]
@@ -800,7 +804,7 @@ In this study, we explored how Type I error rates from 4 different DF methods: K
 \chapter{The First Appendix}\label{the-first-appendix}}
 
 \hypertarget{code-from-all-chapters}{%
-\section{Code From All Chapters:}\label{code-from-all-chapters}}
+\section{Code From All Chapters}\label{code-from-all-chapters}}
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# acthesis package loads dpylr, ggplot2, knitr, bookdown, and remotes}
@@ -901,12 +905,17 @@ In this study, we explored how Type I error rates from 4 different DF methods: K
 \NormalTok{  ) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{interval =} \FloatTok{1.96} \OperatorTok{*}\StringTok{ }\NormalTok{(sd }\OperatorTok{/}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{600}\NormalTok{)))}
 
+\NormalTok{label_names <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}
+                    \StringTok{`}\DataTypeTok{FALSE}\StringTok{`}\NormalTok{ =}\StringTok{ "Random Intercept"}\NormalTok{,}
+                    \StringTok{`}\DataTypeTok{TRUE}\StringTok{`}\NormalTok{ =}\StringTok{ "Random Slope"}
+\NormalTok{                    )}
 \KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}
   \DataTypeTok{x =} \KeywordTok{as.factor}\NormalTok{(number_individuals), }\DataTypeTok{y =}\NormalTok{ error_rate, }\DataTypeTok{color =}\NormalTok{ DF_method,}
   \DataTypeTok{ymin =}\NormalTok{ error_rate }\OperatorTok{-}\StringTok{ }\NormalTok{interval, }\DataTypeTok{ymax =}\NormalTok{ error_rate }\OperatorTok{+}\StringTok{ }\NormalTok{interval,}
   \DataTypeTok{group =} \KeywordTok{as.factor}\NormalTok{(number_measurements)}
 \NormalTok{), }\DataTypeTok{data =}\NormalTok{ transformed_data) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(rslope }\OperatorTok{~}\StringTok{ }\NormalTok{type) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(rslope }\OperatorTok{~}\StringTok{ }\NormalTok{type,}
+             \DataTypeTok{labeller =} \KeywordTok{labeller}\NormalTok{(}\DataTypeTok{rslope =} \KeywordTok{as_labeller}\NormalTok{(label_names))) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_pointrange}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{.4}\NormalTok{, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{shape =} \KeywordTok{as.factor}\NormalTok{(number_measurements)), }
                   \DataTypeTok{position =} \KeywordTok{position_jitter}\NormalTok{(}\DataTypeTok{h =} \DecValTok{0}\NormalTok{, }\DataTypeTok{w =} \FloatTok{0.4}\NormalTok{)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_hline}\NormalTok{(}\DataTypeTok{yintercept =} \FloatTok{.05}\NormalTok{) }\OperatorTok{+}
@@ -927,7 +936,8 @@ In this study, we explored how Type I error rates from 4 different DF methods: K
   \DataTypeTok{ymin =}\NormalTok{ error_rate }\OperatorTok{-}\StringTok{ }\NormalTok{interval, }\DataTypeTok{ymax =}\NormalTok{ error_rate }\OperatorTok{+}\StringTok{ }\NormalTok{interval,}
   \DataTypeTok{group =} \KeywordTok{as.factor}\NormalTok{(number_measurements)}
 \NormalTok{), }\DataTypeTok{data =}\NormalTok{ transformed_data }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(distribution }\OperatorTok{==}\StringTok{ "Exponential"}\NormalTok{)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(rslope }\OperatorTok{~}\StringTok{ }\NormalTok{type) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(rslope }\OperatorTok{~}\StringTok{ }\NormalTok{type,}
+             \DataTypeTok{labeller =} \KeywordTok{labeller}\NormalTok{(}\DataTypeTok{rslope =} \KeywordTok{as_labeller}\NormalTok{(label_names))) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_pointrange}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{.4}\NormalTok{, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{shape =} \KeywordTok{as.factor}\NormalTok{(number_measurements)), }
                   \DataTypeTok{position =} \KeywordTok{position_jitter}\NormalTok{(}\DataTypeTok{h =} \DecValTok{0}\NormalTok{, }\DataTypeTok{w =} \FloatTok{0.4}\NormalTok{)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_hline}\NormalTok{(}\DataTypeTok{yintercept =} \FloatTok{.05}\NormalTok{) }\OperatorTok{+}
@@ -948,7 +958,8 @@ In this study, we explored how Type I error rates from 4 different DF methods: K
   \DataTypeTok{ymin =}\NormalTok{ error_rate }\OperatorTok{-}\StringTok{ }\NormalTok{interval, }\DataTypeTok{ymax =}\NormalTok{ error_rate }\OperatorTok{+}\StringTok{ }\NormalTok{interval,}
   \DataTypeTok{group =} \KeywordTok{as.factor}\NormalTok{(number_measurements)}
 \NormalTok{), }\DataTypeTok{data =}\NormalTok{ transformed_data }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(distribution }\OperatorTok{==}\StringTok{ "Lognormal"}\NormalTok{)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(rslope }\OperatorTok{~}\StringTok{ }\NormalTok{type) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(rslope }\OperatorTok{~}\StringTok{ }\NormalTok{type,}
+             \DataTypeTok{labeller =} \KeywordTok{labeller}\NormalTok{(}\DataTypeTok{rslope =} \KeywordTok{as_labeller}\NormalTok{(label_names))) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_pointrange}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{.4}\NormalTok{, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{shape =} \KeywordTok{as.factor}\NormalTok{(number_measurements)), }
                   \DataTypeTok{position =} \KeywordTok{position_jitter}\NormalTok{(}\DataTypeTok{h =} \DecValTok{0}\NormalTok{, }\DataTypeTok{w =} \FloatTok{0.4}\NormalTok{)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_hline}\NormalTok{(}\DataTypeTok{yintercept =} \FloatTok{.05}\NormalTok{) }\OperatorTok{+}
@@ -967,7 +978,8 @@ In this study, we explored how Type I error rates from 4 different DF methods: K
   \DataTypeTok{group =} \KeywordTok{as.factor}\NormalTok{(number_measurements), }\DataTypeTok{ymin =}\NormalTok{ error_rate }\OperatorTok{-}\StringTok{ }\NormalTok{interval, }
   \DataTypeTok{ymax =}\NormalTok{ error_rate }\OperatorTok{+}\StringTok{ }\NormalTok{interval,}
 \NormalTok{), }\DataTypeTok{data =}\NormalTok{ transformed_data }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(distribution }\OperatorTok{==}\StringTok{ "Gaussian"}\NormalTok{)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(rslope }\OperatorTok{~}\StringTok{ }\NormalTok{type) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(rslope }\OperatorTok{~}\StringTok{ }\NormalTok{type,}
+             \DataTypeTok{labeller =} \KeywordTok{labeller}\NormalTok{(}\DataTypeTok{rslope =} \KeywordTok{as_labeller}\NormalTok{(label_names))) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_pointrange}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{.5}\NormalTok{, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{shape =} \KeywordTok{as.factor}\NormalTok{(number_measurements)), }
                   \DataTypeTok{position =} \KeywordTok{position_jitter}\NormalTok{(}\DataTypeTok{h =} \DecValTok{0}\NormalTok{, }\DataTypeTok{w =} \FloatTok{0.3}\NormalTok{)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_hline}\NormalTok{(}\DataTypeTok{yintercept =} \FloatTok{.05}\NormalTok{) }\OperatorTok{+}
@@ -989,7 +1001,8 @@ In this study, we explored how Type I error rates from 4 different DF methods: K
   \DataTypeTok{ymin =}\NormalTok{ error_rate }\OperatorTok{-}\StringTok{ }\NormalTok{interval, }\DataTypeTok{ymax =}\NormalTok{ error_rate }\OperatorTok{+}\StringTok{ }\NormalTok{interval}
 \NormalTok{), }\DataTypeTok{data =}\NormalTok{ transformed_data }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{filter}\NormalTok{(DF_method }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"KR_t1err_1"}\NormalTok{, }\StringTok{"S_t1err_1"}\NormalTok{))) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(rslope }\OperatorTok{~}\StringTok{ }\NormalTok{type) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(rslope }\OperatorTok{~}\StringTok{ }\NormalTok{type,}
+             \DataTypeTok{labeller =} \KeywordTok{labeller}\NormalTok{(}\DataTypeTok{rslope =} \KeywordTok{as_labeller}\NormalTok{(label_names))) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_pointrange}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{.4}\NormalTok{, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{shape =} \KeywordTok{as.factor}\NormalTok{(number_measurements)), }
                   \DataTypeTok{position =} \KeywordTok{position_jitter}\NormalTok{(}\DataTypeTok{h =} \DecValTok{0}\NormalTok{, }\DataTypeTok{w =} \FloatTok{0.1}\NormalTok{)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_hline}\NormalTok{(}\DataTypeTok{yintercept =} \FloatTok{.05}\NormalTok{) }\OperatorTok{+}
@@ -1001,115 +1014,6 @@ In this study, we explored how Type I error rates from 4 different DF methods: K
 \StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Error Rate"}\NormalTok{) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{color =} \StringTok{"DF Method"}\NormalTok{, }\DataTypeTok{shape =} \StringTok{"Number of Measurements"}\NormalTok{) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"bottom"}\NormalTok{, }\DataTypeTok{legend.box =} \StringTok{"vertical"}\NormalTok{)}
-\NormalTok{all_sim_sum }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(KR_term }\OperatorTok{==}\StringTok{ "treatment"}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{pivot_longer}\NormalTok{(}\DataTypeTok{cols =} \KeywordTok{c}\NormalTok{(}\StringTok{"KR_t1err"}\NormalTok{, }\StringTok{"S_t1err"}\NormalTok{, }\StringTok{"Z_t1err"}\NormalTok{, }\StringTok{"t_t1err"}\NormalTok{), }
-               \DataTypeTok{names_to =} \StringTok{"DF_method"}\NormalTok{, }\DataTypeTok{values_to =} \StringTok{"error_rate"}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(DF_method }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"KR_t1err"}\NormalTok{, }\StringTok{"S_t1err"}\NormalTok{)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{pivot_wider}\NormalTok{(}
-    \DataTypeTok{names_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"rslope"}\NormalTok{),}
-    \DataTypeTok{values_from =} \StringTok{"error_rate"}\NormalTok{, }\DataTypeTok{names_prefix =} \StringTok{"slope"}
-\NormalTok{  ) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(number_individuals, skew, kurtosis, DF_method) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{summarize}\NormalTok{(}
-    \DataTypeTok{random_intercept =} \KeywordTok{mean}\NormalTok{(slopeFALSE),}
-    \DataTypeTok{random_slope =} \KeywordTok{mean}\NormalTok{(slopeTRUE)}
-\NormalTok{  ) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{pivot_wider}\NormalTok{(}
-    \DataTypeTok{names_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"number_individuals"}\NormalTok{),}
-    \DataTypeTok{values_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"random_intercept"}\NormalTok{, }\StringTok{"random_slope"}\NormalTok{)}
-\NormalTok{  ) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{select}\NormalTok{(}
-\NormalTok{    skew, kurtosis, DF_method, random_intercept_}\DecValTok{10}\NormalTok{, random_slope_}\DecValTok{10}\NormalTok{, }
-\NormalTok{    random_intercept_}\DecValTok{18}\NormalTok{,}
-\NormalTok{    random_slope_}\DecValTok{18}\NormalTok{, random_intercept_}\DecValTok{26}\NormalTok{, random_slope_}\DecValTok{26}
-\NormalTok{  ) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{ungroup}\NormalTok{() }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{kbl}\NormalTok{() }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Exponential"}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Normal"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Lognormal"}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}
-    \StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }
-    \StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{,}
-    \StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}
-\NormalTok{  )) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"10"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"18"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"26"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Sample Size"}\NormalTok{ =}\StringTok{ }\DecValTok{6}\NormalTok{)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{landscape}\NormalTok{()}
-
-\NormalTok{all_sim_sum }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(KR_term }\OperatorTok{==}\StringTok{ "treatment"}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{pivot_longer}\NormalTok{(}\DataTypeTok{cols =} \KeywordTok{c}\NormalTok{(}\StringTok{"KR_t1err"}\NormalTok{, }\StringTok{"S_t1err"}\NormalTok{, }\StringTok{"Z_t1err"}\NormalTok{, }\StringTok{"t_t1err"}\NormalTok{), }
-               \DataTypeTok{names_to =} \StringTok{"DF_method"}\NormalTok{, }\DataTypeTok{values_to =} \StringTok{"error_rate"}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(DF_method }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"KR_t1err"}\NormalTok{, }\StringTok{"S_t1err"}\NormalTok{)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{pivot_wider}\NormalTok{(}
-    \DataTypeTok{names_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"rslope"}\NormalTok{),}
-    \DataTypeTok{values_from =} \StringTok{"error_rate"}\NormalTok{, }\DataTypeTok{names_prefix =} \StringTok{"slope"}
-\NormalTok{  ) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(number_individuals, skew, kurtosis, DF_method) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{summarize}\NormalTok{(}
-    \DataTypeTok{random_intercept =} \KeywordTok{mean}\NormalTok{(slopeFALSE),}
-    \DataTypeTok{random_slope =} \KeywordTok{mean}\NormalTok{(slopeTRUE)}
-\NormalTok{  ) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{pivot_wider}\NormalTok{(}
-    \DataTypeTok{names_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"number_individuals"}\NormalTok{),}
-    \DataTypeTok{values_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"random_intercept"}\NormalTok{, }\StringTok{"random_slope"}\NormalTok{)}
-\NormalTok{  ) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{select}\NormalTok{(}
-\NormalTok{    skew, kurtosis, DF_method, random_intercept_}\DecValTok{10}\NormalTok{, random_slope_}\DecValTok{10}\NormalTok{, }
-\NormalTok{    random_intercept_}\DecValTok{18}\NormalTok{,}
-\NormalTok{    random_slope_}\DecValTok{18}\NormalTok{, random_intercept_}\DecValTok{26}\NormalTok{, random_slope_}\DecValTok{26}
-\NormalTok{  ) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{ungroup}\NormalTok{() }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{kbl}\NormalTok{() }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Exponential"}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Normal"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Lognormal"}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}
-    \StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }
-    \StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{,}
-    \StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}
-\NormalTok{  )) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"10"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"18"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"26"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Sample Size"}\NormalTok{ =}\StringTok{ }\DecValTok{6}\NormalTok{)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{landscape}\NormalTok{()}
-\NormalTok{all_sim_sum }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(KR_term }\OperatorTok{==}\StringTok{ "treatment"}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{pivot_longer}\NormalTok{(}\DataTypeTok{cols =} \KeywordTok{c}\NormalTok{(}\StringTok{"KR_t1err"}\NormalTok{, }\StringTok{"S_t1err"}\NormalTok{, }\StringTok{"Z_t1err"}\NormalTok{, }\StringTok{"t_t1err"}\NormalTok{), }
-               \DataTypeTok{names_to =} \StringTok{"DF_method"}\NormalTok{, }\DataTypeTok{values_to =} \StringTok{"error_rate"}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(DF_method }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Z_t1err"}\NormalTok{, }\StringTok{"t_t1err"}\NormalTok{)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{pivot_wider}\NormalTok{(}
-    \DataTypeTok{names_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"rslope"}\NormalTok{),}
-    \DataTypeTok{values_from =} \StringTok{"error_rate"}\NormalTok{, }\DataTypeTok{names_prefix =} \StringTok{"slope"}
-\NormalTok{  ) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(number_individuals, skew, kurtosis, DF_method) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{summarize}\NormalTok{(}
-    \DataTypeTok{random_intercept =} \KeywordTok{mean}\NormalTok{(slopeFALSE),}
-    \DataTypeTok{random_slope =} \KeywordTok{mean}\NormalTok{(slopeTRUE)}
-\NormalTok{  ) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{pivot_wider}\NormalTok{(}
-    \DataTypeTok{names_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"number_individuals"}\NormalTok{),}
-    \DataTypeTok{values_from =} \KeywordTok{c}\NormalTok{(}\StringTok{"random_intercept"}\NormalTok{, }\StringTok{"random_slope"}\NormalTok{)}
-\NormalTok{  ) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{select}\NormalTok{(}
-\NormalTok{    skew, kurtosis, DF_method, random_intercept_}\DecValTok{10}\NormalTok{, random_slope_}\DecValTok{10}\NormalTok{, }
-\NormalTok{    random_intercept_}\DecValTok{18}\NormalTok{,}
-\NormalTok{    random_slope_}\DecValTok{18}\NormalTok{, random_intercept_}\DecValTok{26}\NormalTok{, random_slope_}\DecValTok{26}
-\NormalTok{  ) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{ungroup}\NormalTok{() }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{kbl}\NormalTok{() }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Exponential"}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Normal"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Lognormal"}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}
-    \StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }
-    \StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{,}
-    \StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}
-\NormalTok{  )) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"10"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"18"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"26"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Sample Size"}\NormalTok{ =}\StringTok{ }\DecValTok{6}\NormalTok{)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{landscape}\NormalTok{()}
 \KeywordTok{library}\NormalTok{(tidyverse)}
 \KeywordTok{library}\NormalTok{(SimMultiCorrData)}
 \KeywordTok{options}\NormalTok{(}\DataTypeTok{scipen =} \DecValTok{99999}\NormalTok{)}
@@ -1247,7 +1151,7 @@ In this study, we explored how Type I error rates from 4 different DF methods: K
 \NormalTok{    random_slope_}\DecValTok{18}\NormalTok{, random_intercept_}\DecValTok{26}\NormalTok{, random_slope_}\DecValTok{26}
 \NormalTok{  ) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{ungroup}\NormalTok{() }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{kbl}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Error Rates for KR and Satterthwaite DF Methods"}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Exponential"}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Normal"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Lognormal"}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{) }\OperatorTok{%>%}
@@ -1284,12 +1188,13 @@ In this study, we explored how Type I error rates from 4 different DF methods: K
 \NormalTok{    random_slope_}\DecValTok{18}\NormalTok{, random_intercept_}\DecValTok{26}\NormalTok{, random_slope_}\DecValTok{26}
 \NormalTok{  ) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{ungroup}\NormalTok{() }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{kbl}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Error Rates for Standard DF and t-as-z Methods"}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Exponential"}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Normal"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Lognormal"}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}
-    \StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{,}
+    \StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }
+    \StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{,}
     \StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}
 \NormalTok{  )) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"10"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"18"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"26"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{)) }\OperatorTok{%>%}
@@ -1578,7 +1483,7 @@ In this study, we explored how Type I error rates from 4 different DF methods: K
 \end{Highlighting}
 \end{Shaded}
 \hypertarget{pvalue-tables}{%
-\chapter{P-values from DF Methods}\label{pvalue-tables}}
+\chapter{Error Rates By DF Method}\label{pvalue-tables}}
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(here)}
@@ -1631,7 +1536,7 @@ In this study, we explored how Type I error rates from 4 different DF methods: K
 \NormalTok{    random_slope_}\DecValTok{18}\NormalTok{, random_intercept_}\DecValTok{26}\NormalTok{, random_slope_}\DecValTok{26}
 \NormalTok{  ) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{ungroup}\NormalTok{() }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{kbl}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Error Rates for KR and Satterthwaite DF Methods"}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Exponential"}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Normal"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Lognormal"}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{) }\OperatorTok{%>%}
@@ -1646,6 +1551,8 @@ In this study, we explored how Type I error rates from 4 different DF methods: K
 \end{Highlighting}
 \end{Shaded}
 \begin{table}
+
+\caption{\label{tab:unnamed-chunk-8}Error Rates for KR and Satterthwaite DF Methods}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{r|r|l|r|r|r|r|r|r}
@@ -1708,12 +1615,13 @@ skew & kurtosis & DF\_method & random\_intercept\_10 & random\_slope\_10 & rando
 \NormalTok{    random_slope_}\DecValTok{18}\NormalTok{, random_intercept_}\DecValTok{26}\NormalTok{, random_slope_}\DecValTok{26}
 \NormalTok{  ) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{ungroup}\NormalTok{() }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{kbl}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Error Rates for Standard DF and t-as-z Methods"}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Exponential"}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Normal"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{pack_rows}\NormalTok{(}\StringTok{"Lognormal"}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}
-    \StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{,}
+    \StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }
+    \StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{,}
     \StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Intercept"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\NormalTok{, }\StringTok{"Random Slope"}\NormalTok{ =}\StringTok{ }\DecValTok{1}
 \NormalTok{  )) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{add_header_above}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{ =}\StringTok{ }\DecValTok{3}\NormalTok{, }\StringTok{"10"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"18"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{, }\StringTok{"26"}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{)) }\OperatorTok{%>%}
@@ -1722,6 +1630,8 @@ skew & kurtosis & DF\_method & random\_intercept\_10 & random\_slope\_10 & rando
 \end{Highlighting}
 \end{Shaded}
 \begin{table}
+
+\caption{\label{tab:unnamed-chunk-9}Error Rates for Standard DF and t-as-z Methods}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{r|r|l|r|r|r|r|r|r}

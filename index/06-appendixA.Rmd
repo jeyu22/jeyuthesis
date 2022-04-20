@@ -7,7 +7,7 @@ The first appendix must start with the above text. Do not remove!
 
 # The First Appendix
 
-## Code From All Chapters:
+## Code From All Chapters
 
 ```{r ref.label=knitr::all_labels(), results = 'hide', echo = TRUE, eval = FALSE}
 ```
