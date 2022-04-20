@@ -297,32 +297,15 @@ Apart from comparing just the response trajectories, it may also be of interest 
 \hypertarget{characteristics-of-longitudinal-data}{%
 \section{Characteristics of Longitudinal Data}\label{characteristics-of-longitudinal-data}}
 
-While the only requirement of longitudinal data is that there is more than one observation for a given individual, there are other characteristics that affect the model chosen. Data can be unbalanced or balanced: \emph{balanced} data refers to when all individuals have the same number of repeated measurements taken at the same occasions. In addition, data can also be missing, resulting in automatically unbalanced data. For example, a study measuring the weights of children over time may be unbalanced if some children are measured at 5 and 10 years old, while others are measured at 5, 7 and 15 years old, since measurements are not taken at the same time points. If children drop out of the study as they get older, this will result in missing data points.
+While the only requirement of longitudinal data is that there is more than one observation for a given individual, there are other characteristics that affect the model chosen. Data can be unbalanced or balanced: \emph{balanced} data refers to when all individuals have the same number of repeated measurements taken at the same occasions. For example, a study measuring the weights of children over time may be unbalanced if some children are measured at 5 and 10 years old, while others are measured at 5, 7 and 15 years old, since measurements are not taken at the same time points. If children drop out of the study as they get older, this will result in missing data points. If there are missing data, it is automatically considered as unbalanced.
 
 Another unique characteristic of longitudinal data is that repeated measurements within each individual are typically positively correlated, while measurements between individuals are independent (Fitzmaurice, Laird, \& Ware, 2011). This feature violates conditions of other common statistical methods such as linear regression, where measurements are assumed to be independent. This positive correlation allows for more accurate estimates of the model coefficients and response trajectories since there is reduced uncertainty knowing that a previous measurement can help predict the next one.
 
-We can capture the associations among repeated measures within each individual by constructing a covariance matrix. In longitudinal analysis, a covariance matrix is calculated for each individual and all of their measurements. The diagonal element of this matrix represents the variance of each of the measurements, which may not be constant over time for longitudinal data. The off-diagonal elements of the matrix are non-zero to account for the lack of independence between measurements, and are usually not constant because correlations between measurements tend to decrease over time. While these values are rarely 0, they are also rarely 1 (Fitzmaurice et al., 2011). There are different covariance pattern structures that are imposed that account for these features.
+We can capture the associations among repeated measures within each individual by constructing a covariance matrix. The diagonal elements of this matrix represent the variance of each of the measurements, which may not be constant over time for longitudinal data. The off-diagonal elements of the matrix are non-zero to account for the lack of independence between measurements, and are usually not constant because correlations between measurements tend to decrease over time. While these values are rarely 0, they are also rarely 1 (Fitzmaurice et al., 2011). There are different covariance pattern structures that are imposed that account for these features.
 
 These features of the covariance of longitudinal data can be explained when we separate the total variation into three distinct parts: 1) between-individual variation, 2) within-individual variation, and 3) measurement error.
 
 Between-individual variation helps explain why measurements from the same individual are more likely to be positively correlated than measurements between different individuals. Within-individual variation helps explain why correlations between repeated measurements decrease with increasing time differences, and measurement error along with individual variations explains why correlations are never one. These three types of variation may contribute to total variation in unequal amounts, but may not need to be differentiated depending on the type of longitudinal analysis desired.
-
-\hypertarget{estimation-and-inference}{%
-\section{Estimation and Inference}\label{estimation-and-inference}}
-
-Regression coefficient values \(\beta\) and the covariance matrix \(\Sigma_i\) can be estimated using maximum likelihood estimation, which identifies values of \(\beta\) and \(\Sigma_i\) that maximize the joint probability of the response variable occurring based on the observed data; the probability is known as the likelihood function. These values are estimates that are denoted by \(\hat\beta\) and \(\hat\Sigma_i.\) When observations are independent of one another, maximizing the likelihood function for \(\beta\) is equivalent to finding a value of \(\hat\beta\) that minimizes the sum of the squares of the residuals. However, since there are repeated measurements of each individual that are not independent of one another we use the generalized least squares (GLS) estimator:
-
-\[\hat\beta = \{ \sum_{i=1}^N(X_i^{'}\Sigma^{-1}_iX_i) \}^{-1}\sum_{i=1}^N(X_i^{'}\Sigma^{-1}_iy_i).\]
-
-In addition, the sampling distribution of \(\hat\beta\) has mean \(\beta\) and covariance:
-\[\hat Cov(\hat\beta) = \{ \Sigma_{i=1}^N(X_i^{'}\Sigma^{-1}_iX_i) \}^{-1}.\]
-
-The GLS estimator assumes that \(\Sigma_i\) is known. However, since this isn't usually the case, we can substitute \(\Sigma_i\) with a maximum likelihood estimate \(\hat\Sigma_i.\). It can be shown that the properties of \(\hat\beta\) still hold using an estimate of the covariance.
-
-While the maximum likelihood estimate of \(\Sigma_i\) is adequate, a modified method known as restricted maximum likelihood (REML) estimation is suggested to reduce bias in finite samples. The bias originates from the fact that \(\beta\) itself is also estimated from data, but is not accounted for when estimating covariance. In REML estimation of \(\Sigma_i\), \(\beta\) is removed from the likelihood function. This REML estimation of \(\Sigma_i\) can be used in the GLS estimator for \(\hat\beta\) mentioned above, and is recommended in place of the ML estimator.
-
-Now that we have estimates for \(\beta\), we can make inferences through construction of confidence intervals and hypothesis testing. For example, using the ML estimate \(\hat\beta\) and \(\hat Cov(\hat\beta)\), we can construct a Wald statistic to test for significance of \(\hat \beta_k\):
-\[Z = \frac{\hat \beta_k}{\sqrt{\hat Var(\hat \beta_k)}}.\] In later chapters we will explore how inference may be impacted in smaller sample sizes.
 
 \hypertarget{linear-models-for-longitudinal-data}{%
 \section{Linear Models for Longitudinal Data}\label{linear-models-for-longitudinal-data}}
@@ -330,14 +313,14 @@ Now that we have estimates for \(\beta\), we can make inferences through constru
 \hypertarget{notation-and-distribution-assumptions}{%
 \subsection{Notation and Distribution Assumptions}\label{notation-and-distribution-assumptions}}
 
-Throughout the rest of the text, we will use a standard set of notation. \(Y_{ij}\) represents the response variable for the \(i^{th}\) individual at the \(j^{th}\) measurement. When we have repeated \(n_i\) measurements for an individual, we can construct a vector, \[Y_i = \begin{pmatrix} Y_{i1}\\ Y_{i2} \\ .. \\  Y_{in_i}  \end{pmatrix}.\] For each \(Y_{ij}\) response, there is a \(X_{ij}\) vector of covariates that has \(p\) rows representing the number of covariates. Covariates in \(X_{ij}\) can be fixed or change over time.
+Throughout the rest of the text, we will use a standard set of notation. \(Y_{ij}\) represents the response variable for the \(i^{th}\) individual at the \(j^{th}\) measurement. When we have repeated \(n_i\) measurements for an individual, we can construct a vector, \[Y_i = \begin{pmatrix} Y_{i1}\\ Y_{i2} \\ .. \\  Y_{in_i}  \end{pmatrix}, i=1,...,N.\] For each response \(Y_{ij}\), there is a \(p \times 1\) vector \(X_{ij}\) of covariates whose first entry is 1. Covariates in \(X_{ij}\) can be fixed or change over time.
 
-As mentioned previously, there are multiple ways to model longitudinal data. When the response variable is continuous, we can consider a model that relates the response and the covariates in a linear way. In a linear model all components can be represented using vectors and matrices. The most general form of the linear model can be represented as:
-\[Y_i=X_i'\beta + e_i,\] where \(X_i\) is a matrix representing the grouped collection of \(X_{ij}\) vectors, with each row representing a unique measurement, and \(p\) columns for each covariate that is associated with \(Y_i.\) \(\beta = \beta_1,...,\beta_p\) is a vector of regression coefficients that quantifies the relationship between the response and each covariate. \(e_i\) is a \(n_i \times 1\) vector of random errors for each measurement.
+As mentioned previously, there are multiple ways to model longitudinal data. When the response variable is continuous, we can consider a model that relates the response and the covariates in a linear way. In a linear model all components can be represented using vectors and matrices. The most general form of the linear model can be represented in matrix form as:
+\[Y_i=X_i\beta + e_i,\] where \(X_i\) is a matrix representing the grouped collection of \(X_{ij}\) vectors, with each row representing a unique measurement, and \(p\) columns for each covariate that is associated with \(Y_i.\) \(\beta = [\beta_1,...,\beta_{p-1}]'\) is a vector of regression coefficients that quantifies the relationship between the response and each covariate. \(e_i\) is a \(n_i \times 1\) vector of random errors for each measurement.
 
 The linear model can be divided into a systematic component, \(X_i\beta,\) and a random component \(e_i.\) These two components contribute to the distribution assumptions of \(Y_i.\) \(Y_i\) is assumed to have a conditional multivariate normal distribution with mean response vector \[E(Y_i|X_i) = X_i\beta,\] which is the systematic component, and the covariance matrix \[\Sigma_i = \text{Cov}(Y_i|X_i),\] which captures the random variability of \(Y_i,\) the random component, and its role in shaping the overall distribution. In addition, this distribution is considered conditional because of its dependence on the covariates \(X_i.\)
 
-Oftentimes, the mean response vector \(E(Y_i|X_i) = X_i\beta\) is used for for modeling longitudinal responses. In the following sections, we will discuss three specific methods of linear models: 1) response profile analysis, 2) parametric time model, and 3) linear mixed effects model.
+In the following sections, we will discuss three specific methods of linear models: 1) response profile analysis, 2) parametric time model, and 3) linear mixed effects model.
 
 \hypertarget{response-profile-analysis}{%
 \subsection{Response Profile Analysis}\label{response-profile-analysis}}
@@ -351,7 +334,7 @@ There are three effects of interest when analyzing response profiles in longitud
 
 Analyzing response profiles can be modeled using \[E(Y_i|X_i) = X_i\beta.\] In an example where two groups with three measurements each are compared, \(\mu(1) = \beta_1,\beta_2,\beta_3\) represent regression coefficients for group 1, and \(\mu(2) = \beta_4,\beta_5,\beta_6\) represent regression coefficients for group 2. The \(\text{group} \times \text{time}\) interaction effect can be expressed as a null hypothesis in the form \[H_0: \beta_5 =\beta_6=0.\]
 
-An unstructured covariance model is typically assumed for response profile analysis. ``Unstructured'' means that there is no explicit structure or pattern imposed on the covariance for the repeated measures. This is represented as \[\text{Cov}(Y_i) = \begin{pmatrix} \sigma_1^2 &\sigma_{12} & ...& \sigma_{1n} \\ \sigma_{21} &\sigma_2^2 & ... & \sigma_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ \sigma_{n1} & \sigma_{n2} & ... & \sigma_n^2\end{pmatrix}.\] For \(n\) repeated measures, there are \(n\) variances and \(n \times (n-1)/2\) covariances to be estimated. In a study where there are 10 repeated measurements, there 55 total covariance parameters to be estimated, which can become computationally intensive.
+An unstructured covariance model is typically assumed for response profile analysis. ``Unstructured'' means that there is no explicit structure or pattern imposed on the covariance for the repeated measures. This is represented as \[\Sigma_i=\text{Cov}(Y_i) = \begin{pmatrix} \sigma_1^2 &\sigma_{12} & ...& \sigma_{1n} \\ \sigma_{21} &\sigma_2^2 & ... & \sigma_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ \sigma_{n1} & \sigma_{n2} & ... & \sigma_n^2\end{pmatrix}.\] For \(n\) repeated measures, there are \(n\) variances and \(n \times (n-1)/2\) covariances to be estimated. In a study where there are 10 repeated measurements, there 55 total covariance parameters to be estimated, which can become computationally intensive.
 
 Overall, response profile analysis is a straightforward method in investigating differences between groups for longitudinal data. Since both the covariance and mean responses have no imposed structure, the analysis is more robust and immune to inaccurate results due to model misspecification. However, there are drawbacks as well. Response profile analysis does not consider time-order of the measurements and does not distinguish between between-individual variation and within-individual variation. In addition, it can only provide a broad analysis of whether there are differences across groups and time, but does not provide the amount of detail needed to answer certain research questions, such as how exactly measurements taken towards the end of the study compare to measurements taken at the beginning. In this method, time is treated as a categorical covariate rather than a continuous one. Another method that addresses the issue of examining time order of the data is parametric time models.
 
@@ -362,16 +345,11 @@ Parametric time models are able to capture time order of the data by fitting lin
 
 Additionally, while in the mean response profile analysis an unstructured covariance pattern is assumed, here there is flexibility in choice of the covariance model; there are several options such as Toeplitz or compound symmetric that impose various structures on the model. For example, a Toeplitz model:
 
-\[Cov (Y_i) = \begin{pmatrix} 1 & \rho_1 & \rho_2 & ... & \rho_{n-1} \\ \rho_1 & 1 & \rho_1 & ... & \rho_{n-2} \\ \rho_2 & \rho_1 & 1 & ...& ... \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ \rho_{n-1} & \rho_{n-2} & \rho_{n-3} & ... & 1  \end{pmatrix}\]
+\[\Sigma_i = \sigma^2 = \begin{pmatrix} 1 & \rho_1 & \rho_2 & ... & \rho_{n-1} \\ \rho_1 & 1 & \rho_1 & ... & \rho_{n-2} \\ \rho_2 & \rho_1 & 1 & ...& ... \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ \rho_{n-1} & \rho_{n-2} & \rho_{n-3} & ... & 1  \end{pmatrix}\]
 
-structures the covariance matrix such that any pair of responses that are equally separated in time have the same correlation. A compound symmetry model: \[Cov (Y_i) = \sigma^2\begin{pmatrix} 1 & \rho & \rho & ... & \rho \\ \rho & 1 & \rho & ... & \rho \\ \rho & \rho & 1 & ...& \rho \\ \vdots & \vdots & \vdots & \ddots& \vdots \\ \rho & \rho & \rho & ... & 1   \end{pmatrix}, \] assumes constant variance and same correlation across all measurements of \(Y_i.\) It is possible to choose an unstructured covariance model as well, but can be computationally intense if there are a large number of measurements.
+structures the covariance matrix such that any pair of responses that are equally separated in time have the same correlation. A compound symmetry model: \[\Sigma_i = \sigma^2\begin{pmatrix} 1 & \rho & \rho & ... & \rho \\ \rho & 1 & \rho & ... & \rho \\ \rho & \rho & 1 & ...& \rho \\ \vdots & \vdots & \vdots & \ddots& \vdots \\ \rho & \rho & \rho & ... & 1   \end{pmatrix}, \] assumes constant variance and same correlation across all measurements of \(Y_i.\) It is possible to choose an unstructured covariance model as well, but can be computationally intense if there are a large number of measurements.
 
-We can use parametric time models in two ways: through polynomial trends and linear spines. More information about linear splines can be found in Fitzmaurice et al. (2011).
-
-\hypertarget{polynomial-trends}{%
-\subsection{Polynomial Trends}\label{polynomial-trends}}
-
-Using polynomial trends such as linear or quadratic, we can model longitudinal data as a function of time. Linear trends are the most common and interpretable ways to model change in mean over time. In an example comparing a treatment group to a control group, we can fit a linear trend using the following equation: \[E(Y_{ij}) = \beta_1 + \beta_2Time_{ij}+\beta_3Group_i+\beta_4Time_{ij} \times Group_i.\] If \(\beta_4 = 0\) , then the two groups do not differ in terms of changes in the mean response over time.
+We can use parametric time models in two ways: through polynomial trends and linear spines. More information about linear splines can be found in Fitzmaurice et al. (2011). Using polynomial trends such as linear or quadratic, we can model longitudinal data as a function of time. Linear trends are the most common and interpretable ways to model change in mean over time. In an example comparing a treatment group to a control group, we can fit a linear trend using the following equation: \[E(Y_{ij}) = \beta_1 + \beta_2Time_{ij}+\beta_3Group_i+\beta_4Time_{ij} \times Group_i.\] If \(\beta_4 = 0\) , then any difference in response between groups is constant over time.
 
 For quadratic trends, the changes in mean are no longer constant since the rate of change depends on the time. Thus, we fit an additional parameter to express the rate of change.
 Using the previous example of treatment vs.~control group, we have the model:
@@ -382,9 +360,7 @@ As we can see from the models above, the inclusion of an additional parameter \(
 \hypertarget{linear-mixed-effects}{%
 \subsection{Linear Mixed Effects}\label{linear-mixed-effects}}
 
-In both response profile analysis and parametric time models, the regression parameters are considered to be universal for each population group. However, in instances where we want to account for heterogeneity within a population, we can use a linear mixed effects model and consider a subset of the regression parameters to be random. This model distinguishes between fixed effects, which are population characteristics shared by all individuals, and subject specific effects, also known as random effects, which pertain to each individual. These subject specific effects mean that parameters are random, which induces a structure onto the covariance model.
-
-In addition, distinguishing between fixed and random effects allows for differentiation between within-subject and between-subject variation.
+In both response profile analysis and parametric time models, the regression parameters are considered to be universal for each population group. However, in instances where we want to account for heterogeneity within a population, we can use a linear mixed effects model and consider a subset of the regression parameters to be random. This model distinguishes between fixed effects, which are population characteristics shared by all individuals, and subject specific effects, also known as random effects, which pertain to each individual. These subject specific effects mean that parameters are random, which induces a structure onto the covariance model. In addition, distinguishing between fixed and random effects allows for differentiation between within-subject and between-subject variation.
 
 One example of the linear mixed effects model is the random intercept model, which is the simplest version of the linear mixed effects model:
 
@@ -392,18 +368,18 @@ One example of the linear mixed effects model is the random intercept model, whi
 
 This model is very similar to the general linear model with a few additions. \(b_i\) is the random subject effect and \(\epsilon\) is the measurement error. Both effects are random, with mean 0 and \(\text{Var}(b_i) = \sigma^2_b, \text{Var}(\epsilon_{ij})=\sigma^2\).
 
-\(X'_{ij}\beta\) is the population mean, and \(b_i\) represents the differing subject effect that is unique to each individual. \(b_i\) is interpreted as how the subject deviates from the population mean while accounting for covariates.
+\(X'_{ij}\beta\) is the population mean, and \(b_i\) represents the differing subject effect that is unique to each individual. \(b_i\) is interpreted as how the subject's intercept deviates from the population mean intercept while accounting for covariates.
 
 As mentioned previously, the random effects are responsible for inducing a structure on the covariance model. This structure is not to be confused with the covariance structures that can be chosen when using parametric time models. For a given individual, it can be shown that variance of each response is:
-\[\text{Var}(Y_{ij}) = \sigma^2_b + \sigma^2\] and the covariance between two measurements \(Y_{ij}\) and \(Y_{ik}\) is equal to \(\sigma^2_b\). The resulting covariance matrix \[\begin{pmatrix} \sigma^2_b + \sigma^2 & \sigma^2_b & \sigma^2_b & ... & \sigma^2_b \\ \sigma^2 & \sigma^2_b + \sigma^2 & \sigma^2_b & ... & \sigma^2_b \\ \sigma^2_b & \sigma^2_b & \sigma^2_b + \sigma^2 & ...& ...   \end{pmatrix}\]
+\[\text{Var}(Y_{ij}) = \sigma^2_b + \sigma^2\] and the covariance between two measurements \(Y_{ij}\) and \(Y_{ik}\) is equal to \(\sigma^2_b\). The resulting covariance matrix \[\text{Cov}(Y_i)=\begin{pmatrix} \sigma^2_b + \sigma^2 & \sigma^2_b & \sigma^2_b & ... & \sigma^2_b \\ \sigma^2 & \sigma^2_b + \sigma^2 & \sigma^2_b & ... & \sigma^2_b \\ \sigma^2_b & \sigma^2_b & \sigma^2_b + \sigma^2 & ...& ...   \end{pmatrix}\]
 
 implies correlation between measurements, and also highlights the role played by the random effects in determining the covariance.
 
 Extending beyond the random intercept model, multiple random effects can be incorporated.
 
-A linear mixed effects model can expressed as \[Y_i = X_i\beta+Z_ib_i+\epsilon_i.\]
+A linear mixed effects model can expressed as \[Y_i = X_i\beta+Z_ib_i+\epsilon_i,\]
 
-Where:
+where:
 \(\beta\) is a \(p \times 1\) vector of fixed effects
 \(b_i\) is a \(q \times 1\) vector of random effects
 \(X_i\) is a \(n \times p\) matrix of covariates
@@ -411,7 +387,7 @@ Where:
 
 The subset of regression covariates that vary randomly are found in \(Z_i\). We assume that \(b_i\) comes from a multivariate normal distribution with mean 0 and covariance matrix \(G\). We also assume that \(\epsilon_i\) are independent of \(b_i\), and come from multivariate normal distribution with mean 0 and covariance matrix \(R_i\).
 
-The covariance of \(Y_i\) can be modeled by \[\text{Cov}(Z_ib_i) + Cov(\epsilon_i) = Z_iGZ_i' + R_i.\] This model, which outlines a distinction between \(G\) and \(R_i\), allows for separate analysis of between subject and within subject variation. Unlike other covariance models, in linear mixed effects models the covariance is a function of the times of measurement. This allows for unbalanced data to be used for the model since each individual can have their unique set of measurement times. Lastly, the model allows for variance and covariance to change as a function of time. To illustrate, consider the following model:
+The covariance of \(Y_i\) can be modeled by \[\text{Cov}(Z_ib_i) + \text{Cov}(\epsilon_i) = Z_iGZ_i' + R_i.\] This model, which outlines a distinction between \(G\) and \(R_i\), allows for separate analysis of between-subject and within-subject variation. Unlike other covariance models, in linear mixed effects models the covariance is a function of the times of measurement. This allows for unbalanced data to be used for the model since each individual can have their unique set of measurement times. Lastly, the model allows for variance and covariance to change as a function of time. To illustrate, consider the following model:
 
 In an example where individuals can vary both in their baseline response and their rate of change, we have:
 
@@ -421,12 +397,6 @@ If \(\text{Var}(b_{1i}) = g_{11}\), \(\text{Var}(b_{2i}) = g_{22}\), and \(Cov(b
 it can be shown that \(Cov(Y_{ij}, Y_{ik}) = g_{11} + (t_{ij} + t_{ik})g_{12} + t_{ij}t_{ik}g_{22}\).
 
 Here in the covariance matrix we can see the dependence of the covariance on time. In this example there are four covariance parameters that arise from the two random effects of intercept and time. The number of covariance parameters is represented by \(q \times (q+1)/2 + 1\), where \(q\) is the number of random effects. To choose the most optimal model for covariance, we compare two nested models, one with \(q+1\) random effects and one with \(q\) random effects. We use the likelihood ratio test to make a decision for which model to use.
-
-One additional analysis that is possible with linear mixed effects models is predicting subject-specific responses. Given that \(b_i\) is a random variable, we can predict it using:
-\[E(b_i |Y_i) = GZ_i (\Sigma)^{-1}_i(Y_i-X_i\hat\beta).\] Because the covariance of \(Y_i\) is unknown, we can estimate both \(G\) and \((\Sigma)^{-1}_i\) using REML, creating \(\hat b_i\), also known as the empirical best linear unbiased prediction (BLUP). Thus, the equation for predicting the response profile is:
-\[\hat Y_i = X_i\hat\beta +Z_i\hat b_i.\]
-
-This equation to estimate the mean response profile can be extended to incorporate \(R_i\), which represents within-subject variability. From this extension, we see that the equation and the empirical BLUP account for the weighting of both the within-subject variability and between-subject variability. If there is more within-subject variability, then more weight is assigned to \(X_i\hat\beta\), the population mean response profile, in comparison to the subject's individual responses, and vice versa.
 
 \hypertarget{choosing-the-best-model}{%
 \section{Choosing the Best Model}\label{choosing-the-best-model}}
@@ -445,57 +415,52 @@ In subsequent chapters we will dive more deeply into how inference in longitudin
 
 In chapter 1, we outlined the basics of analyzing longitudinal data and introduced linear mixed models. Next, we will examine inference of linear mixed models, and how methods such as Kenward-Roger (KR) and Satterthwaite can be used in situations where standard procedures for inference may produce questionable results.
 
+\hypertarget{estimation}{%
+\section{Estimation}\label{estimation}}
+
+Regression coefficient values \(\beta\) and the covariance matrix \(\Sigma_i\) can be estimated using maximum likelihood estimation, which identifies values of \(\beta\) and \(\Sigma_i\) that best explain the observed data. These values are estimates that are denoted by \(\hat\beta\) and \(\hat\Sigma_i.\) When observations are independent of one another, maximizing the likelihood function for \(\beta\) is equivalent to finding a value of \(\hat\beta\) that minimizes the sum of the squares of the residuals. However, since there are repeated measurements of each individual that are not independent of one another we use the generalized least squares (GLS) estimator as shown by Fitzmaurice et al. (2011):
+
+\[\hat\beta = \sum_{i=1}^N(X_i'\Sigma^{-1}_iX_i)^{-1}\sum_{i=1}^N(X_i'\Sigma^{-1}_iy_i).\]
+
+The sampling distribution of \(\hat\beta\) has mean \(\beta\) and covariance:
+\[\widehat{\text{Cov}}(\beta) = \sum_{i=1}^N(X_i'\Sigma^{-1}_iX_i)^{-1}.\]
+
+The GLS estimator assumes that \(\Sigma_i\) is known. However, since this isn't usually the case, we can substitute \(\Sigma_i\) with a maximum likelihood estimate \(\hat\Sigma_i.\) It can be shown that the properties of \(\hat\beta\) still hold using an estimate of the covariance. These properties include \(\hat\beta\) being a consistent estimator of \(\beta\) and having sampling distribution that is multivariate normal with mean \(\beta\) and covariance \(\text{Cov}(\hat\beta) = \sum_{i=1}^{N}(X_i'\sum_i^{-1}X_i)^{-1}.\)
+
+While the maximum likelihood estimate of \(\Sigma_i\) is adequate, a modified method known as restricted maximum likelihood (REML) estimation is suggested to reduce bias in finite samples (Fitzmaurice et al., 2011). The bias originates from the fact that \(\beta\) itself is also estimated from data, but is not accounted for when estimating covariance. In REML estimate of \(\Sigma_i\), \(\beta\) is removed from the likelihood function. This REML estimation of \(\Sigma_i\) can be used in the GLS estimator for \(\hat\beta\) mentioned above, and is recommended in place of the ML estimator.
+
+One additional analysis that is possible with linear mixed effects models is predicting subject-specific responses. Given that \(b_i\) is a random variable, we can predict it using:
+\[E(b_i |Y_i) = GZ_i (\Sigma)^{-1}_i(Y_i-X_i\hat\beta).\] Because the covariance of \(Y_i\) is unknown, we can estimate both \(G\) and \(\Sigma_i\) using REML, creating \(\hat b_i\), also known as the empirical BLUP (Fitzmaurice et al. (2011)). Thus, the equation for predicting the response profile is:
+\[\hat Y_i = X_i\hat\beta +Z_i\hat b_i.\]
+
+This equation to estimate the mean response profile can be extended to incorporate \(R_i\), which represents within-subject variability. From this extension, we see that the equation and the empirical BLUP account for the weighting of both the within-subject variability and between-subject variability. If there is more within-subject variability, then more weight is assigned to \(X_i\hat\beta\), the population mean response profile, in comparison to the subject's individual responses, and vice versa.
+
 \hypertarget{inference}{%
 \section{Inference}\label{inference}}
 
-In statistical inference, the goal is to make conclusions about the underlying characteristics of a set of data and establish a relationship between certain variables. Hypothesis testing is one of the primary examples of inference, and is carried out in order to assess the true value of a population parameter. In linear models, the significance of a slope parameter, \(\beta_k\), is often assessed, where the null hypothesis, \(H_0\) is \(\beta_k = 0,\) and the alternative hypothesis \(H_a\) is \(\beta_k \neq 0.\) A test of the null hypothesis involves using a Wald statistic in the form \[ Z = \frac{\hat\beta_k}{\sqrt{\widehat{Var}(\hat\beta_k)}},\] which is then compared to the normal distribution, and a subsequent p-value is obtained.
+In statistical inference, the goal is to make conclusions about the underlying characteristics of a set of data and establish a relationship between certain variables. Hypothesis testing is one of the primary examples of inference, and is carried out in order to assess the true value of a population parameter. In linear models, the significance of a slope parameter, \(\beta_k\), is often assessed, where the null hypothesis, \(H_0\) is \(\beta_k = 0,\) and the alternative hypothesis \(H_a\) is \(\beta_k \neq 0.\) A test of the null hypothesis involves using a Wald statistic in the form \[Z = \frac{\hat\beta_k}{\sqrt{\widehat{Var}(\hat\beta_k)}},\] which is then compared to the normal distribution, and a subsequent p-value is obtained.
 
-Building on foundations of a general linear hypothesis test, given a matrix \(L\) of size \(q \times p,\) where \(q\) represents the number of estimable functions of \(\beta,\) \[(L\hat\beta-L\beta)'[L(X'\widehat {Cov}(\hat\beta)X)^-L']^{-1}(L\hat\beta-L\beta)
-\] is approximately \(\chi^2(q)\) (Rencher \& Schaalje, 2007). For a null hypothesis \(H_0: L\beta = 0,\) the test statistic \(G\) is \[(L\hat\beta)'[L(X'\widehat {Cov}(\hat\beta)X)^-L']^{-1}(L\hat\beta).\]
+Building on foundations of a general linear hypothesis test, given a matrix \(L\) of size \(r \times p,\) where \(r\) represents the number of estimable functions of \(\beta,\) the Wald statistic \[(L\hat\beta-L\beta)'[L(\widehat{Cov}(\hat\beta))L']^{-1}(L\hat\beta-L\beta)\] is approximately \(\chi^2(r)\) (Rencher \& Schaalje, 2007). For a null hypothesis \(H_0: L\beta = 0,\) the test statistic is \[W^2 =(L\hat\beta)'[L(\widehat {Cov}(\hat\beta))L']^{-1}(L\hat\beta).\]
 
 Likelihood ratio tests are another method to make inferences about \(\beta\). While there are benefits to using the likelihood ratio test, the rest of this study will focus on method of using the Wald statistic.
 
 \hypertarget{inference-in-small-sample-sizes}{%
 \subsection{Inference in Small Sample Sizes}\label{inference-in-small-sample-sizes}}
 
-One crucial assumption when conducting inference using the ML estimate for \(\beta\) is that the sample size is sufficient enough where it does not affect the estimate for \(\Sigma_i.\) However, what happens when the sample size is too small? This causes \(\hat\Sigma_i\) to underestimate the true variance, which in turn causes \(\widehat {\text{Cov}}(\hat\beta)\) to be too small since it relies on covariance estimator. If \(\widehat {\text{Cov}}(\hat\beta)\) is too small, the denominator of the test statistic is inflated, leading to increased Type I error. One can see that the bias of the covariance estimator weakens the entire foundation of estimation and inference.
+One crucial assumption when conducting inference using the maximum likelihood estimate for \(\beta\) is that the sample size is sufficient enough where it does not affect the estimate for \(\Sigma_i.\) However, what happens when the sample size is too small? This causes \(\hat\Sigma_i\) to underestimate the true variance, which in turn causes \(\widehat {\text{Cov}}(\hat\beta)\) to be too small since it relies on the covariance estimator. If \(\widehat {\text{Cov}}(\hat\beta)\) is too small, the denominator of the Wald test statistic is too small, so the test statistic is too big, leading to increased Type I error. One can see that the bias of the covariance estimator weakens the entire foundation of estimation and inference.
 
-In very limited cases, where data are complete, balanced, and produce nonnegative values in REML estimation, is it possible to perform exact small-sample inferences. If \([L(\widehat {\text{Cov}}(\hat\beta))^-L']^{-1}\) with \(g\) degrees of freedom can be rewritten such that \[ \frac{(L\hat\beta)'Q(L\hat\beta)}{g}\frac{w}{d} =  \frac{(L\hat\beta)'[L(\widehat {\text{Cov}}(\hat\beta))^-L']^{-1}(L\hat\beta)}{g},\] where \(w\) is a chi-square random variable with \(d\) degrees of freedom, then this statistic is F-distributed.
+There are limited cases where exact small-sample inference can be performed, but in most scenarios, an approximate small-sample method must be used, in which the statistic \[F = \frac{(L\hat\beta)'[L(\widehat {\text{Cov}}(\hat\beta))^-L']^{-1}(L\hat\beta)}{g}\] follows a F distribution with numerator degrees of freedom \(g,\) and unknown denominator degrees of freedom, DDF. There are several ways to approximate the DDF.
 
-However, in most scenarios, an approximate small-sample method must be used, in which the statistic \[F = \frac{(L\hat\beta)'[L(\widehat {\text{Cov}}(\hat\beta))^-L']^{-1}(L\hat\beta)}{g}\] follows a distribution with numerator degrees of freedom \(g,\) and unknown denominator degrees of freedom (DDF). There are several ways to approximate the DDF.
+Both Satterthwaite and KR are proposed methods of approximations to the DDF when conducting tests in order to account for the uncertainty of the covariance estimator. The KR method goes one step forward to also adjust the test statistic itself.
 
-Both Satterthwaite and KR are proposed methods of reductions to the DDF when conducting tests in order to account for the uncertainty of the covariance estimator. The KR method goes one step forward to also adjust the test statistic itself.
+\hypertarget{satterthwaite-kenward-roger}{%
+\section{Satterthwaite \& Kenward Roger}\label{satterthwaite-kenward-roger}}
 
-\hypertarget{satterthwaite}{%
-\section{Satterthwaite}\label{satterthwaite}}
+Hrong-Tai Fai \& Cornelius (1996) propose using Satterthwaite approximation of DF for the aforementioned F statistic when the hypothesis of interest is \(H_0 : L\beta = 0,\) where \(L\) is an estimable contrast matrix. Details about how the DF is approximated can be found in the original paper. In a simpler case where \(H_0 :l'\beta = 0\) and \(r = 1,\) the Wald statistic is \[t = \frac{l'\hat\beta}{\sqrt{l\widehat{\text{Cov}}(\hat\beta)l'}},\] which follows a \(t\) distribution with unknown DF \(\nu.\) Satterthwaite (1946) assumed the quantity \[\frac{\nu(l'\widehat{\text{Cov}}(\hat\beta)l)}{l'\widehat{\text{Cov}}(\hat\beta)l},\] and used a method-of-moments approach to obtain \(\hat\nu = \frac{2(l'\widehat{\text{Cov}}(\hat\beta)l)^2}{\widehat{\text{Var}(l'\widehat{\text{Cov}}(\hat\beta)l)}},\) where the denominator is determined by a univariate delta method (Kuznetsova, Brockhoff, \& Christensen, 2017).
 
-Sattherthwaite approximation was developed by Hrong-Tai Fai \& Cornelius (1996) to develop a test for \(H_0:L\beta = 0\) by obtaining the approximate small-sample distribution of \[F = \frac{(L\hat\beta-L\beta)^{'}[L( \widehat{\text{Cov}}(\hat\beta))^-L']^{-1}(L\hat\beta-L\beta)}{g}.\] We assume that \(F\) approximately follows a F distribution with numerator degrees of freedom \(g,\) and unknown denominator degrees of freedom \(v.\) For the denominator degrees of freedom we perform spectral decomposition on \(L'\widehat {\text{Cov}}(\hat\beta) L=P'DP,\) where \(D\) is a diagonal matrix of eigenvalues and \(P\) is an orthogonal matrix of eigenvectors of \([L(\widehat{\text{Cov}}(\hat\beta))^-L']^{-1}\) (Rencher \& Schaalje, 2007). After performing spectral decomposition, \(G = gF\) is written as \[G = \sum_{i=1}^{g}\frac{(p'_iL\hat\beta)^2}{\lambda_i} = \sum_{i=1}^{g}t_i^2,\] where \(G\) is the sum of \(g\) independent squared \(t\)-variables with degrees of freedom \(v_i.\) \(V_i\)'s are computed using the small-sample test of \(H_0: c'\beta=0,\) assuming that \[ t = \frac{c'\hat\beta}{\sqrt{c'\widehat{\text{Cov}}(\hat\beta)^-c}}\] follows a \(t\) distribution with unknown degrees of freedom \(d\) (Giesbrecht \& Burns, 1985). \(d\) is approximated by \[\frac{2[c'(X'\text{Cov}(\hat\beta)X)^-c]^2))}{\text{var}[c'(X'\text{Cov}(\hat\beta)X)^-)c]}.\] Rencher \& Schaalje (2007) posit that a squared t-distributed random variable with \(v_i\) degrees of freedom is an F-distributed variable with 1 and \(v_i\) degrees of freedom, so that \[E(G) = E(\sum_{i=1}^{g}t_i^2) = \sum_{i=1}^{g} \frac{v_i}{v_i-2}.\] In order to find \(v,\) the Satterthwaite denominator degrees of freedom, we use \(F = g^{-1}G,\) which is distributed as \(F_{g,v},\) and knowing that \(E(F) = \frac{1}{g}\) and \(E(G) = \frac{v}{v-2},\) \[v = \frac{2E(G)}{E(G)-g} = 2(\sum_{i=1}^{g}\frac{v_i}{v_i-2})/[(\sum_{i=1}^{g}\frac{v_i}{v_i-2})-g].\]
+KR uses the same approach, but adjusts for the underestimation of \(\text{Cov}(\hat\beta)\) in small sample sizes by including an adjusted estimator for the covariance matrix of \(\hat\beta\) that inflates the covariance estimate in the numerator of the Wald statistic (Kuznetsova et al., 2017).
 
-When \(L=1\) the KR and Satterthwaite approximation will produce the same denominator degrees of freedom. However, since the statistic used for the two methods are not the same, the results for inference will not be the same, as KR inflates the covariance matrix of \(\hat\beta.\)
-
-\hypertarget{kenward-roger}{%
-\section{Kenward-Roger}\label{kenward-roger}}
-
-In Kenward \& Roger (1997), a Wald statistic is proposed in the form of:
-\[F = 1/l(\hat\beta-\beta)^TL(L^T\hat\Phi_A L)^{-1}L^T(\hat\beta-\beta),\] where \(l\) represents the number of linear combinations of the elements in \(\beta,\) \(L\) is a fixed matrix, and \(\hat\Phi_A\) is the adjusted estimator for the covariance matrix of \(\hat\beta\). As mentioned previously, \(\widehat {\text{Cov}}(\hat\beta)\) is a biased estimator of \(\text{Cov}(\hat\beta)\) when samples are small, and underestimates. This adjusted estimator is broken down into \(\hat\Phi_A = \widehat {\text {Cov}}(\hat\beta) + 2\hat\Lambda\), where \(\hat\Lambda\) accounts for the amount of variation that was underestimated by the original estimator of covariance of \(\hat\beta\). The value \(\Lambda\) is approximated using a Taylor series expansion around \(\sigma,\) to be \[\Lambda =\widehat{\text{Cov}}(\hat\beta)[\sum_{i=1}^{r}\sum_{j=1}^{r}W_{ij}(Q_{ij}-P_i\widehat{\text{Cov}}(\hat\beta)P_j)]\widehat{\text{Cov}}(\hat\beta),\] where
-\(P_i = X^T\frac{\partial\hat\Sigma^{-1}}{\partial\hat\sigma_i}X\)
-\(Q_{ij} = X^T \frac{\partial\hat\Sigma^{-1}}{\partial\hat\sigma_i}\Sigma\frac{\partial\hat\Sigma^{-1}}{\partial\hat\sigma_j}X,\) and \(W_{ij}\) is the \((i,j)\)th element of \(\text W = V[\hat\sigma].\)
-
-This Wald statistic that uses the adjusted estimator is scaled in the form: \[F^* = \frac{m}{m+l-1}\lambda F,\] where \(m\) is the denominator degrees of freedom, and \(\lambda\) is a scale factor. Using the expectation and variance of the Wald statistic, \(F\) Both \(m\) and \(\lambda\) need to be calculated from the data, such that:
-
-\[m = 4 + \frac{l+2}{l\rho-1},\] where \(\rho = \frac{V[F]}{2E[F]^2}\) and
-\(\lambda = \frac{m}{E[F](m-2)}.\) This statistic will ultimately follow an exact \(F_{l,m}\) distribution.
-
-\hypertarget{other-methods}{%
-\section{Other Methods}\label{other-methods}}
-
-\emph{Residual DDF:} The DDF is calculated as \(N-rank[X],\) where N is the total number of individuals in the dataset. This method is only suitable for data that are independent and identically distributed, so it is not typically used in linear mixed models (Huang, 2020).
-
-\emph{Containment Method:}
-In the containment method, random effects that contain the fixed effect of interest are isolated. The smallest rank contribution to the \([X Z]\) matrix among these random effects becomes the DDF. If there are no effects found, then the DDF is equal to the residual DDF.
-
-\emph{Between-Within Method:}
-D.Schluchter \& Elashoff (1990) propose a DDF method where residual DDF are calculated for both between-subject and within-subject subgroups. If there are changes in the fixed effect within subjects, then the within-subject DDF is used, otherwise the between-subject DDF is used.
+When \(L=1\) the KR and Satterthwaite approximation will produce the same denominator degrees of freedom. However, since the statistic used for the two methods are not the same, the results for inference will not be the same, as KR adjusts the estimate for the covariance matrix of \(\hat\beta.\)
 
 \hypertarget{existing-literature}{%
 \section{Existing Literature}\label{existing-literature}}
@@ -517,28 +482,28 @@ In this study, we aim to expand on previous work evaluating how methods for esti
 
 The overarching goal is to compare performance of DF methods across various conditions, with a specific goal of looking at scenarios with smaller sample sizes and number of measurements in order to see variability in Type I error rates. There is flexibility in how the parameters are chosen; in order to narrow the scope, we aim to design conditions that are relatively similar to an application data set that will be further explored in Chapter 3. In the following sections, the range of parameters used will be similar to the characteristics of a longitudinal study about Children's Health.
 
-\hypertarget{generating-data-sample-dize}{%
-\subsection{Generating Data: Sample Dize}\label{generating-data-sample-dize}}
+\hypertarget{generating-data-sample-size}{%
+\subsection{Generating Data: Sample Size}\label{generating-data-sample-size}}
 
 In this study, we consider a linear mixed effects model with time as a continuous variable and treatment as a factor. The range of possible values that time takes on depends on how many number of measurements per individual, which can be 4 or 8. The treatment covariate takes on values of 0 or 1, and each assigned to half of the sample. The number of individuals take on possible values of 10, 18, and 26. These were chosen to reflect possible samples that would not hold under the common assumption that the sample size must be at least 30 for it to be considered sufficient enough for the Central Limit Theorem to hold.
 
 \hypertarget{generating-data-fixed-effects}{%
 \subsection{Generating Data: Fixed Effects}\label{generating-data-fixed-effects}}
 
-We have three fixed effects: the intercept value, time and treatment. The intercept, an arbitrary value, is set at \(B_0 = 3.1\). The coefficients for time and treatment have a value of \(B_1 = B_2 = 0\) for simplicity and so we can evaluate Type 1 error rates.
+We have three fixed effects: the intercept value, time and treatment. The intercept, an arbitrary value, is set at \(\beta_0 = 3.1\). The coefficients for time and treatment have a value of \(\beta_1 = \beta_2 = 0\) for simplicity and so we can evaluate Type 1 error rates.
 
 \hypertarget{generating-data-random-effects}{%
-\subsection{Generating Data: Random effects}\label{generating-data-random-effects}}
+\subsection{Generating Data: Random Effects}\label{generating-data-random-effects}}
 
-We generate our intercept and slope random effects values from nonnormal distributions, which are either exponential or lognormal. Previous research shows that many data used in social and health sciences follow nonnormal distributions (Limpert, Stahel, \& Abbt, 2001). More specifically many follow lognormal distributions, such as age of onset of Alzheimer's disease (Horner, 1987), or exponential distribution to model survival data. In order to cover a wide range of exponential and lognormal distributions, parameters were chosen to model distinct distributions. For exponential distributions, \(X\sim\mathit{Exp}(\lambda),\) where \(\lambda = .2\) or \(.9\) Lognormal distributions were \(X\sim\mathit{Log}(0,.25)\) and \(X\sim\mathit{Log}(1,.5).\)
+We generate our intercept and slope random effects values from nonnormal distributions, which are either exponential or lognormal. Previous research shows that many data used in social and health sciences follow nonnormal distributions (Limpert, Stahel, \& Abbt, 2001). More specifically many follow lognormal distributions, such as age of onset of Alzheimer's disease (Horner, 1987), or exponential distribution to model survival data. In order to cover a wide range of exponential and lognormal distributions, parameters were chosen to model distinct distributions. For exponential distributions, \(b_i\sim\mathit{Exp}(\lambda),\) where \(\lambda = .2\) or \(.9.\) Lognormal distributions were \(b_i\sim\mathit{LogNormal}(0,.25)\) and \(b_i\sim\mathit{LogNormal}(1,.5).\)
 
 Using the \emph{SimMultiCorrData} package, values are generated through Fleishman's method for simulating nonnormal data by matching moments using mean, variance, skew, and kurtosis and then transforming normally distributed values (Fialkowski, 2018).
 
 When simulation data from nonnormal distributions, we use the standard deviation produced by Fleishman's method as the parameter. In order to align the simulation data from the Children's Health study, we use the same ratio of variances between the residual variance and variance of the random effects of time and intercept derived from modeling linear mixed models on that data in our simulation.
 
-In the intercept only model, only one non-normal continuous variable is generated for the random effect, so the function \texttt{nonnormvar1()} is used. In order to generate measurement error, we simulate values from a \(X\sim\mathit{N}(0,\sqrt{4}SD,\) where \(SD\) is the standard deviation from each distribution we want explore.
+In the intercept only model, only one non-normal continuous variable is generated for the random effect, so the function \texttt{nonnormvar1()} is used. In order to generate measurement error, we simulate values from a \(t_{ij}\sim\mathit{N}(0,\sqrt{4}\sigma,\) where \(\sigma\) is the standard deviation from each distribution we want explore.
 
-In the case of the linear model that has both random effects for intercept and slope, we want to generate random effects values that are correlated. Using \texttt{SimMultiCorrData::rcorrvar()}, we use a similar process for generating one nonnormal continuous variable, but extend it to generating variables from multivariate normal distribution that take in to account a specified correlation matrix, and are then transformed to be nonnormal. Also, in order to maintain the same ratio of variances to the application data, the variance of the distribution that the slope random effects are generated is equal to \(\frac{1}{8}\text{Var},\) where \(\text{Var}\) refers to the variance of the distribution that the random effects for the intercept are generated from. On a similar note, we use a correlation value of -.38 to generate the random effects for the intercept and slope, which is based off the correlation observed between the random effects of time and intercept when fitting a random slope model in Chapter 3. For random slope models, the measurement error is simulated for a distribution \(X\sim\mathit{N}(0,\sqrt{.168}SD.\)
+In the case of the linear model that has both random effects for intercept and slope, we want to generate random effects values that are correlated. Using \texttt{SimMultiCorrData::rcorrvar()}, we use a similar process for generating one nonnormal continuous variable, but extend it to generating variables from multivariate normal distribution that take in to account a specified correlation matrix, and are then transformed to be nonnormal. Also, in order to maintain the same ratio of variances to the application data, the variance of the distribution that the slope random effects are generated is equal to \(\frac{1}{8}\sigma^2,\) where \(\sigma^2\) refers to the variance of the distribution that the random effects for the intercept are generated from. On a similar note, we use a correlation value of -.38 to generate the random effects for the intercept and slope, which is based off the correlation observed between the random effects of time and intercept when fitting a random slope model in Chapter 3. For random slope models, the measurement error is simulated for a distribution \(e_{ij}\sim\mathit{N}(0,\sqrt{.168}SD.\)
 
 Distributions used are depicted below.
 \begin{center}\includegraphics[width=0.9\linewidth]{Jessica-Yu_StatThesis_files/figure-latex/unnamed-chunk-1-1} \end{center}
@@ -548,7 +513,7 @@ Distributions used are depicted below.
 
 In a linear mixed effects model, the amount of random effects that will be modeled depends on the research question at hand. Here, we will examine both a random intercepts model, where only the intercept of the model is assumed to have a random effects structure, as well as a random intercept and slope model, where in addition to intercept, the covariate time will also have a random effects structure. The random intercept model can be represented as: \[Y_{ij} = \beta_0 + \beta_1Trt_i + \beta_2Time_{ij} + b_{0j} + e_{ij},\] and the random slope model can be represented as: \[Y_{ij} = \beta_0 + \beta_1Trt_i + \beta_2Time_{ij} + b_{0j} + b_{1i}Time_{ij} + e_{ij}.\]
 
-We use the \emph{lmerTest} package to fit the linear mixed effects model and evaluate random and fixed effects. To evaluate significance of the treatment variable, we compare the performance and resulting p-values from 4 different Wald-type tests: KR, Satterthwaite, standard DF method, and \(t\)-as-\(z\). \(t\)-as-\(z\) and standard DF formula are not adjustments to account for smaller sample sizes, and are used as comparison to Satterthwaite and KR, since they are expected to be anti-conservative. Because the value of the treatment in our model is fixed at 0 in order to identify Type I error, we expect to see that the p-value to not be significant (\(p\) \textgreater{} .05) in an ideal scenario.
+We use the \emph{lme4} package to fit the linear mixed effects model and \emph{lmerTest} to evaluate random and fixed effects. To evaluate significance of the treatment variable, we compare the performance and resulting p-values from 4 different Wald-type tests: KR, Satterthwaite, standard DF method, and \(t\)-as-\(z\). \(t\)-as-\(z\) and standard DF formula are not adjustments to account for smaller sample sizes, and are used as comparison to Satterthwaite and KR, since they are expected to be anti-conservative. Because the value of the treatment in our model is fixed at 0 in order to identify Type I error, we expect to see that the p-value to not be significant (\(p\) \textgreater{} .05) in an ideal scenario.
 
 \hypertarget{evaluating-and-results}{%
 \section{Evaluating and Results}\label{evaluating-and-results}}
@@ -1816,17 +1781,11 @@ Barr, D. J., Levy, R., Scheepers, C., \& Tily, H. J. (2013). Random effects stru
 \leavevmode\hypertarget{ref-bradley}{}%
 Bradley, J. V. (1978). Robustness? \emph{British Journal of Mathematical and Statistical Psychology}, \emph{31}(2), 144--152. \url{http://doi.org/https://doi.org/10.1111/j.2044-8317.1978.tb00581.x}
 
-\leavevmode\hypertarget{ref-Schluchte}{}%
-D.Schluchter, M., \& Elashoff, J. T. (1990). Small-sample adjustments to tests with unbalanced repeated measures assuming several covariance structures. \emph{Journal of Statistical Computation and Simulation}, \emph{37}(1-2), 69--87. \url{http://doi.org/10.1080/00949659008811295}
-
 \leavevmode\hypertarget{ref-Simtest}{}%
 Fialkowski, A. C. (2018). \emph{SimMultiCorrData: Simulation of correlated data with multiple variable types}. Retrieved from \url{https://CRAN.R-project.org/package=SimMultiCorrData}
 
 \leavevmode\hypertarget{ref-fitzmaurice_applied_2011}{}%
 Fitzmaurice, G. M., Laird, N. M., \& Ware, J. H. (2011). \emph{Applied longitudinal analysis} (2nd ed). Hoboken, N.J: Wiley.
-
-\leavevmode\hypertarget{ref-burns1985}{}%
-Giesbrecht, F. G., \& Burns, J. C. (1985). Two-stage analysis based on a mixed model: Large-sample asymptotic theory and small-sample simulation results. \emph{Biometrics}, \emph{41}(2), 477--486. Retrieved from \url{http://www.jstor.org/stable/2530872}
 
 \leavevmode\hypertarget{ref-harris_national_2022}{}%
 Harris, K. M., \& Udry, J. R. (2022). National longitudinal study of adolescent to adult health (add health), 1994-2018 {[}public use{]}. Carolina Population Center, University of North Carolina-Chapel Hill {[}distributor{]}, Inter-university Consortium for Political; Social Research {[}distributor{]}. \url{http://doi.org/10.3886/ICPSR21600.v24}
@@ -1837,11 +1796,8 @@ Horner, R. D. (1987). Age At Onset Of Alzheimer'S Disease: Clue To The Relative 
 \leavevmode\hypertarget{ref-hrong-tai_fai_approximate_1996}{}%
 Hrong-Tai Fai, A., \& Cornelius, P. L. (1996). Approximate f-tests of multiple degree of freedom hypotheses in generalized least squares analyses of unbalanced split-plot experiments. \emph{Journal of Statistical Computation and Simulation}, \emph{54}(4), 363--378. \url{http://doi.org/10.1080/00949659608811740}
 
-\leavevmode\hypertarget{ref-huang_comparison_2020}{}%
-Huang, P.-C. (2020, May). \emph{Comparison of denominator degrees of freedom approximations for linear mixed models in small-sample simulations} (PhD thesis). Arizona State University.
-
-\leavevmode\hypertarget{ref-kenward-small-1997}{}%
-Kenward, M. G., \& Roger, J. H. (1997). Small sample inference for fixed effects from restricted maximum likelihood. \emph{Biometrics}, \emph{53}(3), 983. \url{http://doi.org/10.2307/2533558}
+\leavevmode\hypertarget{ref-kuznetsova_lmertest_2017}{}%
+Kuznetsova, A., Brockhoff, P. B., \& Christensen, R. H. B. (2017). \textbf{LmerTest} package: Tests in linear mixed effects models. \emph{Journal of Statistical Software}, \emph{82}(13). \url{http://doi.org/10.18637/jss.v082.i13}
 
 \leavevmode\hypertarget{ref-limpert_log-normal_2001}{}%
 Limpert, E., Stahel, W. A., \& Abbt, M. (2001). Log-normal distributions across the sciences: Keys and clues: On the charms of statistics, and how mechanical models resembling gambling machines offer a link to a handy way to characterize log-normal distributions, which can provide deeper insight into variability and probability---normal or log-normal: That is the question. \emph{BioScience}, \emph{51}(5), 341--352. \url{http://doi.org/10.1641/0006-3568(2001)051\%5B0341:LNDATS\%5D2.0.CO;2}
@@ -1857,6 +1813,9 @@ Penman, A. D., \& Johnson, W. D. (2006). The changing shape of the body mass ind
 
 \leavevmode\hypertarget{ref-rencher_schaalje_2007}{}%
 Rencher, A. C., \& Schaalje, G. B. (2007). Linear models in statistics. \url{http://doi.org/10.1002/9780470192610}
+
+\leavevmode\hypertarget{ref-satt}{}%
+Satterthwaite, F. E. (1946). An approximate distribution of estimates of variance components. \emph{Biometrics Bulletin}, \emph{2}(6), 110--114. Retrieved from \url{http://www.jstor.org/stable/3002019}
 
 \leavevmode\hypertarget{ref-schaalje_adequacy_2002}{}%
 Schaalje, G. B., McBride, J. B., \& Fellingham, G. W. (2002). Adequacy of approximations to distributions of test statistics in complex mixed linear models. \emph{Journal of Agricultural, Biological, and Environmental Statistics}, \emph{7}(4), 512--524. \url{http://doi.org/10.1198/108571102726}
