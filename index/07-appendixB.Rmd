@@ -58,7 +58,8 @@ all_sim_sum %>%
   pack_rows("Normal", 1, 2) %>%
   pack_rows("Lognormal", 3, 6) %>%
   add_header_above(c(
-    " " = 3, "Random Intercept" = 1, "Random Slope" = 1, "Random Intercept" = 1,
+    " " = 3, "Random Intercept" = 1, "Random Slope" = 1, 
+    "Random Intercept" = 1,
     "Random Slope" = 1, "Random Intercept" = 1, "Random Slope" = 1
   )) %>%
   add_header_above(c(" " = 3, "10" = 2, "18" = 2, "26" = 2)) %>%

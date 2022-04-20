@@ -25,7 +25,7 @@ Apart from comparing just the response trajectories, it may also be of interest 
 
 ## Characteristics of Longitudinal Data
 
-While the only requirement of longitudinal data is that there is more than one observation for a given individual, there are other characteristics that affect the model chosen. Data can be unbalanced or balanced: *balanced* data refers to when all individuals have the same number of repeated measurements taken at the same occasions. For example, a study measuring the weights of children over time may be unbalanced if some children are measured at 5 and 10 years old, while others are measured at 5, 7 and 15 years old, since measurements are not taken at the same time points. If children drop out of the study as they get older, this will result in missing data points. If there are missing data, it is automatically considered as unbalanced.
+While the only requirement of longitudinal data is that there is more than one observation for a given individual, there are other characteristics that affect the model chosen. Data can be unbalanced or balanced: *balanced* data refers to when all individuals have the same number of repeated measurements taken at the same occasions. A study measuring the weights of children over time may be *unbalanced* if some children are measured at 5 and 10 years old, while others are measured at 5, 7 and 15 years old, since measurements are not taken at the same time points. If children drop out of the study as they get older, this will result in missing data points. If there are missing data, it is automatically considered as unbalanced.
 
 Another unique characteristic of longitudinal data is that repeated measurements within each individual are typically positively correlated, while measurements between individuals are independent [@fitzmaurice_applied_2011]. This feature violates conditions of other common statistical methods such as linear regression, where measurements are assumed to be independent. This positive correlation allows for more accurate estimates of the model coefficients and response trajectories since there is reduced uncertainty knowing that a previous measurement can help predict the next one. 
 
@@ -102,12 +102,12 @@ One example of the linear mixed effects model is the random intercept model, whi
 
 $$Y_{ij} = X'_{ij}\beta + b_i + \epsilon_{ij}$$
 
-This model is very similar to the general linear model with a few additions. $b_i$ is the random subject effect and $\epsilon$ is the measurement error. Both effects are random, with mean 0 and $\text{Var}(b_i) = \sigma^2_b, \text{Var}(\epsilon_{ij})=\sigma^2$.
+This model is very similar to the general linear model with a few additions. $b_i$ is the random subject effect and $\epsilon_{ij}$ is the measurement error. $b_i$ is distributed as $b_i \sim N(0,\sigma^2_b),$ and $\epsilon_{ij}$ is distributed as $\epsilon ~\sim N(0,\sigma^2).$ The two effects are assumed to be independent of one another.
 
 $X'_{ij}\beta$ is the population mean, and $b_i$ represents the differing subject effect that is unique to each individual. $b_i$ is interpreted as how the subject's intercept deviates from the population mean intercept while accounting for covariates. 
 
 As mentioned previously, the random effects are responsible for inducing a structure on the covariance model. This structure is not to be confused with the covariance structures that can be chosen when using parametric time models. For a given individual, it can be shown that variance of each response is: 
-$$\text{Var}(Y_{ij}) = \sigma^2_b + \sigma^2$$ and the covariance between two measurements $Y_{ij}$ and $Y_{ik}$ is equal to $\sigma^2_b$. The resulting covariance matrix $$\text{Cov}(Y_i)=\begin{pmatrix} \sigma^2_b + \sigma^2 & \sigma^2_b & \sigma^2_b & ... & \sigma^2_b \\ \sigma^2 & \sigma^2_b + \sigma^2 & \sigma^2_b & ... & \sigma^2_b \\ \sigma^2_b & \sigma^2_b & \sigma^2_b + \sigma^2 & ...& ...   \end{pmatrix}$$
+$$\text{Var}(Y_{ij}) = \sigma^2_b + \sigma^2,$$ and the covariance between two measurements $Y_{ij}$ and $Y_{ik}$ is equal to $\sigma^2_b$. The resulting covariance matrix $$\text{Cov}(Y_i)=\begin{pmatrix} \sigma^2_b + \sigma^2 & \sigma^2_b & \sigma^2_b & ... & \sigma^2_b \\ \sigma^2 & \sigma^2_b + \sigma^2 & \sigma^2_b & ... & \sigma^2_b \\ \sigma^2_b & \sigma^2_b & \sigma^2_b + \sigma^2 & ...& ...   \end{pmatrix}$$
 
 implies correlation between measurements, and also highlights the role played by the random effects in determining the covariance.
 
@@ -115,11 +115,10 @@ Extending beyond the random intercept model, multiple random effects can be inco
 
 A linear mixed effects model can expressed as $$Y_i = X_i\beta+Z_ib_i+\epsilon_i,$$
 
-where:
-$\beta$ is a $p \times 1$ vector of fixed effects
-$b_i$ is a $q \times 1$ vector of random effects
-$X_i$ is a $n \times p$ matrix of covariates
-$Z_i$ is a $n \times q$ matrix of covariates
+where $\beta$ is a $p \times 1$ vector of fixed effects,
+$b_i$ is a $q \times 1$ vector of random effects,
+$X_i$ is a $n \times p$ matrix of covariates, and
+$Z_i$ is a $n \times q$ matrix of covariates.
 
 The subset of regression covariates that vary randomly are found in $Z_i$. We assume that $b_i$ comes from a multivariate normal distribution with mean 0 and covariance matrix $G$. We also assume that $\epsilon_i$ are independent of $b_i$, and come from multivariate normal distribution with mean 0 and covariance matrix $R_i$.
 
@@ -143,4 +142,4 @@ After presenting three methods of evaluating longitudinal data, the natural ques
 
 Longitudinal analysis is a valuable method to analyze changes over time. It is important to understand the unique characteristics that come with this analysis and to choose the best model that can capture the salient patterns that arise from the data. 
 
-In subsequent chapters we will dive more deeply into how inference in longitudinal analysis is affected when sample sizes are not efficient through both simulation and application. 
+In subsequent chapters we will dive more deeply into how inference in longitudinal analysis is affected when sample sizes are not sufficient through both simulation and application. 

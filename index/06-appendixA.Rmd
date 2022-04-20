@@ -7,9 +7,7 @@ The first appendix must start with the above text. Do not remove!
 
 # The First Appendix
 
-This first appendix includes all of the R chunks of code that were hidden throughout the document (using the `include = FALSE` chunk tag) to help with readibility and/or setup.
-
-## All Code:
+## Code From All Chapters:
 
 ```{r ref.label=knitr::all_labels(), results = 'hide', echo = TRUE, eval = FALSE}
 ```

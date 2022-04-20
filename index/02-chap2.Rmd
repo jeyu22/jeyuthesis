@@ -25,7 +25,6 @@ knitr::opts_chunk$set(echo = FALSE, message = F, warning = F)
 In chapter 1, we outlined the basics of analyzing longitudinal data and introduced linear mixed models. Next, we will examine inference of linear mixed models, and how methods such as Kenward-Roger (KR) and Satterthwaite can be used in situations where standard procedures for inference may produce questionable results. 
 
 ## Estimation
-
 Regression coefficient values $\beta$ and the covariance matrix $\Sigma_i$ can be estimated using maximum likelihood estimation, which identifies values of $\beta$ and $\Sigma_i$ that best explain the observed data. These values are estimates that are denoted by $\hat\beta$ and $\hat\Sigma_i.$ When observations are independent of one another, maximizing the likelihood function for $\beta$ is equivalent to finding a value of $\hat\beta$ that minimizes the sum of the squares of the residuals. However, since there are repeated measurements of each individual that are not independent of one another we use the generalized least squares (GLS) estimator as shown by @fitzmaurice_applied_2011:
 
 $$\hat\beta = \sum_{i=1}^N(X_i'\Sigma^{-1}_iX_i)^{-1}\sum_{i=1}^N(X_i'\Sigma^{-1}_iy_i).$$
@@ -35,10 +34,10 @@ $$\widehat{\text{Cov}}(\beta) = \sum_{i=1}^N(X_i'\Sigma^{-1}_iX_i)^{-1}.$$
 
 The GLS estimator assumes that $\Sigma_i$ is known. However, since this isn't usually the case, we can substitute $\Sigma_i$ with a maximum likelihood estimate $\hat\Sigma_i.$ It can be shown that the properties of $\hat\beta$ still hold using an estimate of the covariance. These properties include $\hat\beta$ being a consistent estimator of $\beta$ and having sampling distribution that is multivariate normal with mean $\beta$ and covariance $\text{Cov}(\hat\beta) = \sum_{i=1}^{N}(X_i'\sum_i^{-1}X_i)^{-1}.$
 
-While the maximum likelihood estimate of $\Sigma_i$ is adequate, a modified method known as restricted maximum likelihood (REML) estimation is suggested to reduce bias in finite samples [@fitzmaurice_applied_2011]. The bias originates from the fact that $\beta$ itself is also estimated from data, but is not accounted for when estimating covariance. In REML estimate of $\Sigma_i$, $\beta$ is removed from the likelihood function. This REML estimation of $\Sigma_i$ can be used in the GLS estimator for $\hat\beta$ mentioned above, and is recommended in place of the ML estimator. 
+While the maximum likelihood estimate of $\Sigma_i$ is adequate, a modified method known as restricted maximum likelihood (REML) estimation is suggested to reduce bias in finite samples [@fitzmaurice_applied_2011]. The bias originates from the fact that $\beta$ itself is also estimated from data, but is not accounted for when estimating covariance. In REML estimate of $\Sigma_i$, $\beta$ is removed from the likelihood function. This REML estimation of $\Sigma_i$ can be used in the GLS estimator for $\hat\beta$ mentioned above, and is recommended in place of the maximum likelihood estimator. 
 
 One additional analysis that is possible with linear mixed effects models is predicting subject-specific responses. Given that $b_i$ is a random variable, we can predict it using:
-$$E(b_i |Y_i) = GZ_i (\Sigma)^{-1}_i(Y_i-X_i\hat\beta).$$ Because the covariance of $Y_i$ is unknown, we can estimate both $G$ and $\Sigma_i$ using REML, creating $\hat b_i$, also known as the empirical BLUP (@fitzmaurice_applied_2011). Thus, the equation for predicting the response profile is:
+$$E(b_i |Y_i) = GZ_i (\Sigma)^{-1}_i(Y_i-X_i\hat\beta).$$ Because the covariance of $Y_i$ is unknown, we can estimate both $G$ and $\Sigma_i$ using REML, creating $\hat b_i$, also known as the empirical BLUP [@fitzmaurice_applied_2011]. Thus, the equation for predicting the response profile is:
 $$\hat Y_i = X_i\hat\beta +Z_i\hat b_i.$$
 
 This equation to estimate the mean response profile can be extended to incorporate $R_i$, which represents within-subject variability. From this extension, we see that the equation and the empirical BLUP account for the weighting of both the within-subject variability and between-subject variability. If there is more within-subject variability, then more weight is assigned to $X_i\hat\beta$, the population mean response profile, in comparison to the subject's individual responses, and vice versa. 
@@ -58,8 +57,7 @@ There are limited cases where exact small-sample inference can be performed, but
 Both Satterthwaite and KR are proposed methods of approximations to the DDF when conducting tests in order to account for the uncertainty of the covariance estimator. The KR method goes one step forward to also adjust the test statistic itself.
 
 ## Satterthwaite & Kenward Roger
-
-@hrong-tai_fai_approximate_1996 propose using Satterthwaite approximation of DF for the aforementioned F statistic when the hypothesis of interest is $H_0 : L\beta = 0,$ where $L$ is an estimable contrast matrix. Details about how the DF is approximated can be found in the original paper. In a simpler case where $H_0 :l'\beta = 0$ and $r = 1,$ the Wald statistic is $$t = \frac{l'\hat\beta}{\sqrt{l\widehat{\text{Cov}}(\hat\beta)l'}},$$ which follows a $t$ distribution with unknown DF $\nu.$ @satt assumed the quantity $$\frac{\nu(l'\widehat{\text{Cov}}(\hat\beta)l)}{l'\widehat{\text{Cov}}(\hat\beta)l},$$ and used a method-of-moments approach to obtain $\hat\nu = \frac{2(l'\widehat{\text{Cov}}(\hat\beta)l)^2}{\widehat{\text{Var}(l'\widehat{\text{Cov}}(\hat\beta)l)}},$ where the denominator is determined by a univariate delta method [@kuznetsova_lmertest_2017].
+@hrong-tai_fai_approximate_1996 propose using Satterthwaite approximation of DF for the aforementioned F statistic when the hypothesis of interest is $H_0 : L\beta = 0,$ where $L$ is an estimable contrast matrix. Details about how the DF is approximated can be found in the original paper. In a simpler case where $H_0 :l'\beta = 0$ and $r = 1,$ the Wald statistic is $$t = \frac{l'\hat\beta}{\sqrt{l\widehat{\text{Cov}}(\hat\beta)l'}},$$ which follows a $t$ distribution with unknown DF $\nu.$ @satt assume the quantity $$\frac{\nu(l'\widehat{\text{Cov}}(\hat\beta)l)}{l'\widehat{\text{Cov}}(\hat\beta)l},$$ and used a method-of-moments approach to obtain $\hat\nu = \frac{2(l'\widehat{\text{Cov}}(\hat\beta)l)^2}{\widehat{\text{Var}(l'\widehat{\text{Cov}}(\hat\beta)l)}},$ where the denominator is determined by a univariate delta method [@kuznetsova_lmertest_2017].
 
 KR uses the same approach, but adjusts for the underestimation of $\text{Cov}(\hat\beta)$ in small sample sizes by including an adjusted estimator for the covariance matrix of $\hat\beta$ that inflates the covariance estimate in the numerator of the Wald statistic [@kuznetsova_lmertest_2017].
 
@@ -82,11 +80,11 @@ In this study, we aim to expand on previous work evaluating how methods for esti
 
 ## Simulation Set Up:
 
-The overarching goal is to compare performance of DF methods across various conditions, with a specific goal of looking at scenarios with smaller sample sizes and number of measurements in order to see variability in Type I error rates. There is flexibility in how the parameters are chosen; in order to narrow the scope, we aim to design conditions that are relatively similar to an application data set that will be further explored in Chapter 3. In the following sections, the range of parameters used will be similar to the characteristics of a longitudinal study about Children's Health. 
+The overarching goal is to compare performance of DF methods across various conditions, with a specific goal of looking at scenarios with smaller sample sizes and number of measurements in order to see variability in Type I error rates. There is flexibility in how the parameters are chosen; in order to narrow the scope, we aim to design conditions that are relatively similar to an application data set that will be further explored in Chapter 3. In the following sections, the range of parameters used will be similar to the characteristics of a longitudinal study about children's health. 
 
 ### Generating Data: Sample Size
 
-In this study, we consider a linear mixed effects model with time as a continuous variable and treatment as a factor. The range of possible values that time takes on depends on how many number of measurements per individual, which can be 4 or 8. The treatment covariate takes on values of 0 or 1, and each assigned to half of the sample. The number of individuals take on possible values of 10, 18, and 26. These were chosen to reflect possible samples that would not hold under the common assumption that the sample size must be at least 30 for it to be considered sufficient enough for the Central Limit Theorem to hold. 
+In this study, we consider a linear mixed effects model with time as a continuous variable and treatment as a factor. The range of possible values that time takes on depends on how many number of measurements per individual, which can be 4 or 8. The treatment covariate takes on values of 0 or 1, and each assigned to half of the sample. The number of individuals take on possible values of 10, 18, and 26. These were chosen to reflect possible samples that would not hold under the common assumption that the sample size must be at least 30 to be considered sufficient enough for the Central Limit Theorem to hold. 
 
 ### Generating Data: Fixed Effects
 
@@ -94,11 +92,11 @@ We have three fixed effects: the intercept value, time and treatment. The interc
 
 ### Generating Data: Random Effects
 
-We generate our intercept and slope random effects values from nonnormal distributions, which are either exponential or lognormal. Previous research shows that many data used in social and health sciences follow nonnormal distributions [@limpert_log-normal_2001]. More specifically  many follow lognormal distributions, such as age of onset of Alzheimer’s disease [@horner_age_1987], or exponential distribution to model survival data. In order to cover a wide range of exponential and lognormal distributions, parameters were chosen to model distinct distributions. For exponential distributions, $b_i\sim\mathit{Exp}(\lambda),$ where $\lambda = .2$ or $.9.$ Lognormal distributions were $b_i\sim\mathit{LogNormal}(0,.25)$ and $b_i\sim\mathit{LogNormal}(1,.5).$ 
+We generate our intercept and slope random effects values from nonnormal distributions, which are either exponential or lognormal. Previous research shows that many data used in social and health sciences follow nonnormal distributions [@limpert_log-normal_2001]. More specifically  many follow lognormal distributions, such as age of onset of Alzheimer’s disease [@horner_age_1987], or exponential distribution to model survival data. In order to cover a wide range of exponential and lognormal distributions, parameters were chosen to model distinct distributions. For exponential distributions, $b_i\sim\mathit{Exp}(\lambda),$ where $\lambda = .2$ or $.9.$ Lognormal distributions had random effects $b_i\sim\mathit{LogNormal}(0,.25)$ and $b_i\sim\mathit{LogNormal}(1,.5).$ 
 
 Using the *SimMultiCorrData* package, values are generated through Fleishman's method for simulating nonnormal data by matching moments using mean, variance, skew, and kurtosis and then transforming normally distributed values [@Simtest]. 
 
-When simulation data from nonnormal distributions, we use the standard deviation produced by Fleishman's method as the parameter. In order to align the simulation data from the Children's Health study, we use the same ratio of variances between the residual variance and variance of the random effects of time and intercept derived from modeling linear mixed models on that data in our simulation. 
+When simulation data from nonnormal distributions, we use the standard deviation produced by Fleishman's method as the parameter. In order to align the simulation data from the children's health study, we use the same ratio of variances between the residual variance and variance of the random effects of time and intercept derived from modeling linear mixed models on that data in our simulation. 
 
 In the intercept only model, only one non-normal continuous variable is generated for the random effect, so the function `nonnormvar1()` is used. In order to generate measurement error, we simulate values from a $t_{ij}\sim\mathit{N}(0,\sqrt{4}\sigma,$ where $\sigma$ is the standard deviation from each distribution we want explore. 
 
@@ -109,24 +107,28 @@ Distributions used are depicted below.
 ```{r, echo = F, out.width="90%"}
 par(mfrow = c(2, 2))
 curve(dlnorm(x, meanlog = 0, sdlog = .25), from = 0, to = 5, 
-      main = "Lognormal dist with meanlog 0 and sdlog .25",cex.main = .6)
+      main = "Lognormal dist with meanlog 0 and sdlog .25",
+      cex.main = .6, 
+      ylab = "")
 curve(dlnorm(x, meanlog = 1, sdlog = .5), from = 0, to = 5, 
-      main = "Lognormal dist with meanlog 1 and sdlog .5",cex.main = .6)
+      main = "Lognormal dist with meanlog 1 and sdlog .5",
+      cex.main = .6,
+      ylab = "")
 x <- seq(0, 8, 0.1)
 x_norm <- seq(-5, 5, .1)
 plot(x, dexp(x, .2),
   type = "l",
-  ylab = "", lwd = 2, col = "red", main = "Exponential dist with lambda = .2"
-)
+  ylab = "", lwd = 2, col = "red", 
+  main = "Exponential dist with lambda = .2",
+cex.main = .6)
 
 plot(x, dexp(x, .9),
   type = "l",
-  ylab = "", lwd = 2, col = "red", main = "Exponential dist with lambda = .9"
+  ylab = "", lwd = 2, col = "red", 
+  main = "Exponential dist with lambda = .9",
+  cex.main = .6
 )
-# plot(x, dnorm(x, 0,.2))
 ```
-
-
 
 ### Linear Mixed Effects Model
 
@@ -134,9 +136,7 @@ In a linear mixed effects model, the amount of random effects that will be model
 
 We use the *lme4* package to fit the linear mixed effects model and *lmerTest* to evaluate random and fixed effects. To evaluate significance of the treatment variable, we compare the performance and resulting p-values from 4 different Wald-type tests: KR, Satterthwaite, standard DF method, and $t$-as-$z$. $t$-as-$z$ and standard DF formula are not adjustments to account for smaller sample sizes, and are used as  comparison to Satterthwaite and KR, since they are expected to be anti-conservative. Because the value of the treatment in our model is fixed at 0 in order to identify Type I error, we expect to see that the p-value to not be significant ($p$ > .05) in an ideal scenario. 
 
-
 ## Evaluating and Results
-
 ```{r, echo=FALSE}
 options(scipen = 9999)
 all_sim <- readRDS(here("SimulationData", "all_sim.rds"))
@@ -163,10 +163,7 @@ all_sim_sum <- all_sim %>%
     t_t1err_sd = sd(t_sig),
   )
 ```
-
-
 After performing 400 replications of each condition at a significance level of .05, we evaluate robustness using Bradley's criterion, which considers a test to robust if the empirical error rate is between .025 and .075 [@bradley]. In the following section, we will compare Type I error rates produced from KR and Satterthwaite methods as well as $t$-as-$z$ and using the standard DF formula, further stratified by distribution and other manipulated parameters. 
-
 
 ```{r fig1, fig.width= 8 ,fig.height = 7, fig.cap="Type I Error Rates by DF method",out.extra='angle=90'}
 transformed_data <- all_sim_sum %>%
@@ -177,7 +174,8 @@ transformed_data <- all_sim_sum %>%
     Z_t1err_1 = paste(Z_t1err, Z_t1err_sd),
     t_t1err_1 = paste(t_t1err, t_t1err_sd),
   ) %>%
-  pivot_longer(cols = c("KR_t1err_1", "S_t1err_1", "Z_t1err_1", "t_t1err_1"), 
+  pivot_longer(cols = c("KR_t1err_1", "S_t1err_1", "Z_t1err_1", 
+                        "t_t1err_1"), 
                names_to = "DF_method", values_to = "error_rate_1") %>%
   mutate(type = paste(distribution, params, sep = ":"))
 transformed_data[c("error_rate", "sd")] <- str_split_fixed(transformed_data$error_rate_1, 
@@ -202,7 +200,8 @@ ggplot(aes(
   scale_y_continuous(limits = c(-.02, .3)) +
   annotate("rect", xmin = -.1, xmax = 4, ymin = 0.025, ymax = .075, 
            alpha = .4) +
-  scale_color_manual(labels = c("KR", "Satterthwaite", "Standard DF", "T-as-z"), 
+  scale_color_manual(labels = c("KR", "Satterthwaite", "Standard DF", 
+                                "T-as-z"), 
                      values = c("red", "green", "purple", "blue")) +
   xlab("Number of Individuals") +
   ylab("Error Rate") +
@@ -233,7 +232,8 @@ ggplot(aes(
   annotate("rect", xmin = -.1, xmax = 4, ymin = 0.025, ymax = .075, 
            alpha = .4) +
   xlab("Number of Individuals") +
-  scale_color_manual(labels = c("KR", "Satterthwaite", "Standard DF", "T-as-z"), 
+  scale_color_manual(labels = c("KR", "Satterthwaite", "Standard DF", 
+                                "T-as-z"), 
                      values = c("red", "green", "purple", "blue")) +
   ylab("Error Rate") +
   labs(color = "DF Method", shape = "Number of Measurements") +
@@ -263,7 +263,8 @@ ggplot(aes(
   annotate("rect", xmin = -.1, xmax = 4, ymin = 0.025, ymax = .075, 
            alpha = .4) +
   xlab("Number of Individuals") +
-  scale_color_manual(labels = c("KR", "Satterthwaite", "Standard DF", "T-as-z"), 
+  scale_color_manual(labels = c("KR", "Satterthwaite", 
+                                "Standard DF", "T-as-z"), 
                      values = c("red", "green", "purple", "blue")) +
   ylab("Error Rate") +
   labs(color = "DF Method", shape = "Number of Measurements") +
@@ -271,9 +272,9 @@ ggplot(aes(
 ```
 Figure \@ref(fig:fig3) highlights Type I error rates produced by DF method for lognormal data. As seen in the exponential distribution, across the lognormal distributions, DF methods applied to random intercept models had consistently more robust error rates in comparison to random slope. 
 
-Our first lognormal distribution with parameters $(0,.25)$ has lower values of kurtosis and skewness. In the random slope model, increasing sample size from 10 to 18 only improves performance of the $t$-as-$z$ and standard DF method when individuals have 8 measurements each, and in all other cases leads to less robustness. At sample size 26, DF methods are significantly more robust when applied to 8 measurements per individual rather than 4. In the random intercept model, we see a similar lack of consistent pattern of Type I error rates when sample size increases from 10 to 18, but at sample size 26 all methods regardless of number of measurements are robust. 
+Our first lognormal distribution with parameters $b_i \sim LogNormal(0,.25)$ has lower values of kurtosis and skewness. In the random slope model, increasing sample size from 10 to 18 only improves performance of the $t$-as-$z$ and standard DF method when individuals have 8 measurements each, and in all other cases leads to less robustness. At sample size 26, DF methods are significantly more robust when applied to 8 measurements per individual rather than 4. In the random intercept model, we see a similar lack of consistent pattern of Type I error rates when sample size increases from 10 to 18, but at sample size 26 all methods regardless of number of measurements are robust. 
 
-On the other hand, with higher levels of skewness and kurtosis with a lognormal distribution with parameters $(1,.5)$, the effect of number of measurements and sample size are slightly different. Increasing the sample size from 10 to 18 has either no effect or an adverse effect on DF methods; in random intercept models the DF methods generally produce Type I error rates that are too conservative, and the opposite is seen in random slope models. Similar to the other lognormal distribution, DF methods applied to random intercept models of size 26 are all robust. The same difference between performance of DF methods of 4 and 8 measurements at size 26 in random slope models are observed, but that difference is widened. All DF methods at 4 measurements aside from the KR method have Type I error rates that almost 4 times the error rates at 8 measurements. 
+On the other hand, with higher levels of skewness and kurtosis with a lognormal distribution with parameters $(1,.5)$, the effect of number of measurements and sample size are slightly different. Increasing the sample size from 10 to 18 has either no effect or an adverse effect on DF methods; in random intercept models the DF methods generally produce Type I error rates that are too conservative, and the opposite is seen in random slope models. Similar to the other lognormal distribution, DF methods applied to random intercept models of size 26 are all robust. The same difference between performance of DF methods of 4 and 8 measurements at size 26 in random slope models are observed, but that difference is widened. All DF methods at 4 measurements aside from the KR method have Type I error rates that almost 4 times the error rates at 8 measurements.
 
 Based on comparisons between the two distributions, our results suggest that there are only slight differences that arise, suggesting that to a certain extent, distributions with greater skew and kurtosis may not significantly impact the performance of DF methods. In both distributions, DF methods applied to models with size 26 and 8 measurements were the most robust. Increasing sample size from 10 to 18 yields different Type I error rates across the two distributions, but it is difficult to discern a definite pattern. 
 
@@ -294,7 +295,8 @@ ggplot(aes(
     alpha = .4
   ) +
   xlab("Number of Individuals") +
-  scale_color_manual(labels = c("KR", "Satterthwaite", "Standard DF", "T-as-z"), 
+  scale_color_manual(labels = c("KR", "Satterthwaite", 
+                                "Standard DF", "T-as-z"), 
                      values = c("red", "green", "purple", "blue")) +
   ylab("Error Rate") +
   labs(color = "DF Method", shape = "Number of Measurements") +
@@ -362,7 +364,8 @@ all_sim_sum %>%
   pack_rows("Normal", 1, 2) %>%
   pack_rows("Lognormal", 3, 6) %>%
   add_header_above(c(
-    " " = 3, "Random Intercept" = 1, "Random Slope" = 1, "Random Intercept" = 1,
+    " " = 3, "Random Intercept" = 1, "Random Slope" = 1, 
+    "Random Intercept" = 1,
     "Random Slope" = 1, "Random Intercept" = 1, "Random Slope" = 1
   )) %>%
   add_header_above(c(" " = 3, "10" = 2, "18" = 2, "26" = 2)) %>%
@@ -398,7 +401,8 @@ all_sim_sum %>%
   pack_rows("Normal", 1, 2) %>%
   pack_rows("Lognormal", 3, 6) %>%
   add_header_above(c(
-    " " = 3, "Random Intercept" = 1, "Random Slope" = 1, "Random Intercept" = 1,
+    " " = 3, "Random Intercept" = 1, "Random Slope" = 1, 
+    "Random Intercept" = 1,
     "Random Slope" = 1, "Random Intercept" = 1, "Random Slope" = 1
   )) %>%
   add_header_above(c(" " = 3, "10" = 2, "18" = 2, "26" = 2)) %>%
@@ -433,7 +437,8 @@ all_sim_sum %>%
   pack_rows("Normal", 1, 2) %>%
   pack_rows("Lognormal", 3, 6) %>%
   add_header_above(c(
-    " " = 3, "Random Intercept" = 1, "Random Slope" = 1, "Random Intercept" = 1,
+    " " = 3, "Random Intercept" = 1, "Random Slope" = 1, 
+    "Random Intercept" = 1,
     "Random Slope" = 1, "Random Intercept" = 1, "Random Slope" = 1
   )) %>%
   add_header_above(c(" " = 3, "10" = 2, "18" = 2, "26" = 2)) %>%
