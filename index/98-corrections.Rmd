@@ -1,1 +1,9 @@
 # Corrections {-}
+
+When originally submitted, this honors thesis contained some errors which have been corrected in the current version.  Here is a list of the errors that were corrected.
+
+* Fixed 20 minor spelling and typographical errors throughout the thesis
+* Added citations in section 1.2.2, 1.2.3, 1.2.4, 2.1, .
+* Added "degrees of freedom approximation methods","biased"and removed "questionable" from introduction in chapter 2. 
+* Included "best linear unbiased prediction" in last paragraph of page 16. 
+

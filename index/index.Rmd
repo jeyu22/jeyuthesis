@@ -1,7 +1,7 @@
 ---
 title: 'Robustness of Degrees of Freedom Approximation in Linear Mixed Models with Nonnormal Distributions'
 author: 'Jessica Yu'
-date: 'April 20, 2022'
+date: 'May 06, 2022'
 institution: 'Amherst College'
 advisor: 'Dr. Brittney Bailey'
 # Change department to'Special Programs' if interdisciplinary thesis
